@@ -1,20 +1,34 @@
-export enum EThemes {
-  LIGHT,
-  DARK,
-}
-
-const light = {
-  type: "light",
-  primary: "#6856db",
-  background: "#fff",
-  secondary: "rgba(0,0,0,0.1)",
+export const EThemes = {
+  light: "light",
+  dark: "dark",
+  cupcake: "cupcake",
+  bumblebee: "bumblebee",
+  emerald: "emerald",
+  corporate: "corporate",
+  synthwave: "synthwave",
+  retro: "retro",
+  cyberpunk: "cyberpunk",
+  valentine: "valentine",
+  halloween: "halloween",
+  garden: "garden",
+  forest: "forest",
+  aqua: "aqua",
+  lofi: "lofi",
+  pastel: "pastel",
+  fantasy: "fantasy",
+  wireframe: "wireframe",
+  black: "black",
+  luxury: "luxury",
+  dracula: "dracula",
+  cmyk: "cmyk",
+  autumn: "autumn",
+  business: "business",
+  acid: "acid",
+  lemonade: "lemonade",
+  night: "night",
+  coffee: "coffee",
+  winter: "winter",
+  dim: "dim",
+  nord: "nord",
+  sunset: "sunset",
 };
-
-const dark = {
-  type: "dark",
-  primary: "#6856db",
-  background: "#fff",
-  secondary: "rgba(0,0,0,0.1)",
-};
-
-export { light, dark };

@@ -24,13 +24,11 @@ function Button({
   return (
     <button
       onClick={onClick}
-      className={`${className} ${type === "primary" && "btn_primary "}  ${
-        type === "secondary" && "btn_secondary"
-      } ${type === "outlined" && "btn_outlined"} ${
-        type === "text" && "btn_text"
-      } 
+      className={`${className} ${type === "primary" && "btn-primary "}  ${
+        type === "secondary" && ""
+      } ${type === "outlined" && ""} ${type === "text" && ""} 
       ${type === "link" && "btn_link"}
-      btn_effect`}
+        btn`}
       style={{ backgroundColor: disabled ? "bg-[#E0E0E0]" : "" }}
     >
       {!isLoading && (

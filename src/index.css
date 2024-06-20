@@ -99,21 +99,54 @@ button:focus-visible {
   @apply justify-center items-center flex
 }
 
-/* btn */
-.btn_effect {
-  @apply gap-4 hover:brightness-125 flex justify-center items-center  h-[3rem] rounded-full  focus:outline-none focus:ring-0 focus:ring-transparent  
-}
-.btn_primary {
-  @apply text-white  gap-2 p-2 pl-4 pr-4 bg-light-primary dark:bg-dark-primary 
-}
-.btn_secondary{}
-.btn_link{
-  @apply text-light-primary dark:text-dark-primary underline bg-transparent hover:border-transparent
-}
-
 .btn_outlined{
 
 }
 .btn_text {
 
+}
+
+.btn {
+  @apply rounded-lg focus:outline-none
+}
+
+.btn_link {
+  @apply bg-transparent border-none hover:bg-transparent shadow-none hover:brightness-125
+}
+
+@layer utilities {
+  
+      /* Hide scrollbar for Chrome, Safari and Opera */
+      .no-scrollbar::-webkit-scrollbar {
+          display: none;
+      }
+     /* Hide scrollbar for IE, Edge and Firefox */
+      .no-scrollbar {
+          -ms-overflow-style: none;  /* IE and Edge */
+          scrollbar-width: none;  /* Firefox */
+    }
+  }
+
+
+
+.ck-rounded-corners .ck.ck-editor__main>.ck-editor__editable, .ck.ck-editor__main>.ck-editor__editable.ck-rounded-corners {
+
+    height: 400px;
+    overflow: auto;
+}
+
+.scale-animation {
+  @apply focus:scale-105 transition-all cursor-pointer
+}
+.border-b {
+  @apply border-b-[1px] border-solid border-primary/10
+}
+.border-r {
+  @apply border-r-[1px] border-solid border-primary/10
+}
+.border-l {
+  @apply border-l-[1px] border-solid border-primary/10
+}
+.border-t {
+  @apply border-t-[1px] border-solid border-primary/10
 }

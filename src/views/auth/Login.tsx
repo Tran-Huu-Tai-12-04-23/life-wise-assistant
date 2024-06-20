@@ -4,6 +4,7 @@ import IconGoogle from "@/components/Icons/SocialMedia/Google";
 import Button from "@/components/UI/Button";
 import Container from "@/components/UI/Container";
 import Input from "@/components/UI/Input";
+import { useAuth } from "@/context/AuthContext";
 import { useState } from "react";
 
 type IUserLogin = {
@@ -16,6 +17,8 @@ function Login() {
     email: "",
     password: "",
   });
+
+  const { login } = useAuth();
 
   const handleChange = (key: string, value: string) => {
     setUserInput((prev) => {
@@ -30,6 +33,9 @@ function Login() {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
+      login({
+        email: "huutt201@gmail.com",
+      });
     }, 3000);
   };
 
@@ -108,7 +114,7 @@ function Login() {
             </a>
           </h5>
         </div>
-        <div className="bg-[] w-1/2 min-h-[100vh] bg-[#6856db] rounded-l-[10rem] center ">
+        <div className="bg-[] w-1/2 min-h-[100vh] bg-primary rounded-l-[10rem] center ">
           <img src="https://www.techavidus.com/images/blogs/application-lifecycle-management.png" />
         </div>
       </div>

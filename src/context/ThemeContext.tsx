@@ -5,25 +5,23 @@ import React, { createContext, useContext, useState } from "react";
 
 // Context object with default values
 const ThemeContext = createContext<{
-  theme: EThemes;
-  updateTheme: (theme: EThemes) => void;
+  theme: string;
+  updateTheme: (theme: string) => void;
 }>({
-  theme: EThemes.LIGHT,
+  theme: EThemes.lofi,
   updateTheme: () => {},
 });
 
 const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [theme, setTheme] = useState<EThemes>(EThemes.LIGHT);
+  const [theme, setTheme] = useState<string>(EThemes.lofi);
 
-  const updateTheme = (updatedTheme: EThemes) => {
+  const updateTheme = (updatedTheme: string) => {
     setTheme(updatedTheme);
   };
 
   return (
     <ThemeContext.Provider value={{ theme, updateTheme }}>
-      <div className={`${theme === EThemes.LIGHT ? "light" : "dark"}`}>
-        {children}
-      </div>
+      <div data-theme={theme.toString()}>{children}</div>
     </ThemeContext.Provider>
   );
 };

@@ -1,47 +1,53 @@
+import daisyui from "daisyui";
 /** @type {import('tailwindcss').Config} */
 
-const color = {
-  // light theme
-  "dark-primary": "#6856db",
-  "dark-primary2": "#5038EE",
-  "dark-secondary": "rgba(0,0,0,0.1)",
-  "dark-muted": "#111827",
-  "dark-border": "#d1d5db",
-  "dark-text": "#1a202c",
-  "dark-divider": "#e5eff5",
-
-  // light theme
-  "light-primary": "#6856db",
-  "light-primary2": "#5038EE",
-  "light-secondary": "rgba(0,0,0,0.1)",
-  "light-muted": "#111827",
-  "light-border": "#d1d5db",
-  "light-text": "#1a202c",
-  "light-divider": "#e5eff5",
-};
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/react-tailwindcss-datepicker/dist/index.esm.js",
+  ],
   theme: {
-    extend: {
-      colors: color,
-      backgroundColor: color,
-    },
+    extend: {},
   },
   variants: {
-    extend: {
-      backgroundColor: [
-        "dark",
-        "dark-hover",
-        "dark-group-hover",
-        "dark-even",
-        "dark-odd",
-        "responsive",
-        "hover",
-        "focus",
-      ],
-      borderColor: ["dark", "dark-focus", "dark-focus-within"],
-      textColor: ["dark", "dark-hover", "dark-active"],
-    },
+    extend: {},
   },
-  plugins: [],
+  plugins: [daisyui],
+  daisyui: {
+    themes: [
+      "light",
+      "dark",
+      "cupcake",
+      "bumblebee",
+      "emerald",
+      "corporate",
+      "synthwave",
+      "retro",
+      "cyberpunk",
+      "valentine",
+      "halloween",
+      "garden",
+      "forest",
+      "aqua",
+      "lofi",
+      "pastel",
+      "fantasy",
+      "wireframe",
+      "black",
+      "luxury",
+      "dracula",
+      "cmyk",
+      "autumn",
+      "business",
+      "acid",
+      "lemonade",
+      "night",
+      "coffee",
+      "winter",
+      "dim",
+      "nord",
+      "sunset",
+    ],
+  },
 };
