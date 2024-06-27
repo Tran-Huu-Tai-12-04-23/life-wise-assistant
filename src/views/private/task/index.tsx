@@ -13,8 +13,8 @@ export enum EViewType {
 function Task() {
   const [viewType, setViewType] = useState(EViewType.BOARD);
   return (
-    <div className="w-full flex flex-col gap-4 p-10">
-      <div className="flex items-center justify-between sticky top-[0rem] bg-[#F9FAFB] z-50 shadow-sm pt-4 pb-4">
+    <div className="w-full flex flex-col gap-4">
+      <div className="p-4  border-b flex items-center justify-between sticky top-[0rem] backdrop-blur-xl z-50 shadow-sm pt-4 pb-4">
         <div className="flex items-end">
           <h1 className="font-bold text-[24px]">Hi James,</h1>
           <h5 className="text-sm text-[#6B7280] font-bold">
@@ -28,18 +28,26 @@ function Task() {
             <button
               onClick={() => setViewType(EViewType.BOARD)}
               className={`btn join-item ${
-                viewType === EViewType.BOARD && "bg-black/20"
+                viewType === EViewType.BOARD && "bg-primary"
               }`}
             >
-              <BsLayoutThreeColumns />
+              <BsLayoutThreeColumns
+                className={`${
+                  viewType === EViewType.BOARD && "text-primary-content"
+                }`}
+              />
             </button>
             <button
               onClick={() => setViewType(EViewType.LIST)}
               className={`btn join-item ${
-                viewType === EViewType.LIST && "bg-black/20"
+                viewType === EViewType.LIST && "bg-primary"
               }`}
             >
-              <CiLineHeight />
+              <CiLineHeight
+                className={`${
+                  viewType === EViewType.LIST && "text-primary-content"
+                }`}
+              />
             </button>
           </div>
         </div>

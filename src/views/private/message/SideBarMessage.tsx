@@ -3,7 +3,7 @@ import MessageUser from "./Message";
 
 function SideBarMessage() {
   return (
-    <div className="w-1/4 bg-primary-content h-full flex flex-col border-r">
+    <div className="w-1/4  h-full flex flex-col border-r">
       <div className="w-full flex  h-[5rem] justify-between items-center p-4 border-b">
         <h6 className="text-sm">All messages</h6>
         <button className="btn scale-animation">

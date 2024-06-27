@@ -3,12 +3,13 @@ import Avatar from "@/components/UI/Avatar";
 import Badge from "@/components/UI/Badge";
 import { headerHeight } from "@/constant/constant";
 import { FaBell } from "react-icons/fa";
+import UserMenu from "./UserMenu";
 
 function Header() {
   return (
     <div
       style={{ height: headerHeight }}
-      className={`w-full pl-4 pr-4 flex justify-between items-center  max-w-8xl border-b-[1px] border-solid border-[rgba(0,0,0,0.06)]`}
+      className={`w-full pl-4 pr-4 border-b flex justify-between items-center  max-w-8xl  border-solid`}
     >
       <div className="flex justify-start items-center gap-4">
         <AppIcon />
@@ -19,7 +20,17 @@ function Header() {
           <FaBell className="text-primary" size={24} />
         </Badge>
 
-        <Avatar isOnline isStatus />
+        <div className="dropdown">
+          <div tabIndex={0} role="button" className=" m-1">
+            <Avatar isOnline isStatus />
+          </div>
+          <ul
+            tabIndex={0}
+            className="dropdown-content menu z-[100000000] right-0 backdrop-blur-3xl rounded-md w-[15rem] shadow-2xl"
+          >
+            <UserMenu />
+          </ul>
+        </div>
       </div>
     </div>
   );

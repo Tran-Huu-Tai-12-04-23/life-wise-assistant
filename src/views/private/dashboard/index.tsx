@@ -1,24 +1,27 @@
-import Button from "@/components/UI/Button";
-import { useAuth } from "@/context/AuthContext";
-import { useState } from "react";
+import BarChart from "./barchart";
+import Report from "./report";
+import UpComingTask from "./up-coming-task";
 
 function Dashboard() {
-  const { logout } = useAuth();
-  const [isLoading, setIsLoading] = useState(false);
   return (
-    <div className="">
-      <Button
-        type={"primary"}
-        name="Logout"
-        isLoading={isLoading}
-        onClick={() => {
-          setIsLoading(true);
-          setTimeout(() => {
-            logout();
-            setIsLoading(false);
-          }, 2000);
-        }}
-      />
+    <div className="w-full overflow-hidden p-10">
+      <div className="flex items-center mb-5 justify-between sticky top-[0rem] backdrop-blur-xl z-50 pt-4 pb-4">
+        <div className="flex items-end">
+          <h1 className="font-bold text-[24px]">Hi James,</h1>
+          <h5 className="text-sm text-primary/50 font-bold">
+            here's your current tasks
+          </h5>
+        </div>
+      </div>
+      <Report />
+      <div className="flex mt-5 justify-between h-[30rem] items-center">
+        <div className="w-[49%] h-full relative bg-primary/5 rounded-md p-4 backdrop-blur-2xl">
+          <BarChart />
+        </div>
+        <div className="w-[49%] h-full  bg-primary/5 rounded-md p-4 backdrop-blur-2xl overflow-auto">
+          <UpComingTask />
+        </div>
+      </div>
     </div>
   );
 }

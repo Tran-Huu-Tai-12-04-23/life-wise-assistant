@@ -12,7 +12,7 @@ function ModalAddTask() {
     <dialog id="add_task" className="modal">
       <div className="modal-box w-11/12 max-w-7xl rounded-md ">
         <div className="flex w-full justify-between items-start gap-4">
-          <div className="w-2/3 flex flex-col gap-4 border-r-[1px] pr-4 border-solid border-primary/20">
+          <div className="w-2/3 flex flex-col gap-4 border-r-[1px] pr-4 border-solid border-primary/5">
             <h3 className="font-bold text-lg">Add new task!</h3>
             <p className="pb-4">Click the button below to close</p>
             <CKEditor

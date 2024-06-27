@@ -2,7 +2,7 @@ import { ColumnDTO } from "@/dto/column.dto";
 import { UserDTO } from "@/dto/user.dto";
 import { getUUid } from "@/helper";
 
-const users: UserDTO[] = [
+export const users: UserDTO[] = [
   {
     id: "1",
     name: "John Doe",

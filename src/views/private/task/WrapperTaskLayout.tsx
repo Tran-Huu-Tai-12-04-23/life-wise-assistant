@@ -175,7 +175,7 @@ function WrapperTaskLayout({ viewType }: { viewType: EViewType }) {
       <div
         className={`${
           viewType === EViewType.LIST ? "flex-col w-full" : "w-fit"
-        }  flex gap-10 pb-2 `}
+        }  flex gap-10 pb-2 p-4 `}
       >
         <DndContext
           sensors={sensors}

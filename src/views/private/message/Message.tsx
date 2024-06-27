@@ -14,7 +14,9 @@ function MessageUser() {
         </div>
         <h1 className=" text-sm text-primary/50">2 days ago</h1>
       </div>
-      <h1 className=" text-sm text-primary truncate">Den nha tao chua may</h1>
+      <h1 className=" text-sm text-primary/50 truncate">
+        Den nha tao chua may
+      </h1>
     </div>
   );
 }

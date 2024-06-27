@@ -13,10 +13,10 @@ function PrivateLayout() {
   }
 
   return (
-    <div className="flex w-[100vw] justify-center items-center">
+    <div className="flex w-[100vw] justify-center items-center ">
       <div className="w-[100vw]  h-[100vh] flex flex-col ">
         <Header />
-        <div className="flex  h-[calc(100vh-4rem)] w-full">
+        <div className="flex h-[calc(100vh-4rem)] w-full ">
           <Sidebar />
           <div
             style={{ width: `calc(100% - ${sideBarWidth}px)` }}

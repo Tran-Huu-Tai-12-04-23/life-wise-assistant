@@ -26,7 +26,7 @@ function MenuToAssign({
           e.preventDefault();
         }}
         tabIndex={0}
-        className="text-primary-content right-0 top-0 dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+        className="text-primary-content right-0 top-0 dropdown-content z-[1] menu p-2 shadow backdrop-blur-3xl rounded-box w-52"
       >
         <p className="text-sm font-bold text-primary mb-2">Assign to</p>
         {lstMember.map((user: UserDTO, index: Key) => (
