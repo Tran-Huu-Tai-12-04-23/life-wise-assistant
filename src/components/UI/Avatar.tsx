@@ -13,7 +13,7 @@ function Avatar({
     <div
       className={`avatar ${
         isOnline && isStatus ? "online" : isStatus ? "offline" : ""
-      } ${className} cursor-pointer w-[3rem] h-[3rem] hover:scale-95 transition-all border-dashed border-[1px] border-primary rounded-full`}
+      } ${className} cursor-pointer w-[2rem] h-[2rem] hover:scale-95 transition-all rounded-full`}
     >
       <div className="w-full rounded-full">
         <img

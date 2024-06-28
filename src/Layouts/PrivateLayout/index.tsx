@@ -3,6 +3,7 @@ import { Navigate, Outlet, useLocation } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 import { sideBarWidth } from "@/constant/constant";
+import ModalUtil from "./ModalUtil";
 
 function PrivateLayout() {
   const { user, isLoaded } = useAuth();
@@ -14,6 +15,8 @@ function PrivateLayout() {
 
   return (
     <div className="flex w-[100vw] justify-center items-center ">
+      {/* contain all modal global for app */}
+      <ModalUtil />
       <div className="w-[100vw]  h-[100vh] flex flex-col ">
         <Header />
         <div className="flex h-[calc(100vh-4rem)] w-full ">

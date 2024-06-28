@@ -2,14 +2,17 @@ import Avatar from "@/components/UI/Avatar";
 import Button from "@/components/UI/Button";
 import { useState } from "react";
 import { FaFacebook, FaGithub, FaPhone, FaTelegram } from "react-icons/fa";
-
+import { FaCameraRetro } from "react-icons/fa";
 function EditProfile() {
   const [isDisabledProfile, setIsDisabledProfile] = useState(true);
 
   return (
     <>
-      <div className="pl-10 pr-10 pt-10 pb-5">
-        <Avatar isOnline isStatus url="" className="w-[10rem] h-[10rem]" />
+      <div className="pl-10 pr-10 pt-10 pb-5 m-auto relative">
+        <Avatar isOnline isStatus url="" className="w-[16rem] h-[16rem]" />
+        <button className="btn absolute  right-10 bottom-2">
+          <FaCameraRetro size={32} />
+        </button>
       </div>
 
       <div className=" w-full grid grid-cols-2 gap-10 p-10 pt-0">

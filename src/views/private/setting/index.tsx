@@ -8,8 +8,8 @@ import {
 import Account from "./account/index";
 import Privacy from "./privacy";
 import Theme from "./theme";
-import Security from "./security";
-import Notification from "./notification";
+import Security from "./security/index";
+import Notification from "./notification/index";
 
 enum TABS {
   ACCOUNT = "account",
@@ -49,13 +49,13 @@ function Setting() {
   const [activeTab, setActiveTab] = useState(TABS.ACCOUNT);
   return (
     <div className=" w-full flex flex-col ">
-      <div className="w-full flex justify-start items-center border-b">
+      <div className="w-full z-50 sticky top-0 right-0 left-0 backdrop-blur-3xl flex justify-start items-center border-b">
         {tabs.map((tab) => (
           <div
             key={tab.value}
             onClick={() => setActiveTab(tab.value)}
             className={`flex  p-4 pl-6 pr-6  justify-center hover:text-primary items-center gap-2 cursor-pointer ${
-              activeTab === tab.value ? "text-primary" : "text-primary/10"
+              activeTab === tab.value ? "text-primary" : ""
             } ${activeTab === tab.value ? "border-b-2 border-primary" : ""}`}
           >
             {tab.icon}

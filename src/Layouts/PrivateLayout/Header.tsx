@@ -4,6 +4,7 @@ import Badge from "@/components/UI/Badge";
 import { headerHeight } from "@/constant/constant";
 import { FaBell } from "react-icons/fa";
 import UserMenu from "./UserMenu";
+import { GrFormAdd } from "react-icons/gr";
 
 function Header() {
   return (
@@ -16,6 +17,21 @@ function Header() {
         <h1 className="text-lg font-semibold">Life Manager</h1>
       </div>
       <div className="flex justify-end items-center gap-4">
+        <button
+          onClick={() => {
+            const modal = document.getElementById(
+              "modal_create_teams"
+            ) as HTMLDialogElement;
+
+            if (modal) {
+              modal.showModal();
+            }
+          }}
+          className="btn glass btn-outline btn-primary"
+        >
+          <h5>Add new teams</h5>
+          <GrFormAdd size={22} />
+        </button>
         <Badge name="1">
           <FaBell className="text-primary" size={24} />
         </Badge>

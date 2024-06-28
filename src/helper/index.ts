@@ -6,6 +6,14 @@ export function saveUserDataToLocalStorage(email: string) {
   localStorage.setItem("email", email);
 }
 
+export function saveTheme(theme: string) {
+  localStorage.setItem("theme", theme);
+}
+
+export function getTheme() {
+  return localStorage.getItem("theme");
+}
+
 export function getUserEmailFromLocalStorage() {
   return localStorage.getItem("email");
 }

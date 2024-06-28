@@ -28,7 +28,7 @@ function UserMenu() {
       {menus.map((menu) => (
         <div
           key={menu.name}
-          className="flex hover:bg-primary/5 cursor-pointer justify-start items-center gap-2 p-4 "
+          className="flex hover:bg-primary/5 text-inherit hover:text-primary cursor-pointer justify-start items-center gap-2 p-4 "
         >
           {menu.icon}
           {menu.name}
