@@ -18,7 +18,7 @@ function Input({
   const [id] = useState(uuid());
   return (
     <div className="relative justify-start flex flex-col">
-      <label htmlFor={id} className="font-bold">
+      <label htmlFor={id} className="font-bold mb-3">
         {label}
       </label>
       {isPassword && (
@@ -43,7 +43,7 @@ function Input({
         value={value}
         onChange={(e) => onChange(keyInput, e.target.value)}
         placeholder={placeholder}
-        className="grow h-[3rem] rounded-lg p-2 hover:border-light-primary focus:outline-none dark:hover:border-dark-primary border-solid border-[1px] pl-4 pr-4 border-[rgba(0,0,0,0.1)] dark:border-[rgba(255,255,255,0,1)] focus:border-light-primary dark:focus-dark-primary focus:ring-0 focus:ring-transparent"
+        className="grow input input-bordered h-[3rem] "
       />
     </div>
   );

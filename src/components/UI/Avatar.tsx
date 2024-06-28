@@ -3,17 +3,25 @@ function Avatar({
   url,
   isStatus,
   className,
+  width,
+  height,
 }: {
   isOnline: boolean;
   url?: string;
   isStatus?: boolean;
   className?: string;
+  width?: number;
+  height?: number;
 }) {
   return (
     <div
+      style={{
+        width: width,
+        height: height,
+      }}
       className={`avatar ${
-        isOnline && isStatus ? "online" : isStatus ? "offline" : ""
-      } ${className} cursor-pointer w-[2rem] h-[2rem] hover:scale-95 transition-all rounded-full`}
+        isOnline && isStatus ? "online" : isStatus ? "offline " : ""
+      } ${className} border border-primary/10 cursor-pointer  hover:scale-95 w-[2rem] h-[2rem] transition-all rounded-full`}
     >
       <div className="w-full rounded-full">
         <img

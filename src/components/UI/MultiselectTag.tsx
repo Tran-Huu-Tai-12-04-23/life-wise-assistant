@@ -2,34 +2,8 @@ import { useEffect, useState } from "react";
 import { MdOutlineExpandLess, MdOutlineExpandMore } from "react-icons/md";
 import { IoMdClose } from "react-icons/io";
 import Chip from "./Chip";
+import { tags, tagsColor } from "@/constant/enum";
 
-const tags = ["Dev", "Backend", "Front-end", "DevOps", "DB", "Design"];
-const colors = [
-  {
-    color: "rgba(33, 224, 97, 1)",
-    background: "rgba(33, 224, 97, 0.2)",
-  },
-  {
-    color: "rgba(255, 193, 7, 01)",
-    background: "rgba(255, 193, 7, 0.2)",
-  },
-  {
-    color: "rgba(66, 133, 244, 1)",
-    background: "rgba(66, 133, 244, 0.2)",
-  },
-  {
-    color: "rgba(186, 104, 200,1)",
-    background: "rgba(186, 104, 200, 0.2)",
-  },
-  {
-    color: "rgba(255, 61, 61, 01)",
-    background: "rgba(255, 61, 61, 0.2)",
-  },
-  {
-    color: "rgba(128, 128, 128, 1)",
-    background: "rgba(128, 128, 128, 0.2)",
-  },
-];
 function MultiselectTag({ className }: { className?: string }) {
   const [isFocus, setIsFocus] = useState(false);
   const [selectTag, setSelectTags] = useState<string[]>([]);
@@ -62,8 +36,8 @@ function MultiselectTag({ className }: { className?: string }) {
             {selectTag.map((tag, index) => (
               <Chip
                 name={tag}
-                background={colors[index].background}
-                color={colors[index].color}
+                background={tagsColor[index].background}
+                color={tagsColor[index].color}
               />
             ))}
           </div>

@@ -4,7 +4,7 @@ import { HiCheckCircle } from "react-icons/hi";
 function Theme() {
   const { theme, updateTheme } = useTheme();
   return (
-    <div className="p-4 w-full grid grid-cols-4 gap-10 pt-10 pb-10">
+    <div className="p-4 w-full grid grid-cols-4 pt-10 pb-10">
       {Object.keys(themeData).map((key) => (
         <ThemeItem
           onChangeTheme={(theme) => updateTheme(theme)}
@@ -39,7 +39,7 @@ const ThemeItem = ({
     <div
       onClick={() => onChangeTheme(name)}
       style={{ background: data.bg }}
-      className="flex p-2 relative shadow-2xl hover:scale-105 transition-all cursor-pointer rounded-md hover:bg-primary-content/10 flex-col gap-2 justify-center items-center"
+      className="flex p-2 scale-95 mt-5 relative shadow-2xl hover:scale-105 transition-all cursor-pointer rounded-md hover:bg-primary-content/10 flex-col gap-2 justify-center items-center"
     >
       {isActive && (
         <HiCheckCircle className="text-blue-500 absolute top-2 right-2" />

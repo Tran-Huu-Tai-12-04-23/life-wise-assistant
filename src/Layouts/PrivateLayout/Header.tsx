@@ -1,10 +1,9 @@
 import AppIcon from "@/components/Icons/header/appIcon";
 import Avatar from "@/components/UI/Avatar";
-import Badge from "@/components/UI/Badge";
 import { headerHeight } from "@/constant/constant";
-import { FaBell } from "react-icons/fa";
 import UserMenu from "./UserMenu";
 import { GrFormAdd } from "react-icons/gr";
+import Notification from "./Notification";
 
 function Header() {
   return (
@@ -27,14 +26,12 @@ function Header() {
               modal.showModal();
             }
           }}
-          className="btn glass btn-outline btn-primary"
+          className="btn  btn-outline btn-primary"
         >
           <h5>Add new teams</h5>
           <GrFormAdd size={22} />
         </button>
-        <Badge name="1">
-          <FaBell className="text-primary" size={24} />
-        </Badge>
+        <Notification />
 
         <div className="dropdown">
           <div tabIndex={0} role="button" className=" m-1">

@@ -8,9 +8,9 @@ function EditProfile() {
 
   return (
     <>
-      <div className="pl-10 pr-10 pt-10 pb-5 m-auto relative">
-        <Avatar isOnline isStatus url="" className="w-[16rem] h-[16rem]" />
-        <button className="btn absolute  right-10 bottom-2">
+      <div className="pl-10 pr-10 pt-10 pb-5 m-auto flex flex-col relative">
+        <Avatar isOnline isStatus url="" width={200} height={200} />
+        <button className="btn btn-outline ml-10 mr-10">
           <FaCameraRetro size={32} />
         </button>
       </div>

@@ -15,7 +15,7 @@ function Chip({
         background: background,
       }}
     >
-      <h5 className="text-sm">{name}</h5>
+      <h5 className="text-xs">{name}</h5>
     </div>
   );
 }

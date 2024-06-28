@@ -43,7 +43,7 @@ function Login() {
     <Container>
       <div className="flex_between w-full ">
         <div className="flex flex-col w-1/2 max-w-[40rem] m-auto p-20 min-h-[100vh] justify-center">
-          <h1 className="font-bold text-md">Login</h1>
+          <h1 className="font-bold">Login</h1>
           <h5>How do i get started lorem dolor at?</h5>
           <div className="flex items-center gap-2 justify-center pt-2 pb-2">
             <Button

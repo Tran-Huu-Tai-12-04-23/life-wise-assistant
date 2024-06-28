@@ -70,3 +70,31 @@ export const enumData = {
     },
   },
 };
+
+export const tags = ["Dev", "Backend", "Front-end", "DevOps", "DB", "Design"];
+export const tagsColor = [
+  {
+    color: "rgba(33, 224, 97, 1)",
+    background: "rgba(33, 224, 97, 0.2)",
+  },
+  {
+    color: "rgba(255, 193, 7, 01)",
+    background: "rgba(255, 193, 7, 0.2)",
+  },
+  {
+    color: "rgba(66, 133, 244, 1)",
+    background: "rgba(66, 133, 244, 0.2)",
+  },
+  {
+    color: "rgba(186, 104, 200,1)",
+    background: "rgba(186, 104, 200, 0.2)",
+  },
+  {
+    color: "rgba(255, 61, 61, 01)",
+    background: "rgba(255, 61, 61, 0.2)",
+  },
+  {
+    color: "rgba(128, 128, 128, 1)",
+    background: "rgba(128, 128, 128, 0.2)",
+  },
+];

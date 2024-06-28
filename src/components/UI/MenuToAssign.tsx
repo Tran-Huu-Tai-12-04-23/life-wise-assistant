@@ -5,19 +5,18 @@ import { Key } from "react";
 function MenuToAssign({
   children,
   lstMember,
+  right,
 }: {
   children: React.ReactNode;
   lstMember: UserDTO[];
+  right?: boolean;
 }) {
   return (
     <div
-      className="dropdown group-hover:flex hidden dropdown-hover z-[10000] absolute top-0 right-0"
-      onClick={(e) => {
-        e.stopPropagation();
-        e.preventDefault();
-      }}
+      className="dropdown dropdown-top z-[100000000] relative"
+      onClick={(e) => e.stopPropagation()}
     >
-      <div tabIndex={0} role="button" className=" m-1 p-2 rounded-md">
+      <div tabIndex={1000} role="button" className="btn m-1">
         {children}
       </div>
       <ul
@@ -25,8 +24,10 @@ function MenuToAssign({
           e.stopPropagation();
           e.preventDefault();
         }}
-        tabIndex={0}
-        className="text-primary-content right-0 top-0 dropdown-content z-[1] menu p-2 shadow backdrop-blur-3xl rounded-box w-52"
+        tabIndex={1000}
+        className={`text-primary-content ${
+          right ? "left-0" : "right-0"
+        } top-0 dropdown-content menu p-2 shadow-xl bg-primary-content backdrop-blur-2xl  z-[1000000] rounded-box w-52`}
       >
         <p className="text-sm font-bold text-primary mb-2">Assign to</p>
         {lstMember.map((user: UserDTO, index: Key) => (

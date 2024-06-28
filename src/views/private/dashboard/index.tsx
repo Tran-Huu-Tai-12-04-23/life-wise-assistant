@@ -4,7 +4,7 @@ import UpComingTask from "./up-coming-task";
 
 function Dashboard() {
   return (
-    <div className="w-full overflow-hidden p-10">
+    <div className="w-full p-10">
       <div className="flex items-center mb-5 justify-between sticky top-[0rem] backdrop-blur-xl z-50 pt-4 pb-4">
         <div className="flex items-end">
           <h1 className="font-bold text-[24px]">Hi James,</h1>

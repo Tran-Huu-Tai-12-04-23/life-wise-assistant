@@ -51,11 +51,11 @@ function SideBar() {
   return (
     <div
       style={{ width: sideBarWidth }}
-      className=" h-full flex flex-col justify-start items-start gap-4 border-r-[1px] border-solid border-primary/10"
+      className=" h-full flex flex-col justify-start items-start border-r-[1px] border-solid border-primary/10"
     >
       <TeamInfo />
 
-      <div className="w-full flex flex-col mt-10 justify-center items-start border-t-[1px] border-solid border-[rgba(0,0,0,0.1)]">
+      <div className="w-full flex flex-col justify-center items-start border-t">
         {sidebars.map((item: (typeof sidebars)[0], index: number) => (
           <Link
             to={item.route}

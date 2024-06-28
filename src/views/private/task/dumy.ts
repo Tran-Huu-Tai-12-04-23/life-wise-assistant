@@ -103,4 +103,39 @@ export const exampleColumnsData: ColumnDTO[] = [
   },
 ];
 
+export const exampleTask = [
+  {
+    id: getUUid(),
+    name: "Task 1",
+    description: "Description of Task 1",
+    status: "PENDING",
+    priority: "LOW",
+    lstMember: [users[0]],
+  },
+  {
+    id: getUUid(),
+    name: "Task 2",
+    priority: "HIGH",
+    description: "Description of Task 2",
+    status: "PENDING",
+    lstMember: [users[1]],
+  },
+  {
+    id: getUUid(),
+    priority: "HIGH",
+    name: "Task 5",
+    description: "Description of Task 5",
+    status: "COMPLETED",
+    lstMember: [users[1], users[1]],
+  },
+  {
+    id: getUUid(),
+    name: "Task 6",
+    priority: "HIGH",
+    description: "Description of Task 6",
+    status: "COMPLETED",
+    lstMember: [users[0]],
+  },
+];
+
 export default exampleColumnsData;
