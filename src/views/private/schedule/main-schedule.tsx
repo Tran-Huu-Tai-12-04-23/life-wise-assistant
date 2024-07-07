@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { dummyDataTaskOfDay } from "./data";
 import TaskListItem from "@/components/drop/TaskListItem";
-import { TaskDTO } from "@/dto/task.dto";
+import { ITask } from "@/dto/task.dto";
+import { dummyDataTaskOfDay } from "./data";
 
 function MainSchedule() {
   const [currentTime] = useState(new Date().getHours());
@@ -55,7 +55,7 @@ const LstTaskOfTime = ({
       ></div>
 
       <div className="flex gap-4 flex-col">
-        {data.map((task: TaskDTO) => (
+        {data.map((task: ITask) => (
           <TaskListItem key={task?.id} data={task} />
         ))}
       </div>

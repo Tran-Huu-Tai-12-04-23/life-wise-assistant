@@ -16,7 +16,7 @@ const rootReducer = combineReducers({
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
-
+export type AppDispatch = typeof store.dispatch;
 const store = configureStore({
   reducer: rootReducer,
 });
@@ -26,7 +26,7 @@ export default store;
 export const revertAll = createAction("REVERT_ALL");
 
 export const useResetState = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const resetState = async () => {
     try {

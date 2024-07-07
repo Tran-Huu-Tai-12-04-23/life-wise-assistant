@@ -28,7 +28,7 @@ export const getAllColumnOfTeam = async (
   loadAllColOfTeamDTO: LoadAllColOfTeamDTO
 ) => {
   return await handleErrorApi(async () => {
-    const res: IBaseResponse<IColumn> = await rootApi.post(
+    const res: IBaseResponse<IColumn[]> = await rootApi.post(
       endpoints.all_column_of_team,
       loadAllColOfTeamDTO
     );

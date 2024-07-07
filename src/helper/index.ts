@@ -62,15 +62,6 @@ export function toLowerCaseNonAccentVietnamese(str: string) {
   return str;
 }
 const Helper = {
-  getMaxDate(dateList: Date[]) {
-    const dates = dateList.map((dateString) => new Date(dateString));
-    return new Date(Math.max.apply(null, dates));
-  },
-  getMinDate(dateList: Date[]) {
-    const dates = dateList.map((dateString) => new Date(dateString));
-    return new Date(Math.min.apply(null, dates));
-  },
-
   // group time and date to Date time
   getGroupDateTime(date: Date, time: Date) {
     const newDate = new Date(date);

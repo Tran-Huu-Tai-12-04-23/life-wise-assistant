@@ -1,8 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   DndContext,
   DragEndEvent,
-  DragMoveEvent,
   DragStartEvent,
   KeyboardSensor,
   PointerSensor,
@@ -17,12 +15,12 @@ import { COLUMN, TASK } from "@/components/drop/constant";
 import { EViewType } from ".";
 import ScrollContainer from "react-indiana-drag-scroll";
 import Board from "./board";
-import List from "./list";
 import { IColumn } from "@/dto/column.dto";
 import { useColumnState } from "@/redux/features/column/columnSlice";
 import { ITask } from "@/dto/task.dto";
 import { useColumnAction } from "@/redux/features/column/action";
 import Loader from "@/components/UI/Loader";
+import List from "./list";
 function WrapperTaskLayout({ viewType }: { viewType: EViewType }) {
   const { columns, isLoading } = useColumnState();
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
@@ -46,18 +44,20 @@ function WrapperTaskLayout({ viewType }: { viewType: EViewType }) {
   }
 
   const findTaskById = (id: UniqueIdentifier | null): ITask | undefined => {
-    return columns.flatMap((col) => col.tasks).find((item) => item.id === id);
+    return columns
+      .flatMap((col: IColumn) => col.tasks)
+      .find((item: ITask) => item.id === id);
   };
   const findColIncludeTask = (
     id: UniqueIdentifier | null
   ): IColumn | undefined => {
-    return columns.find((col) =>
+    return columns.find((col: IColumn) =>
       col.tasks.find((item: ITask) => item.id === id)
     );
   };
 
   const findColById = (id: UniqueIdentifier | null): IColumn | undefined => {
-    return columns.find((item) => item.id === id);
+    return columns.find((item: IColumn) => item.id === id);
   };
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
@@ -71,10 +71,10 @@ function WrapperTaskLayout({ viewType }: { viewType: EViewType }) {
     ) {
       // Find the index of the active and over container
       const activeContainerIndex = columns.findIndex(
-        (container) => container.id === active.id
+        (container: IColumn) => container.id === active.id
       );
       const overContainerIndex = columns.findIndex(
-        (container) => container.id === over.id
+        (container: IColumn) => container.id === over.id
       );
       // Swap the active and over container
       let newItems = [...columns];
@@ -98,18 +98,18 @@ function WrapperTaskLayout({ viewType }: { viewType: EViewType }) {
       if (!activeContainer || !overContainer) return;
       // Find the index of the active and over container
       const activeContainerIndex = columns.findIndex(
-        (container) => container.id === activeContainer.id
+        (container: IColumn) => container.id === activeContainer.id
       );
       const overContainerIndex = columns.findIndex(
-        (container) => container.id === overContainer.id
+        (container: IColumn) => container.id === overContainer.id
       );
 
       // Find the index of the active and over item
       const activeitemIndex = activeContainer.tasks.findIndex(
-        (item) => item.id === active.id
+        (item: ITask) => item.id === active.id
       );
       const overitemIndex = overContainer.tasks.findIndex(
-        (item) => item.id === over.id
+        (item: ITask) => item.id === over.id
       );
       // In the same container
 
@@ -154,15 +154,15 @@ function WrapperTaskLayout({ viewType }: { viewType: EViewType }) {
 
       // Find the index of the active and over container
       const activeContainerIndex = columns.findIndex(
-        (container) => container.id === activeContainer.id
+        (container: IColumn) => container.id === activeContainer.id
       );
       const overContainerIndex = columns.findIndex(
-        (container) => container.id === overContainer.id
+        (container: IColumn) => container.id === overContainer.id
       );
 
       // Find the index of the active and over item
       const activeitemIndex = activeContainer.tasks.findIndex(
-        (item) => item.id === active.id
+        (item: ITask) => item.id === active.id
       );
 
       onMoveTaskInTheDifferentColumn({
@@ -176,8 +176,7 @@ function WrapperTaskLayout({ viewType }: { viewType: EViewType }) {
     }
     setActiveId(null);
   }
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleDragMove = (event: DragMoveEvent) => {};
+  const handleDragMove = () => {};
 
   return (
     <ScrollContainer

@@ -1,22 +1,19 @@
 import React from "react";
-import { TaskDTO } from "@/dto/task.dto";
 import { enumData } from "@/constant/enum";
 import GroupAvatar from "@/components/UI/GroupAvatar";
 import Chip from "@/components/UI/Chip";
+import { IUser } from "@/dto/user.dto";
+import { ITask } from "@/dto/task.dto";
 
-export interface ITask {
-  name: string;
-  id: string;
-}
 interface ITaskItemProps {
-  data: TaskDTO;
+  data: ITask;
 }
 
 const TaskItem: React.FC<ITaskItemProps> = ({ data }) => {
   return (
     <div className="w-full relative z-[10000] rounded-md  shadow-md p-2 flex justify-between items-center">
       <div>
-        <h5 className="font-bold">{data.name}</h5>
+        <h5 className="font-bold">{data.title}</h5>
         <Chip
           name={
             enumData.taskStatus[data.status as keyof typeof enumData.taskStatus]
@@ -34,10 +31,10 @@ const TaskItem: React.FC<ITaskItemProps> = ({ data }) => {
       </div>
       {data.lstMember.length > 0 && (
         <GroupAvatar
-          lstAvatar={data.lstMember.map((i) => {
+          lstAvatar={data.lstMember.map((i: IUser) => {
             return {
               avatar: i?.avatar,
-              tooltip: i?.name,
+              tooltip: i?.username,
             };
           })}
         />

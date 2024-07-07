@@ -36,8 +36,7 @@ const ModalAddNewColumn = () => {
       teamId: currentTeam.id,
       statusCode: columnStatus.code,
     };
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    await onCreateNewColumn(newColumn).then((res) => {
+    await onCreateNewColumn(newColumn).then(() => {
       closeModal("modal_add_new_columns");
     });
   };

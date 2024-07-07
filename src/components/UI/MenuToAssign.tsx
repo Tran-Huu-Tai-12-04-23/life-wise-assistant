@@ -1,4 +1,4 @@
-import { UserDTO } from "@/dto/user.dto";
+import { IUser } from "@/dto/user.dto";
 import Avatar from "./Avatar";
 import { Key } from "react";
 
@@ -8,7 +8,7 @@ function MenuToAssign({
   right,
 }: {
   children: React.ReactNode;
-  lstMember: UserDTO[];
+  lstMember: IUser[];
   right?: boolean;
 }) {
   return (
@@ -30,13 +30,13 @@ function MenuToAssign({
         } top-0 dropdown-content menu p-2 shadow-xl bg-primary-content backdrop-blur-2xl  z-[1000000] rounded-box w-52`}
       >
         <p className="text-sm font-bold text-primary mb-2">Assign to</p>
-        {lstMember.map((user: UserDTO, index: Key) => (
+        {lstMember.map((user: IUser, index: Key) => (
           <div
             className="p-2 rounded-md flex gap-2 items-center hover:bg-primary/10"
             key={index}
           >
             <Avatar isOnline={false} isStatus={false} url={user?.avatar} />
-            <p className="text-sm font-bold text-primary">{user?.name}</p>
+            <p className="text-sm font-bold text-primary">{user?.username}</p>
           </div>
         ))}
       </ul>

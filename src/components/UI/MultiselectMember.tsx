@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { MdOutlineExpandLess, MdOutlineExpandMore } from "react-icons/md";
 import Avatar from "./Avatar";
@@ -38,6 +37,7 @@ function MultiselectMember({
 
   useEffect(() => {
     onChangeSelectMember(selectMembers);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectMembers]);
 
   return (

@@ -1,5 +1,4 @@
 import { getUUid } from "@/helper";
-import { users } from "../task/dumy";
 
 const dayOfWeek = [
   "Monday",
@@ -25,7 +24,7 @@ const getTask = (index: number) => {
     description: `Description of Task ${index + 1}`,
     status: status[Math.ceil((Math.random() * 10) % 4)],
     priority: "LOW",
-    lstMember: [users[0]],
+    lstMember: [],
     startTime: new Date(
       new Date(new Date().setHours(4 + index)).setMinutes(index * 30)
     ),

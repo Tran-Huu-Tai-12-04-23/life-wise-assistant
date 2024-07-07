@@ -52,10 +52,9 @@ export const authSlice = createSlice({
       })
       .addCase(getProfileAsync.fulfilled, (state, action) => {
         state.isLoading = false;
-        if (action.payload) {
-          state.currentUser = action.payload.user;
-          state.enumData = action.payload.enumData;
-        }
+        if (!action.payload) return;
+        if (action.payload.user) state.currentUser = action.payload.user;
+        if (action.payload.enumData) state.enumData = action.payload.enumData;
       });
   },
 });

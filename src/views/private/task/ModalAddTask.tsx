@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import { useMemo, useState } from "react";
@@ -47,12 +46,14 @@ function ModalAddTask() {
     return Object.keys(enumData?.taskType || {}).map((key) => {
       return enumData?.taskType[key as keyof typeof enumData.taskType];
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [enumData?.taskType]);
 
   const taskPriority = useMemo(() => {
     return Object.keys(enumData?.taskPriority || {}).map((key) => {
       return enumData?.taskPriority[key as keyof typeof enumData.taskPriority];
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [enumData?.taskPriority]);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleChangeInput = (key: string, value: any) => {
@@ -90,8 +91,7 @@ function ModalAddTask() {
       columnId: "",
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    await onCreateTask(body).then((res) => {
+    await onCreateTask(body).then(() => {
       setUserInput(initState);
       closeModal("add_task");
     });
@@ -136,22 +136,13 @@ function ModalAddTask() {
               <sup className="text-red-500">*</sup>
             </span>
             <CKEditor
-              editor={ClassicEditor}
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              editor={ClassicEditor as { create: any }}
               config={{}}
               data=""
-              onReady={(editor) => {
-                // You can store the "editor" and use when it is needed.
-                console.log("Editor is ready to use!", editor);
-              }}
-              onChange={(event, editor) => {
+              onChange={(_event, editor) => {
                 handleChangeInput("description", editor.getData());
               }}
-              // onBlur={(event, editor) => {
-              //   // console.log("Blur.", editor);
-              // }}
-              // onFocus={(event, editor) => {
-              //   console.log("Focus.", editor);
-              // }}
             />
           </div>
 

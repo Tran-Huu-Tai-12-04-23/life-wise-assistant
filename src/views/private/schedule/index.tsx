@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Key, useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import Datepicker, { DateValueType } from "react-tailwindcss-datepicker";
 import MainSchedule from "./main-schedule";
@@ -28,7 +28,7 @@ function Schedule() {
           </div>
         </div>
         <div className="flex justify-start items-center gap-4">
-          {dayOfWeek.map((day, index) => (
+          {dayOfWeek.map((day: string, index: Key | null | undefined) => (
             <DayOfWeekItem
               key={index}
               name={day.substring(0, 3)}

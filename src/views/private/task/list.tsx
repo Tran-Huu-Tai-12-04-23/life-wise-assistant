@@ -1,14 +1,14 @@
 import { SortableContext } from "@dnd-kit/sortable";
-import { ColumnDTO } from "@/dto/column.dto";
 import { DragOverlay } from "@dnd-kit/core";
-import { TaskDTO } from "@/dto/task.dto";
 import TaskListItem from "@/components/drop/TaskListItem";
 import Row from "@/components/drop/Row";
+import { IColumn } from "@/dto/column.dto";
+import { ITask } from "@/dto/task.dto";
 
 interface PropTypes {
-  columns: ColumnDTO[];
-  taskActive?: TaskDTO;
-  columnActive?: ColumnDTO;
+  columns: IColumn[];
+  taskActive?: ITask;
+  columnActive?: IColumn;
 }
 function List(props: PropTypes) {
   const { columns, taskActive, columnActive } = props;

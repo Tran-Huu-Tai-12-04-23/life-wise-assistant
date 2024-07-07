@@ -1,23 +1,22 @@
 import Avatar from "@/components/UI/Avatar";
-import { users } from "../task/dumy";
 
 const activitiesData = {
   Today: [
     {
       title: "Huutai updated his profile",
-      user: users[0],
+      user: null,
       time: new Date(),
       description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
     },
     {
       title: "Huutai change task 1 to completed",
-      user: users[0],
+      user: null,
       time: new Date(),
       description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
     },
     {
       title: "nguyen dang change task 12 assign to nguyen",
-      user: users[1],
+      user: null,
       time: new Date(),
       description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
     },
@@ -25,14 +24,14 @@ const activitiesData = {
   "12-04-2003": [
     {
       title: "Huutai done task today",
-      user: users[0],
+      user: null,
       time: new Date(),
       description:
         "Lorem ipsum dolor sit amet consectetur adipisicing elit.asdasd asdasdajsdhkasdgkashdkasdhaskdhaskd \n asdlasdl \n \n\naasdhasdkahsdkjahsdkajhsdkajshdkasjhdkasdhjaksdhasdhsadashdgjhhasd zxnbcmuwdyqiuw  Lorem ipsum dolor sit amet consectetur adipisicing elit.asdasd asdasdajsdhkasdgkashdkasdhaskdhaskd \n asdlasdl \n \n\naasdhasdkahsdkjahsdkajhsdkajshdkasjhdkasdhjaksdhasdhsadashdgjhhasd zxnbcmuwdyqiuw  Lorem ipsum dolor sit amet consectetur adipisicing elit.asdasd asdasdajsdhkasdgkashdkasdhaskdhaskd \n asdlasdl \n \n\naasdhasdkahsdkjahsdkajhsdkajshdkasjhdkasdhjaksdhasdhsadashdgjhhasd zxnbcmuwdyqiuw  Lorem ipsum dolor sit amet consectetur adipisicing elit.asdasd asdasdajsdhkasdgkashdkasdhaskdhaskd \n asdlasdl \n \n\naasdhasdkahsdkjahsdkajhsdkajshdkasjhdkasdhjaksdhasdhsadashdgjhhasd zxnbcmuwdyqiuw  Lorem ipsum dolor sit amet consectetur adipisicing elit.asdasd asdasdajsdhkasdgkashdkasdhaskdhaskd \n asdlasdl \n \n\naasdhasdkahsdkjahsdkajhsdkajshdkasjhdkasdhjaksdhasdhsadashdgjhhasd zxnbcmuwdyqiuw ",
     },
     {
       title: "nguyen change task 111 assign to nguyen",
-      user: users[2],
+      user: null,
       time: new Date(),
       description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
     },
@@ -73,7 +72,6 @@ const LstActivityItem = ({ data, name }: { data: never[]; name: string }) => {
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const ActivityItem = ({
   data,
   isHasLine,

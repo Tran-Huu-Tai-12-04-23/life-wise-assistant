@@ -21,11 +21,12 @@ export const login = async (
     }
     await saveAccessToken(res.accessToken);
     await saveRefreshToken(res.refreshToken);
+    await setTimeout(() => {}, 1000);
     const user: IUser = await rootApi.get(endpoints.get_profile);
 
     return {
       loginResponse: res,
-      user: user,
+      user,
     };
   });
 };

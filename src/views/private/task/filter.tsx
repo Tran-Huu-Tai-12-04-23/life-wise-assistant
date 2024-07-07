@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import SelectMember from "@/components/UI/SelectMember";
+import { IUser } from "@/dto/user.dto";
 import { useAuthState } from "@/redux/features/auth/authSlice";
 import { useColumnAction } from "@/redux/features/column/action";
 import { useColumnState } from "@/redux/features/column/columnSlice";
@@ -43,13 +44,13 @@ function Filter() {
         lstMember={currentTeam.members}
         onSelect={(val) => {
           const memberIsExist = filter.members?.find(
-            (item) => item.id === val.id
+            (item: IUser) => item.id === val.id
           );
           !memberIsExist && onChangeFilter("members", [...filter.members, val]);
           memberIsExist &&
             onChangeFilter(
               "members",
-              filter.members.filter((v) => v.id !== val.id)
+              filter.members.filter((v: IUser) => v.id !== val.id)
             );
         }}
         value={filter.members}

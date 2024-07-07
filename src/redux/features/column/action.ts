@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   addTaskToColumn,
   createNewColumn,
@@ -7,7 +7,13 @@ import {
   moveTaskToDiffCol,
   swapBetweenCol,
 } from "@/services/column";
-import { DataToCreateColumnDTO, ITaskToCreate } from "@/services/column/dto";
+import {
+  DataToCreateColumnDTO,
+  ITaskToCreate,
+  LoadAllColOfTeamDTO,
+  MoveTaskToDiffColumnDTO,
+  MoveTaskToTheSameColDTO,
+} from "@/services/column/dto";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import { useTeamState } from "../team/teamSlice";
@@ -34,38 +40,38 @@ export const ColumnActionKey = {
   MOVE_TASK_TO_DIFF_COL: "task/move-task-in-the-same-column",
 } as const;
 
-export const createColumnAsync = createAsyncThunk(
-  ColumnActionKey.ADD_COLUMN,
-  createNewColumn
-);
+export const createColumnAsync = createAsyncThunk<
+  IColumn,
+  DataToCreateColumnDTO
+>(ColumnActionKey.ADD_COLUMN, createNewColumn);
 
-export const moveTaskToTheSameColAsync = createAsyncThunk(
-  ColumnActionKey.MOVE_TASK_IN_THE_SAME_COL,
-  moveTaskInTheSameCol
-);
+export const moveTaskToTheSameColAsync = createAsyncThunk<
+  IColumn,
+  MoveTaskToTheSameColDTO
+>(ColumnActionKey.MOVE_TASK_IN_THE_SAME_COL, moveTaskInTheSameCol);
 
-export const moveTaskToDiffColAsync = createAsyncThunk(
-  ColumnActionKey.MOVE_TASK_TO_DIFF_COL,
-  moveTaskToDiffCol
-);
+export const moveTaskToDiffColAsync = createAsyncThunk<
+  IColumn,
+  MoveTaskToDiffColumnDTO
+>(ColumnActionKey.MOVE_TASK_TO_DIFF_COL, moveTaskToDiffCol);
 
 export const swapBetweenColAsync = createAsyncThunk(
   ColumnActionKey.SWAP_BETWEEN_COLUMN,
   swapBetweenCol
 );
 
-export const loadListColumnOfTeamAsync = createAsyncThunk(
-  ColumnActionKey.LOAD_ALL_COLUMN_OF_TEAM,
-  getAllColumnOfTeam
-);
+export const loadListColumnOfTeamAsync = createAsyncThunk<
+  IColumn[],
+  LoadAllColOfTeamDTO
+>(ColumnActionKey.LOAD_ALL_COLUMN_OF_TEAM, getAllColumnOfTeam);
 
-export const createTaskAsync = createAsyncThunk(
+export const createTaskAsync = createAsyncThunk<ITask, ITaskToCreate>(
   ColumnActionKey.ADD_TASK,
   addTaskToColumn
 );
 
 export const useColumnAction = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
   const teamState = useTeamState();
   const { currentColumn, filter } = useColumnState();
 
@@ -144,7 +150,7 @@ export const useColumnAction = () => {
       loadListColumnOfTeamAsync({
         teamId: teamState.currentTeam?.id,
         status: filter.status,
-        lstPersonInCharge: filter.members.map((member) => member.id),
+        lstPersonInCharge: filter.members.map((member: IUser) => member.id),
         searchKey: filter.searchKey,
       })
     );
