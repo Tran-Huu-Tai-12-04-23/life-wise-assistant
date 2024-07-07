@@ -4,21 +4,23 @@ import IconGoogle from "@/components/Icons/SocialMedia/Google";
 import Button from "@/components/UI/Button";
 import Container from "@/components/UI/Container";
 import Input from "@/components/UI/Input";
-import { useAuth } from "@/context/AuthContext";
 import { useState } from "react";
+import { toast } from "sonner";
+import Overlay from "./Overlay";
+import { useAuthAction } from "@/redux/features/auth/action";
+import { useAuthState } from "@/redux/features/auth/authSlice";
 
 type IUserLogin = {
-  email: string;
+  username: string;
   password: string;
 };
 function Login() {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { login } = useAuthAction();
+  const { isLoading } = useAuthState();
   const [userInput, setUserInput] = useState<IUserLogin>({
-    email: "",
+    username: "",
     password: "",
   });
-
-  const { login } = useAuth();
 
   const handleChange = (key: string, value: string) => {
     setUserInput((prev) => {
@@ -30,37 +32,41 @@ function Login() {
   };
 
   const handleLogin = async () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      login({
-        email: "huutt201@gmail.com",
-      });
-    }, 3000);
+    if (!userInput?.username || !userInput?.password) {
+      return toast.warning("All fields are required");
+    }
+    login({
+      username: userInput.username,
+      password: userInput.password,
+    });
   };
 
   return (
     <Container>
-      <div className="flex_between w-full ">
+      <div className="flex_between h-screen w-screen bg-gradient-to-tr from-blue-500 to-green-500">
+        <Overlay />
         <div className="flex flex-col w-1/2 max-w-[40rem] m-auto p-20 min-h-[100vh] justify-center">
           <h1 className="font-bold">Login</h1>
           <h5>How do i get started lorem dolor at?</h5>
           <div className="flex items-center gap-2 justify-center pt-2 pb-2">
             <Button
               name=""
-              type={"secondary"}
+              type={"link"}
               rightIcon={<IconGoogle />}
+              className="bg-[rgba(0,0,0,0.1)] backdrop-blur-xl"
               onClick={() => {}}
             />
             <Button
               name=""
-              type={"secondary"}
+              type={"link"}
+              className="bg-[rgba(0,0,0,0.1)] backdrop-blur-xl"
               rightIcon={<IconFacebook />}
               onClick={() => {}}
             />
             <Button
               name=""
-              type={"secondary"}
+              type={"link"}
+              className="bg-[rgba(0,0,0,0.1)] backdrop-blur-xl"
               rightIcon={<IconGithub />}
               onClick={() => {}}
             />
@@ -73,10 +79,10 @@ function Login() {
 
           <div className="flex flex-col gap-2">
             <Input
-              value={userInput.email}
-              label="Email"
-              placeholder="Enter your email Ex:xxx@gmail.com"
-              keyInput={"email"}
+              value={userInput.username}
+              label="Username"
+              placeholder="Enter your username"
+              keyInput={"username"}
               onChange={handleChange}
             />
             <Input
@@ -113,9 +119,6 @@ function Login() {
               github:123123.com.github
             </a>
           </h5>
-        </div>
-        <div className="bg-[] w-1/2 min-h-[100vh] bg-primary rounded-l-[10rem] center ">
-          <img src="https://www.techavidus.com/images/blogs/application-lifecycle-management.png" />
         </div>
       </div>
     </Container>

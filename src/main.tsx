@@ -4,14 +4,21 @@ import App from "./App.tsx";
 import "./index.css";
 import "./reset.css";
 import ThemeProvider from "./context/ThemeContext.tsx";
-import AuthProvider from "./context/AuthContext.tsx";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { Toaster } from "sonner";
+import { Provider } from "react-redux";
+import store from "./redux/store.ts";
 
+const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <AuthProvider>
-      <ThemeProvider>
-        <App />
-      </ThemeProvider>
-    </AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+        <ThemeProvider>
+          <Toaster position="top-right" theme="dark" richColors />
+          <App />
+        </ThemeProvider>
+      </Provider>
+    </QueryClientProvider>
   </React.StrictMode>
 );

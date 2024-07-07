@@ -4,7 +4,13 @@ import { IoMdClose } from "react-icons/io";
 import Chip from "./Chip";
 import { tags, tagsColor } from "@/constant/enum";
 
-function MultiselectTag({ className }: { className?: string }) {
+function MultiselectTag({
+  className,
+  onChangeTag,
+}: {
+  className?: string;
+  onChangeTag: (tag: string) => void;
+}) {
   const [isFocus, setIsFocus] = useState(false);
   const [selectTag, setSelectTags] = useState<string[]>([]);
 
@@ -19,6 +25,11 @@ function MultiselectTag({ className }: { className?: string }) {
       window.removeEventListener("click", handleBlur);
     };
   }, []);
+
+  useEffect(() => {
+    onChangeTag(selectTag.join(","));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectTag]);
   return (
     <div className={className + " w-full"}>
       <label className="form-control w-full ">
@@ -35,6 +46,7 @@ function MultiselectTag({ className }: { className?: string }) {
           <div className="flex justify-start gap-2 absolute bottom-1/2 pl-4 pr-4 translate-y-1/2">
             {selectTag.map((tag, index) => (
               <Chip
+                key={index}
                 name={tag}
                 background={tagsColor[index].background}
                 color={tagsColor[index].color}
@@ -91,7 +103,7 @@ function MultiselectTag({ className }: { className?: string }) {
   );
 }
 
-const TagItem = ({
+export const TagItem = ({
   full = false,
   onClick,
   isSelected,

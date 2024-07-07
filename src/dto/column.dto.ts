@@ -1,7 +1,8 @@
-import { TaskDTO } from "./task.dto";
+import { ITask } from "./task.dto";
 
-export interface ColumnDTO {
+export interface IColumn {
   id: string;
   name: string;
-  tasks: TaskDTO[];
+  statusCode: string;
+  tasks: ITask[];
 }

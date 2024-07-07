@@ -3,7 +3,8 @@ import { FaUser } from "react-icons/fa";
 import { FaTeamspeak } from "react-icons/fa6";
 import { RiSettings2Fill } from "react-icons/ri";
 import { HiOutlineLogout } from "react-icons/hi";
-import { useAuth } from "@/context/AuthContext";
+import { useResetState } from "@/redux/store";
+import { useNavigate } from "react-router-dom";
 const menus = [
   {
     name: "Profile",
@@ -22,9 +23,11 @@ const menus = [
   },
 ];
 function UserMenu() {
-  const { logout } = useAuth();
+  const { resetState } = useResetState();
+  const nav = useNavigate();
+
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col w-full z-[10000] bg-transparent backdrop-blur-xl">
       {menus.map((menu) => (
         <div
           key={menu.name}
@@ -38,7 +41,10 @@ function UserMenu() {
       <div className="w-full border-t mb-4 mt-2"></div>
 
       <Button
-        onClick={() => logout()}
+        onClick={async () => {
+          await resetState();
+          nav("/auth/login");
+        }}
         name="Logout"
         rightIcon={<HiOutlineLogout />}
         type="primary"

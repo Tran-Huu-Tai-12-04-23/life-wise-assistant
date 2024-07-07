@@ -1,7 +1,7 @@
 import Spinner from "./Spinner";
 
 type PropTypes = {
-  type: "primary" | "secondary" | "outlined" | "text" | "link";
+  type: "primary" | "secondary" | "outlined" | "text" | "link" | "";
   isLoading?: boolean;
   rightIcon?: React.ReactNode;
   leftIcon?: React.ReactNode;
@@ -24,11 +24,13 @@ function Button({
   return (
     <button
       onClick={onClick}
-      className={`${className} ${type === "primary" && "btn-primary "}  ${
+      className={` ${type === "primary" && "btn-primary "}  ${
         type === "secondary" && ""
-      } ${type === "outlined" && ""} ${type === "text" && ""} 
+      } ${type === "outlined" && "btn-outline btn-primary"} ${
+        type === "text" && ""
+      } 
       ${type === "link" && "btn_link"}
-        btn`}
+        btn ${className}`}
       style={{ backgroundColor: disabled ? "bg-[#E0E0E0]" : "" }}
     >
       {!isLoading && (

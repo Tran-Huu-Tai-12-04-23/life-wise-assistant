@@ -1,9 +1,28 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { v4 as uuid } from "uuid";
 import moment from "moment";
+import { toast } from "sonner";
 
-export function saveUserDataToLocalStorage(email: string) {
-  localStorage.setItem("email", email);
+export const daysLeftToExpire = (date: Date) => {
+  const today = moment();
+  const expirationDate = moment(date);
+  const daysLeft = expirationDate.diff(today, "days");
+  return daysLeft;
+};
+export const handleErrorApi = async (callback: () => any) => {
+  // TODO: add error handle
+  try {
+    return await callback();
+  } catch (error: any) {
+    toast.error(error.message);
+    throw new error(error.message);
+  }
+};
+export function saveAccessToken(accessToken: string) {
+  localStorage.setItem("accessToken", accessToken);
+}
+export function saveRefreshToken(refreshToken: string) {
+  localStorage.setItem("refreshToken", refreshToken);
 }
 
 export function saveTheme(theme: string) {
@@ -14,12 +33,13 @@ export function getTheme() {
   return localStorage.getItem("theme");
 }
 
-export function getUserEmailFromLocalStorage() {
-  return localStorage.getItem("email");
+export function getAccessToken() {
+  return localStorage.getItem("accessToken");
 }
 
 export function clearUserDataFromLocalStorage() {
-  localStorage.removeItem("email");
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("refreshToken");
 }
 
 export function getUUid() {

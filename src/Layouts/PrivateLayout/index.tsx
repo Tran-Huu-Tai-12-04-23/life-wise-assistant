@@ -1,18 +1,23 @@
-import { useAuth } from "@/context/AuthContext";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 import { sideBarWidth } from "@/constant/constant";
 import ModalUtil from "./ModalUtil";
+import { useAuthState } from "@/redux/features/auth/authSlice";
+import { useTeamState } from "@/redux/features/team/teamSlice";
 
 function PrivateLayout() {
-  const { user, isLoaded } = useAuth();
+  const { currentUser, isLoading } = useAuthState();
+  const { currentTeam } = useTeamState();
   const location = useLocation();
 
-  if (!user && isLoaded) {
+  if (!currentUser && !isLoading) {
     return <Navigate to="/auth/login" state={{ from: location }} />;
   }
 
+  if (!currentTeam) {
+    return <Navigate to="/get-start" state={{ from: location }} />;
+  }
   return (
     <div className="flex w-[100vw] justify-center items-center overflow-hidden">
       {/* contain all modal global for app */}
@@ -23,7 +28,7 @@ function PrivateLayout() {
           <Sidebar />
           <div
             style={{ width: `calc(100% - ${sideBarWidth}px)` }}
-            className="content bg-[rgba(0,0,0,0.02)] overflow-x-hidden"
+            className="content overflow-x-hidden"
           >
             <Outlet />
           </div>

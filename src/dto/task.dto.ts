@@ -1,10 +1,14 @@
-import { UserDTO } from "./user.dto";
+import { IUser } from "./user.dto";
 
-export interface TaskDTO {
+export interface ITask {
   id: string;
-  name: string;
+  title: string;
   description: string;
-  status: string;
-  lstMember: UserDTO[];
+  dateExpire: Date;
   priority: string;
+  type: string;
+  status: string;
+  fileLink: string;
+  sourceCodeLink: string;
+  lstMember: IUser[];
 }

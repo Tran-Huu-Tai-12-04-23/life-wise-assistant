@@ -43,7 +43,7 @@ function Input({
         value={value}
         onChange={(e) => onChange(keyInput, e.target.value)}
         placeholder={placeholder}
-        className="grow input input-bordered h-[3rem] "
+        className="grow input bg-[rgba(0,0,0,0.09)] backdrop-blur-3xl input-bordered h-[3rem] "
       />
     </div>
   );

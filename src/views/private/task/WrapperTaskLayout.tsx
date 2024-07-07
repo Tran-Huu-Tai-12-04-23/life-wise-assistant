@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   DndContext,
   DragEndEvent,
@@ -12,18 +13,24 @@ import {
 } from "@dnd-kit/core";
 import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import { useState } from "react";
-import exampleColumnsData from "./dumy";
-import { ITask } from "@/components/drop/TaskItem";
 import { COLUMN, TASK } from "@/components/drop/constant";
-import { ColumnDTO } from "@/dto/column.dto";
-import { TaskDTO } from "@/dto/task.dto";
 import { EViewType } from ".";
 import ScrollContainer from "react-indiana-drag-scroll";
 import Board from "./board";
 import List from "./list";
+import { IColumn } from "@/dto/column.dto";
+import { useColumnState } from "@/redux/features/column/columnSlice";
+import { ITask } from "@/dto/task.dto";
+import { useColumnAction } from "@/redux/features/column/action";
+import Loader from "@/components/UI/Loader";
 function WrapperTaskLayout({ viewType }: { viewType: EViewType }) {
-  const [columns, setColumns] = useState(exampleColumnsData);
+  const { columns, isLoading } = useColumnState();
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
+  const {
+    onMoveTaskInTheSameColumn,
+    onMoveTaskInTheDifferentColumn,
+    onSwapBetweenColumn,
+  } = useColumnAction();
   // DND Handlers
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -43,11 +50,13 @@ function WrapperTaskLayout({ viewType }: { viewType: EViewType }) {
   };
   const findColIncludeTask = (
     id: UniqueIdentifier | null
-  ): ColumnDTO | undefined => {
-    return columns.find((col) => col.tasks.find((item) => item.id === id));
+  ): IColumn | undefined => {
+    return columns.find((col) =>
+      col.tasks.find((item: ITask) => item.id === id)
+    );
   };
 
-  const findColById = (id: UniqueIdentifier | null): ColumnDTO | undefined => {
+  const findColById = (id: UniqueIdentifier | null): IColumn | undefined => {
     return columns.find((item) => item.id === id);
   };
   function handleDragEnd(event: DragEndEvent) {
@@ -70,7 +79,11 @@ function WrapperTaskLayout({ viewType }: { viewType: EViewType }) {
       // Swap the active and over container
       let newItems = [...columns];
       newItems = arrayMove(newItems, activeContainerIndex, overContainerIndex);
-      setColumns(newItems);
+      onSwapBetweenColumn({
+        columns: newItems,
+        colCurrentIndex: activeContainerIndex,
+        colTargetIndex: overContainerIndex,
+      });
     } else if (
       active?.data?.current?.type === TASK &&
       over?.data?.current?.type === TASK &&
@@ -99,28 +112,29 @@ function WrapperTaskLayout({ viewType }: { viewType: EViewType }) {
         (item) => item.id === over.id
       );
       // In the same container
+
       if (activeContainerIndex === overContainerIndex) {
         const newItems = [...columns];
-        newItems[activeContainerIndex].tasks = arrayMove(
-          newItems[activeContainerIndex].tasks,
-          activeitemIndex,
-          overitemIndex
-        );
-
-        setColumns(newItems);
+        onMoveTaskInTheSameColumn({
+          activeContainerIndex,
+          tasks: arrayMove(
+            newItems[activeContainerIndex].tasks,
+            activeitemIndex,
+            overitemIndex
+          ),
+          columnId: newItems[activeContainerIndex].id,
+          taskCurrentIndex: activeitemIndex,
+          taskNewIndex: overitemIndex,
+        });
       } else {
-        // In different containers
-        const newItems = [...columns];
-        const [removeditem] = newItems[activeContainerIndex].tasks.splice(
-          activeitemIndex,
-          1
-        );
-        newItems[overContainerIndex].tasks.splice(
-          overitemIndex,
-          0,
-          removeditem
-        );
-        setColumns(newItems);
+        onMoveTaskInTheDifferentColumn({
+          activeItemIndex: activeitemIndex,
+          overItemIndex: overitemIndex,
+          activeContainerIndex,
+          overContainerIndex,
+          columnIdFrom: columns[activeContainerIndex].id,
+          columnIdTo: columns[overContainerIndex].id,
+        });
       }
     }
     // Handling Item Drop Into a Container
@@ -151,14 +165,14 @@ function WrapperTaskLayout({ viewType }: { viewType: EViewType }) {
         (item) => item.id === active.id
       );
 
-      // Remove the active item from the active container and add it to the over container
-      const newItems = [...columns];
-      const [removeditem] = newItems[activeContainerIndex].tasks.splice(
-        activeitemIndex,
-        1
-      );
-      newItems[overContainerIndex].tasks.push(removeditem);
-      setColumns(newItems);
+      onMoveTaskInTheDifferentColumn({
+        activeItemIndex: activeitemIndex,
+        overItemIndex: 0,
+        activeContainerIndex,
+        overContainerIndex,
+        columnIdFrom: columns[activeContainerIndex].id,
+        columnIdTo: columns[overContainerIndex].id,
+      });
     }
     setActiveId(null);
   }
@@ -175,8 +189,13 @@ function WrapperTaskLayout({ viewType }: { viewType: EViewType }) {
       <div
         className={`${
           viewType === EViewType.LIST ? "flex-col w-full" : "w-fit"
-        }  flex gap-10 pb-2 p-4 `}
+        }  flex gap-10 pb-2 p-4 relative`}
       >
+        {isLoading && (
+          <div className="absolute top-0 right-0 left-0 bottom-0 flex justify-center items-center">
+            <Loader />
+          </div>
+        )}
         <DndContext
           sensors={sensors}
           collisionDetection={closestCorners}
@@ -187,15 +206,15 @@ function WrapperTaskLayout({ viewType }: { viewType: EViewType }) {
           {viewType === EViewType.BOARD && (
             <Board
               columns={columns}
-              taskActive={findTaskById(activeId) as TaskDTO}
-              columnActive={findColById(activeId) as ColumnDTO}
+              taskActive={findTaskById(activeId) as ITask}
+              columnActive={findColById(activeId) as IColumn}
             />
           )}
           {viewType === EViewType.LIST && (
             <List
               columns={columns}
-              taskActive={findTaskById(activeId) as TaskDTO}
-              columnActive={findColById(activeId) as ColumnDTO}
+              taskActive={findTaskById(activeId) as ITask}
+              columnActive={findColById(activeId) as IColumn}
             />
           )}
         </DndContext>

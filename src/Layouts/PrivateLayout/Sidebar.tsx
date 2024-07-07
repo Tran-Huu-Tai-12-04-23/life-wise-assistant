@@ -1,4 +1,4 @@
-import { privateRoutes } from "@/route/private-route";
+import { privateRoutes } from "@/routes/private-route";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import TeamInfo from "./TeamInfo";

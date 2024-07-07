@@ -85,7 +85,7 @@ function Notification() {
       </div>
       <ul
         tabIndex={10000}
-        className="dropdown-content flex flex-col  backdrop-blur-3xl menu z-[100000000] rounded-box min-w-[25rem] p-0 m-0   shadow-2xl"
+        className="dropdown-content bg-base-300 pt-4 flex flex-col  backdrop-blur-3xl menu z-[100000000] rounded-box min-w-[25rem] p-0 m-0   shadow-2xl"
       >
         {Object.keys(notification).map((key) => (
           <NotificationGroup data={notification[key]} key={key} name={key} />
