@@ -103,13 +103,13 @@ const BarChart = () => {
     <div className="flex flex-col justify-between w-full gap-4 h-full ">
       <div className="w-full flex justify-between items-start">
         <div className="flex flex-col">
-          <h5 className="text-md text-primary/50">Daily traffic</h5>
+          <h6 className="text-md text-primary/50">Daily traffic</h6>
           <div className="flex justify-start items-end  gap-2">
             <h1 className="font-bold text-3xl ">2.77</h1>
-            <h5 className="text-primary/50">Visitors</h5>
+            <h6 className="text-primary/50">Visitors</h6>
           </div>
         </div>
-        <h5 className="text-secondary font-bold">+2.5%</h5>
+        <h6 className="text-secondary font-bold">+2.5%</h6>
       </div>
       <Chart
         options={barChartOptionsDailyTraffic}

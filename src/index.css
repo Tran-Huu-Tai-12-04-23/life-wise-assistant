@@ -170,3 +170,16 @@ button:focus-visible {
    -ms-overflow-style: none; 
    scrollbar-width: none; 
 }
+
+h6 {
+  @apply text-xs
+}
+
+.text-over {
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  max-width: 100%;
+  overflow: hidden;
+  width: 100%
+}

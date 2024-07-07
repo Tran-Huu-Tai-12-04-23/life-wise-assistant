@@ -13,7 +13,7 @@ const TaskItem: React.FC<ITaskItemProps> = ({ data }) => {
   return (
     <div className="w-full relative z-[10000] rounded-md  shadow-md p-2 flex justify-between items-center">
       <div>
-        <h5 className="font-bold">{data.title}</h5>
+        <h6 className="font-bold">{data.title}</h6>
         <Chip
           name={
             enumData.taskStatus[data.status as keyof typeof enumData.taskStatus]

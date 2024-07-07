@@ -55,7 +55,7 @@ const Row: React.FC<IRowProps> = ({ data }) => {
               background: enumData?.taskStatus[data.statusCode].color,
             }}
           />
-          <h5 className="ml-2 font-bold">{data.name}</h5>
+          <h6 className="ml-2 font-bold">{data.name}</h6>
         </div>
         <IoMdAdd
           onClick={() => {

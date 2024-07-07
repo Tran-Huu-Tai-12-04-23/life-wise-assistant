@@ -43,7 +43,7 @@ function MultiselectTag({
             setIsFocus(true);
           }}
         >
-          <div className="flex justify-start gap-2 absolute bottom-1/2 pl-4 pr-4 translate-y-1/2">
+          <div className="flex w-[90%] overflow-hidden justify-start gap-2 absolute bottom-1/2 pl-4 pr-4 translate-y-1/2">
             {selectTag.map((tag, index) => (
               <Chip
                 key={index}
@@ -78,7 +78,7 @@ function MultiselectTag({
             }}
             tabIndex={0}
             className={
-              "dropdown-content flex flex-col gap-2 bg-transparent menu backdrop-blur-2xl w-full rounded-box z-[1] p-2 shadow-2xl bottom-[100%]"
+              "dropdown-content flex flex-col gap-2 bg-transparent menu backdrop-blur-2xl w-full rounded-box z-[1] p-2 shadow-2xl top-[100%]"
             }
           >
             {tags.map((tag) => (
@@ -104,7 +104,6 @@ function MultiselectTag({
 }
 
 export const TagItem = ({
-  full = false,
   onClick,
   isSelected,
   tag,
@@ -117,11 +116,11 @@ export const TagItem = ({
   return (
     <div
       onClick={() => onClick(tag)}
-      className={`${full ? "w-full" : "w-[10rem]"} ${
+      className={`w-full ${
         isSelected ? "bg-primary/10" : ""
       } relative flex justify-start items-center gap-4 p-2 hover:bg-primary/5 rounded-md cursor-pointer`}
     >
-      <h5 className="text-sm">{tag}</h5>
+      <h6 className="text-sm">{tag}</h6>
 
       {isSelected && (
         <IoMdClose

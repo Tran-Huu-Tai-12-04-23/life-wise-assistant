@@ -12,9 +12,10 @@ import { daysLeftToExpire } from "@/helper";
 interface ITaskItemProps {
   data: ITask;
   isActive?: boolean;
+  isRotate?: boolean;
 }
 
-const TaskItem: React.FC<ITaskItemProps> = ({ data }) => {
+const TaskItem: React.FC<ITaskItemProps> = ({ data, isRotate }) => {
   const { enumData } = useAuthState();
   const {
     attributes,
@@ -49,18 +50,20 @@ const TaskItem: React.FC<ITaskItemProps> = ({ data }) => {
           enumData?.taskStatus[data.status as keyof typeof enumData.taskStatus]
             ?.color,
       }}
-      className={`px-2  border-l-[4px] border-solid backdrop-blur-3xl group py-4  ignore-scroll  shadow-md rounded-xl w-full border border-transparent hover:border-primary/10 cursor-pointer  ${
+      className={`px-2 ${
+        isRotate ? "rotate-6" : ""
+      } border-l-[4px] transition-all border-solid backdrop-blur-3xl group py-4  ignore-scroll  shadow-md rounded-xl w-full border border-transparent hover:border-primary/10 cursor-pointer  ${
         isDragging ? "opacity-50 bg-primary/10 " : "bg-primary-content/10"
       }`}
     >
-      <h5 className="font-bold">{data.title}</h5>
-      <h5
+      <h6 className="font-bold mt-[5px] text-over w-full">{data.title}</h6>
+      <h6
         className={`text-xs font-bold ${
           dayleft > 0 ? "text-yellow-600" : "text-red-600"
         } absolute top-2 right-2`}
       >
         {dayleft > 0 ? `${dayleft} days left` : "Expired"}
-      </h5>
+      </h6>
       {data?.lstMember?.length > 0 && (
         <GroupAvatar
           lstAvatar={data?.lstMember?.map((i: IUser) => {

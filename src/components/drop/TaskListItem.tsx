@@ -49,14 +49,14 @@ const TaskListItem: React.FC<ITaskListItemProps> = ({ data }) => {
         isDragging ? "opacity-50 bg-primary/10" : "bg-primary-content/10"
       }`}
     >
-      <h5 className="font-bold">{data.title}</h5>
-      <h5
+      <h6 className="font-bold">{data.title}</h6>
+      <h6
         className={`text-xs font-bold ${
           dayleft > 0 ? "text-yellow-600" : "text-red-600"
         } absolute top-2 right-2`}
       >
         {dayleft > 0 ? `${dayleft} days left` : "Expired"}
-      </h5>
+      </h6>
       {data?.lstMember?.length > 0 && (
         <GroupAvatar
           lstAvatar={data?.lstMember?.map((i: IUser) => {

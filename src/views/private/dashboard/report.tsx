@@ -38,8 +38,8 @@ function Report() {
         const item = report[key as keyof Report];
         return (
           <div className="flex flex-col justify-center items-center" key={key}>
-            <h5 className="text-primary/50">{item.name}</h5>
-            <h5 className="text-primary text-2xl font-bold">{item.count}</h5>
+            <h6 className="text-primary/50">{item.name}</h6>
+            <h6 className="text-primary text-2xl font-bold">{item.count}</h6>
           </div>
         );
       })}

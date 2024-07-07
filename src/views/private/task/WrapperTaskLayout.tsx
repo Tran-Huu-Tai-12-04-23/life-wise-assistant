@@ -188,10 +188,10 @@ function WrapperTaskLayout({ viewType }: { viewType: EViewType }) {
       <div
         className={`${
           viewType === EViewType.LIST ? "flex-col w-full" : "w-fit"
-        }  flex gap-10 pb-2 p-4 relative`}
+        }  flex gap-5 pb-2 p-4 relative`}
       >
         {isLoading && (
-          <div className="absolute top-0 right-0 left-0 bottom-0 flex justify-center items-center">
+          <div className="absolute top-0 w-[90vw] left-0 bottom-0 flex justify-center items-center">
             <Loader />
           </div>
         )}

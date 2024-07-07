@@ -99,12 +99,14 @@ function ModalAddTask() {
 
   return (
     <dialog id="add_task" className="modal">
-      <div className="modal-box w-11/12 max-w-7xl rounded-md ">
-        <div className="flex w-full justify-between items-start gap-4">
+      <div className="bg-base-300 w-[90vw] p-6 shadow-xl rounded-md ">
+        <div className="flex pb-4  w-full justify-between items-start gap-4">
           <div className="w-2/3 flex flex-col gap-4 border-r-[1px] pr-4 border-solid border-primary/5">
-            <h3 className="font-bold text-lg">Add new task!</h3>
-            <p className="pb-4">Click the button below to close</p>
-            <div className="flex justify-between gap-4 border-t pt-4">
+            <div className="flex flex-col border-b pb-2">
+              <h3 className="font-bold text-lg">Add new task!</h3>
+              <p className="pb-4">Click the button below to close</p>
+            </div>
+            <div className="flex justify-between gap-4  pt-4">
               <label className="form-control w-full">
                 <span className="label-text mb-2 ">
                   Title
@@ -139,7 +141,7 @@ function ModalAddTask() {
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               editor={ClassicEditor as { create: any }}
               config={{}}
-              data=""
+              data={userInput.description}
               onChange={(_event, editor) => {
                 handleChangeInput("description", editor.getData());
               }}
@@ -148,22 +150,22 @@ function ModalAddTask() {
 
           <div className="flex flex-col h-full  mt-auto gap-4 w-1/3  ">
             <div className="flex justify-between items-center">
-              <h5 className="text-sm">Teams:</h5>
-              <h5 className="text-sm font-bold text-primary">
+              <h6 className="text-sm">Teams:</h6>
+              <h6 className="text-sm font-bold text-primary">
                 {currentTeam.name}
-              </h5>
+              </h6>
             </div>
 
-            <div className="flex justify-between items-center">
-              <h5 className="text-sm ">
+            <div className="flex justify-between gap-2 items-center">
+              <h6 className="text-sm ">
                 Date to complete: <sup className="text-red-500">*</sup>
-              </h5>
+              </h6>
               <div className="bg-primary/10 border-[1px] border-primary/20 border-solid rounded-lg">
                 <Datepicker
                   value={userInput.dateExpire}
                   asSingle={true}
                   useRange={false}
-                  onChange={function (value: DateValueType): void {
+                  onChange={(value: DateValueType) => {
                     handleChangeInput("dateExpire", value);
                   }}
                 />
@@ -187,6 +189,7 @@ function ModalAddTask() {
             {currentColumn?.statusCode !==
               enumData?.taskStatus.TO_ASSIGN.code && (
               <MultiselectMember
+                value={userInput.lstPersonInCharge}
                 title="Assign to"
                 onChangeSelectMember={(val) =>
                   handleChangeInput("lstPersonInCharge", val)
@@ -201,7 +204,7 @@ function ModalAddTask() {
             />
           </div>
         </div>
-        <div className="modal-action">
+        <div className="modal-action border-t pt-4">
           <form method="dialog" className="flex gap-4">
             <button className="btn">Close</button>
             <button

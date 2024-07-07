@@ -29,8 +29,8 @@ function Notification() {
             style={{ flex: 1 }}
           >
             <div className="flex flex-col gap-2">
-              <h5 className="text-sm">{item.name}</h5>
-              <h5 className="text-sm text-primary/50">{item.description}</h5>
+              <h6 className="text-sm">{item.name}</h6>
+              <h6 className="text-sm text-primary/50">{item.description}</h6>
             </div>
             <input
               type="checkbox"
@@ -42,9 +42,9 @@ function Notification() {
       </div>
       <div className="w-full flex justify-between items-center">
         <div className="w-[44%] h-[1px] bg-primary/10" />
-        <h5 className="text-sm font-thin text-primary/50">
+        <h6 className="text-sm font-thin text-primary/50">
           Notification setting
-        </h5>
+        </h6>
         <div className="w-[44%] h-[1px] bg-primary/10" />
       </div>
     </div>
