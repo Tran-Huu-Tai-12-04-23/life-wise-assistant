@@ -5,8 +5,10 @@ import UserMenu from "./UserMenu";
 import { GrFormAdd } from "react-icons/gr";
 import Notification from "./Notification";
 import Button from "@/components/UI/Button";
+import { useAuthState } from "@/redux/features/auth/authSlice";
 
 function Header() {
+  const { currentUser } = useAuthState();
   return (
     <div
       style={{ height: headerHeight }}
@@ -35,7 +37,7 @@ function Header() {
 
         <div className="dropdown">
           <div tabIndex={111} role="button" className=" m-1">
-            <Avatar isOnline isStatus />
+            <Avatar isOnline isStatus url={currentUser?.avatar} />
           </div>
           <ul
             tabIndex={111}

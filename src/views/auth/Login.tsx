@@ -45,9 +45,9 @@ function Login() {
     <Container>
       <div className="flex_between h-screen w-screen bg-gradient-to-tr from-blue-500 to-green-500">
         <Overlay />
-        <div className="flex flex-col w-1/2 max-w-[40rem] m-auto p-20 min-h-[100vh] justify-center">
-          <h1 className="font-bold">Login</h1>
-          <h5>How do i get started lorem dolor at?</h5>
+        <div className=" flex flex-col w-1/2 max-w-[40rem] m-auto p-20 min-h-[100vh] justify-center">
+          <h1 className="font-bold text-white">Login</h1>
+          <h5 className="text-white">How do i get started lorem dolor at?</h5>
           <div className="flex items-center gap-2 justify-center pt-2 pb-2">
             <Button
               name=""
@@ -109,16 +109,18 @@ function Login() {
             />
           </div>
 
-          <h5 className="font-bold text-xs p-10 text-center">
-            @2024 All rights reserved by @GENNY{" "}
+          <div className="flex absolute bottom-10 right-0 left-0 flex-col gap-2 mt-auto justify-center items-center">
+            <h5 className="font-bold text-xs text-center text-white mt-2">
+              @2024 All rights reserved by @GENNY{" "}
+            </h5>
             <a
-              className="btn_link italic"
               target="_blank"
-              href="github:123123.com.github"
+              className="font-bold text-xs"
+              href="https://github.com/Tran-Huu-Tai-12-04-23"
             >
-              github:123123.com.github
+              https://github.com/Tran-Huu-Tai-12-04-23
             </a>
-          </h5>
+          </div>
         </div>
       </div>
     </Container>
