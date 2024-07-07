@@ -45,9 +45,9 @@ const ThemeItem = ({
         <HiCheckCircle className="text-blue-500 absolute top-2 right-2" />
       )}
 
-      <h5 className="shadow-2xl text-sm font-bold">
+      <h6 className="shadow-2xl text-sm font-bold">
         {name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase()}
-      </h5>
+      </h6>
 
       <div className="flex justify-between items-center gap-2">
         <div

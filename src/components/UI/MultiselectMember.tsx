@@ -11,15 +11,16 @@ function MultiselectMember({
   onChangeSelectMember,
   title,
   isRequired,
+  value,
 }: {
   className?: string;
   onChangeSelectMember: (val: IUser[]) => void;
   title?: string;
   isRequired?: boolean;
+  value: IUser[];
 }) {
   const { lstUser } = useTeamState();
   const [isFocus, setIsFocus] = useState(false);
-  const [selectMembers, setSelectMembers] = useState<IUser[]>([]);
   const { getLstUserToInvite } = useTeamAction();
   useEffect(() => {
     getLstUserToInvite([]);
@@ -34,11 +35,6 @@ function MultiselectMember({
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    onChangeSelectMember(selectMembers);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectMembers]);
 
   return (
     <div className={className + " w-full"}>
@@ -56,8 +52,8 @@ function MultiselectMember({
             setIsFocus(true);
           }}
         >
-          <div className="flex justify-start gap-2 absolute bottom-1/2 pl-4 pr-4 translate-y-1/2">
-            {selectMembers.map((user) => (
+          <div className="flex w-[90%] overflow-auto no-scrollbar justify-start gap-2 absolute bottom-1/2 pl-4 pr-4 translate-y-1/2">
+            {value.map((user) => (
               <Avatar
                 key={user.id}
                 url={user.avatar}
@@ -91,19 +87,19 @@ function MultiselectMember({
             }}
             tabIndex={0}
             className={
-              "dropdown-content flex flex-col gap-2 bg-transparent menu backdrop-blur-2xl w-full rounded-box z-[1] p-2 shadow-2xl bottom-[100%]"
+              "dropdown-content h-[20rem] overflow-y-auto bg-transparent  backdrop-blur-2xl w-full rounded-box z-[1] p-2 shadow-2xl "
             }
           >
             {lstUser.map((user: IUser) => (
               <MemberItem
-                isSelected={selectMembers.some((u) => u.id === user.id)}
+                isSelected={value.some((u) => u.id === user.id)}
                 onClick={(user) => {
-                  if (selectMembers.some((u) => u.id === user.id)) {
-                    setSelectMembers(
-                      selectMembers.filter((u) => u.id !== user.id)
+                  if (value.some((u) => u.id === user.id)) {
+                    onChangeSelectMember(
+                      value.filter((u: IUser) => u.id !== user.id)
                     );
                   } else {
-                    setSelectMembers([...selectMembers, user]);
+                    onChangeSelectMember([...value, user]);
                   }
                 }}
                 key={user.id}
@@ -119,7 +115,6 @@ function MultiselectMember({
 }
 
 const MemberItem = ({
-  full = false,
   userData,
   onClick,
   isSelected,
@@ -132,9 +127,9 @@ const MemberItem = ({
   return (
     <div
       onClick={() => onClick(userData)}
-      className={`${full ? "w-full" : "w-[10rem]"} ${
+      className={`${
         isSelected ? "bg-primary/10" : ""
-      } relative flex justify-start items-center gap-4 p-2 hover:bg-primary/5 rounded-md cursor-pointer`}
+      } relative flex w-full justify-start items-center gap-4 p-2 hover:bg-primary/5 rounded-md cursor-pointer`}
     >
       <Avatar
         className="h-8 w-8"
@@ -142,7 +137,7 @@ const MemberItem = ({
         isStatus={false}
         url={userData?.avatar}
       />
-      <h5 className="text-sm">{userData?.username}</h5>
+      <h6 className="text-sm">{userData?.username}</h6>
       {isSelected && (
         <IoMdClose
           size={20}

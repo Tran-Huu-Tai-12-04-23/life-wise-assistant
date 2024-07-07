@@ -47,7 +47,7 @@ function Login() {
         <Overlay />
         <div className=" flex flex-col w-1/2 max-w-[40rem] m-auto p-20 min-h-[100vh] justify-center">
           <h1 className="font-bold text-white">Login</h1>
-          <h5 className="text-white">How do i get started lorem dolor at?</h5>
+          <h6 className="text-white">How do i get started lorem dolor at?</h6>
           <div className="flex items-center gap-2 justify-center pt-2 pb-2">
             <Button
               name=""
@@ -73,7 +73,7 @@ function Login() {
           </div>
           <div className="flex justify-between items-center">
             <div className="styled_line w-[40%]" />
-            <h5>OR</h5>
+            <h6>OR</h6>
             <div className="styled_line w-[40%]" />
           </div>
 
@@ -110,9 +110,9 @@ function Login() {
           </div>
 
           <div className="flex absolute bottom-10 right-0 left-0 flex-col gap-2 mt-auto justify-center items-center">
-            <h5 className="font-bold text-xs text-center text-white mt-2">
+            <h6 className="font-bold text-xs text-center text-white mt-2">
               @2024 All rights reserved by @GENNY{" "}
-            </h5>
+            </h6>
             <a
               target="_blank"
               className="font-bold text-xs"

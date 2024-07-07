@@ -19,15 +19,8 @@ const TeamInfo = () => {
         className="w-full relative flex flex-col  p-4 cursor-pointer hover:bg-primary/5"
       >
         <div className="flex items-center gap-2">
-          <Avatar
-            url={currentTeam.thumbnails}
-            width={40}
-            height={40}
-            isOnline
-            isStatus={false}
-          />
           <div className="flex flex-col justify-center items-start">
-            <h3 className="text-lg font-semibold">{currentTeam.name}</h3>
+            <h6 className=" font-semibold">{currentTeam.name}</h6>
           </div>
         </div>
 
@@ -40,7 +33,7 @@ const TeamInfo = () => {
           })}
         />
 
-        <div className="flex justify-start pl-2 gap-2 items-center">
+        <div className="flex justify-start gap-2 items-center">
           {currentTeam.tags.split(",").map((tag: string, index: number) => {
             if (index < 2) {
               return (
@@ -94,9 +87,6 @@ const TeamItemToSelect = ({ team }: { team: any }) => {
           />
           <div className="flex flex-col justify-center items-start">
             <h3 className="text-sm font-semibold">{team.name}</h3>
-            <p className="text-xs text-primary/50 truncate">
-              {team.description}
-            </p>
           </div>
         </div>
 

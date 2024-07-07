@@ -33,7 +33,7 @@ function SelectItem({
       </div>
       <select
         value={value}
-        defaultValue={undefined}
+        defaultValue={"-1"}
         onChange={(event: any) => {
           const selectedItem = items.find(
             (item) => item.code === event.target?.value
@@ -44,7 +44,7 @@ function SelectItem({
         }}
         className="select select-bordered"
       >
-        <option disabled value={undefined}>
+        <option disabled value={"-1"}>
           Pick one
         </option>
         {items.map((item) => (

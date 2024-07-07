@@ -55,7 +55,7 @@ const LstActivityItem = ({ data, name }: { data: never[]; name: string }) => {
     <div className="flex flex-col justify-start items-start gap-10 w-full relative">
       <div className="flex mt-6  w-full justify-between items-center gap-2">
         <div className="w-[42%] h-[1px] bg-primary/5" />
-        <h5 className="font-bold text-sm text-primary/50">{name}</h5>
+        <h6 className="font-bold text-sm text-primary/50">{name}</h6>
         <div className="w-[42%] h-[1px] bg-primary/5" />
       </div>
 
@@ -88,15 +88,15 @@ const ActivityItem = ({
       <div className="flex justify-start gap-2 min-w-[14rem]">
         <Avatar isOnline isStatus url={data.user?.avatar} />
         <div className="flex flex-col gap-1">
-          <h5 className="text-sm text-primary/50">
+          <h6 className="text-sm text-primary/50">
             {data.time.toLocaleString()}
-          </h5>
-          <h5 className="text-sm text-primary/50">{data.user?.name}</h5>
+          </h6>
+          <h6 className="text-sm text-primary/50">{data.user?.name}</h6>
         </div>
       </div>
 
       <div className="flex flex-col justify-center items-start">
-        <h5 className="font-bold text-sm">{data.title}</h5>
+        <h6 className="font-bold text-sm">{data.title}</h6>
 
         <p className="text-sm text-primary/50">{data.description}</p>
       </div>

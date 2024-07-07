@@ -46,7 +46,7 @@ const LstTaskOfTime = ({
     <div className="flex justify-start items-start gap-10 w-full relative">
       <div className="flex mt-6 min-w-[5rem] justify-start items-center gap-2">
         <div className="p-[4px]  rounded-full bg-primary" />
-        <h5 className="font-bold text-sm">{name}</h5>
+        <h6 className="font-bold text-sm">{name}</h6>
       </div>
 
       <div

@@ -20,7 +20,7 @@ function List(props: PropTypes) {
         ))}
       </SortableContext>
       <DragOverlay adjustScale={false}>
-        {taskActive && <TaskItem data={taskActive} isActive />}
+        {taskActive && <TaskItem data={taskActive} isRotate isActive />}
         {columnActive && <Column data={columnActive} isActive />}
       </DragOverlay>
     </>

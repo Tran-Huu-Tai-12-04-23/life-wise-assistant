@@ -8,7 +8,7 @@ function ResetPassword() {
     <>
       <div className="w-full flex justify-between items-center">
         <div className="w-[44%] h-[1px] bg-primary/10" />
-        <h5 className="text-sm font-thin text-primary/50">Reset password</h5>
+        <h6 className="text-sm font-thin text-primary/50">Reset password</h6>
         <div className="w-[44%] h-[1px] bg-primary/10" />
       </div>
 

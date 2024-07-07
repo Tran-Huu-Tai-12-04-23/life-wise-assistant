@@ -12,11 +12,13 @@ import GroupAvatar from "@/components/UI/GroupAvatar";
 import { ITeam } from "@/dto/team.dto";
 import Chip from "@/components/UI/Chip";
 import { tagsColor } from "@/constant/enum";
+import { useAuthState } from "@/redux/features/auth/authSlice";
 
 function GetStartScreen() {
   const navigate = useNavigate();
   const { paginationTeamOfUser } = useTeamAction();
   const teamState = useTeamState();
+  const { currentUser } = useAuthState();
   const handleOpenAddNewTeam = () => {
     const modal = document.getElementById(
       "modal_create_teams"
@@ -43,8 +45,11 @@ function GetStartScreen() {
       <Header />
       <Background />
 
-      <div className="flex overflow-hidden flex-col p-[10%] gap-4 w-full z-[10]">
-        <h1 className="text-3xl text-white font-bold">Welcome back, tran.</h1>
+      <div className="flex overflow-auto flex-col p-[5rem] gap-4 w-full z-[10]">
+        <h1 className="text-3xl text-white font-bold">
+          Welcome back,{" "}
+          {currentUser?.userDetail?.fullName || currentUser?.username}
+        </h1>
         {teamState.teams.length <= 0 && teamState.isLoadingPagination && (
           <Spinner />
         )}
@@ -61,9 +66,9 @@ function GetStartScreen() {
         <div className="flex justify-start items-center">
           <div className="tooltip" data-tip="Create new team">
             <button className="btn" onClick={handleOpenAddNewTeam}>
-              <h5 className="text-primary">
+              <h6 className="text-primary">
                 Start with your work place with your friend, colleague,...
-              </h5>
+              </h6>
               <BsArrowRight size={32} />
             </button>
           </div>
@@ -85,9 +90,9 @@ const TeamItem = ({ team }: { team: ITeam }) => {
           height={100}
           width={100}
         />
-        <h5 className="text-white font-bold">
+        <h6 className="text-white font-bold">
           {team.name.substring(0, 1).toUpperCase() + team.name.substring(1)}
-        </h5>
+        </h6>
         {team.tags.split(",").map((tag, index) => (
           <Chip
             key={index}

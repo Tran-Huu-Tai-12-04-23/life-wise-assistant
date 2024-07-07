@@ -26,7 +26,7 @@ const UploadFile = ({
   };
   return (
     <div
-      className={`flex flex-col justify-start items-start w-full h-[12rem] rounded-md relative `}
+      className={`flex flex-col justify-start items-start h-[9rem] w-full rounded-md relative `}
     >
       {label && (
         <span className="label-text flex mb-2">

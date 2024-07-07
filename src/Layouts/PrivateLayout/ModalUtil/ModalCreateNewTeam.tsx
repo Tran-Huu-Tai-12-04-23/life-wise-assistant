@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import MultiselectMember from "@/components/UI/MultiselectMember";
 import MultiselectTag from "@/components/UI/MultiselectTag";
 import Spinner from "@/components/UI/Spinner";
 import UploadFile from "@/components/UI/UploadFile";
+import { IUser } from "@/dto/user.dto";
 import { useTeamAction } from "@/redux/features/team/action";
 import { useTeamState } from "@/redux/features/team/teamSlice";
 import { useState } from "react";
@@ -11,7 +13,7 @@ export interface ITeamToCreate {
   name: string;
   description: string;
   thumbnails: string;
-  members: string[];
+  members: any[];
   tags: string;
   isWorkPlace?: boolean;
 }
@@ -54,7 +56,7 @@ const ModalCreateNewTeam = () => {
   const { isLoadingCreateNew } = useTeamState();
   const [userInput, setUserInput] = useState<ITeamToCreate>(initState);
 
-  const handleChangeUserInput = (key: string, value: string | string[]) => {
+  const handleChangeUserInput = (key: string, value: string | IUser[]) => {
     setUserInput((prev) => {
       return {
         ...prev,
@@ -68,21 +70,26 @@ const ModalCreateNewTeam = () => {
       toast.warning(message?.join("\n"));
       return;
     }
-    await createNewTeam(userInput);
-    const modal = document.getElementById(
-      "modal_create_teams"
-    ) as HTMLDialogElement;
+    await createNewTeam({
+      ...userInput,
+      members: userInput.members.map((user) => user.id),
+    }).then(() => {
+      const modal = document.getElementById(
+        "modal_create_teams"
+      ) as HTMLDialogElement;
 
-    if (modal) {
-      modal.close();
-    }
+      setUserInput(initState);
+      if (modal) {
+        modal.close();
+      }
+    });
   };
   return (
     <>
       <dialog id="modal_create_teams" className="modal">
-        <div className="modal-box">
-          <form method="dialog" className="w-full">
-            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+        <div className="p-4 rounded-md  bg-base-300 min-w-[40rem]">
+          <form method="dialog" className="w-full relative">
+            <button className="btn btn-sm btn-circle btn-outline btn-ghost absolute right-2 top-2">
               ✕
             </button>
           </form>
@@ -91,71 +98,80 @@ const ModalCreateNewTeam = () => {
             Press ESC key or click on ✕ button to close
           </p>
 
-          <div className="w-full flex flex-col gap-2 pt-2 border-t">
-            <label className="form-control w-full ">
-              <span className="label-text">Thumbnails of team</span>
-            </label>
-            <UploadFile
-              value={userInput.thumbnails}
-              onChangeFile={(val) => handleChangeUserInput("thumbnails", val)}
-            />
-            <button
-              className="btn glass btn-sm"
-              onClick={() =>
-                handleChangeUserInput("thumbnails", defaultThumbnail)
-              }
-            >
-              Use default thumbnails
-            </button>
-            <label className="form-control w-full ">
-              <div className="label">
-                <span className="label-text">Name of team</span>
-              </div>
-              <input
-                type="text"
-                onChange={(e) => handleChangeUserInput("name", e.target.value)}
-                value={userInput.name}
-                placeholder="Enter name of team"
-                className="input input-bordered w-full "
+          <div className="w-full  no-scrollbar  gap-4 grid grid-cols-2 pt-2 border-t">
+            <div className="flex flex-col gap-2">
+              <label className="form-control w-full ">
+                <span className="label-text">Thumbnails of team</span>
+              </label>
+              <UploadFile
+                value={userInput.thumbnails}
+                onChangeFile={(val) => handleChangeUserInput("thumbnails", val)}
               />
-            </label>
-            <label className="form-control w-full ">
-              <div className="label">
-                <span className="label-text">Description</span>
-              </div>
-              <textarea
-                onChange={(e) =>
-                  handleChangeUserInput("description", e.target.value)
+              <button
+                className="btn glass btn-sm"
+                onClick={() =>
+                  handleChangeUserInput("thumbnails", defaultThumbnail)
                 }
-                value={userInput.description}
-                placeholder=""
-                className="input min-h-[5rem] pt-4 pb-2 input-bordered w-full "
+              >
+                Use default thumbnails
+              </button>
+            </div>
+            <div className="flex flex-col mt-auto">
+              <label className="form-control w-full ">
+                <div className="label">
+                  <span className="label-text">Name of team</span>
+                </div>
+                <input
+                  type="text"
+                  onChange={(e) =>
+                    handleChangeUserInput("name", e.target.value)
+                  }
+                  value={userInput.name}
+                  placeholder="Enter name of team"
+                  className="input input-bordered w-full "
+                />
+              </label>
+
+              <MultiselectMember
+                value={userInput.members}
+                onChangeSelectMember={(val) => {
+                  handleChangeUserInput(
+                    "members",
+                    val.map((v) => v)
+                  );
+                }}
               />
-            </label>
-            <MultiselectMember
-              onChangeSelectMember={(val) => {
-                handleChangeUserInput(
-                  "members",
-                  val.map((v) => v.id)
-                );
-              }}
+              <MultiselectTag
+                onChangeTag={(val) => handleChangeUserInput("tags", val)}
+              />
+            </div>
+          </div>
+          <label className="form-control w-full ">
+            <div className="label">
+              <span className="label-text">Description</span>
+            </div>
+            <textarea
+              onChange={(e) =>
+                handleChangeUserInput("description", e.target.value)
+              }
+              value={userInput.description}
+              placeholder=""
+              className="input min-h-[5rem] pt-4 pb-2 input-bordered w-full "
             />
-            <MultiselectTag
-              onChangeTag={(val) => handleChangeUserInput("tags", val)}
-            />
+          </label>
+          <div className="mt-4 border-t w-full flex justify-between pt-4">
+            <div className="flex justify-end items-center gap-4 w-full">
+              <form method="dialog">
+                <button className="btn btn-outline pl-6 pr-6">Close</button>
+              </form>
 
-            <div className="mt-2 border-t w-full flex justify-between pt-2">
-              <button className="btn btn-outline pl-6 pr-6">Settings</button>
-
-              <div className="flex justify-end items-center gap-4">
-                <button
-                  className="btn btn-primary pl-6 pr-6"
-                  onClick={handleActionTeam}
-                >
-                  {isLoadingCreateNew && <Spinner />}
-                  Create
-                </button>
-              </div>
+              <button
+                className="btn btn-primary pl-6 pr-6"
+                onClick={handleActionTeam}
+              >
+                {isLoadingCreateNew && <Spinner />}
+                Create
+              </button>
             </div>
           </div>
         </div>

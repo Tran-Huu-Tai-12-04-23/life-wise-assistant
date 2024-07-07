@@ -24,13 +24,13 @@ function Chip({
           : size === "md"
           ? "p-[8px] pl-4 pr-4"
           : "text-sm"
-      }  rounded-full text-center ${className}`}
+      }  rounded-full flex-shrink-0 text-center ${className}`}
       style={{
         color,
         background: background,
       }}
     >
-      <h5 className="text-xs">{name}</h5>
+      <h6 className="text-xs">{name}</h6>
     </div>
   );
 }

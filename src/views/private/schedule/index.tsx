@@ -10,7 +10,7 @@ function Schedule() {
     <div className="flex w-full flex-col gap-2 ">
       <div className="flex border-b mb-4 flex-col p-4 sticky top-0 left-0 right-0 backdrop-blur-3xl z-50">
         <div className="flex justify-between items-center">
-          <h5 className="font-bold text-md">Every schedule</h5>
+          <h6 className="font-bold text-md">Every schedule</h6>
           <div className="flex justify-end items-center gap-4 ">
             <div className=" max-w-[20rem] bg-primary/10 border-[1px] border-primary/20 border-solid rounded-lg">
               <Datepicker
@@ -51,9 +51,9 @@ const DayOfWeekItem = ({ name, active }: { name: string; active: boolean }) => {
           : "bg-primary-content/10 hover:bg-primary-content/80"
       } min-h-[2rem] shadow-2xl cursor-pointer w-[3rem] rounded-xl justify-center items-center flex flex-col pl-4 pr-4 relative gap-2`}
     >
-      <h5 className="font-bold inherit text-sm w-full h-[4rem] flex justify-center items-center">
+      <h6 className="font-bold inherit text-sm w-full h-[4rem] flex justify-center items-center">
         {name}
-      </h5>
+      </h6>
     </div>
   );
 };

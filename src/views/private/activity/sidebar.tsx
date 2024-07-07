@@ -24,8 +24,8 @@ function SideBar() {
   return (
     <div className="w-1/4  h-full flex flex-col border-r">
       <div className="flex justify-between items-center border-b  p-4">
-        <h5 className="font-bold">Teams</h5>
-        <h5 className="text-sm text-primary/50">15 new activities</h5>
+        <h6 className="font-bold">Teams</h6>
+        <h6 className="text-sm text-primary/50">15 new activities</h6>
       </div>
 
       <div className="flex flex-col">
@@ -45,12 +45,12 @@ function TeamItem({ data }: { data: (typeof teams)[0] }) {
         <div className="w-[2.5rem] h-[2.5rem] rounded-full overflow-hidden">
           <img className="bg-cover" src={icon} alt="" />
         </div>
-        <h5 className="font-bold text-sm">{name}</h5>
+        <h6 className="font-bold text-sm">{name}</h6>
       </div>
       {totalNotification !== 0 && (
-        <h5 className="text-sm text-primary/50 font-bold justify-center items-center flex w-[2rem] h-[2rem] rounded-full bg-primary/10">
+        <h6 className="text-sm text-primary/50 font-bold justify-center items-center flex w-[2rem] h-[2rem] rounded-full bg-primary/10">
           {totalNotification}
-        </h5>
+        </h6>
       )}
     </div>
   );

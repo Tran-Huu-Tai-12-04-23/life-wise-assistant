@@ -6,6 +6,7 @@ import { useState } from "react";
 import WrapperTaskLayout from "./WrapperTaskLayout";
 import ModalAddTask from "./ModalAddTask";
 import GroupButtonUtils from "./group-button-utils";
+import { useAuthState } from "@/redux/features/auth/authSlice";
 export enum EViewType {
   BOARD,
   LIST,
@@ -13,17 +14,19 @@ export enum EViewType {
 
 function Task() {
   const [viewType, setViewType] = useState(EViewType.BOARD);
-
+  const { currentUser } = useAuthState();
   return (
     <>
       <div className="w-full flex flex-col gap-4 ">
         <GroupButtonUtils />
         <div className="p-4 no-scrollbar border-b flex items-center justify-between sticky top-[0rem] backdrop-blur-xl z-50 shadow-sm pt-4 pb-4">
           <div className="flex items-end">
-            <h1 className="font-bold text-[24px]">Hi James,</h1>
-            <h5 className="text-sm text-[#6B7280] font-bold">
+            <h1 className="font-bold text-[24px]">
+              Hi {currentUser?.userDetail?.fullName || currentUser?.username},
+            </h1>
+            <h6 className="text-sm text-[#6B7280] font-bold">
               here's your current tasks
-            </h5>
+            </h6>
           </div>
 
           <div className="justify-end items-center gap-4 flex">

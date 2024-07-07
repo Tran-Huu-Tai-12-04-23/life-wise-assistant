@@ -59,7 +59,7 @@ function Setting() {
             } ${activeTab === tab.value ? "border-b-2 border-primary" : ""}`}
           >
             {tab.icon}
-            <h5>{tab.name}</h5>
+            <h6>{tab.name}</h6>
           </div>
         ))}
       </div>
