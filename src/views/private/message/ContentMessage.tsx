@@ -1,10 +1,38 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Avatar from "@/components/UI/Avatar";
 import { CiImageOn } from "react-icons/ci";
 import { MdKeyboardVoice } from "react-icons/md";
 import { BiSolidSend } from "react-icons/bi";
 import ChatItem from "./ChatItem";
+import { useEffect, useState } from "react";
+import {
+  subscribeToChat,
+  sendMessage,
+  connect,
+  disconnect,
+} from "@/services/socketService";
 
 function ContentMessage() {
+  const [messages, setMessages] = useState<any[]>([]);
+  const [newMessage, setNewMessage] = useState("");
+
+  useEffect(() => {
+    connect();
+
+    subscribeToChat((message) => {
+      setMessages((prevMessages) => [...prevMessages, message]);
+    });
+
+    return () => {
+      disconnect();
+    };
+  }, []);
+
+  const handleSendMessage = () => {
+    sendMessage(newMessage);
+    setNewMessage("");
+  };
+
   return (
     <div className="w-3/4 relative h-full overflow-auto pb-5 bg-primary-content/10">
       <div className="w-full sticky top-0 z-[100000] backdrop-blur-3xl border-b h-[5rem] p-4 flex justify-start items-center">
@@ -16,17 +44,13 @@ function ContentMessage() {
         <h1 className="font-bold text-sm">Simla huu taio</h1>
       </div>
       {/* chat */}
-      <ChatItem text={"But I love u!"} isClient />
-      <ChatItem text={"I hate you!"} isClient />
-      <ChatItem text={"I hate you!"} isClient />
-      <ChatItem text={"I hate you!"} isClient />
-      <ChatItem text={"I hate you!"} isClient />
-      <ChatItem text={"But I love u!"} isOwner />
-      <ChatItem text={"But I love u!"} isOwner />
-      <ChatItem text={"But I love u!"} isOwner />
-      <ChatItem text={"But I love u!"} isOwner />
+      {messages?.map((message, index) => (
+        <ChatItem key={index} text={message} isClient />
+      ))}
       <div className="flex gap-2 sticky rounded-xl border border-dashed border-primary/10 bottom-0 ml-6 mr-6 right-6 left-6 p-2 backdrop-blur-3xl shadow-3xl flex-nowrap">
         <input
+          value={newMessage}
+          onChange={(e) => setNewMessage(e.target.value)}
           type="text"
           placeholder="Type here"
           className="input outline-none bg-transparent ring-0 w-full"
@@ -40,7 +64,7 @@ function ContentMessage() {
           </button>
           <button className="btn join-item">😂</button>
         </div>
-        <button className="btn btn-outline ">
+        <button className="btn btn-outline " onClick={handleSendMessage}>
           <BiSolidSend />
         </button>
       </div>
