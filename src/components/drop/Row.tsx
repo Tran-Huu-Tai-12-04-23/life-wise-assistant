@@ -58,7 +58,7 @@ const Row: React.FC<IRowProps> = ({ data }) => {
       </div>
 
       <SortableContext items={data.tasks.map((item) => item.id)}>
-        <div className="flex w-full items-start flex-col no-scrollbar gap-y-4 overflow-y-auto pb-20 ">
+        <div className="flex w-full items-start flex-col no-scrollbar gap-y-4 overflow-y-auto ">
           {data.tasks.map((task) => (
             <TaskListItem key={task.id} data={task} />
           ))}

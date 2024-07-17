@@ -40,7 +40,7 @@ const Column: React.FC<IColumnProps> = ({ data }) => {
       }}
       className={` w-full ${
         isDragging ? "bg-primary/10" : ""
-      }  p-2 border-solid card border-primary/10 min-w-[20rem] rounded-xl flex flex-col gap-y-4 `}
+      }  p-2 border-solid card border-primary/10 min-w-[20rem] rounded-xl flex flex-col gap-y-4 min-h-[20rem]`}
     >
       <div className="flex justify-between items-center border-dashed  border-b-[1px] border-primary/10">
         <div className=" p-2 ignore-scroll" {...listeners}>
@@ -58,7 +58,7 @@ const Column: React.FC<IColumnProps> = ({ data }) => {
         />
       </div>
       <SortableContext items={data.tasks.map((item) => item.id)}>
-        <div className="flex items-start flex-col no-scrollbar gap-y-4  pb-20 ">
+        <div className="flex items-start flex-col no-scrollbar gap-y-4  ">
           {data.tasks.map((task) => (
             <TaskItem key={task.id} data={task} />
           ))}
