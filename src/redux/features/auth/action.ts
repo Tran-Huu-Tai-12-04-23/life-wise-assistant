@@ -9,15 +9,34 @@ import { ILoginResponse } from "@/dto/dto";
 
 export const AuthActionKey = {
   LOGIN: "auth/login",
+  LOGIN_GOOGLE: 'auth/loginGoogle',
+  LOGIN_GITHUB: 'auth/loginGithub',
   GET_PROFILE: "auth/get-profile",
 } as const;
+
+// Đăng nhập mặc định
 export const signInAsync = createAsyncThunk<
-  {
-    user: IUser;
-    loginResponse: ILoginResponse;
-  } | null,
+  { user: IUser; loginResponse: ILoginResponse } | null,
   LoginDTO
->(AuthActionKey.LOGIN, login);
+>(AuthActionKey.LOGIN, async (loginDTO: LoginDTO) => {
+  return await login(loginDTO, 'default');
+});
+
+// Đăng nhập bằng Google
+export const signInGoogleAsync = createAsyncThunk<
+  { user: IUser; loginResponse: ILoginResponse } | null,
+  LoginDTO
+>(AuthActionKey.LOGIN_GOOGLE, async (loginDTO: LoginDTO) => {
+  return await login(loginDTO, 'google');
+});
+
+// Đăng nhập bằng GitHub
+export const signInGithubAsync = createAsyncThunk<
+  { user: IUser; loginResponse: ILoginResponse } | null,
+  LoginDTO
+>(AuthActionKey.LOGIN_GITHUB, async (loginDTO: LoginDTO) => {
+  return await login(loginDTO, 'github');
+});
 
 export const getProfileAsync = createAsyncThunk<{
   user: IUser;
@@ -27,10 +46,22 @@ export const getProfileAsync = createAsyncThunk<{
     taskPriority: any;
   };
 }>(AuthActionKey.GET_PROFILE, getProfileUser);
+
+
 export const useAuthAction = () => {
   const dispatch = useDispatch<any>();
-  const login = async (loginDTO: LoginDTO) => {
-    await dispatch(signInAsync(loginDTO));
+
+  const login = async (loginDTO: LoginDTO, platform: 'default' | 'google' | 'github') => {
+    switch (platform) {
+      case 'google':
+        await dispatch(signInGoogleAsync(loginDTO));
+        break;
+      case 'github':
+        await dispatch(signInGithubAsync(loginDTO));
+        break;
+      default:
+        await dispatch(signInAsync(loginDTO));
+    }
     await getProfile();
   };
 

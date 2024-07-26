@@ -1,5 +1,7 @@
 export const endpoints = {
   sign_in: "/auth/sign-in",
+  sign_in_gg: "/auth/google",
+  sign_in_github: "/auth/github",
   get_profile: "/auth/profile",
 
   //#region team CRUD

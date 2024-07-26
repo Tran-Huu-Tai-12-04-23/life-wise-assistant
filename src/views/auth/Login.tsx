@@ -38,7 +38,21 @@ function Login() {
     login({
       username: userInput.username,
       password: userInput.password,
-    });
+    },'default');
+  };
+
+  const handleLoginWithGoogle = async () => {
+    login({
+      username: userInput.username,
+      password: userInput.password,
+    }, 'google');
+  };
+
+  const handleLoginWithGithub = async () => {
+    login({
+      username: userInput.username,
+      password: userInput.password,
+    }, 'github');
   };
 
   return (
@@ -54,21 +68,21 @@ function Login() {
               type={"link"}
               rightIcon={<IconGoogle />}
               className="bg-[rgba(0,0,0,0.1)] backdrop-blur-xl"
-              onClick={() => {}}
+              onClick={handleLoginWithGoogle}
             />
             <Button
               name=""
               type={"link"}
               className="bg-[rgba(0,0,0,0.1)] backdrop-blur-xl"
               rightIcon={<IconFacebook />}
-              onClick={() => {}}
+              onClick={() => toast.info("Facebook login is not implemented yet")}
             />
             <Button
               name=""
               type={"link"}
               className="bg-[rgba(0,0,0,0.1)] backdrop-blur-xl"
               rightIcon={<IconGithub />}
-              onClick={() => {}}
+              onClick={handleLoginWithGithub}
             />
           </div>
           <div className="flex justify-between items-center">
