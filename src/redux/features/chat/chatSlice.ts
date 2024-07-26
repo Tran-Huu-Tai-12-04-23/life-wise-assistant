@@ -6,11 +6,13 @@ import { createNewChatAsync } from "./action";
 
 interface ChatState {
   lstGroupChat: IGroupChat[];
+  currentGroupChat: IGroupChat | null;
   isLoadingCreateNew: boolean;
 }
 
 const initialState: ChatState = {
   lstGroupChat: [],
+  currentGroupChat: null,
   isLoadingCreateNew: false,
 };
 
@@ -21,6 +23,9 @@ const chatSlice: any = createSlice({
   reducers: {
     addGroupChat: (state, action: PayloadAction<IGroupChat>) => {
       state.lstGroupChat.push(action.payload);
+    },
+    changeCurrentGroupChat: (state, action: PayloadAction<IGroupChat>) => {
+      state.currentGroupChat = action.payload;
     },
     resetChatState: () => initialState,
   },
@@ -48,7 +53,8 @@ const chatSlice: any = createSlice({
 
 export default chatSlice.reducer;
 
-export const { addGroupChat, resetChatState } = chatSlice.actions;
+export const { addGroupChat, resetChatState, changeCurrentGroupChat } =
+  chatSlice.actions;
 
 export const selectChat = (state: RootState) => state.chat;
 

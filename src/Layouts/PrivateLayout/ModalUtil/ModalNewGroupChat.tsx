@@ -90,7 +90,7 @@ const ModalNewGroupChat = () => {
           />
         </div>
 
-        <div className="h-[20rem] overflow-scroll pt-4 pb-4">
+        <div className="h-[20rem] overflow-y-scroll pt-4 pb-4">
           {isLoading && (
             <div className="w-full h-full center">
               <Spinner color="primary" />

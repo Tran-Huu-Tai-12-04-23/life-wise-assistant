@@ -1,8 +1,11 @@
+import { IGroupChat } from "@/dto/chat.dto";
+import { useChatState } from "@/redux/features/chat/chatSlice";
 import { BiSolidMessageAdd } from "react-icons/bi";
 import { BsSearch } from "react-icons/bs";
-import MessageUser from "./Message";
+import ReceiverItem from "./ReceiverItem";
 
 function SideBarMessage() {
+  const { lstGroupChat } = useChatState();
   const handleOpenNewGroupChat = () => {
     const modal = document.getElementById(
       "modal_new_group_chat"
@@ -31,21 +34,9 @@ function SideBarMessage() {
         className="flex flex-col w-full overflow-auto"
         style={{ height: "calc(100% - 4rem)" }}
       >
-        <MessageUser />
-        <MessageUser />
-        <MessageUser />
-        <MessageUser />
-        <MessageUser />
-        <MessageUser />
-        <MessageUser />
-        <MessageUser />
-        <MessageUser />
-        <MessageUser />
-        <MessageUser />
-        <MessageUser />
-        <MessageUser />
-        <MessageUser />
-        <MessageUser />
+        {lstGroupChat.map((groupChat: IGroupChat, index: number) => {
+          return <ReceiverItem key={index} data={groupChat} />;
+        })}
       </div>
     </div>
   );

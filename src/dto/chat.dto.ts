@@ -9,6 +9,9 @@ export interface IGroupChat extends IBase {
   socketID: string;
   lstMember: IUser[];
   messages: IMessage[];
+  receiver?: IUser;
+  lstReceiver?: IUser[];
+  isSingleChat?: boolean;
 }
 
 export interface IMessage {

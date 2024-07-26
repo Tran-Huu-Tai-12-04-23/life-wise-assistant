@@ -111,7 +111,7 @@ const ModalCreateNewTeam = () => {
         </p>
 
         <div className="w-full  no-scrollbar  gap-4 grid grid-cols-2 pt-2 border-t">
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 w-[20rem]">
             <label className="form-control w-full ">
               <span className="label-text">Thumbnails of team</span>
             </label>
