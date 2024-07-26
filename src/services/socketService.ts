@@ -1,24 +1,37 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import io from "socket.io-client";
+import { getAccessToken } from "@/helper";
+import { io } from "socket.io-client";
 
-const socket = io("http://[::1]:3300"); // Replace with your NestJS server URL
+const token = await getAccessToken();
 
-const connect = () => {
+const socket = io("http://localhost:3300", {
+  query: {
+    token,
+  },
+  autoConnect: false,
+});
+
+const connect = async () => {
   socket.connect();
 };
 
 const disconnect = () => {
-  socket.disconnect();
+  socket?.disconnect();
 };
 
-const subscribeToChat = (callback: (mess: any) => void) => {
-  socket.on("chat message", (message) => {
+const subscribeToChat = (callback: (message: string) => void) => {
+  const eventHandler = (message: string) => {
     callback(message);
-  });
+  };
+
+  socket?.on("chat message", eventHandler);
+
+  return () => {
+    socket?.off("chat message", eventHandler);
+  };
 };
 
-const sendMessage = (message: any) => {
-  socket.emit("chat message", message);
+const sendMessage = (message: string) => {
+  socket?.emit("chat message", message);
 };
 
-export { connect, disconnect, subscribeToChat, sendMessage };
+export { connect, disconnect, sendMessage, subscribeToChat };

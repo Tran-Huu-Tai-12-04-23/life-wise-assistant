@@ -1,18 +1,18 @@
+import UseModal from "@/Layouts/PrivateLayout/ModalUtil/useModal";
+import MultiselectMember from "@/components/UI/MultiselectMember";
+import SelectItem, { IItemSelect } from "@/components/UI/SelectItem";
+import UploadFile from "@/components/UI/UploadFile";
+import { IUser } from "@/dto/user.dto";
+import { useAuthState } from "@/redux/features/auth/authSlice";
+import { useColumnAction } from "@/redux/features/column/action";
+import { useColumnState } from "@/redux/features/column/columnSlice";
+import { useTeamState } from "@/redux/features/team/teamSlice";
+import { ITaskToCreate } from "@/services/column/dto";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import { useMemo, useState } from "react";
 import Datepicker, { DateValueType } from "react-tailwindcss-datepicker";
-import UploadFile from "@/components/UI/UploadFile";
-import MultiselectMember from "@/components/UI/MultiselectMember";
-import { IUser } from "@/dto/user.dto";
-import { useTeamState } from "@/redux/features/team/teamSlice";
-import { useAuthState } from "@/redux/features/auth/authSlice";
-import SelectItem, { IItemSelect } from "@/components/UI/SelectItem";
 import { toast } from "sonner";
-import { ITaskToCreate } from "@/services/column/dto";
-import { useColumnAction } from "@/redux/features/column/action";
-import UseModal from "@/Layouts/PrivateLayout/ModalUtil/useModal";
-import { useColumnState } from "@/redux/features/column/columnSlice";
 interface ITaskState {
   title: string;
   description: string;
@@ -97,9 +97,19 @@ function ModalAddTask() {
     });
   };
 
+  const handleClose = () => {
+    closeModal("add_task");
+  };
   return (
-    <dialog id="add_task" className="modal">
-      <div className="bg-base-300 w-[90vw] p-6 shadow-xl rounded-md ">
+    <dialog
+      onClick={handleClose}
+      id="add_task"
+      className="modal z-[100000000] bg-black/10 backdrop-blur-xl"
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="bg-base-300 w-[90vw] p-6 shadow-xl rounded-md "
+      >
         <div className="flex pb-4  w-full justify-between items-start gap-4">
           <div className="w-2/3 flex flex-col gap-4 border-r-[1px] pr-4 border-solid border-primary/5">
             <div className="flex flex-col border-b pb-2">

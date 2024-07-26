@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Avatar from "@/components/UI/Avatar";
-import { CiImageOn } from "react-icons/ci";
-import { MdKeyboardVoice } from "react-icons/md";
-import { BiSolidSend } from "react-icons/bi";
-import ChatItem from "./ChatItem";
-import { useEffect, useState } from "react";
 import {
-  subscribeToChat,
-  sendMessage,
   connect,
   disconnect,
+  sendMessage,
+  subscribeToChat,
 } from "@/services/socketService";
+import { useEffect, useState } from "react";
+import { BiSolidSend } from "react-icons/bi";
+import { CiImageOn } from "react-icons/ci";
+import { MdKeyboardVoice } from "react-icons/md";
+import ChatItem from "./ChatItem";
 
 function ContentMessage() {
   const [messages, setMessages] = useState<any[]>([]);
@@ -18,14 +18,15 @@ function ContentMessage() {
 
   useEffect(() => {
     connect();
-
-    subscribeToChat((message) => {
-      setMessages((prevMessages) => [...prevMessages, message]);
-    });
-
     return () => {
       disconnect();
     };
+  }, []);
+
+  useEffect(() => {
+    subscribeToChat((message: any) => {
+      setMessages((prevMessages) => [...prevMessages, message]);
+    });
   }, []);
 
   const handleSendMessage = () => {
@@ -34,8 +35,8 @@ function ContentMessage() {
   };
 
   return (
-    <div className="w-3/4 relative h-full overflow-auto pb-5 bg-primary-content/10">
-      <div className="w-full sticky top-0 z-[100000] backdrop-blur-3xl border-b h-[5rem] p-4 flex justify-start items-center">
+    <div className="w-3/4 relative h-full overflow-auto pb-0 bg-primary-content/10">
+      <div className="w-full sticky top-0 z-10 backdrop-blur-3xl border-b h-[5rem] p-4 flex justify-start items-center">
         <Avatar
           isOnline={true}
           isStatus
@@ -44,29 +45,34 @@ function ContentMessage() {
         <h1 className="font-bold text-sm">Simla huu taio</h1>
       </div>
       {/* chat */}
-      {messages?.map((message, index) => (
-        <ChatItem key={index} text={message} isClient />
-      ))}
-      <div className="flex gap-2 sticky rounded-xl border border-dashed border-primary/10 bottom-0 ml-6 mr-6 right-6 left-6 p-2 backdrop-blur-3xl shadow-3xl flex-nowrap">
-        <input
-          value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
-          type="text"
-          placeholder="Type here"
-          className="input outline-none bg-transparent ring-0 w-full"
-        />
-        <div className="join">
-          <button className="btn join-item">
-            <CiImageOn />
+      <div className="flex flex-col gap-2 h-[80%]">
+        {messages?.map((message, index) => (
+          <ChatItem key={index} text={message} isClient />
+        ))}
+      </div>
+
+      <div className="bg-content-primary/10 shadow-xl center sticky w-full h-[6rem] backdrop-blur-3xl bottom-0">
+        <div className="flex gap-2 rounded-xl w-full border border-dashed border-primary/10 ml-2 mr-2 p-2 backdrop-blur-3xl shadow-3xl flex-nowrap">
+          <input
+            value={newMessage}
+            onChange={(e) => setNewMessage(e.target.value)}
+            type="text"
+            placeholder="Type here"
+            className="input outline-none bg-transparent ring-0 w-full"
+          />
+          <div className="join">
+            <button className="btn join-item">
+              <CiImageOn />
+            </button>
+            <button className="btn join-item">
+              <MdKeyboardVoice />
+            </button>
+            <button className="btn join-item">😂</button>
+          </div>
+          <button className="btn btn-outline " onClick={handleSendMessage}>
+            <BiSolidSend />
           </button>
-          <button className="btn join-item">
-            <MdKeyboardVoice />
-          </button>
-          <button className="btn join-item">😂</button>
         </div>
-        <button className="btn btn-outline " onClick={handleSendMessage}>
-          <BiSolidSend />
-        </button>
       </div>
     </div>
   );

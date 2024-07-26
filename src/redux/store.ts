@@ -1,18 +1,20 @@
+import { clearUserDataFromLocalStorage } from "@/helper";
 import {
   combineReducers,
   configureStore,
   createAction,
 } from "@reduxjs/toolkit";
-import taskReducer, { resetTeamState } from "./features/team/teamSlice";
-import authReducer, { resetAuthState } from "./features/auth/authSlice";
-import columnReducer, { resetColumnState } from "./features/column/columnSlice";
 import { useDispatch } from "react-redux";
-import { clearUserDataFromLocalStorage } from "@/helper";
+import authReducer, { resetAuthState } from "./features/auth/authSlice";
+import chatReducer, { resetChatState } from "./features/chat/chatSlice";
+import columnReducer, { resetColumnState } from "./features/column/columnSlice";
+import taskReducer, { resetTeamState } from "./features/team/teamSlice";
 
 const rootReducer = combineReducers({
   team: taskReducer,
   auth: authReducer,
   column: columnReducer,
+  chat: chatReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
@@ -35,6 +37,7 @@ export const useResetState = () => {
       dispatch(resetAuthState());
       dispatch(resetColumnState());
       dispatch(revertAll());
+      dispatch(resetChatState());
     } catch (error) {
       console.error("Error resetting state:", error);
     }
