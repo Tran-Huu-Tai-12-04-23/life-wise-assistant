@@ -12,6 +12,7 @@ export interface IGroupChat extends IBase {
   receiver?: IUser;
   lstReceiver?: IUser[];
   isSingleChat?: boolean;
+  isGroupChat?: boolean;
 }
 
 export interface IMessage {

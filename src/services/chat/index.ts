@@ -14,3 +14,22 @@ export const createNewChat = async (
   toast.success(res.message);
   return res.data;
 };
+
+export const groupChatPagination = async (body: {
+  page: number;
+  where: {
+    name: string;
+  };
+}): Promise<IGroupChat[]> => {
+  return await handleErrorApi(async () => {
+    const res: [IGroupChat[], number] = await rootApi.post(
+      endpoints.group_chat_pagination,
+      {
+        where: body.where,
+        skip: 10 * body.page,
+        take: 10,
+      }
+    );
+    return res[0];
+  });
+};

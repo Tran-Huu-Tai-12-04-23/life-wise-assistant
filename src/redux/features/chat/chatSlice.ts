@@ -2,18 +2,20 @@ import { IGroupChat } from "@/dto/chat.dto";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
-import { createNewChatAsync } from "./action";
+import { createNewChatAsync, groupChatPaginationAsync } from "./action";
 
 interface ChatState {
   lstGroupChat: IGroupChat[];
   currentGroupChat: IGroupChat | null;
   isLoadingCreateNew: boolean;
+  isLoadingGroupChatPagination: boolean;
 }
 
 const initialState: ChatState = {
   lstGroupChat: [],
   currentGroupChat: null,
   isLoadingCreateNew: false,
+  isLoadingGroupChatPagination: false,
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -35,17 +37,32 @@ const chatSlice: any = createSlice({
         state.lstGroupChat = [action.payload, ...state.lstGroupChat];
         state.isLoadingCreateNew = false;
       })
+      .addCase(groupChatPaginationAsync.fulfilled, (state, action) => {
+        state.lstGroupChat = [...state.lstGroupChat, ...action.payload];
+        state.isLoadingGroupChatPagination = false;
+      })
       .addMatcher(
-        (action) => [createNewChatAsync.pending].includes(action.type),
+        (action) =>
+          [
+            createNewChatAsync.pending,
+            groupChatPaginationAsync.pending,
+          ].includes(action.type),
         (state, action) => {
           state.isLoadingCreateNew =
             action.type === createNewChatAsync.pending.toString();
+          state.isLoadingGroupChatPagination =
+            action.type === groupChatPaginationAsync.pending.toString();
         }
       )
       .addMatcher(
-        (action) => [createNewChatAsync.rejected].includes(action.type),
+        (action) =>
+          [
+            createNewChatAsync.rejected,
+            groupChatPaginationAsync.rejected,
+          ].includes(action.type),
         (state) => {
           state.isLoadingCreateNew = false;
+          state.isLoadingGroupChatPagination = false;
         }
       );
   },
