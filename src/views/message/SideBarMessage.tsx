@@ -1,5 +1,4 @@
 import Button from "@/components/UI/Button";
-import Spinner from "@/components/UI/Spinner";
 import { IGroupChat } from "@/dto/chat.dto";
 import { useChatAction } from "@/redux/features/chat/action";
 import { useChatState } from "@/redux/features/chat/chatSlice";
@@ -7,10 +6,12 @@ import { useEffect } from "react";
 import { BiSolidMessageAdd } from "react-icons/bi";
 import { BsSearch } from "react-icons/bs";
 import ReceiverItem from "./ReceiverItem";
+import LstChatItemSkeleton from "./skeleton/ChatItemSkeleton";
 
 function SideBarMessage() {
-  const { isLoadingGroupChatPagination } = useChatState();
-  const { groupChatPagination, fetchNextPageGroupChat } = useChatAction();
+  const { isLoadingGroupChatPagination, isLoaded, isHasNextPageGroupChat } =
+    useChatState();
+  const { onGroupChatPagination, onFetchNextPageGroupChat } = useChatAction();
   const { lstGroupChat } = useChatState();
   const handleOpenNewGroupChat = () => {
     const modal = document.getElementById(
@@ -23,10 +24,10 @@ function SideBarMessage() {
   };
 
   useEffect(() => {
-    groupChatPagination();
+    !isLoaded && onGroupChatPagination();
   }, []);
   return (
-    <div className="w-1/4  h-full flex flex-col border-r">
+    <div className="w-[18rem] h-full flex flex-col border-r flex-1">
       <div className="w-full flex  h-[5rem] justify-between items-center p-4 border-b">
         <h6 className="text-sm">All messages</h6>
 
@@ -47,13 +48,15 @@ function SideBarMessage() {
         {lstGroupChat.map((groupChat: IGroupChat, index: number) => {
           return <ReceiverItem key={index} data={groupChat} />;
         })}
-        {isLoadingGroupChatPagination && <Spinner />}
+        {isLoadingGroupChatPagination && <LstChatItemSkeleton />}
 
-        <Button
-          name="Load more"
-          type={"link"}
-          onClick={fetchNextPageGroupChat}
-        ></Button>
+        {isHasNextPageGroupChat && (
+          <Button
+            name="Load more"
+            type={"link"}
+            onClick={onFetchNextPageGroupChat}
+          />
+        )}
       </div>
     </div>
   );

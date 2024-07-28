@@ -15,9 +15,11 @@ export interface IGroupChat extends IBase {
   isGroupChat?: boolean;
 }
 
-export interface IMessage {
+export interface IMessage extends IBase {
   content: string;
   user: IUser;
   isRead: boolean;
   groupChat: IGroupChat;
+  isSender: boolean;
+  owner: IUser;
 }

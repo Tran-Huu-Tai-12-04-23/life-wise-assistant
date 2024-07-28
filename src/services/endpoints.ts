@@ -20,5 +20,6 @@ export const endpoints = {
   //#region chat
   create_new_chat: "/chat/create-new-chat",
   group_chat_pagination: "/chat/group-chat-pagination",
+  message_pagination: "/chat/message-pagination",
   //#endregion
 };

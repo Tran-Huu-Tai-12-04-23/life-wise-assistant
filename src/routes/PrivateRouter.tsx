@@ -1,10 +1,9 @@
-import { lazy } from "react";
-import Loadable from "@/components/UI/Loadable";
 import PrivateLayout from "@/Layouts/PrivateLayout/index";
+import Loadable from "@/components/UI/Loadable";
+import { lazy } from "react";
 import { privateRoutes } from "./private-route";
 
 const Dashboard = Loadable(lazy(() => import("@/views/private/dashboard")));
-const Message = Loadable(lazy(() => import("@/views/private/message")));
 const Task = Loadable(lazy(() => import("@/views/private/task")));
 const Activity = Loadable(lazy(() => import("@/views/private/activity")));
 const Setting = Loadable(lazy(() => import("@/views/private/setting")));
@@ -21,10 +20,6 @@ const PrivateRoutes = {
     {
       path: privateRoutes.task,
       element: <Task />,
-    },
-    {
-      path: privateRoutes.message,
-      element: <Message />,
     },
     {
       path: privateRoutes.schedule,
