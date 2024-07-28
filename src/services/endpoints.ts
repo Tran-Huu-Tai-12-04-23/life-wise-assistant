@@ -16,4 +16,10 @@ export const endpoints = {
   move_task_in_the_same_col: "/task/move-task-in-the-same-column",
   move_task_to_diff_col: "/task/move-task-to-diff-column",
   //#endregion
+
+  //#region chat
+  create_new_chat: "/chat/create-new-chat",
+  group_chat_pagination: "/chat/group-chat-pagination",
+  message_pagination: "/chat/message-pagination",
+  //#endregion
 };

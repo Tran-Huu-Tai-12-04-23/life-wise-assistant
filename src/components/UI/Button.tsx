@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Spinner from "./Spinner";
 
 type PropTypes = {
@@ -9,6 +10,7 @@ type PropTypes = {
   onClick: () => void;
   disabled?: boolean;
   className?: string;
+  link?: string;
 };
 
 function Button({
@@ -20,6 +22,7 @@ function Button({
   onClick = () => {},
   disabled = false,
   className = "",
+  link = "",
 }: PropTypes) {
   return (
     <button
@@ -33,14 +36,30 @@ function Button({
         btn ${className}`}
       style={{ backgroundColor: disabled ? "bg-[#E0E0E0]" : "" }}
     >
-      {!isLoading && (
+      {type === "link" && (
+        <Link to={link}>
+          {!isLoading && (
+            <>
+              {leftIcon}
+              {name}
+              {rightIcon}
+            </>
+          )}
+          {isLoading && <Spinner />}
+        </Link>
+      )}
+      {type !== "link" && (
         <>
-          {leftIcon}
-          {name}
-          {rightIcon}
+          {!isLoading && (
+            <>
+              {leftIcon}
+              {name}
+              {rightIcon}
+            </>
+          )}
+          {isLoading && <Spinner />}
         </>
       )}
-      {isLoading && <Spinner />}
     </button>
   );
 }

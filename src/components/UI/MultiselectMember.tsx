@@ -114,7 +114,7 @@ function MultiselectMember({
   );
 }
 
-const MemberItem = ({
+export const MemberItem = ({
   userData,
   onClick,
   isSelected,

@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import Loader from "./components/UI/Loader";
 import React, { useEffect } from "react";
-import RouterApp from "./routes/Route";
+import Loader from "./components/UI/Loader";
 import { useAuthAction } from "./redux/features/auth/action";
+import RouterApp from "./routes/Route";
 
 function App() {
   const { getProfile } = useAuthAction();
@@ -10,6 +10,7 @@ function App() {
   useEffect(() => {
     getProfile();
   }, []);
+
   return (
     <React.Suspense fallback={<Loader />}>
       <RouterApp />

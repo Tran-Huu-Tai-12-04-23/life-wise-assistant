@@ -51,7 +51,7 @@ jobs:
                 docker images --filter=reference=${{ secrets.DOCKER_USERNAME }}/${{ secrets.IMAGE_NAME }}-production --quiet | xargs -r docker rmi -f
             fi
             docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.IMAGE_NAME }}-production:${{ secrets.TAG_NAME }}_${{ github.sha }}
-            docker run -d -p 3000:3000 --name ${{ secrets.IMAGE_NAME }}-production ${{ secrets.DOCKER_USERNAME }}/${{ secrets.IMAGE_NAME }}-production:${{ secrets.TAG_NAME }}_${{ github.sha }}
+            docker run -d -p 3001:3000 --name ${{ secrets.IMAGE_NAME }}-production ${{ secrets.DOCKER_USERNAME }}/${{ secrets.IMAGE_NAME }}-production:${{ secrets.TAG_NAME }}_${{ github.sha }}
           EOF
 
 
