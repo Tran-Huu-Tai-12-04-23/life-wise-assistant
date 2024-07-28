@@ -42,9 +42,6 @@ function Login() {
     });
   };
 
-  const handleLoginWithGoogle = () => {
-    router.replace("/login/google");
-  };
   return (
     <Container>
       <div className="flex_between h-screen w-screen bg-gradient-to-tr from-blue-500 to-green-500">
@@ -60,7 +57,7 @@ function Login() {
               type={"link"}
               rightIcon={<IconGoogle />}
               className="bg-[rgba(0,0,0,0.1)] backdrop-blur-xl"
-              onClick={handleLoginWithGoogle}
+              onClick={() => {}}
             />
             <Button
               name=""
