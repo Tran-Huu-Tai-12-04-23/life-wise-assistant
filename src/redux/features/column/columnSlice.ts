@@ -1,14 +1,14 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../../store";
-import { useSelector } from "react-redux";
 import { IColumn } from "@/dto/column.dto";
+import { ITask } from "@/dto/task.dto";
+import { IUser } from "@/dto/user.dto";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 import {
   createColumnAsync,
   createTaskAsync,
   loadListColumnOfTeamAsync,
 } from "./action";
-import { ITask } from "@/dto/task.dto";
-import { IUser } from "@/dto/user.dto";
 export interface IFilter {
   searchKey: string;
   status: string;
@@ -141,18 +141,12 @@ const columnSlice = createSlice({
           state.currentColumn = null;
         }
       })
-      .addMatcher(
-        (action) =>
-          [createColumnAsync.pending, createColumnAsync.pending].includes(
-            action.type
-          ),
-        (state, action) => {
-          state.isLoadingCreateNewColumn =
-            action.type === createColumnAsync.pending.toString();
-          state.isLoading =
-            action.type === loadListColumnOfTeamAsync.pending.toString();
-        }
-      )
+      .addCase(createTaskAsync.pending, (state) => {
+        state.isLoadingCreateNewTask = true;
+      })
+      .addCase(createColumnAsync.pending, (state) => {
+        state.isLoadingCreateNewColumn = false;
+      })
       .addMatcher(
         (action) =>
           [

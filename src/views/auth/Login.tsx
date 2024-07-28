@@ -6,6 +6,7 @@ import Container from "@/components/UI/Container";
 import Input from "@/components/UI/Input";
 import { useAuthAction } from "@/redux/features/auth/action";
 import { useAuthState } from "@/redux/features/auth/authSlice";
+
 import { useState } from "react";
 import { toast } from "sonner";
 import Overlay from "./Overlay";
@@ -41,6 +42,9 @@ function Login() {
     });
   };
 
+  const handleLoginWithGoogle = () => {
+    router.replace("/login/google");
+  };
   return (
     <Container>
       <div className="flex_between h-screen w-screen bg-gradient-to-tr from-blue-500 to-green-500">
@@ -56,7 +60,7 @@ function Login() {
               type={"link"}
               rightIcon={<IconGoogle />}
               className="bg-[rgba(0,0,0,0.1)] backdrop-blur-xl"
-              onClick={() => {}}
+              onClick={handleLoginWithGoogle}
             />
             <Button
               name=""

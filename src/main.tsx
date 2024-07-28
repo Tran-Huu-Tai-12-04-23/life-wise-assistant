@@ -1,24 +1,23 @@
-import React from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
-import "./index.css";
-import "./reset.css";
-import ThemeProvider from "./context/ThemeContext.tsx";
-import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-import { Toaster } from "sonner";
 import { Provider } from "react-redux";
+import { Toaster } from "sonner";
+import App from "./App.tsx";
+import ThemeProvider from "./context/ThemeContext.tsx";
+import "./index.css";
 import store from "./redux/store.ts";
+import "./reset.css";
 
 const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <Provider store={store}>
-        <ThemeProvider>
-          <Toaster position="top-right" theme="dark" richColors />
-          <App />
-        </ThemeProvider>
-      </Provider>
-    </QueryClientProvider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <QueryClientProvider client={queryClient}>
+    <Provider store={store}>
+      <ThemeProvider>
+        <Toaster position="top-right" theme="dark" richColors expand />
+        <App />
+      </ThemeProvider>
+    </Provider>
+  </QueryClientProvider>
+  // </React.StrictMode>
 );

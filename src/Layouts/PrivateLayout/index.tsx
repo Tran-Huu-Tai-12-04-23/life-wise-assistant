@@ -1,15 +1,21 @@
-import { Navigate, Outlet, useLocation } from "react-router-dom";
-import Sidebar from "./Sidebar";
-import Header from "./Header";
 import { sideBarWidth } from "@/constant/constant";
-import ModalUtil from "./ModalUtil";
 import { useAuthState } from "@/redux/features/auth/authSlice";
 import { useTeamState } from "@/redux/features/team/teamSlice";
+import Message from "@/views/message";
+import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
+import { IoMdClose } from "react-icons/io";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
+import FloatingMessage from "./FloatingMessage";
+import Header from "./Header";
+import ModalUtil from "./ModalUtil";
+import Sidebar from "./Sidebar";
 
 function PrivateLayout() {
   const { currentUser, isLoading } = useAuthState();
   const { currentTeam } = useTeamState();
   const location = useLocation();
+  const [selectedId, setSelectedId] = useState<string | null>(null);
 
   if (!currentUser && !isLoading) {
     return <Navigate to="/auth/login" state={{ from: location }} />;
@@ -19,22 +25,43 @@ function PrivateLayout() {
     return <Navigate to="/get-start" state={{ from: location }} />;
   }
   return (
-    <div className="flex w-[100vw] justify-center items-center overflow-hidden">
-      {/* contain all modal global for app */}
-      <ModalUtil />
-      <div className="w-[100vw]  h-[100vh] flex flex-col overflow-hidden">
-        <Header />
-        <div className="flex h-[calc(100vh-4rem)] w-full ">
-          <Sidebar />
-          <div
-            style={{ width: `calc(100% - ${sideBarWidth}px)` }}
-            className="content overflow-x-hidden"
-          >
-            <Outlet />
+    <>
+      <div className="flex w-[100vw] justify-center items-center overflow-hidden">
+        {/* contain all modal global for app */}
+        <ModalUtil />
+        {currentUser && <FloatingMessage setSelectedId={setSelectedId} />}
+
+        <div className="w-[100vw]  h-[100vh] flex flex-col overflow-hidden">
+          <Header />
+          <div className="flex h-[calc(100vh-4rem)] w-full ">
+            <Sidebar />
+            <div
+              style={{ width: `calc(100% - ${sideBarWidth}px)` }}
+              className="content overflow-x-hidden"
+            >
+              <Outlet />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      <AnimatePresence>
+        {selectedId && (
+          <motion.div
+            className="fixed top-0 left-0 w-screen h-screen z-[10000000] bg-primary/10 backdrop-blur-3xl"
+            layoutId={selectedId}
+          >
+            <IoMdClose
+              onClick={() => {
+                setSelectedId(null);
+              }}
+              size={22}
+              className="cursor-pointer hover:text-red-500 text-red-400 absolute top-[0.8rem] right-[0.8rem] shadow-2xl z-50"
+            />
+            <Message />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
 
