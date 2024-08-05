@@ -7,7 +7,7 @@ import { IUser } from "@/dto/user.dto";
 import { useTeamAction } from "@/redux/features/team/action";
 import { useTeamState } from "@/redux/features/team/teamSlice";
 import { useState } from "react";
-import { toast } from "sonner";
+import { toast } from "react-toastify";
 import useModal from "./useModal";
 
 export interface ITeamToCreate {

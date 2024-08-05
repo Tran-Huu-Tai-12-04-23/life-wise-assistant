@@ -12,7 +12,7 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import { useMemo, useState } from "react";
 import Datepicker, { DateValueType } from "react-tailwindcss-datepicker";
-import { toast } from "sonner";
+import { toast } from "react-toastify";
 interface ITaskState {
   title: string;
   description: string;

@@ -29,6 +29,7 @@ const ChatInput = ({ onInputFocus }: { onInputFocus: () => void }) => {
       chatInputRef.current.focus();
     }
   }, [chatInputRef]);
+
   return (
     <div className="bg-content-primary/10 absolute right-0 center w-full h-[6rem] backdrop-blur-3xl bottom-0">
       <div className="flex gap-2 rounded-xl w-full border border-dashed border-primary/10 ml-2 mr-2 p-2 backdrop-blur-3xl shadow-3xl flex-nowrap">

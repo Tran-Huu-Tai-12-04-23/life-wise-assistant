@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ILoginResponse } from "@/dto/dto";
-import { LoginDTO } from "@/redux/features/auth/dto";
-import { endpoints } from "../endpoints";
-import rootApi from "../root-api";
 import { IUser } from "@/dto/user.dto";
 import { handleErrorApi, saveAccessToken, saveRefreshToken } from "@/helper";
-import { toast } from "sonner";
+import { LoginDTO } from "@/redux/features/auth/dto";
+import { toast } from "react-toastify";
+import { endpoints } from "../endpoints";
+import rootApi from "../root-api";
 
 export const login = async (
   loginDTO: LoginDTO

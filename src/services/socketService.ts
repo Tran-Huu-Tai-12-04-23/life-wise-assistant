@@ -9,7 +9,7 @@ export interface MessageDTO {
   senderId: string;
 }
 
-const socket = io("http://localhost:3300", {
+const socket = io(import.meta.env.VITE_SOCKET_API, {
   query: {
     token,
   },

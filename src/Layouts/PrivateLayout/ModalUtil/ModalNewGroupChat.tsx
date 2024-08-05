@@ -5,7 +5,7 @@ import { useChatAction } from "@/redux/features/chat/action";
 import { useChatState } from "@/redux/features/chat/chatSlice";
 import { getLstUserToInviteTeam } from "@/services/team";
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
+import { toast } from "react-toastify";
 
 const ModalNewGroupChat = () => {
   const { onCreateNewChat } = useChatAction();

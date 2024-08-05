@@ -8,7 +8,7 @@ import { useAuthAction } from "@/redux/features/auth/action";
 import { useAuthState } from "@/redux/features/auth/authSlice";
 
 import { useState } from "react";
-import { toast } from "sonner";
+import { toast } from "react-toastify";
 import Overlay from "./Overlay";
 
 type IUserLogin = {
@@ -54,6 +54,7 @@ function Login() {
           <div className="flex items-center gap-2 justify-center pt-2 pb-2">
             <Button
               name=""
+              link={import.meta.env.VITE_LINK_API + "auth/google"}
               type={"link"}
               rightIcon={<IconGoogle />}
               className="bg-[rgba(0,0,0,0.1)] backdrop-blur-xl"

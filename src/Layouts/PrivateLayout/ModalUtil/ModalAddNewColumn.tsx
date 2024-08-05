@@ -5,7 +5,7 @@ import { useColumnAction } from "@/redux/features/column/action";
 import { useColumnState } from "@/redux/features/column/columnSlice";
 import { useTeamState } from "@/redux/features/team/teamSlice";
 import { useMemo, useState } from "react";
-import { toast } from "sonner";
+import { toast } from "react-toastify";
 import UseModal from "./useModal";
 
 const ModalAddNewColumn = () => {

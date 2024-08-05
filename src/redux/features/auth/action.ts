@@ -1,11 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useDispatch } from "react-redux";
-import { getProfileUser, login } from "@/services/auth";
-import { LoginDTO } from "./dto";
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { IUser } from "@/dto/user.dto";
 import { ILoginResponse } from "@/dto/dto";
+import { IUser } from "@/dto/user.dto";
+import { saveAccessToken } from "@/helper";
+import { getProfileUser, login } from "@/services/auth";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { useDispatch } from "react-redux";
+import { LoginDTO } from "./dto";
 
 export const AuthActionKey = {
   LOGIN: "auth/login",
@@ -38,8 +39,14 @@ export const useAuthAction = () => {
     dispatch(getProfileAsync());
   };
 
+  const onLoginWithThirdPlatform = async (accessToken: string) => {
+    await saveAccessToken(accessToken);
+    await getProfile();
+  };
+
   return {
     login,
     getProfile,
+    onLoginWithThirdPlatform,
   };
 };
