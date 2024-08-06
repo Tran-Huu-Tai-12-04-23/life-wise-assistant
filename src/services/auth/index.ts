@@ -8,25 +8,13 @@ import { handleErrorApi, saveAccessToken, saveRefreshToken } from "@/helper";
 import { toast } from "sonner";
 
 export const login = async (
-  loginDTO: LoginDTO,
-  platform: 'default' | 'google' | 'github'
+  loginDTO: LoginDTO
 ): Promise<{
   user: IUser;
   loginResponse: ILoginResponse;
 } | null> => {
-  const getSignInEndpoint = () => {
-    switch (platform) {
-      case 'google':
-        return endpoints.sign_in_gg;
-      case 'github':
-        return endpoints.sign_in_github;
-      default:
-        return endpoints.sign_in;
-    }
-  };
   return handleErrorApi(async () => {
-    const endpoint = getSignInEndpoint();
-    const res: ILoginResponse = await rootApi.post(endpoint, loginDTO);
+    const res: ILoginResponse = await rootApi.post(endpoints.sign_in, loginDTO);
     if (!res) {
       toast.error("Login failed! Try again!");
       return null;

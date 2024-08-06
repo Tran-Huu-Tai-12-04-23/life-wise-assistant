@@ -10,6 +10,7 @@ import Overlay from "./Overlay";
 import { useAuthAction } from "@/redux/features/auth/action";
 import { useAuthState } from "@/redux/features/auth/authSlice";
 
+
 type IUserLogin = {
   username: string;
   password: string;
@@ -38,22 +39,9 @@ function Login() {
     login({
       username: userInput.username,
       password: userInput.password,
-    },'default');
+    });
   };
 
-  const handleLoginWithGoogle = async () => {
-    login({
-      username: userInput.username,
-      password: userInput.password,
-    }, 'google');
-  };
-
-  const handleLoginWithGithub = async () => {
-    login({
-      username: userInput.username,
-      password: userInput.password,
-    }, 'github');
-  };
 
   return (
     <Container>
@@ -66,9 +54,9 @@ function Login() {
             <Button
               name=""
               type={"link"}
+              link="http://localhost:3000/auth/google"
               rightIcon={<IconGoogle />}
               className="bg-[rgba(0,0,0,0.1)] backdrop-blur-xl"
-              onClick={handleLoginWithGoogle}
             />
             <Button
               name=""
@@ -80,9 +68,9 @@ function Login() {
             <Button
               name=""
               type={"link"}
+              link="http://localhost:3000/auth/github"
               className="bg-[rgba(0,0,0,0.1)] backdrop-blur-xl"
               rightIcon={<IconGithub />}
-              onClick={handleLoginWithGithub}
             />
           </div>
           <div className="flex justify-between items-center">
