@@ -85,12 +85,11 @@ function Notification() {
       </div>
       <ul
         tabIndex={10000}
-        className="dropdown-content bg-base-300 pt-4 flex flex-col  backdrop-blur-3xl menu z-[100000000] rounded-box min-w-[25rem] p-0 m-0   shadow-2xl"
+        className="dropdown-content bg-primary-content pt-4 flex flex-col  backdrop-blur-3xl menu z-[100000000] rounded-box min-w-[25rem] p-0 m-0   shadow-3xl"
       >
         {Object.keys(notification).map((key) => (
           <NotificationGroup data={notification[key]} key={key} name={key} />
         ))}
-
         <button className="btn btn-text">Watch all</button>
       </ul>
     </div>
@@ -108,7 +107,7 @@ const NotificationGroup = ({
     <div className="flex-col flex">
       <div className="w-full  flex justify-between items-center">
         <div className="w-[44%] h-[1px] bg-primary/10" />
-        <h6 className="text-sm font-thin text-primary/50">{name}</h6>
+        <h6 className="text-sm font-bold text-primary">{name}</h6>
         <div className="w-[44%] h-[1px] bg-primary/10" />
       </div>
       {data.map((item: NotificationDTO) => (
@@ -127,7 +126,7 @@ const NotificationItem = ({ data }: { data: NotificationDTO }) => {
     >
       <div className="flex justify-between items-center w-full">
         <div className="flex flex-col">
-          <h3 className="font-bold text-">{data.title}</h3>
+          <h3 className="font-semibold text-md">{data.title}</h3>
           <p className="text-sm ">{data.description}</p>
         </div>
       </div>

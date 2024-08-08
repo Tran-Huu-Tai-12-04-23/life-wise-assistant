@@ -214,7 +214,17 @@ h6 {
 }
 
 .input {
-  @apply dark:bg-[rgba(255,255,255,0.05)] dark:border-[rgba(255,255,255,0.1)] focus:ring-primary
+  @apply  dark:bg-[rgba(255,255,255,0.05)] dark:border-[rgba(255,255,255,0.1)] focus:ring-primary  outline-0 outline-transparent outline-offset-0
+}
+
+.input:focus , .input-bordered:focus, .input:focus, .input:focus-within {
+  @apply border-primary/50
+}
+.input:has(> input[disabled]), .input-disabled, .input:disabled, .input[disabled] {
+   @apply  dark:border-[rgba(255,255,255,0.1)]
+}
+.input, .input-bordered {
+  outline: none!important;
 }
 
 .input-bordered {
@@ -242,3 +252,4 @@ h6 {
 .btn-link {
   @apply border-none
 }
+
