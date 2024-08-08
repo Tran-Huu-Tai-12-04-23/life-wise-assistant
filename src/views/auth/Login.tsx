@@ -9,7 +9,6 @@ import { useAuthState } from "@/redux/features/auth/authSlice";
 
 import { useState } from "react";
 import { toast } from "react-toastify";
-import Overlay from "./Overlay";
 
 type IUserLogin = {
   username: string;
@@ -44,36 +43,20 @@ function Login() {
 
   return (
     <Container>
-      <div className="flex_between h-screen w-screen bg-gradient-to-tr from-blue-500 to-green-500">
-        <Overlay />
-        <div className=" flex flex-col w-1/2 max-w-[40rem] m-auto p-20 min-h-[100vh] justify-center">
-          <h1 className="font-bold text-white">Login</h1>
-          <h6 className="text-white">
-            How do i get started lorem dolor at? test CICD
-          </h6>
-          <div className="flex items-center gap-2 justify-center pt-2 pb-2">
-            <Button
-              name=""
-              link={import.meta.env.VITE_LINK_API + "auth/google"}
-              type={"link"}
-              rightIcon={<IconGoogle />}
-              className="bg-[rgba(0,0,0,0.1)] backdrop-blur-xl"
-              onClick={() => {}}
-            />
-            <Button
-              name=""
-              type={"link"}
-              className="bg-[rgba(0,0,0,0.1)] backdrop-blur-xl"
-              rightIcon={<IconFacebook />}
-              onClick={() => {}}
-            />
-            <Button
-              name=""
-              type={"link"}
-              className="bg-[rgba(0,0,0,0.1)] backdrop-blur-xl"
-              rightIcon={<IconGithub />}
-              onClick={() => {}}
-            />
+      <div className="flex_between h-screen w-screen bg-primary-content">
+        <div className="bg-secondary rounded-md shadow-2xl flex flex-col w-1/2 max-w-[40rem] m-auto p-20 min-h-auto justify-center">
+          <h1 className="font-bold ">Login</h1>
+          <h6>How do i get started lorem dolor at? test CICD</h6>
+          <div className="flex  items-center gap-10 justify-center pt-2 pb-2">
+            <button className="btn btn-contain">
+              <IconGoogle />
+            </button>
+            <button className="btn btn-contain">
+              <IconFacebook />
+            </button>
+            <button className="btn btn-contain">
+              <IconGithub />
+            </button>
           </div>
           <div className="flex justify-between items-center">
             <div className="styled_line w-[40%]" />
@@ -99,11 +82,7 @@ function Login() {
             />
 
             <div className="flex justify-end items-start">
-              <Button
-                name="Forgot password?"
-                type="link"
-                onClick={function (): void {}}
-              />
+              <button className="btn-link btn">Forgot password?</button>
             </div>
             <Button
               isLoading={isLoading}

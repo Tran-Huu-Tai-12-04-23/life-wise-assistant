@@ -6,11 +6,11 @@ import { lazy } from "react";
 const AuthLogin = Loadable(lazy(() => import("@/views/auth/Login")));
 
 const AuthenticationRoutes = {
-  path: "/auth",
+  path: "/",
   element: <AuthLayout />,
   children: [
     {
-      path: "login", // Adjusted to be relative to '/auth'
+      path: "", // Adjusted to be relative to '/auth'
       element: <AuthLogin />,
     },
     {

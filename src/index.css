@@ -9,7 +9,12 @@
   font-family: 'Roboto', sans-serif;
 }
 
+
+
 :root {
+  --primary: #3772FF;
+  --second: #20212C;
+  --background: #17181F;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -94,7 +99,7 @@ button:focus-visible {
   @apply flex justify-between items-center
 }
 .styled_line {
-  @apply bg-[rgba(0,0,0,0.1)] dark:bg-[rgba(255,255,255,0.1)] h-[1px]
+  @apply bg-[rgba(0,0,0,0.1)] dark:bg-[rgba(255,255,255,0.1)] h-[1px] 
 }
 
 /* flex style */
@@ -182,4 +187,58 @@ h6 {
   max-width: 100%;
   overflow: hidden;
   width: 100%
+}
+
+/* .bg-primary {
+  background-color: var(--background)
+}
+
+.bg-second {
+    background-color: var(--second)
+} */
+
+* {
+  @apply text-black dark:text-white
+}
+
+.btn-contain {
+  @apply dark:bg-[rgba(0,0,0,0.1)] border-none
+}
+
+.btn-primary {
+  @apply dark:text-white  text-black
+}
+
+.label-text {
+  @apply dark:text-white text-black
+}
+
+.input {
+  @apply dark:bg-[rgba(255,255,255,0.05)] dark:border-[rgba(255,255,255,0.1)] focus:ring-primary
+}
+
+.input-bordered {
+  @apply dark:border-[rgba(255,255,255,0.1)]
+}
+
+.select {
+  @apply dark:bg-[rgba(255,255,255,0.05)] dark:border-[rgba(255,255,255,0.1)]
+}
+
+.btn-outline {
+   @apply dark:border-[rgba(255,255,255,0.1)] dark:bg-[rgba(255,255,255,0.05)] 
+}
+
+.btn {
+     @apply dark:border-[rgba(255,255,255,0.1)] 
+}
+.btn-outline {
+  @apply text-white
+}
+.btn-outline:hover {
+  @apply text-white
+}
+
+.btn-link {
+  @apply border-none
 }

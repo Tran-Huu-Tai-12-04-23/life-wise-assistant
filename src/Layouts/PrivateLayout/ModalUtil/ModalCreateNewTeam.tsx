@@ -94,11 +94,11 @@ const ModalCreateNewTeam = () => {
     <dialog
       onClick={handleClose}
       id="modal_create_teams"
-      className="modal z-[100000000] bg-black/10 backdrop-blur-xl"
+      className="modal z-[100000000]"
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="p-4 rounded-md  bg-base-300 min-w-[40rem]"
+        className="p-4 rounded-md  bg-secondary min-w-[40rem]"
       >
         <form method="dialog" className="w-full relative">
           <button className="btn btn-sm btn-circle btn-outline btn-ghost absolute right-2 top-2">
@@ -106,7 +106,7 @@ const ModalCreateNewTeam = () => {
           </button>
         </form>
         <h3 className="font-bold text-lg">New teams!</h3>
-        <p className="py-4 text-sm text-primary/50">
+        <p className="py-4 text-sm ">
           Press ESC key or click on ✕ button to close
         </p>
 

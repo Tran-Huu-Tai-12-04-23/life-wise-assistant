@@ -9,12 +9,12 @@ const ThemeContext = createContext<{
   theme: string;
   updateTheme: (theme: string) => void;
 }>({
-  theme: EThemes.lofi,
+  theme: EThemes.light,
   updateTheme: () => {},
 });
 
 const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [theme, setTheme] = useState<string>(EThemes.night);
+  const [theme, setTheme] = useState<string>(EThemes.dark);
 
   const updateTheme = (updatedTheme: string) => {
     setTheme(updatedTheme);
@@ -23,7 +23,7 @@ const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const theme = getTheme();
-    if (theme) setTheme(theme);
+    if (theme) setTheme(EThemes.dark);
   }, []);
   return (
     <ThemeContext.Provider value={{ theme, updateTheme }}>

@@ -1,7 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import App from "./App.tsx";
 import ThemeProvider from "./context/ThemeContext.tsx";
@@ -15,7 +14,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <Provider store={store}>
       <ThemeProvider>
         <App />
-        <ToastContainer style={{ zIndex: 100000000 }} />
       </ThemeProvider>
     </Provider>
   </QueryClientProvider>

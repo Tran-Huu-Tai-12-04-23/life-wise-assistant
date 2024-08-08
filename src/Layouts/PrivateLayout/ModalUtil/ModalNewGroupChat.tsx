@@ -75,7 +75,7 @@ const ModalNewGroupChat = () => {
   return (
     <dialog
       id="modal_new_group_chat"
-      className="modal z-[100000000] bg-black/10 backdrop-blur-xl"
+      className="modal z-[100000000] dark:bg-white/10 bg-black/10 backdrop-blur-xl"
       onClick={handleClose}
     >
       <div className="modal-box" onClick={(e) => e.stopPropagation()}>

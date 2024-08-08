@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../../store";
-import { useSelector } from "react-redux";
 import { IUser } from "@/dto/user.dto";
+import { createSlice } from "@reduxjs/toolkit";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 import { getProfileAsync, signInAsync } from "./action";
 
 interface AuthState {
@@ -27,7 +27,7 @@ const initialState: AuthState = {
 
 export const authSlice = createSlice({
   name: "auth",
-  initialState: { ...initialState, isLoading: true },
+  initialState: { ...initialState, isLoading: false },
   reducers: {
     resetAuthState: () => {
       return initialState;

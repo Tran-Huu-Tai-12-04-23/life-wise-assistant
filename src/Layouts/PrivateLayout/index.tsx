@@ -1,32 +1,31 @@
 import { sideBarWidth } from "@/constant/constant";
 import { useAuthState } from "@/redux/features/auth/authSlice";
-import { useTeamState } from "@/redux/features/team/teamSlice";
 import Message from "@/views/message";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { IoMdClose } from "react-icons/io";
-import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import FloatingMessage from "./FloatingMessage";
 import Header from "./Header";
 import ModalUtil from "./ModalUtil";
 import Sidebar from "./Sidebar";
 
 function PrivateLayout() {
-  const { currentUser, isLoading } = useAuthState();
-  const { currentTeam } = useTeamState();
-  const location = useLocation();
+  const { currentUser } = useAuthState();
+  // const { currentTeam } = useTeamState();
+  // const location = useLocation();
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
-  if (!currentUser && !isLoading) {
-    return <Navigate to="/auth/login" state={{ from: location }} />;
-  }
+  // if (!currentUser && !isLoading) {
+  //   return <Navigate to="/auth/login" state={{ from: location }} />;
+  // }
 
-  if (!currentTeam) {
-    return <Navigate to="/get-start" state={{ from: location }} />;
-  }
+  // if (!currentTeam) {
+  //   return <Navigate to="/get-start" state={{ from: location }} />;
+  // }
   return (
     <>
-      <div className="flex w-[100vw] justify-center items-center overflow-hidden">
+      <div className="flex w-[100vw] justify-center items-center overflow-hidden bg-primary-content">
         {/* contain all modal global for app */}
         <ModalUtil />
         {currentUser && <FloatingMessage setSelectedId={setSelectedId} />}
@@ -37,7 +36,7 @@ function PrivateLayout() {
             <Sidebar />
             <div
               style={{ width: `calc(100% - ${sideBarWidth}px)` }}
-              className="content overflow-x-hidden"
+              className="content overflow-x-hidden bg-secondary"
             >
               <Outlet />
             </div>

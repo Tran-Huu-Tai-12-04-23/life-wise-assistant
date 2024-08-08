@@ -8,46 +8,45 @@ export default {
     "./node_modules/react-tailwindcss-datepicker/dist/index.esm.js",
   ],
   theme: {
-    extend: {},
+    extend: {
+      /// dark
+      light: {
+        primary: "#a991f7",
+        secondary: "#f6d860",
+        accent: "#37cdbe",
+        neutral: "#3d4451",
+        "base-100": "#ffffff",
+      },
+      dark: {
+        primary: "#a991f7",
+        secondary: "#f6d860",
+        accent: "#37cdbe",
+        neutral: "#3d4451",
+        "base-100": "#ffffff",
+      },
+      /// light
+    },
+  },
+  daisyui: {
+    themes: [
+      {
+        dark: {
+          "bg-primary": "#20212C",
+          primary: "#3772FF",
+          secondary: "#20212C",
+          text: "#fff",
+        },
+        light: {
+          "bg-primary": "#fff",
+          primary: "#3772FF",
+          secondary: "#3d4451",
+          text: "#fff",
+        },
+      },
+    ],
   },
   variants: {
     extend: {},
   },
   plugins: [daisyui],
-  daisyui: {
-    themes: [
-      "light",
-      "dark",
-      "cupcake",
-      "bumblebee",
-      "emerald",
-      "corporate",
-      "synthwave",
-      "retro",
-      "cyberpunk",
-      "valentine",
-      "halloween",
-      "garden",
-      "forest",
-      "aqua",
-      "lofi",
-      "pastel",
-      "fantasy",
-      "wireframe",
-      "black",
-      "luxury",
-      "dracula",
-      "cmyk",
-      "autumn",
-      "business",
-      "acid",
-      "lemonade",
-      "night",
-      "coffee",
-      "winter",
-      "dim",
-      "nord",
-      "sunset",
-    ],
-  },
 };

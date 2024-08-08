@@ -101,14 +101,10 @@ function ModalAddTask() {
     closeModal("add_task");
   };
   return (
-    <dialog
-      onClick={handleClose}
-      id="add_task"
-      className="modal z-[100000000] bg-black/10 backdrop-blur-xl"
-    >
+    <dialog onClick={handleClose} id="add_task" className="modal z-[100000000]">
       <div
         onClick={(e) => e.stopPropagation()}
-        className="bg-base-300 w-[90vw] p-6 shadow-xl rounded-md "
+        className="bg-secondary w-[90vw] p-6 shadow-xl rounded-md "
       >
         <div className="flex pb-4  w-full justify-between items-start gap-4">
           <div className="w-2/3 flex flex-col gap-4 border-r-[1px] pr-4 border-solid border-primary/5">

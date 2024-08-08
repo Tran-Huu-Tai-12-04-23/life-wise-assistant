@@ -1,12 +1,10 @@
 import Button from "@/components/UI/Button";
-import { HiOutlineLogout } from "react-icons/hi";
-import { useResetState } from "@/redux/store";
-import { useNavigate } from "react-router-dom";
 import { useAuthState } from "@/redux/features/auth/authSlice";
+import { useResetState } from "@/redux/store";
+import { HiOutlineLogout } from "react-icons/hi";
 function UserMenu() {
   const { resetState } = useResetState();
   const { currentUser } = useAuthState();
-  const nav = useNavigate();
 
   return (
     <div className="flex flex-col w-full z-[10000] bg-transparent backdrop-blur-xl">
@@ -33,7 +31,6 @@ function UserMenu() {
       <Button
         onClick={async () => {
           await resetState();
-          nav("/auth/login");
         }}
         name="Logout"
         rightIcon={<HiOutlineLogout />}
