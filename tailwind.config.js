@@ -8,45 +8,37 @@ export default {
     "./node_modules/react-tailwindcss-datepicker/dist/index.esm.js",
   ],
   theme: {
-    extend: {
-      /// dark
-      light: {
-        primary: "#a991f7",
-        secondary: "#f6d860",
-        accent: "#37cdbe",
-        neutral: "#3d4451",
-        "base-100": "#ffffff",
-      },
-      dark: {
-        primary: "#a991f7",
-        secondary: "#f6d860",
-        accent: "#37cdbe",
-        neutral: "#3d4451",
-        "base-100": "#ffffff",
-      },
-      /// light
-    },
+    extend: {},
   },
   daisyui: {
     themes: [
       {
         dark: {
-          "bg-primary": "#20212C",
           primary: "#3772FF",
           secondary: "#20212C",
           text: "#fff",
+          accent: "#000",
+          neutral: "#000",
         },
         light: {
-          "bg-primary": "#fff",
           primary: "#3772FF",
-          secondary: "#3d4451",
+          secondary: "#fff",
           text: "#fff",
+          accent: "#6C717B",
+          neutral: "#6C717B",
         },
       },
     ],
   },
   variants: {
-    extend: {},
+    extend: {
+      light: {
+        card: "#ccc",
+      },
+      dark: {
+        card: "#ccc",
+      },
+    },
   },
   plugins: [daisyui],
 };

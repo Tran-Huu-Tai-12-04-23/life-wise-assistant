@@ -1,12 +1,12 @@
-import React from "react";
-import { SortableContext, useSortable } from "@dnd-kit/sortable";
-import { COLUMN } from "./constant";
-import { CSS } from "@dnd-kit/utilities";
-import { IoMdAdd } from "react-icons/io";
-import TaskListItem from "./TaskListItem";
 import { IColumn } from "@/dto/column.dto";
-import { useColumnAction } from "@/redux/features/column/action";
 import { useAuthState } from "@/redux/features/auth/authSlice";
+import { useColumnAction } from "@/redux/features/column/action";
+import { SortableContext, useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import React from "react";
+import { IoMdAdd } from "react-icons/io";
+import { COLUMN } from "./constant";
+import TaskListItem from "./TaskListItem";
 interface IRowProps {
   data: IColumn | null;
   isActive?: boolean;
@@ -42,7 +42,7 @@ const Row: React.FC<IRowProps> = ({ data }) => {
       }}
       className={` w-full ${
         isDragging ? "bg-primary/10" : ""
-      } relative bg-[rgba(0,0,0,0.1)]  p-2 border-dashed card border-[1px] border-primary/10 min-w-[20rem] rounded-xl flex flex-col gap-y-4 `}
+      } relative  p-2 border-dashed card border-[1px] border-primary/10 min-w-[20rem] rounded-xl flex flex-col gap-y-4 `}
     >
       <div className="flex justify-between items-center border-dashed  border-b-[1px] border-primary/10">
         <div

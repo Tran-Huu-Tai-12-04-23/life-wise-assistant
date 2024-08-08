@@ -8,7 +8,6 @@ import { Link, useLocation } from "react-router-dom";
 import { sideBarWidth } from "@/constant/constant";
 import { useTeamState } from "@/redux/features/team/teamSlice";
 import { privateRoutes } from "@/routes/private-route";
-import TeamInfo from "./TeamInfo";
 
 function SideBar() {
   const { currentTeam } = useTeamState();
@@ -22,15 +21,11 @@ function SideBar() {
         route: privateRoutes.dashboard,
         icon: <MdSpaceDashboard size={32} />,
       },
-      ...(currentTeam
-        ? [
-            {
-              name: "Task",
-              route: privateRoutes.task,
-              icon: <FaTasks size={32} />,
-            },
-          ]
-        : []),
+      {
+        name: "Task",
+        route: privateRoutes.task,
+        icon: <FaTasks size={32} />,
+      },
       {
         name: "Schedule",
         route: privateRoutes.schedule,
@@ -55,9 +50,7 @@ function SideBar() {
       style={{ width: sideBarWidth }}
       className="h-full flex flex-col border-r border-primary/10"
     >
-      <TeamInfo />
-
-      <div className="w-full flex flex-col border-t">
+      <div className="w-full flex flex-col ">
         {sidebars.map((item) => (
           <Link
             to={item.route}

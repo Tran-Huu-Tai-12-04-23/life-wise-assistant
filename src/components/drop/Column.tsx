@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from "react";
+import { IColumn } from "@/dto/column.dto";
+import { useAuthState } from "@/redux/features/auth/authSlice";
+import { useColumnAction } from "@/redux/features/column/action";
 import { SortableContext, useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import React from "react";
+import { IoMdAdd } from "react-icons/io";
 import TaskItem from "./TaskItem";
 import { COLUMN } from "./constant";
-import { CSS } from "@dnd-kit/utilities";
-import { IoMdAdd } from "react-icons/io";
-import { IColumn } from "@/dto/column.dto";
-import { useColumnAction } from "@/redux/features/column/action";
-import { useAuthState } from "@/redux/features/auth/authSlice";
 interface IColumnProps {
   data: IColumn;
   isActive?: boolean;
@@ -43,7 +43,7 @@ const Column: React.FC<IColumnProps> = ({ data }) => {
         opacity: isDragging ? 0.5 : 1,
       }}
       className={` w-full ${
-        isDragging ? "bg-primary/15" : "bg-[rgba(0,0,0,0.1)]"
+        isDragging ? "bg-primary-content" : ""
       }  p-2 h-full border-solid card border-primary/10 min-w-[22rem] rounded-xl flex flex-col gap-y-4 `}
     >
       <div className="flex flex-col w-full items-start border-b">

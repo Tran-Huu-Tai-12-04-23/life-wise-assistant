@@ -4,10 +4,10 @@ import GroupAvatar from "@/components/UI/GroupAvatar";
 import { tagsColor } from "@/constant/enum";
 import { ITeam } from "@/dto/team.dto";
 import { IUser } from "@/dto/user.dto";
+import UseModal from "@/Layouts/PrivateLayout/ModalUtil/useModal";
 import { useTeamAction } from "@/redux/features/team/action";
 import { useTeamState } from "@/redux/features/team/teamSlice";
 import { Fragment } from "react/jsx-runtime";
-import UseModal from "./ModalUtil/useModal";
 
 const TeamInfo = () => {
   const { currentTeam } = useTeamState();
@@ -27,14 +27,8 @@ const TeamInfo = () => {
       {currentTeam && (
         <div
           onClick={() => showModal("modal_switch_teams")}
-          className="w-full relative flex flex-col  p-4 cursor-pointer hover:bg-primary/5"
+          className="rounded-lg bg-black/10 relative flex items-center gap-4 p-4 cursor-pointer hover:bg-primary/5"
         >
-          <div className="flex items-center gap-2">
-            <div className="flex flex-col justify-center items-start">
-              <h6 className=" font-semibold">{currentTeam.name}</h6>
-            </div>
-          </div>
-
           <GroupAvatar
             lstAvatar={currentTeam.members?.map((mem: IUser) => {
               return {
@@ -43,6 +37,7 @@ const TeamInfo = () => {
               };
             })}
           />
+          <h6 className=" font-semibold">{currentTeam.name}</h6>
 
           <div className="flex justify-start gap-2 items-center">
             {currentTeam.tags.split(",").map((tag: string, index: number) => {
@@ -63,7 +58,7 @@ const TeamInfo = () => {
         </div>
       )}
       <dialog id="modal_switch_teams" className="modal">
-        <div className="modal-box">
+        <div className="modal-box  bg-secondary">
           <form method="dialog" className="w-full">
             <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
               ✕
@@ -86,7 +81,7 @@ const TeamItemToSelect = ({ team }: { team: any }) => {
         closeModal("modal_switch_teams");
         changeCurrent(team);
       }}
-      className="flex border-b w-full flex-col p-4 gap-4 rounded-md hover:bg-primary/5 cursor-pointer"
+      className="flex mt-6 border-b w-full flex-col p-4 gap-4 rounded-md hover:bg-primary/5 cursor-pointer"
     >
       <div className="flex justify-start items-center gap-4">
         <div className="flex items-center gap-4">
@@ -133,7 +128,7 @@ const LstTeamToSelected = () => {
   return (
     <div
       onClick={(e) => e.stopPropagation()}
-      className={`flex rounded-md overflow-hidden flex-col `}
+      className={`flex rounded-md overflow-hidden flex-col`}
     >
       {teams.map((team: ITeam) => (
         <TeamItemToSelect key={team.id} team={team} />
