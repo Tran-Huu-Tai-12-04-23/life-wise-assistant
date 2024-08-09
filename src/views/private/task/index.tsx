@@ -4,6 +4,7 @@ import { useTeamState } from "@/redux/features/team/teamSlice";
 import { useState } from "react";
 import { BsLayoutThreeColumns } from "react-icons/bs";
 import { CiLineHeight } from "react-icons/ci";
+import { IoMdAdd } from "react-icons/io";
 import Filter from "./filter";
 import GroupButtonUtils from "./group-button-utils";
 import ModalAddTask from "./ModalAddTask";
@@ -66,6 +67,19 @@ function Task() {
               </div>
             </div>
           )}
+          <button className="btn-outline ml-4">
+            <IoMdAdd
+              onClick={() => {
+                const addTaskElement = document.getElementById("add_task");
+                if (addTaskElement) {
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  (addTaskElement as any)?.showModal();
+                }
+              }}
+              size={24}
+              className="hover:text-primary/50"
+            />
+          </button>
         </div>
 
         {currentTeam && (

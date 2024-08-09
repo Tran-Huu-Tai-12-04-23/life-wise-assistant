@@ -27,9 +27,7 @@ const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
   return (
     <ThemeContext.Provider value={{ theme, updateTheme }}>
-      <div data-theme={theme.toString()} className={theme.toString()}>
-        {children}
-      </div>
+      <div className={theme.toString()}>{children}</div>
     </ThemeContext.Provider>
   );
 };

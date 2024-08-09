@@ -1,4 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { IColumn } from "@/dto/column.dto";
+import { ITask } from "@/dto/task.dto";
+import { IUser } from "@/dto/user.dto";
 import {
   addTaskToColumn,
   createNewColumn,
@@ -27,9 +30,6 @@ import {
   swapBetweenColumn,
   useColumnState,
 } from "./columnSlice";
-import { IColumn } from "@/dto/column.dto";
-import { ITask } from "@/dto/task.dto";
-import { IUser } from "@/dto/user.dto";
 
 export const ColumnActionKey = {
   ADD_COLUMN: "column/add_column",
@@ -157,8 +157,7 @@ export const useColumnAction = () => {
   };
 
   const onCreateTask = async (body: ITaskToCreate) => {
-    if (currentColumn?.id)
-      await dispatch(createTaskAsync({ ...body, columnId: currentColumn.id }));
+    if (currentColumn?.id) await dispatch(createTaskAsync({ ...body }));
   };
 
   return {

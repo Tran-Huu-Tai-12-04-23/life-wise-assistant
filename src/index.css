@@ -253,3 +253,6 @@ h6 {
   @apply border-none
 }
 
+svg {
+  color: gray
+}
