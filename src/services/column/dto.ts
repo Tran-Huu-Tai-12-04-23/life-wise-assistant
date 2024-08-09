@@ -26,7 +26,6 @@ export interface ITaskToCreate {
   lstPersonInCharge: string[];
   fileLink: string;
   sourceCodeLink: string;
-  columnId: string;
 }
 
 export interface SwapBetweenColDTO {

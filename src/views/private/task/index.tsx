@@ -1,5 +1,4 @@
 /* eslint-disable react-refresh/only-export-components */
-import TeamInfo from "@/Layouts/PrivateLayout/TeamInfo";
 import { useAuthState } from "@/redux/features/auth/authSlice";
 import { useTeamState } from "@/redux/features/team/teamSlice";
 import { useState } from "react";
@@ -9,6 +8,7 @@ import { IoMdAdd } from "react-icons/io";
 import Filter from "./filter";
 import GroupButtonUtils from "./group-button-utils";
 import ModalAddTask from "./ModalAddTask";
+import TeamInfo from "./TeamInfo";
 import WrapperTaskLayout from "./WrapperTaskLayout";
 export enum EViewType {
   BOARD,

@@ -44,7 +44,7 @@ function Login() {
   return (
     <Container>
       <div className="flex_between h-screen w-screen bg-primary-content">
-        <div className="bg-secondary rounded-md shadow-2xl flex flex-col w-1/2 max-w-[40rem] m-auto p-20 min-h-auto justify-center">
+        <div className="bg-secondary rounded-md shadow-2xl flex flex-col w-1/2 max-w-[40rem] m-auto p-10 min-h-auto justify-center">
           <h1 className="font-bold ">Login</h1>
           <h6>How do i get started lorem dolor at? test CICD</h6>
           <div className="flex  items-center gap-10 justify-center pt-2 pb-2">

@@ -1,34 +1,20 @@
 import { sideBarWidth } from "@/constant/constant";
-import { useAuthState } from "@/redux/features/auth/authSlice";
-import Message from "@/views/message";
-import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
-import { IoMdClose } from "react-icons/io";
 import { Outlet } from "react-router-dom";
-import FloatingMessage from "./FloatingMessage";
 import Header from "./Header";
 import ModalUtil from "./ModalUtil";
 import Sidebar from "./Sidebar";
 
 function PrivateLayout() {
-  const { currentUser } = useAuthState();
+  // const { currentUser } = useAuthState();
   // const { currentTeam } = useTeamState();
   // const location = useLocation();
-  const [selectedId, setSelectedId] = useState<string | null>(null);
-
-  // if (!currentUser && !isLoading) {
-  //   return <Navigate to="/auth/login" state={{ from: location }} />;
-  // }
-
-  // if (!currentTeam) {
-  //   return <Navigate to="/get-start" state={{ from: location }} />;
-  // }
+  // const [selectedId, setSelectedId] = useState<string | null>(null);
   return (
     <>
       <div className="flex w-[100vw] justify-center items-center overflow-hidden bg-primary-content">
         {/* contain all modal global for app */}
         <ModalUtil />
-        {currentUser && <FloatingMessage setSelectedId={setSelectedId} />}
+        {/* {currentUser && <FloatingMessage setSelectedId={setSelectedId} />} */}
 
         <div className="w-[100vw]  h-[100vh] flex flex-col overflow-hidden">
           <Header />
@@ -43,7 +29,7 @@ function PrivateLayout() {
           </div>
         </div>
       </div>
-      <AnimatePresence>
+      {/* <AnimatePresence>
         {selectedId && (
           <motion.div
             className="fixed top-0 left-0 w-screen h-screen z-[10000000] bg-primary/10 backdrop-blur-3xl"
@@ -59,7 +45,7 @@ function PrivateLayout() {
             <Message />
           </motion.div>
         )}
-      </AnimatePresence>
+      </AnimatePresence> */}
     </>
   );
 }

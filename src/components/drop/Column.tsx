@@ -40,7 +40,7 @@ const Column: React.FC<IColumnProps> = ({ data }) => {
         opacity: isDragging ? 0.5 : 1,
       }}
       className={` w-full ${
-        isDragging ? "bg-primary/15" : ""
+        isDragging ? "bg-primary-content" : ""
       }  p-2 h-full border-solid card border-primary/10 min-w-[22rem] rounded-xl flex flex-col gap-y-4 `}
     >
       <div className="flex flex-col w-full items-start border-b">

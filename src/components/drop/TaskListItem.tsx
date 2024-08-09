@@ -1,13 +1,13 @@
-import React, { useMemo } from "react";
-import { useSortable } from "@dnd-kit/sortable";
-import { TASK } from "./constant";
-import { CSS } from "@dnd-kit/utilities";
-import GroupAvatar from "../UI/GroupAvatar";
-import Chip from "../UI/Chip";
 import { ITask } from "@/dto/task.dto";
-import { useAuthState } from "@/redux/features/auth/authSlice";
-import { daysLeftToExpire } from "@/helper";
 import { IUser } from "@/dto/user.dto";
+import { daysLeftToExpire } from "@/helper";
+import { useAuthState } from "@/redux/features/auth/authSlice";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import React, { useMemo } from "react";
+import Chip from "../UI/Chip";
+import GroupAvatar from "../UI/GroupAvatar";
+import { TASK } from "./constant";
 
 interface ITaskListItemProps {
   data: ITask | null;
@@ -46,7 +46,7 @@ const TaskListItem: React.FC<ITaskListItemProps> = ({ data }) => {
         borderLeftColor: enumData?.taskStatus[data.status]?.color,
       }}
       className={`shadow-2xl border-l-[4px] border-solid  px-2 backdrop-blur-3xl  gap-4 w-full flex items-center between group py-4  ignore-scroll rounded-xl border border-transparent hover:border-primary/10 cursor-pointer ${
-        isDragging ? "opacity-50 bg-primary/10" : "bg-primary-content/10"
+        isDragging ? "opacity-50 bg-primary/10" : "bg-primary-content"
       }`}
     >
       <h6 className="font-bold">{data.title}</h6>

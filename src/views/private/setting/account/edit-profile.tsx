@@ -1,8 +1,13 @@
 import Avatar from "@/components/UI/Avatar";
 import Button from "@/components/UI/Button";
 import { useState } from "react";
-import { FaFacebook, FaGithub, FaPhone, FaTelegram } from "react-icons/fa";
-import { FaCameraRetro } from "react-icons/fa";
+import {
+  FaCameraRetro,
+  FaFacebook,
+  FaGithub,
+  FaPhone,
+  FaTelegram,
+} from "react-icons/fa";
 function EditProfile() {
   const [isDisabledProfile, setIsDisabledProfile] = useState(true);
 

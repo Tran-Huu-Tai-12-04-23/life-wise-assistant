@@ -23,7 +23,7 @@ const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const theme = getTheme();
-    if (theme) setTheme(EThemes.dark);
+    if (theme) setTheme(theme);
   }, []);
   return (
     <ThemeContext.Provider value={{ theme, updateTheme }}>

@@ -51,7 +51,7 @@ const TaskItem: React.FC<ITaskItemProps> = ({ data, isRotate }) => {
       }}
       className={`px-2 ${
         isRotate ? "rotate-6" : ""
-      } border-l-[4px] gap-2 flex-col flex transition-all border-solid backdrop-blur-3xl group py-4  ignore-scroll  shadow-xl rounded-xl w-full border border-transparent hover:border-primary/10 cursor-pointer  ${
+      } border-l-[4px] transition-all border-solid backdrop-blur-3xl group py-4  ignore-scroll  shadow-md rounded-xl w-full border border-transparent hover:border-primary/10 cursor-pointer  ${
         isDragging ? "opacity-50 bg-primary/50 " : "bg-accent"
       }`}
     >
