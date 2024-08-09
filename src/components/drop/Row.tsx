@@ -1,10 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { IColumn } from "@/dto/column.dto";
 import { useAuthState } from "@/redux/features/auth/authSlice";
+import { useColumnAction } from "@/redux/features/column/action";
 import { SortableContext, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import React from "react";
-import { COLUMN } from "./constant";
+import { IoMdAdd } from "react-icons/io";
 import TaskListItem from "./TaskListItem";
+import { COLUMN } from "./constant";
 interface IRowProps {
   data: IColumn | null;
   isActive?: boolean;
@@ -12,6 +15,7 @@ interface IRowProps {
 
 const Row: React.FC<IRowProps> = ({ data }) => {
   const { enumData } = useAuthState();
+  const { changeCurrentColumn } = useColumnAction();
   const {
     attributes,
     listeners,
@@ -54,6 +58,17 @@ const Row: React.FC<IRowProps> = ({ data }) => {
           />
           <h6 className="ml-2 font-bold">{data.name}</h6>
         </div>
+        <IoMdAdd
+          onClick={() => {
+            const addTaskElement = document.getElementById("add_task");
+            if (addTaskElement) {
+              (addTaskElement as any)?.showModal();
+            }
+            changeCurrentColumn(data);
+          }}
+          size={20}
+          className="hover:text-primary/50"
+        />
       </div>
 
       <SortableContext items={data.tasks.map((item) => item.id)}>

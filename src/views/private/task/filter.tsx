@@ -24,14 +24,14 @@ function Filter() {
   useEffect(() => {
     const timer = setTimeout(() => {
       onGetAllColumnOfTeam();
-    }, 1000);
+    }, 200);
     return () => {
       clearTimeout(timer);
     };
   }, [filter.searchKey]);
 
   useEffect(() => {
-    currentTeam && onGetAllColumnOfTeam();
+    onGetAllColumnOfTeam();
   }, [filter.members, filter.status]);
 
   useEffect(() => {

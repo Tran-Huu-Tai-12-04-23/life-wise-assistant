@@ -79,6 +79,7 @@ function ModalAddTask() {
     }
 
     if (!userInput.dateExpire) return;
+    if (!currentColumn) return;
     const body: ITaskToCreate = {
       title: userInput.title,
       description: userInput.description,
@@ -88,7 +89,7 @@ function ModalAddTask() {
       lstPersonInCharge: userInput.lstPersonInCharge.map((item) => item.id),
       fileLink: userInput.fileLink,
       sourceCodeLink: userInput.sourceCodeLink,
-      columnId: "",
+      columnId: currentColumn.id,
     };
 
     await onCreateTask(body).then(() => {

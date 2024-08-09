@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { IColumn } from "@/dto/column.dto";
 import { ITask } from "@/dto/task.dto";
@@ -57,7 +58,7 @@ export const moveTaskToDiffColAsync = createAsyncThunk<
 
 export const swapBetweenColAsync = createAsyncThunk(
   ColumnActionKey.SWAP_BETWEEN_COLUMN,
-  swapBetweenCol
+  swapBetweenCol  
 );
 
 export const loadListColumnOfTeamAsync = createAsyncThunk<

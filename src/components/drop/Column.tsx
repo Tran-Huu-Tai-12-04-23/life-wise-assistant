@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { IColumn } from "@/dto/column.dto";
 import { useAuthState } from "@/redux/features/auth/authSlice";
+import { useColumnAction } from "@/redux/features/column/action";
 import { SortableContext, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import React from "react";
+import { IoMdAdd } from "react-icons/io";
 import TaskItem from "./TaskItem";
 import { COLUMN } from "./constant";
 interface IColumnProps {
@@ -12,6 +14,7 @@ interface IColumnProps {
 }
 
 const Column: React.FC<IColumnProps> = ({ data }) => {
+  const { changeCurrentColumn } = useColumnAction();
   const { enumData } = useAuthState();
   const {
     attributes,
@@ -57,7 +60,7 @@ const Column: React.FC<IColumnProps> = ({ data }) => {
             />
             <h6>{enumData?.taskStatus[data.statusCode].name}</h6>
           </div>
-          {/* <IoMdAdd
+          <IoMdAdd
             onClick={() => {
               const addTaskElement = document.getElementById("add_task");
               if (addTaskElement) {
@@ -67,7 +70,7 @@ const Column: React.FC<IColumnProps> = ({ data }) => {
             }}
             size={20}
             className="hover:text-primary/50"
-          /> */}
+          />
         </div>
       </div>
 
