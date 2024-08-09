@@ -7,7 +7,7 @@ type PropTypes = {
   rightIcon?: React.ReactNode;
   leftIcon?: React.ReactNode;
   name?: string;
-  onClick: () => void;
+  onClick?: () => void;
   disabled?: boolean;
   className?: string;
   link?: string;

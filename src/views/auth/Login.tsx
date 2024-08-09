@@ -48,15 +48,19 @@ function Login() {
           <h1 className="font-bold ">Login</h1>
           <h6>How do i get started lorem dolor at? test CICD</h6>
           <div className="flex  items-center gap-10 justify-center pt-2 pb-2">
-            <button className="btn btn-contain">
-              <IconGoogle />
-            </button>
+            <a href={import.meta.env.VITE_LINK_API + "/auth/google"}>
+              <button className="btn btn-contain">
+                <IconGoogle />
+              </button>
+            </a>
             <button className="btn btn-contain">
               <IconFacebook />
             </button>
-            <button className="btn btn-contain">
-              <IconGithub />
-            </button>
+            <a href={import.meta.env.VITE_LINK_API + "/auth/github"}>
+              <button className="btn btn-contain">
+                <IconGithub />
+              </button>
+            </a>
           </div>
           <div className="flex justify-between items-center">
             <div className="styled_line w-[40%]" />
@@ -80,7 +84,6 @@ function Login() {
               isPassword
               placeholder="Enter your password"
             />
-
             <div className="flex justify-end items-start">
               <button className="btn-link btn">Forgot password?</button>
             </div>
