@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { changeCurrentTeams } from "@/redux/features/team/teamSlice";
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { useDispatch } from "react-redux";
+import { ITeamToCreate } from "@/Layouts/PrivateLayout/ModalUtil/ModalCreateNewTeam";
 import { ITeam } from "@/dto/team.dto";
+import { IUser } from "@/dto/user.dto";
+import { changeCurrentTeams } from "@/redux/features/team/teamSlice";
 import {
   createNewTeam,
   getLstUserToInviteTeam,
   paginationTeamOfUser,
 } from "@/services/team";
-import { useCallback, useState } from "react";
-import { ITeamToCreate } from "@/Layouts/PrivateLayout/ModalUtil/ModalCreateNewTeam";
-import { IUser } from "@/dto/user.dto";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { useCallback, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 export const TeamActionKey = {
   ADD_TEAM: "team/add_team",
@@ -54,6 +54,11 @@ export const useTeamAction = () => {
   const createNewTeam = async (team: ITeamToCreate) => {
     await dispatch(addTeamAsync(team));
   };
+
+  useEffect(() => {
+    paginationTeamOfUser();
+  }, []);
+
   return {
     paginationTeamOfUser,
     createNewTeam,

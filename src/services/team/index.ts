@@ -2,7 +2,7 @@ import { ITeamToCreate } from "@/Layouts/PrivateLayout/ModalUtil/ModalCreateNewT
 import { ITeam } from "@/dto/team.dto";
 import { IUser } from "@/dto/user.dto";
 import { handleErrorApi } from "@/helper";
-import { toast } from "sonner";
+import { toast } from "react-toastify";
 import { IBaseResponse } from "../dto";
 import { endpoints } from "../endpoints";
 import rootApi from "../root-api";

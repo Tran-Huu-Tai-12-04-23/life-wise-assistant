@@ -2,66 +2,78 @@ import Avatar from "@/components/UI/Avatar";
 import Chip from "@/components/UI/Chip";
 import GroupAvatar from "@/components/UI/GroupAvatar";
 import { tagsColor } from "@/constant/enum";
+import { ITeam } from "@/dto/team.dto";
 import { IUser } from "@/dto/user.dto";
 import { useTeamAction } from "@/redux/features/team/action";
 import { useTeamState } from "@/redux/features/team/teamSlice";
+import { Fragment } from "react/jsx-runtime";
 import UseModal from "./ModalUtil/useModal";
-import { ITeam } from "@/dto/team.dto";
 
 const TeamInfo = () => {
   const { currentTeam } = useTeamState();
   const { showModal } = UseModal();
 
-  if (currentTeam)
-    return (
-      <div
-        onClick={() => showModal("modal_switch_teams")}
-        className="w-full relative flex flex-col  p-4 cursor-pointer hover:bg-primary/5"
-      >
-        <div className="flex items-center gap-2">
-          <div className="flex flex-col justify-center items-start">
-            <h6 className=" font-semibold">{currentTeam.name}</h6>
+  return (
+    <Fragment>
+      {!currentTeam && (
+        <button
+          className="btn btn-secondary m-5"
+          onClick={() => showModal("modal_switch_teams")}
+        >
+          Select team
+        </button>
+      )}
+
+      {currentTeam && (
+        <div
+          onClick={() => showModal("modal_switch_teams")}
+          className="w-full relative flex flex-col  p-4 cursor-pointer hover:bg-primary/5"
+        >
+          <div className="flex items-center gap-2">
+            <div className="flex flex-col justify-center items-start">
+              <h6 className=" font-semibold">{currentTeam.name}</h6>
+            </div>
+          </div>
+
+          <GroupAvatar
+            lstAvatar={currentTeam.members?.map((mem: IUser) => {
+              return {
+                avatar: mem.avatar,
+                tooltip: mem.username,
+              };
+            })}
+          />
+
+          <div className="flex justify-start gap-2 items-center">
+            {currentTeam.tags.split(",").map((tag: string, index: number) => {
+              if (index < 2) {
+                return (
+                  <Chip
+                    name={tag}
+                    key={tag}
+                    color={tagsColor[index].color}
+                    background={tagsColor[index].background}
+                  />
+                );
+              }
+
+              if (index === 2) return "...";
+            })}
           </div>
         </div>
-
-        <GroupAvatar
-          lstAvatar={currentTeam.members?.map((mem: IUser) => {
-            return {
-              avatar: mem.avatar,
-              tooltip: mem.username,
-            };
-          })}
-        />
-
-        <div className="flex justify-start gap-2 items-center">
-          {currentTeam.tags.split(",").map((tag: string, index: number) => {
-            if (index < 2) {
-              return (
-                <Chip
-                  name={tag}
-                  key={tag}
-                  color={tagsColor[index].color}
-                  background={tagsColor[index].background}
-                />
-              );
-            }
-
-            if (index === 2) return "...";
-          })}
+      )}
+      <dialog id="modal_switch_teams" className="modal">
+        <div className="modal-box">
+          <form method="dialog" className="w-full">
+            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+              ✕
+            </button>
+          </form>
+          <LstTeamToSelected />
         </div>
-
-        <dialog id="modal_switch_teams" className="modal">
-          <div className="modal-box">
-            <form method="dialog" className="w-full">
-              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-                ✕
-              </button>
-            </form>
-            <LstTeamToSelected />
-          </div>
-        </dialog>
-      </div>
-    );
+      </dialog>
+    </Fragment>
+  );
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

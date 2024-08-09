@@ -1,8 +1,8 @@
-import { lazy } from "react";
-import Loadable from "@/components/UI/Loadable";
-import React from "react";
 import ModalUtil from "@/Layouts/PrivateLayout/ModalUtil";
+import Loadable from "@/components/UI/Loadable";
+import React, { lazy } from "react";
 import { Outlet } from "react-router-dom";
+import NotFoundPage from "./not-found";
 
 const GetStartScreen = Loadable(lazy(() => import("@/views/get-start/index")));
 const Layout = () => {
@@ -23,5 +23,9 @@ const GetStartRoutes = {
     },
   ],
 };
-
+const NotFoundRoute = {
+  path: "*",
+  element: <NotFoundPage />,
+};
+export { NotFoundRoute };
 export default GetStartRoutes;

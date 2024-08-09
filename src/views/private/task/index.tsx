@@ -1,12 +1,14 @@
 /* eslint-disable react-refresh/only-export-components */
-import { CiLineHeight } from "react-icons/ci";
-import { BsLayoutThreeColumns } from "react-icons/bs";
-import Filter from "./filter";
-import { useState } from "react";
-import WrapperTaskLayout from "./WrapperTaskLayout";
-import ModalAddTask from "./ModalAddTask";
-import GroupButtonUtils from "./group-button-utils";
 import { useAuthState } from "@/redux/features/auth/authSlice";
+import { useTeamState } from "@/redux/features/team/teamSlice";
+import { useRouter } from "@/routes/hooks";
+import { useEffect, useState } from "react";
+import { BsLayoutThreeColumns } from "react-icons/bs";
+import { CiLineHeight } from "react-icons/ci";
+import ModalAddTask from "./ModalAddTask";
+import WrapperTaskLayout from "./WrapperTaskLayout";
+import Filter from "./filter";
+import GroupButtonUtils from "./group-button-utils";
 export enum EViewType {
   BOARD,
   LIST,
@@ -15,6 +17,15 @@ export enum EViewType {
 function Task() {
   const [viewType, setViewType] = useState(EViewType.BOARD);
   const { currentUser } = useAuthState();
+  const { currentTeam } = useTeamState();
+  const nav = useRouter();
+
+  useEffect(() => {
+    !currentTeam && nav.replace("/not-found");
+  }, [currentTeam]);
+  if (!currentTeam) {
+    return null;
+  }
   return (
     <>
       <div className="w-full flex flex-col gap-4 ">

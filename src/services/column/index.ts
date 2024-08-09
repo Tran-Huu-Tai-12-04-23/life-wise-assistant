@@ -1,6 +1,6 @@
 import { IColumn } from "@/dto/column.dto";
 import { handleErrorApi } from "@/helper";
-import { toast } from "sonner";
+import { toast } from "react-toastify";
 import { IBaseResponse } from "../dto";
 import { endpoints } from "../endpoints";
 import rootApi from "../root-api";

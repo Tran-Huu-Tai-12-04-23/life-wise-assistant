@@ -5,7 +5,7 @@ import { useChatAction } from "@/redux/features/chat/action";
 import { useChatState } from "@/redux/features/chat/chatSlice";
 import { getLstUserToInviteTeam } from "@/services/team";
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
+import { toast } from "react-toastify";
 
 const ModalNewGroupChat = () => {
   const { onCreateNewChat } = useChatAction();
@@ -75,7 +75,7 @@ const ModalNewGroupChat = () => {
   return (
     <dialog
       id="modal_new_group_chat"
-      className="modal z-[100000000] bg-black/10 backdrop-blur-xl"
+      className="modal z-[100000000] dark:bg-white/10 bg-black/10 backdrop-blur-xl"
       onClick={handleClose}
     >
       <div className="modal-box" onClick={(e) => e.stopPropagation()}>

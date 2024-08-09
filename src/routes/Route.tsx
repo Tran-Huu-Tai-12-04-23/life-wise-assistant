@@ -1,21 +1,28 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Loader from "@/components/UI/Loader";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AuthenticationRoutes from "./AuthenticationRouter";
+import GetStartRoutes, { NotFoundRoute } from "./GetStartRouter";
 import PrivateRoutes from "./PrivateRouter";
-import GetStartRoutes from "./GetStartRouter";
 
 // Initialize the router with authentication routes
-const router = createBrowserRouter(
-  [AuthenticationRoutes, PrivateRoutes, GetStartRoutes],
+const publicRouter = createBrowserRouter(
+  [AuthenticationRoutes, NotFoundRoute],
   {
     basename: import.meta.env.VITE_APP_BASE_NAME as string,
   }
 );
 
-function RouterApp() {
+const privateRouter = createBrowserRouter(
+  [PrivateRoutes, GetStartRoutes, NotFoundRoute],
+  {
+    basename: import.meta.env.VITE_APP_BASE_NAME as string,
+  }
+);
+
+function RouterAppPublic() {
   return (
     <RouterProvider
-      router={router}
+      router={publicRouter}
       fallbackElement={
         <div className="h-screen w-screen flex justify-center items-center bg-primary">
           <Loader />
@@ -25,4 +32,17 @@ function RouterApp() {
   );
 }
 
-export default RouterApp;
+function RouterAppPrivate() {
+  return (
+    <RouterProvider
+      router={privateRouter}
+      fallbackElement={
+        <div className="h-screen w-screen flex justify-center items-center bg-primary">
+          <Loader />
+        </div>
+      }
+    />
+  );
+}
+
+export { RouterAppPrivate, RouterAppPublic };
