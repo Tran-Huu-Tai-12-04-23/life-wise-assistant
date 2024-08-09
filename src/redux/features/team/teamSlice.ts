@@ -1,13 +1,13 @@
+import { ITeam } from "@/dto/team.dto";
+import { IUser } from "@/dto/user.dto";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 import {
   addTeamAsync,
   getLstUserToInviteTeamAsync,
   paginationTeamOfUserAsync,
 } from "./action";
-import { RootState } from "../../store";
-import { ITeam } from "@/dto/team.dto";
-import { useSelector } from "react-redux";
-import { IUser } from "@/dto/user.dto";
 
 interface TeamState {
   teams: ITeam[];
@@ -61,22 +61,15 @@ const teamSlice: any = createSlice({
         state.isHasNextPage = action.payload.length === 10;
         state.isLoadingPagination = false;
       })
-      .addMatcher(
-        (action) =>
-          [
-            addTeamAsync.pending,
-            getLstUserToInviteTeamAsync.pending,
-            paginationTeamOfUserAsync.pending,
-          ].includes(action.type),
-        (state, action) => {
-          state.isLoading =
-            action.type === getLstUserToInviteTeamAsync.pending.toString();
-          state.isLoadingCreateNew =
-            action.type === addTeamAsync.pending.toString();
-          state.isLoadingPagination =
-            action.type === paginationTeamOfUserAsync.pending.toString();
-        }
-      )
+      .addCase(addTeamAsync.pending, (state) => {
+        state.isLoadingCreateNew = true;
+      })
+      .addCase(getLstUserToInviteTeamAsync.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(paginationTeamOfUserAsync.pending, (state) => {
+        state.isLoadingPagination = true;
+      })
       .addMatcher(
         (action) =>
           [

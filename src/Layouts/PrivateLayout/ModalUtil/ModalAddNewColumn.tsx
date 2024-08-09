@@ -1,12 +1,12 @@
+import SelectItem, { IItemSelect } from "@/components/UI/SelectItem";
 import Spinner from "@/components/UI/Spinner";
+import { useAuthState } from "@/redux/features/auth/authSlice";
 import { useColumnAction } from "@/redux/features/column/action";
 import { useColumnState } from "@/redux/features/column/columnSlice";
 import { useTeamState } from "@/redux/features/team/teamSlice";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import UseModal from "./useModal";
-import SelectItem, { IItemSelect } from "@/components/UI/SelectItem";
-import { useAuthState } from "@/redux/features/auth/authSlice";
 
 const ModalAddNewColumn = () => {
   // const [nameColumn, setNameColumn] = useState("");
@@ -47,9 +47,19 @@ const ModalAddNewColumn = () => {
       (key) => enumData?.taskStatus[key]
     );
   }, [enumData?.taskStatus]);
+  const handleClose = () => {
+    closeModal("modal_add_new_columns");
+  };
   return (
-    <dialog id="modal_add_new_columns" className="modal">
-      <div className="max-w-lg bg-base-300 w-[30rem] backdrop-blur-xl p-4 rounded-lg">
+    <dialog
+      onClick={handleClose}
+      id="modal_add_new_columns"
+      className="modal z-[100000000] bg-black/10 backdrop-blur-xl"
+    >
+      <div
+        className="max-w-lg bg-base-300 w-[30rem] backdrop-blur-xl p-4 rounded-lg"
+        onClick={(e) => e.stopPropagation()}
+      >
         <form method="dialog" className="w-full">
           <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
             ✕

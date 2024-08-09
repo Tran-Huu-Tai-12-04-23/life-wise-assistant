@@ -3,13 +3,11 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import TeamInfo from "./TeamInfo";
 
-import { MdSpaceDashboard } from "react-icons/md";
-import { FaTasks } from "react-icons/fa";
-import { FaMessage } from "react-icons/fa6";
-import { RiChatHistoryFill } from "react-icons/ri";
-import { FaCalendar } from "react-icons/fa";
-import { IoSettings } from "react-icons/io5";
 import { sideBarWidth } from "@/constant/constant";
+import { FaCalendar, FaTasks } from "react-icons/fa";
+import { IoSettings } from "react-icons/io5";
+import { MdSpaceDashboard } from "react-icons/md";
+import { RiChatHistoryFill } from "react-icons/ri";
 
 function SideBar() {
   const [sidebars] = useState([
@@ -22,11 +20,6 @@ function SideBar() {
       name: "Task",
       route: privateRoutes.task,
       icon: <FaTasks />,
-    },
-    {
-      name: "Message",
-      route: privateRoutes.message,
-      icon: <FaMessage />,
     },
     {
       name: "Schedule",

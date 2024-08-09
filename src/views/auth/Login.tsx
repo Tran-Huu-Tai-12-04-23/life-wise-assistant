@@ -4,12 +4,12 @@ import IconGoogle from "@/components/Icons/SocialMedia/Google";
 import Button from "@/components/UI/Button";
 import Container from "@/components/UI/Container";
 import Input from "@/components/UI/Input";
-import { useState } from "react";
-import { toast } from "sonner";
-import Overlay from "./Overlay";
 import { useAuthAction } from "@/redux/features/auth/action";
 import { useAuthState } from "@/redux/features/auth/authSlice";
 
+import { useState } from "react";
+import { toast } from "sonner";
+import Overlay from "./Overlay";
 
 type IUserLogin = {
   username: string;
@@ -42,14 +42,15 @@ function Login() {
     });
   };
 
-
   return (
     <Container>
       <div className="flex_between h-screen w-screen bg-gradient-to-tr from-blue-500 to-green-500">
         <Overlay />
         <div className=" flex flex-col w-1/2 max-w-[40rem] m-auto p-20 min-h-[100vh] justify-center">
           <h1 className="font-bold text-white">Login</h1>
-          <h6 className="text-white">How do i get started lorem dolor at?</h6>
+          <h6 className="text-white">
+            How do i get started lorem dolor at? test CICD
+          </h6>
           <div className="flex items-center gap-2 justify-center pt-2 pb-2">
             <Button
               name=""
@@ -63,7 +64,9 @@ function Login() {
               type={"link"}
               className="bg-[rgba(0,0,0,0.1)] backdrop-blur-xl"
               rightIcon={<IconFacebook />}
-              onClick={() => toast.info("Facebook login is not implemented yet")}
+              onClick={() =>
+                toast.info("Facebook login is not implemented yet")
+              }
             />
             <Button
               name=""
