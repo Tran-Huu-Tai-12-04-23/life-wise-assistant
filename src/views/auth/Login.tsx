@@ -42,9 +42,6 @@ function Login() {
     });
   };
 
-  const handleLoginWithGoogle = () => {
-    router.replace("/login/google");
-  };
   return (
     <Container>
       <div className="flex_between h-screen w-screen bg-gradient-to-tr from-blue-500 to-green-500">
@@ -58,23 +55,25 @@ function Login() {
             <Button
               name=""
               type={"link"}
+              link="http://localhost:3000/auth/google"
               rightIcon={<IconGoogle />}
               className="bg-[rgba(0,0,0,0.1)] backdrop-blur-xl"
-              onClick={handleLoginWithGoogle}
             />
             <Button
               name=""
               type={"link"}
               className="bg-[rgba(0,0,0,0.1)] backdrop-blur-xl"
               rightIcon={<IconFacebook />}
-              onClick={() => {}}
+              onClick={() =>
+                toast.info("Facebook login is not implemented yet")
+              }
             />
             <Button
               name=""
               type={"link"}
+              link="http://localhost:3000/auth/github"
               className="bg-[rgba(0,0,0,0.1)] backdrop-blur-xl"
               rightIcon={<IconGithub />}
-              onClick={() => {}}
             />
           </div>
           <div className="flex justify-between items-center">
