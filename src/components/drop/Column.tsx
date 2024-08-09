@@ -1,20 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from "react";
+import { IColumn } from "@/dto/column.dto";
+import { useAuthState } from "@/redux/features/auth/authSlice";
 import { SortableContext, useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import React from "react";
 import TaskItem from "./TaskItem";
 import { COLUMN } from "./constant";
-import { CSS } from "@dnd-kit/utilities";
-import { IoMdAdd } from "react-icons/io";
-import { IColumn } from "@/dto/column.dto";
-import { useColumnAction } from "@/redux/features/column/action";
-import { useAuthState } from "@/redux/features/auth/authSlice";
 interface IColumnProps {
   data: IColumn;
   isActive?: boolean;
 }
 
 const Column: React.FC<IColumnProps> = ({ data }) => {
-  const { changeCurrentColumn } = useColumnAction();
   const { enumData } = useAuthState();
   const {
     attributes,
@@ -43,7 +40,7 @@ const Column: React.FC<IColumnProps> = ({ data }) => {
         opacity: isDragging ? 0.5 : 1,
       }}
       className={` w-full ${
-        isDragging ? "bg-primary/15" : "bg-[rgba(0,0,0,0.1)]"
+        isDragging ? "bg-primary/15" : ""
       }  p-2 h-full border-solid card border-primary/10 min-w-[22rem] rounded-xl flex flex-col gap-y-4 `}
     >
       <div className="flex flex-col w-full items-start border-b">
@@ -60,7 +57,7 @@ const Column: React.FC<IColumnProps> = ({ data }) => {
             />
             <h6>{enumData?.taskStatus[data.statusCode].name}</h6>
           </div>
-          <IoMdAdd
+          {/* <IoMdAdd
             onClick={() => {
               const addTaskElement = document.getElementById("add_task");
               if (addTaskElement) {
@@ -70,7 +67,7 @@ const Column: React.FC<IColumnProps> = ({ data }) => {
             }}
             size={20}
             className="hover:text-primary/50"
-          />
+          /> */}
         </div>
       </div>
 

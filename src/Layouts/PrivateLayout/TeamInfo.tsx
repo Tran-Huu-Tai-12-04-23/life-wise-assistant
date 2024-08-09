@@ -27,7 +27,7 @@ const TeamInfo = () => {
       {currentTeam && (
         <div
           onClick={() => showModal("modal_switch_teams")}
-          className="w-full relative flex flex-col  p-4 cursor-pointer hover:bg-primary/5"
+          className="w-full  relative flex flex-col  p-4 cursor-pointer hover:bg-primary/5"
         >
           <div className="flex items-center gap-2">
             <div className="flex flex-col justify-center items-start">
@@ -63,7 +63,7 @@ const TeamInfo = () => {
         </div>
       )}
       <dialog id="modal_switch_teams" className="modal">
-        <div className="modal-box">
+        <div className="modal-box btn-secondary">
           <form method="dialog" className="w-full">
             <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
               ✕

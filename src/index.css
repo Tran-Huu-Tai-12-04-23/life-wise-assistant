@@ -242,3 +242,7 @@ h6 {
 .btn-link {
   @apply border-none
 }
+
+svg {
+  color: gray
+}

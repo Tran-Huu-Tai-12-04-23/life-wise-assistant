@@ -1,13 +1,15 @@
-import React, { useMemo } from "react";
-import { useSortable } from "@dnd-kit/sortable";
-import { TASK } from "./constant";
-import { CSS } from "@dnd-kit/utilities";
-import GroupAvatar from "../UI/GroupAvatar";
-import Chip from "../UI/Chip";
-import { IUser } from "@/dto/user.dto";
-import { useAuthState } from "@/redux/features/auth/authSlice";
 import { ITask } from "@/dto/task.dto";
+import { IUser } from "@/dto/user.dto";
 import { daysLeftToExpire } from "@/helper";
+import { useAuthState } from "@/redux/features/auth/authSlice";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import moment from "moment";
+import React, { useMemo } from "react";
+import { FaCalendarDay } from "react-icons/fa";
+import Chip from "../UI/Chip";
+import GroupAvatar from "../UI/GroupAvatar";
+import { TASK } from "./constant";
 
 interface ITaskItemProps {
   data: ITask;
@@ -46,17 +48,16 @@ const TaskItem: React.FC<ITaskItemProps> = ({ data, isRotate }) => {
       style={{
         transition,
         transform: CSS.Translate.toString(transform),
-        borderLeftColor:
-          enumData?.taskStatus[data.status as keyof typeof enumData.taskStatus]
-            ?.color,
       }}
       className={`px-2 ${
         isRotate ? "rotate-6" : ""
-      } border-l-[4px] transition-all border-solid backdrop-blur-3xl group py-4  ignore-scroll  shadow-md rounded-xl w-full border border-transparent hover:border-primary/10 cursor-pointer  ${
-        isDragging ? "opacity-50 bg-primary/10 " : "bg-primary-content/10"
+      } border-l-[4px] gap-2 flex-col flex transition-all border-solid backdrop-blur-3xl group py-4  ignore-scroll  shadow-xl rounded-xl w-full border border-transparent hover:border-primary/10 cursor-pointer  ${
+        isDragging ? "opacity-50 bg-primary/50 " : "bg-accent"
       }`}
     >
-      <h6 className="font-bold mt-[5px] text-over w-full">{data.title}</h6>
+      <h6 className="font-bold text-lg mt-[5px] text-over w-full">
+        {data.title}
+      </h6>
       <h6
         className={`text-xs font-bold ${
           dayleft > 0 ? "text-yellow-600" : "text-red-600"
@@ -64,6 +65,12 @@ const TaskItem: React.FC<ITaskItemProps> = ({ data, isRotate }) => {
       >
         {dayleft > 0 ? `${dayleft} days left` : "Expired"}
       </h6>
+      <div className=" flex items-center justify-start gap-2">
+        <FaCalendarDay size={12} style={{ color: "gray" }} />
+        <h5 className="text-xs text-gray-400">
+          {moment(data.dateExpire).format("DD/MM/YYYY")}
+        </h5>
+      </div>
       {data?.lstMember?.length > 0 && (
         <GroupAvatar
           lstAvatar={data?.lstMember?.map((i: IUser) => {
@@ -74,7 +81,6 @@ const TaskItem: React.FC<ITaskItemProps> = ({ data, isRotate }) => {
           })}
         />
       )}
-
       <div className="flex gap-2 justify-start items-center mt-2">
         <Chip
           name={enumData?.taskStatus[data.status]?.name}

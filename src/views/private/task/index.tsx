@@ -1,14 +1,15 @@
 /* eslint-disable react-refresh/only-export-components */
+import TeamInfo from "@/Layouts/PrivateLayout/TeamInfo";
 import { useAuthState } from "@/redux/features/auth/authSlice";
 import { useTeamState } from "@/redux/features/team/teamSlice";
-import { useRouter } from "@/routes/hooks";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { BsLayoutThreeColumns } from "react-icons/bs";
 import { CiLineHeight } from "react-icons/ci";
-import ModalAddTask from "./ModalAddTask";
-import WrapperTaskLayout from "./WrapperTaskLayout";
+import { IoMdAdd } from "react-icons/io";
 import Filter from "./filter";
 import GroupButtonUtils from "./group-button-utils";
+import ModalAddTask from "./ModalAddTask";
+import WrapperTaskLayout from "./WrapperTaskLayout";
 export enum EViewType {
   BOARD,
   LIST,
@@ -18,14 +19,7 @@ function Task() {
   const [viewType, setViewType] = useState(EViewType.BOARD);
   const { currentUser } = useAuthState();
   const { currentTeam } = useTeamState();
-  const nav = useRouter();
 
-  useEffect(() => {
-    !currentTeam && nav.replace("/not-found");
-  }, [currentTeam]);
-  if (!currentTeam) {
-    return null;
-  }
   return (
     <>
       <div className="w-full flex flex-col gap-4 ">
@@ -40,40 +34,60 @@ function Task() {
             </h6>
           </div>
 
-          <div className="justify-end items-center gap-4 flex">
-            <Filter />
-            <div className="join">
-              <button
-                onClick={() => setViewType(EViewType.BOARD)}
-                className={`btn join-item ${
-                  viewType === EViewType.BOARD && "bg-primary"
-                }`}
-              >
-                <BsLayoutThreeColumns
-                  className={`${
-                    viewType === EViewType.BOARD && "text-primary-content"
+          <TeamInfo />
+
+          {currentTeam && (
+            <div className="justify-end items-center gap-4 flex">
+              <Filter />
+              <div className="join">
+                <button
+                  onClick={() => setViewType(EViewType.BOARD)}
+                  className={`btn join-item ${
+                    viewType === EViewType.BOARD && "bg-primary"
                   }`}
-                />
-              </button>
-              <button
-                onClick={() => setViewType(EViewType.LIST)}
-                className={`btn join-item ${
-                  viewType === EViewType.LIST && "bg-primary"
-                }`}
-              >
-                <CiLineHeight
-                  className={`${
-                    viewType === EViewType.LIST && "text-primary-content"
+                >
+                  <BsLayoutThreeColumns
+                    className={`${
+                      viewType === EViewType.BOARD && "text-primary-content"
+                    }`}
+                  />
+                </button>
+                <button
+                  onClick={() => setViewType(EViewType.LIST)}
+                  className={`btn join-item ${
+                    viewType === EViewType.LIST && "bg-primary"
                   }`}
-                />
-              </button>
+                >
+                  <CiLineHeight
+                    className={`${
+                      viewType === EViewType.LIST && "text-primary-content"
+                    }`}
+                  />
+                </button>
+              </div>
             </div>
-          </div>
+          )}
+          <button className="btn-outline ml-4">
+            <IoMdAdd
+              onClick={() => {
+                const addTaskElement = document.getElementById("add_task");
+                if (addTaskElement) {
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  (addTaskElement as any)?.showModal();
+                }
+              }}
+              size={24}
+              className="hover:text-primary/50"
+            />
+          </button>
         </div>
 
-        <WrapperTaskLayout viewType={viewType} />
-
-        <ModalAddTask />
+        {currentTeam && (
+          <>
+            <WrapperTaskLayout viewType={viewType} />
+            <ModalAddTask />
+          </>
+        )}
       </div>
     </>
   );
