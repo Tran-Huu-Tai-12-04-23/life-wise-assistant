@@ -53,9 +53,11 @@ function Login() {
                 <IconGoogle />
               </button>
             </a>
-            <button className="btn btn-contain">
-              <IconFacebook />
-            </button>
+            <a href={import.meta.env.VITE_LINK_API + "/auth/facebook"}>
+              <button className="btn btn-contain">
+                <IconFacebook />
+              </button>
+            </a>
             <a href={import.meta.env.VITE_LINK_API + "/auth/github"}>
               <button className="btn btn-contain">
                 <IconGithub />
