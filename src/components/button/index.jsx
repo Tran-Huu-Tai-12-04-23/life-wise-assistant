@@ -7,6 +7,7 @@ function ButtonPrimary({children, ...props}) {
         pl: 2, pr: 2,
         textTransform: "Capitalize",
         fontWeight: 400,
+         ...props?.sx,
         "&:hover": {
             background: alpha("#1877F2", 0.3),
         }
@@ -22,6 +23,7 @@ function ButtonOutlined({children, ...props}) {
         pl: 2, pr: 2,
         textTransform: "Capitalize",
         fontWeight: 400,
+        ...props?.sx,
         "&:hover": {
           borderColor: alpha("#1877F2", 0.3),
         }

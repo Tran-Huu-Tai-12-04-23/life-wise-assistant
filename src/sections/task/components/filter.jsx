@@ -11,6 +11,7 @@ import { useTeamState } from 'src/redux/features/team/teamSlice';
 import { bgBlur } from 'src/theme/css';
 import { EViewType } from '../wrapper-task-layout';
 import FilterWithMember from './filter-with-member';
+import InviteColumnPopover from './invite-member-popover';
 import SelectColumnPopover from './select-column-popover';
 import SelectStatus from './select-status';
 
@@ -96,6 +97,7 @@ function Filter({onChangeViewType, viewType}) {
         </Stack>
         <Stack direction="row" gap={2} alignItems="center">
             <FilterWithMember/>
+            <InviteColumnPopover/>
             <SelectColumnPopover/>
           <InputCustom minWidth="300px" placeholder="Search ..." value={filter.searchKey} 
             onChange={(e) => onChangeFilter("searchKey", e.target.value)}

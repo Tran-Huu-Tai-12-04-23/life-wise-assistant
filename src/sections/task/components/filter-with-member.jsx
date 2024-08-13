@@ -1,7 +1,6 @@
 import { useTheme } from "@emotion/react";
-import { Avatar, AvatarGroup, Box, IconButton, Stack, Tooltip, alpha } from "@mui/material";
+import { Avatar, AvatarGroup, Box, Stack, Tooltip, alpha } from "@mui/material";
 import { EffectBtn } from "src/components/EffectBtn";
-import Iconify from "src/components/iconify";
 import { useColumnAction } from "src/redux/features/column/action";
 import { useColumnState } from "src/redux/features/column/columnSlice";
 import { useTeamState } from "src/redux/features/team/teamSlice";
@@ -47,17 +46,7 @@ function FilterWithMember() {
               </Tooltip>
             ))}
           </AvatarGroup>
-          <IconButton
-            aria-label="fingerprint"
-            color="primary"
-            size="large"
-            sx={{
-              border: () => `dashed 1px ${theme.palette.divider}`,
-               width: 50, height: 50 
-            }}
-          >
-            <Iconify icon="eva:plus-fill" />
-          </IconButton>
+        
           
         </Stack>
 }
