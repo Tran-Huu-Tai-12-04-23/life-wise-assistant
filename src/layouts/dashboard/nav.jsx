@@ -20,55 +20,54 @@ import { account } from 'src/_mock/account';
 import Logo from 'src/components/logo';
 import Scrollbar from 'src/components/scrollbar';
 
+import { useTheme } from '@emotion/react';
+import { IconButton } from '@mui/material';
+import Iconify from 'src/components/iconify';
 import { NAV } from './config-layout';
 import navConfig from './config-navigation';
 
 // ----------------------------------------------------------------------
 
-export default function Nav({ openNav, onCloseNav }) {
+export default function Nav({ openNav, onCloseNav, setExpanded, expanded }) {
   const pathname = usePathname();
-
+  const theme = useTheme();
   const upLg = useResponsive('up', 'lg');
 
   useEffect(() => {
     if (openNav) {
       onCloseNav();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
+  }, [pathname, onCloseNav, openNav]);
 
   const renderAccount = (
     <Box
       sx={{
         my: 3,
-        mx: 2.5,
+        mx: 1,
         py: 2,
         px: 2.5,
         display: 'flex',
         borderRadius: 1.5,
         alignItems: 'center',
-        bgcolor: (theme) => alpha(theme.palette.grey[500], 0.12),
+        bgcolor: () => alpha(theme.palette.grey[500], 0.12),
+        width: 'max-content'
       }}
     >
       <Avatar src={account.photoURL} alt="photoURL" />
-
-      <Box sx={{ ml: 2 }}>
+{
+  expanded &&  <Box sx={{ ml: 2 }}>
         <Typography variant="subtitle2">{account.displayName}</Typography>
 
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
           {account.role}
         </Typography>
       </Box>
+}
     </Box>
   );
 
-  const renderMenu = (
-    <Stack component="nav" spacing={0.5} sx={{ px: 2 }}>
-      {navConfig.map((item) => (
-        <NavItem key={item.title} item={item} />
-      ))}
-    </Stack>
-  );
+  
+
 
   const renderUpgrade = (
     <Box sx={{ px: 2.5, pb: 3, mt: 10 }}>
@@ -108,17 +107,25 @@ export default function Nav({ openNav, onCloseNav }) {
           display: 'flex',
           flexDirection: 'column',
         },
+        position: 'relative',
       }}
     >
-      <Logo sx={{ mt: 3, ml: 4 }} />
-
+     <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{  mt: 3, p: 2}}>
+          <Logo  />
+          <IconButton onClick={() => setExpanded(!expanded)}>
+          <Iconify icon="eva:menu-2-fill" />
+        </IconButton></Stack>
       {renderAccount}
 
-      {renderMenu}
+    <Stack component="nav" spacing={0.5} sx={{ px: 2 }}>
+        {navConfig.map((item) => (
+          <NavItem key={item.title} item={item} expanded={expanded} />
+        ))}
+      </Stack>
 
       <Box sx={{ flexGrow: 1 }} />
 
-      {renderUpgrade}
+      {expanded && renderUpgrade}
     </Scrollbar>
   );
 
@@ -126,16 +133,20 @@ export default function Nav({ openNav, onCloseNav }) {
     <Box
       sx={{
         flexShrink: { lg: 0 },
-        width: { lg: NAV.WIDTH },
+        width: { lg: expanded ?  NAV.WIDTH : NAV.WIDTH/2 -10},
+        backgroundColor: 'white',
+        zIndex:theme.zIndex.appBar - 1,
+        overflow: 'hidden'
       }}
     >
+      
       {upLg ? (
         <Box
           sx={{
             height: 1,
             position: 'fixed',
-            width: NAV.WIDTH,
-            borderRight: (theme) => `dashed 1px ${theme.palette.divider}`,
+            width: expanded ? NAV.WIDTH:  NAV.WIDTH/2 -10,
+            borderRight: () => `dashed 1px ${theme.palette.divider}`,
           }}
         >
           {renderContent}
@@ -164,7 +175,7 @@ Nav.propTypes = {
 
 // ----------------------------------------------------------------------
 
-function NavItem({ item }) {
+function NavItem({ item, expanded }) {
   const pathname = usePathname();
 
   const active = item.path === pathname;
@@ -193,7 +204,10 @@ function NavItem({ item }) {
         {item.icon}
       </Box>
 
-      <Box component="span">{item.title} </Box>
+{
+  expanded &&    <Box component="span">{item.title} </Box>
+}
+   
     </ListItemButton>
   );
 }

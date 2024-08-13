@@ -21,7 +21,7 @@ import { HEADER, NAV } from './config-layout';
 
 // ----------------------------------------------------------------------
 
-export default function Header({ onOpenNav }) {
+export default function Header({ onOpenNav , expanded}) {
   const theme = useTheme();
 
   const lgUp = useResponsive('up', 'lg');
@@ -30,7 +30,7 @@ export default function Header({ onOpenNav }) {
     <>
       {!lgUp && (
         <IconButton onClick={onOpenNav} sx={{ mr: 1 }}>
-          <Iconify icon="eva:menu-2-fill" />
+          <Iconify icon="eva:menu-2-fill"  />
         </IconButton>
       )}
 
@@ -60,7 +60,7 @@ export default function Header({ onOpenNav }) {
         }),
         borderBottom: () => `dashed 1px ${theme.palette.divider}`,
         ...(lgUp && {
-          width: `calc(100% - ${NAV.WIDTH + 1}px)`,
+          width: `calc(100% - ${expanded ? NAV.WIDTH + 1 : NAV.WIDTH / 2 - 10 + 1}px)`,
           height: HEADER.H_DESKTOP + 5,
         }),
       }}

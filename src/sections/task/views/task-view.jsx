@@ -10,7 +10,6 @@ import WrapperTaskLayout, { EViewType } from '../wrapper-task-layout';
 export default function TaskView() {
   const {currentTeam} = useTeamState()
   const [viewType, setViewType] = useState(EViewType.BOARD);
-  console.log(viewType)
   return (
     <Box>
       <Header />
