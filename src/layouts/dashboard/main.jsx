@@ -10,7 +10,7 @@ import { HEADER, NAV } from './config-layout';
 
 const SPACING = 8;
 
-export default function Main({ children, sx, expanded,...other }) {
+export default function Main({ children, sx, expanded, ...other }) {
   const lgUp = useResponsive('up', 'lg');
 
   return (
@@ -25,7 +25,7 @@ export default function Main({ children, sx, expanded,...other }) {
         ...(lgUp && {
           px: 2,
           py: `${HEADER.H_DESKTOP + SPACING}px`,
-          width: `calc(100% - ${expanded ? NAV.WIDTH :  NAV.WIDTH / 2 - 10}px)`,
+          width: `calc(100% - ${expanded ? NAV.WIDTH : NAV.WIDTH / 2 - 10}px)`,
         }),
         ...sx,
       }}

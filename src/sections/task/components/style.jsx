@@ -1,11 +1,11 @@
-import styled from "@emotion/styled";
-import { alpha, Box, Typography } from "@mui/material";
+import styled from '@emotion/styled';
+import { alpha, Box, Typography } from '@mui/material';
 import { autocompleteClasses } from '@mui/material/Autocomplete';
-import CloseIcon from "src/components/icons/close-icon";
+import CloseIcon from 'src/components/icons/close-icon';
 
 const Root = styled('div')(
   ({ theme }) => `
-  color: ${ 'rgba(0,0,0,.85)'};
+  color: ${'rgba(0,0,0,.85)'};
   font-size: 14px;
   width: 100%;
 `
@@ -37,7 +37,7 @@ const StyledTag = styled(Tag)(
   overflow: hidden;
 
   &:focus {
-    border-color: ${ '#40a9ff'};
+    border-color: ${'#40a9ff'};
     background-color: ${'#e6f7ff'};
   }
 
@@ -56,14 +56,14 @@ const StyledTag = styled(Tag)(
   }
 `
 );
- const Listbox = styled('ul')(
+const Listbox = styled('ul')(
   ({ theme }) => `
   width: 370px;
   margin: 2px 0 0;
   padding: 0;
   position: absolute;
   list-style: none;
-  background-color: ${ '#fff'};
+  background-color: ${'#fff'};
   overflow: auto;
   max-height: 250px;
   border-radius: 10px;
@@ -84,7 +84,7 @@ const StyledTag = styled(Tag)(
   }
 
   & li[aria-selected='true'] {
-    background-color: ${alpha("#1890ff", 0.2)};
+    background-color: ${alpha('#1890ff', 0.2)};
     font-weight: 600;
     & svg {
       color: #1890ff;
@@ -92,7 +92,7 @@ const StyledTag = styled(Tag)(
   }
 
   & li.${autocompleteClasses.focused} {
-    background-color: ${alpha("#1890ff", 0.2)};
+    background-color: ${alpha('#1890ff', 0.2)};
     cursor: pointer;
 
     & svg {
@@ -102,8 +102,4 @@ const StyledTag = styled(Tag)(
 `
 );
 
-export {
-    Listbox, Root,
-    StyledTag
-};
-
+export { Listbox, Root, StyledTag };

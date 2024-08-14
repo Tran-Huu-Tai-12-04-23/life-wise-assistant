@@ -1,4 +1,3 @@
-
 const EmptyBoardIcon = (props) => (
   <svg
     width={200}
@@ -97,21 +96,9 @@ const EmptyBoardIcon = (props) => (
         />
         <feOffset dy={3} />
         <feGaussianBlur stdDeviation={3} />
-        <feColorMatrix
-          type="matrix"
-          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.161 0"
-        />
-        <feBlend
-          mode="normal"
-          in2="BackgroundImageFix"
-          result="effect1_dropShadow_1_154"
-        />
-        <feBlend
-          mode="normal"
-          in="SourceGraphic"
-          in2="effect1_dropShadow_1_154"
-          result="shape"
-        />
+        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.161 0" />
+        <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1_154" />
+        <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1_154" result="shape" />
       </filter>
       <filter
         id="filter1_d_1_154"
@@ -131,21 +118,9 @@ const EmptyBoardIcon = (props) => (
         />
         <feOffset dy={3} />
         <feGaussianBlur stdDeviation={3} />
-        <feColorMatrix
-          type="matrix"
-          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.161 0"
-        />
-        <feBlend
-          mode="normal"
-          in2="BackgroundImageFix"
-          result="effect1_dropShadow_1_154"
-        />
-        <feBlend
-          mode="normal"
-          in="SourceGraphic"
-          in2="effect1_dropShadow_1_154"
-          result="shape"
-        />
+        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.161 0" />
+        <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1_154" />
+        <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1_154" result="shape" />
       </filter>
       <filter
         id="filter2_d_1_154"
@@ -165,21 +140,9 @@ const EmptyBoardIcon = (props) => (
         />
         <feOffset dy={3} />
         <feGaussianBlur stdDeviation={3} />
-        <feColorMatrix
-          type="matrix"
-          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.161 0"
-        />
-        <feBlend
-          mode="normal"
-          in2="BackgroundImageFix"
-          result="effect1_dropShadow_1_154"
-        />
-        <feBlend
-          mode="normal"
-          in="SourceGraphic"
-          in2="effect1_dropShadow_1_154"
-          result="shape"
-        />
+        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.161 0" />
+        <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1_154" />
+        <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1_154" result="shape" />
       </filter>
       <linearGradient
         id="paint0_linear_1_154"

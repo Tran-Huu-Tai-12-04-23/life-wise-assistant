@@ -15,16 +15,16 @@ import InviteColumnPopover from './invite-member-popover';
 import SelectColumnPopover from './select-column-popover';
 import SelectStatus from './select-status';
 
-function Filter({onChangeViewType, viewType}) {
+function Filter({ onChangeViewType, viewType }) {
   const theme = useTheme();
   const { currentTeam } = useTeamState();
-  const {filter} = useColumnState()
+  const { filter } = useColumnState();
 
-  const { onLoadDataToFilter,onClearColumnFilter, onGetAllColumnOfTeam, onChangeFilter } = useColumnAction();
+  const { onLoadDataToFilter, onClearColumnFilter, onGetAllColumnOfTeam, onChangeFilter } =
+    useColumnAction();
 
-
-   useEffect(() => {
-    if(!currentTeam) return null
+  useEffect(() => {
+    if (!currentTeam) return null;
     const timer = setTimeout(() => {
       onGetAllColumnOfTeam();
     }, 200);
@@ -34,7 +34,7 @@ function Filter({onChangeViewType, viewType}) {
   }, [filter.searchKey]);
 
   useEffect(() => {
-   if(currentTeam)  onGetAllColumnOfTeam();
+    if (currentTeam) onGetAllColumnOfTeam();
   }, [filter.members, filter.lstStatus]);
 
   useEffect(() => {
@@ -62,7 +62,6 @@ function Filter({onChangeViewType, viewType}) {
         borderTop: () => `dashed 1px ${theme.palette.divider}`,
         paddingBottom: 4,
         paddingTop: 4,
-  
       }}
     >
       <Stack
@@ -73,14 +72,20 @@ function Filter({onChangeViewType, viewType}) {
       >
         <Stack direction="row" gap={2}>
           <ButtonGroup variant="outlined" aria-label="Basic button group">
-            <Button onClick={() => {
-              onChangeViewType(EViewType.BOARD)
-            }} variant={viewType === EViewType.BOARD ? "contained" : "outlined"}>
+            <Button
+              onClick={() => {
+                onChangeViewType(EViewType.BOARD);
+              }}
+              variant={viewType === EViewType.BOARD ? 'contained' : 'outlined'}
+            >
               <Iconify icon="eva:board-fill" /> Board
             </Button>
-            <Button onClick={() => {
-              onChangeViewType(EViewType.LIST)
-              }} variant={viewType === EViewType.LIST ? "contained" : "outlined"}>
+            <Button
+              onClick={() => {
+                onChangeViewType(EViewType.LIST);
+              }}
+              variant={viewType === EViewType.LIST ? 'contained' : 'outlined'}
+            >
               {' '}
               <Iconify icon="eva:list-fill" /> List
             </Button>
@@ -96,12 +101,15 @@ function Filter({onChangeViewType, viewType}) {
           </Button>
         </Stack>
         <Stack direction="row" gap={2} alignItems="center">
-            <FilterWithMember/>
-            <InviteColumnPopover/>
-            <SelectColumnPopover/>
-          <InputCustom minWidth="300px" placeholder="Search ..." value={filter.searchKey} 
-            onChange={(e) => onChangeFilter("searchKey", e.target.value)}
-            />
+          <FilterWithMember />
+          <InviteColumnPopover />
+          <SelectColumnPopover />
+          <InputCustom
+            minWidth="300px"
+            placeholder="Search ..."
+            value={filter.searchKey}
+            onChange={(e) => onChangeFilter('searchKey', e.target.value)}
+          />
           <Stack direction="row" alignItems="center" gap={1}>
             <SelectStatus />
 
@@ -111,8 +119,6 @@ function Filter({onChangeViewType, viewType}) {
                 Clear filter
               </Typography>
             </Button>
-
-         
           </Stack>
         </Stack>
       </Stack>

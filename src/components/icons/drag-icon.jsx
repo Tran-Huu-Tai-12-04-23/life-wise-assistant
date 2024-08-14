@@ -1,8 +1,7 @@
-
-const DragIcon = ({color, size, ...props}) => (
+const DragIcon = ({ color, size, ...props }) => (
   <svg
-    width={size ||20}
-    height={size ||20}
+    width={size || 20}
+    height={size || 20}
     viewBox="0 0 20 20"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

@@ -39,7 +39,7 @@ export const InputWrapper = styled('div')(
 `
 );
 
-function InputCustom({minWidth='100%', ...props}) {
+function InputCustom({ minWidth = '100%', ...props }) {
   return (
     <InputWrapper minWidth={minWidth}>
       <input {...props} />

@@ -31,7 +31,7 @@ function TaskItem({ data, isRotate }) {
 
   const theme = useTheme();
   return (
-      <Box
+    <Box
       className="ignore-scroll"
       ref={setNodeRef}
       {...attributes}
@@ -43,36 +43,47 @@ function TaskItem({ data, isRotate }) {
         borderRadius: 1,
         cursor: 'pointer',
         backgroundColor: 'white',
-         boxShadow: isRotate ? '0px 2px 4px rgba(0, 0, 0, 0.08)' : '0px 2px 4px transparent',
-       transform: isRotate ? 'rotate(10deg)' : CSS.Translate?.toString(transform),
+        boxShadow: isRotate ? '0px 2px 4px rgba(0, 0, 0, 0.08)' : '0px 2px 4px transparent',
+        transform: isRotate ? 'rotate(10deg)' : CSS.Translate?.toString(transform),
         '&:hover': {
           bgcolor: () => (isRotate ? 'white' : alpha(theme.palette.primary.light, 0.1)),
         },
-        '&:hover ' : {
-          '.icon-drag' : {
-            display: 'block'
-          }
-        } ,
-        width: '100%'
+        '&:hover ': {
+          '.icon-drag': {
+            display: 'block',
+          },
+        },
+        width: '100%',
       }}
-  
     >
-      <Stack onClick={e => e.stopPropagation()}  {...listeners} minHeight={50} direction="row" gap={1} alignItems="center" justifyContent="space-between">
-        <Typography sx={{
-          userSelect: 'none',
-        }}  variant="h7" fontSize={12} fontWeight={800}>
+      <Stack
+        onClick={(e) => e.stopPropagation()}
+        {...listeners}
+        minHeight={50}
+        direction="row"
+        gap={1}
+        alignItems="center"
+        justifyContent="space-between"
+      >
+        <Typography
+          sx={{
+            userSelect: 'none',
+          }}
+          variant="h7"
+          fontSize={12}
+          fontWeight={800}
+        >
           {data?.title}
         </Typography>
-         <Button  variant="text" gap={1}>
+        <Button variant="text" gap={1}>
           <DocumentIcon />
           <Typography variant="h7" color={COLORS.document} fontSize={12} fontWeight={800}>
             9
           </Typography>
         </Button>
-        </Stack>
-       
+      </Stack>
 
-      <Stack   direction="row" gap={1} alignItems="center">
+      <Stack direction="row" gap={1} alignItems="center">
         <Chip
           size="small"
           label="#UI003"
@@ -118,17 +129,16 @@ function TaskItem({ data, isRotate }) {
       >
         <Stack direction="row" alignItems="center" gap={1}>
           {data?.lstMember?.length > 0 && (
-            <AvatarGroup   max={2}>
+            <AvatarGroup max={2}>
               {data?.lstMember?.map((member, index) => (
-               <Tooltip key={index} title={member?.username}>
-                 <Avatar  alt={member?.username} src={member?.avatar} />
-               </Tooltip>
+                <Tooltip key={index} title={member?.username}>
+                  <Avatar alt={member?.username} src={member?.avatar} />
+                </Tooltip>
               ))}
             </AvatarGroup>
           )}
 
           <IconButton
-           
             aria-label="fingerprint"
             color="primary"
             size="large"
@@ -148,14 +158,14 @@ function TaskItem({ data, isRotate }) {
             justifyContent: 'flex-end',
           }}
         >
-          <IconButton    variant="text" gap={1}>
+          <IconButton variant="text" gap={1}>
             <FileIcon />
             <Typography variant="h7" color={COLORS.file} fontSize={12} fontWeight={800}>
               {' '}
               9
             </Typography>
           </IconButton>
-          <IconButton   variant="text" gap={1}>
+          <IconButton variant="text" gap={1}>
             <MessageIcon />
             <Typography variant="h7" color={COLORS.message} fontSize={12} fontWeight={800}>
               {' '}

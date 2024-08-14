@@ -1,7 +1,7 @@
-const InviteIcon = ({width, height, ...props}) => (
+const InviteIcon = ({ width, height, ...props }) => (
   <svg
     width={width || 376}
-    height={height ||322}
+    height={height || 322}
     viewBox="0 0 376 322"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -10,16 +10,8 @@ const InviteIcon = ({width, height, ...props}) => (
   >
     <rect width={376} height={322} fill="url(#pattern0_1282_2030)" />
     <defs>
-      <pattern
-        id="pattern0_1282_2030"
-        patternContentUnits="objectBoundingBox"
-        width={1}
-        height={1}
-      >
-        <use
-          xlinkHref="#image0_1282_2030"
-          transform="matrix(0.00125 0 0 0.00145963 0 0.0227019)"
-        />
+      <pattern id="pattern0_1282_2030" patternContentUnits="objectBoundingBox" width={1} height={1}>
+        <use xlinkHref="#image0_1282_2030" transform="matrix(0.00125 0 0 0.00145963 0 0.0227019)" />
       </pattern>
       <image
         id="image0_1282_2030"

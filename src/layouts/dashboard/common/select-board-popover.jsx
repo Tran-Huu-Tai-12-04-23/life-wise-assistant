@@ -64,7 +64,7 @@ const InputWrapper = styled('input')(
   font-family: inherit;
   font-weight: 400;
   line-height: 1.5;
-  color: ${theme.palette.mode === 'dark' ? "#C7D0DD" : "#1C2025"};
+  color: ${theme.palette.mode === 'dark' ? '#C7D0DD' : '#1C2025'};
   background: inherit;
   border: none;
   border-radius: inherit;
@@ -78,17 +78,16 @@ const InputWrapper = styled('input')(
 
 export default function SelectBoardPopover() {
   const [open, setOpen] = useState(null);
-   const { teams, currentTeam } = useTeamState();
+  const { teams, currentTeam } = useTeamState();
   const { paginationTeamOfUser, changeCurrent } = useTeamAction();
   const [isFocus, setIsFocus] = useState(false);
   const [dataSelect, setDataSelect] = useState(teams);
   const [search, setSearch] = useState('');
-  const theme = useTheme()
+  const theme = useTheme();
 
   useEffect(() => {
     paginationTeamOfUser();
   }, []);
-
 
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
@@ -100,7 +99,9 @@ export default function SelectBoardPopover() {
 
   useEffect(() => {
     if (search) {
-      const newData = teams.filter((item) => item.name.toLowerCase().includes(search.toLowerCase()));
+      const newData = teams.filter((item) =>
+        item.name.toLowerCase().includes(search.toLowerCase())
+      );
       setDataSelect(newData);
     } else {
       setDataSelect(teams);
@@ -109,50 +110,57 @@ export default function SelectBoardPopover() {
 
   return (
     <>
-   
-      <EffectBtn sx={{
-        borderRadius: 2, overflow: 'hidden', height: 40, p: 2, pt: 4, pb: 3
-      }}>
-        <Stack onClick={handleOpen} direction="row" alignItems="center" gap={2}  >
-          <Avatar 
-          src={currentTeam ? currentTeam?.thumbnails : account.photoURL}
-          alt={currentTeam?.name}
-          sx={{
-            width: 20,
-            height: 40,
-            minWidth: 50 , borderRadius: 1,
-            border: () => `solid 2px ${theme.palette.background.default}`,
-          }}
-        >
-          {currentTeam?.name?.charAt(0).toUpperCase()}
-        </Avatar>
-  {currentTeam?.name || 'Select board'}
-       <Stack direction="row" alignItems="center" gap={1}>
-         {currentTeam?.tags.map((tag, index) => {
-          if (index < 2) {
-            return (
-              <Chip
-                key={index}
-                label={tag.name}
-                 sx={{  background: tag.background, color: tag.color }}
-              />
-            );
-          }
-          if (index === 2) return "...";
-          return null;
-        })}
-       </Stack>
-        <ArrowDownIcon size={12} color={theme.palette.primary.main} />
-      </Stack>
+      <EffectBtn
+        sx={{
+          borderRadius: 2,
+          overflow: 'hidden',
+          height: 40,
+          p: 2,
+          pt: 4,
+          pb: 3,
+        }}
+      >
+        <Stack onClick={handleOpen} direction="row" alignItems="center" gap={2}>
+          <Avatar
+            src={currentTeam ? currentTeam?.thumbnails : account.photoURL}
+            alt={currentTeam?.name}
+            sx={{
+              width: 20,
+              height: 40,
+              minWidth: 50,
+              borderRadius: 1,
+              border: () => `solid 2px ${theme.palette.background.default}`,
+            }}
+          >
+            {currentTeam?.name?.charAt(0).toUpperCase()}
+          </Avatar>
+          {currentTeam?.name || 'Select board'}
+          <Stack direction="row" alignItems="center" gap={1}>
+            {currentTeam?.tags.map((tag, index) => {
+              if (index < 2) {
+                return (
+                  <Chip
+                    key={index}
+                    label={tag.name}
+                    sx={{ background: tag.background, color: tag.color }}
+                  />
+                );
+              }
+              if (index === 2) return '...';
+              return null;
+            })}
+          </Stack>
+          <ArrowDownIcon size={12} color={theme.palette.primary.main} />
+        </Stack>
       </EffectBtn>
-  
+
       <Popover
         open={!!open}
         anchorEl={open}
         onClose={handleClose}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
         transformOrigin={{ vertical: 'top', horizontal: 'left' }}
-        className='hide-scroll'
+        className="hide-scroll"
         PaperProps={{
           sx: {
             mt: 1,
@@ -160,29 +168,44 @@ export default function SelectBoardPopover() {
             width: 400,
             p: 2,
             maxHeight: 400,
-            "&::-webkit-scrollbar": {
-                display: "none",
-            }
+            '&::-webkit-scrollbar': {
+              display: 'none',
+            },
           },
         }}
       >
-        <Root className={`${isFocus ? 'Mui-focused' : ''} `} >
-          <InputWrapper value={search} onChange={(e) => setSearch(e.target.value)} onFocus={() => setIsFocus(true)} onBlur={() => setIsFocus(false)}  placeholder="Select board" />
+        <Root className={`${isFocus ? 'Mui-focused' : ''} `}>
+          <InputWrapper
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            onFocus={() => setIsFocus(true)}
+            onBlur={() => setIsFocus(false)}
+            placeholder="Select board"
+          />
         </Root>
         <Box sx={{ my: 1.5, px: 2, pt: 1 }} />
-        {dataSelect.length === 0 && <EmptyBoardView/>}
-          {dataSelect.map((option, index) => (
-            <MenuItem onClick={() => {
-              setOpen(null)
+        {dataSelect.length === 0 && <EmptyBoardView />}
+        {dataSelect.map((option, index) => (
+          <MenuItem
+            onClick={() => {
+              setOpen(null);
               changeCurrent(option);
-            }} 
-            sx={{borderRadius: 1,mt:1, mb:1, background: currentTeam?.id === option.id ? alpha(theme.palette.primary.main, 0.2) : 'transparent'}} key={index}
-            >
-              
-              <Avatar src={option.thumbnails} sx={{ mr: 2, minWidth: 50 , borderRadius: 0.5}} />
-              <Typography sx={{fontSize: 14}}>
-              {option.name}</Typography></MenuItem>
-          ))}
+            }}
+            sx={{
+              borderRadius: 1,
+              mt: 1,
+              mb: 1,
+              background:
+                currentTeam?.id === option.id
+                  ? alpha(theme.palette.primary.main, 0.2)
+                  : 'transparent',
+            }}
+            key={index}
+          >
+            <Avatar src={option.thumbnails} sx={{ mr: 2, minWidth: 50, borderRadius: 0.5 }} />
+            <Typography sx={{ fontSize: 14 }}>{option.name}</Typography>
+          </MenuItem>
+        ))}
       </Popover>
     </>
   );

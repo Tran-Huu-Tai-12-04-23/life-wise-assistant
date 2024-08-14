@@ -1,11 +1,6 @@
 /* eslint-disable import/no-cycle */
-import {
-  createContext,
-  useContext,
-  useMemo,
-  useState
-} from "react";
-import ModalCustom from "src/components/modal";
+import { createContext, useContext, useMemo, useState } from 'react';
+import ModalCustom from 'src/components/modal';
 
 const ModalContext = createContext({
   hideModal: () => {},
@@ -35,14 +30,14 @@ const ModalProvider = ({ children }) => {
 
   return (
     <ModalContext.Provider value={value}>
-        <ModalCustom 
-          isOpen={isVisible}
-          onClose={() => {
-            setVisible(!isVisible);
-          }}
-        >
-          {content}
-        </ModalCustom>
+      <ModalCustom
+        isOpen={isVisible}
+        onClose={() => {
+          setVisible(!isVisible);
+        }}
+      >
+        {content}
+      </ModalCustom>
       {children}
     </ModalContext.Provider>
   );
@@ -52,7 +47,7 @@ export const useModal = () => {
   const context = useContext(ModalContext);
 
   if (context == null) {
-    throw new Error("useModal must be used within a AuthProvider");
+    throw new Error('useModal must be used within a AuthProvider');
   }
 
   return context;

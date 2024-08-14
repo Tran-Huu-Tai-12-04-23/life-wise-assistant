@@ -10,9 +10,12 @@
 .hide-scroll::-webkit-scrollbar {
     display: none; /* Hide scrollbars for WebKit browsers */
 }
+.css-x7ca5p-MuiButtonBase-root:hover .MuiTypography-root, .css-x7ca5p-MuiButtonBase-root.Mui-focusVisible .MuiTypography-root,
 .css-132h9lo-MuiButtonBase-root:hover .MuiTypography-root, .css-132h9lo-MuiButtonBase-root.Mui-focusVisible .MuiTypography-root {
     border: none!important;
 }
+
+
 .classs {
     fontSize: 20px;
 }

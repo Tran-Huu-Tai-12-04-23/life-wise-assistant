@@ -42,7 +42,7 @@ function Row({ data }) {
         sx={{ padding: 2, height: HEADER.H_DESKTOP / 2, minWidth: 200 }}
       >
         <Stack className="ignore-scroll" {...listeners} direction="row" gap={1} alignItems="center">
-          <Typography variant="h7" sx={{fontSize: 12}} fontWeight={700}>
+          <Typography variant="h7" sx={{ fontSize: 12 }} fontWeight={700}>
             {data?.name}
           </Typography>
           <Chip
@@ -50,19 +50,19 @@ function Row({ data }) {
             sx={{ fontWeight: 900, background: data?.background, color: data?.color }}
           />
         </Stack>
-          <IconButton
-          className='ignore-scroll'
-            aria-label="fingerprint"
-            color="primary"
-            size="medium"
-            sx={{
-              border: () => `dashed 1px ${theme.palette.divider}`,
-            }}
-          >
-            <Iconify icon="eva:plus-fill" />
-          </IconButton>
-        </Stack>
-     
+        <IconButton
+          className="ignore-scroll"
+          aria-label="fingerprint"
+          color="primary"
+          size="medium"
+          sx={{
+            border: () => `dashed 1px ${theme.palette.divider}`,
+          }}
+        >
+          <Iconify icon="eva:plus-fill" />
+        </IconButton>
+      </Stack>
+
       <SortableContext items={data?.tasks?.map((item) => item.id)}>
         <Stack sx={{ padding: 1 }} direction="column" gap={1}>
           {data?.tasks?.map((task) => (

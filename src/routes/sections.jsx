@@ -9,7 +9,9 @@ export const BlogPage = lazy(() => import('src/pages/private/blog'));
 export const TaskPage = lazy(() => import('src/pages/private/task'));
 export const UserPage = lazy(() => import('src/pages/private/user'));
 export const LoginPage = lazy(() => import('src/pages/public/login'));
-export const LoginWithThirdPlatformCallBack = lazy(() => import('src/sections/login/login-with-third-platform-callback'));
+export const LoginWithThirdPlatformCallBack = lazy(() =>
+  import('src/sections/login/login-with-third-platform-callback')
+);
 export const ProductsPage = lazy(() => import('src/pages/private/products'));
 export const Page404 = lazy(() => import('src/pages/public/page-not-found'));
 
@@ -23,9 +25,11 @@ function AuthRouter() {
           <Outlet />
         </Suspense>
       ),
-      children: [{ element: <LoginPage />, index: true } , 
-      { path: 'google/callback/success', element: <LoginWithThirdPlatformCallBack />  }, 
-      { path: 'github/callback/success', element: <LoginWithThirdPlatformCallBack /> }],
+      children: [
+        { element: <LoginPage />, index: true },
+        { path: 'google/callback/success', element: <LoginWithThirdPlatformCallBack /> },
+        { path: 'github/callback/success', element: <LoginWithThirdPlatformCallBack /> },
+      ],
     },
     {
       path: '404',

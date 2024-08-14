@@ -107,8 +107,8 @@ const Listbox = styled('ul')(
 );
 
 export default function SelectStatus() {
-  const {  filterData, filter } = useColumnState();
-  const {onChangeFilter} = useColumnAction()
+  const { filterData, filter } = useColumnState();
+  const { onChangeFilter } = useColumnAction();
   const [selectedValue, setSelectedValue] = useState([]);
 
   const {
@@ -128,18 +128,20 @@ export default function SelectStatus() {
     value: selectedValue,
     getOptionLabel: (option) => option.name,
     onChange: (event, newValue) => {
-        onChangeFilter("lstStatus", newValue.map( item => item.code))
-        setSelectedValue(newValue);
-    }
+      onChangeFilter(
+        'lstStatus',
+        newValue.map((item) => item.code)
+      );
+      setSelectedValue(newValue);
+    },
   });
 
-
   useEffect(() => {
-    if(filter?.lstStatus?.length === 0) {
-       setSelectedValue([]);
+    if (filter?.lstStatus?.length === 0) {
+      setSelectedValue([]);
     }
-  }, [filter?.lstStatus])
-  
+  }, [filter?.lstStatus]);
+
   return (
     <Root>
       <Box {...getRootProps()}>
@@ -177,12 +179,9 @@ export default function SelectStatus() {
       {groupedOptions.length > 0 ? (
         <Listbox {...getListboxProps()}>
           {filterData?.lstStatus?.map((option, index) => {
-            const { key,  ...optionProps } = getOptionProps({ option, index });
+            const { key, ...optionProps } = getOptionProps({ option, index });
             return (
-              <li 
-              key={key}
-                {...optionProps}
-              >
+              <li key={key} {...optionProps}>
                 {option.name}
               </li>
             );

@@ -6,11 +6,10 @@ import { useTeamState } from 'src/redux/features/team/teamSlice';
 import { Listbox, Root, StyledTag } from '../style';
 import { BOARD_TAG } from './tag-enum';
 
-
-export default function SelectTag({onChangeValue}) {
-  const {teams} = useTeamState()
+export default function SelectTag({ onChangeValue }) {
+  const { teams } = useTeamState();
   const [selectedValue, setSelectedValue] = useState([]);
- const values = useMemo(() => Object.keys(BOARD_TAG).map((key) => BOARD_TAG[key]), [teams])
+  const values = useMemo(() => Object.keys(BOARD_TAG).map((key) => BOARD_TAG[key]), [teams]);
   const {
     getRootProps,
     getInputProps,
@@ -24,20 +23,18 @@ export default function SelectTag({onChangeValue}) {
   } = useAutocomplete({
     id: 'customized-hook-demo',
     multiple: true,
-    options: values|| [],
+    options: values || [],
     value: selectedValue,
     getOptionLabel: (option) => option.name,
     onChange: (event, newValue) => {
       setSelectedValue(newValue);
-      onChangeValue( newValue.map( item => item.name))
-    }
+      onChangeValue(newValue.map((item) => item.name));
+    },
   });
 
-
-  
   return (
     <Root>
-      <Box sx={{width: '100%'}} {...getRootProps()}>
+      <Box sx={{ width: '100%' }} {...getRootProps()}>
         <InputWrapper minWidth="100%" ref={setAnchorEl} className={focused ? 'focused' : ''}>
           <Stack
             direction="row"
@@ -70,14 +67,11 @@ export default function SelectTag({onChangeValue}) {
         </InputWrapper>
       </Box>
       {groupedOptions.length > 0 ? (
-        <Listbox  {...getListboxProps()}>
+        <Listbox {...getListboxProps()}>
           {values?.map((option, index) => {
-            const { key,  ...optionProps } = getOptionProps({ option, index });
+            const { key, ...optionProps } = getOptionProps({ option, index });
             return (
-              <li 
-              key={key}
-                {...optionProps}
-              >
+              <li key={key} {...optionProps}>
                 {option.name}
               </li>
             );

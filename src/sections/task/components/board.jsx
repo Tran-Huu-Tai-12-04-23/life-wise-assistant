@@ -14,10 +14,10 @@ const TaskBoard = ({ taskActive, columnActive }) => {
     <Stack direction="row" spacing={2} sx={{ marginTop: 2 }}>
       <SortableContext items={columns.map((col) => col.id)}>
         {columns.map((col) => {
-          if(columnsActive?.includes(col.id)){
-            return  <Column key={col.id} data={col} />
+          if (columnsActive?.includes(col.id)) {
+            return <Column key={col.id} data={col} />;
           }
-          return null
+          return null;
         })}
       </SortableContext>
       <DragOverlay adjustScale={false}>

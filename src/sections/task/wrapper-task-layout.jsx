@@ -30,8 +30,8 @@ export const EViewType = {
 
 function WrapperTaskLayout({ viewType = EViewType.LIST }) {
   const { currentTeam } = useTeamState();
-  const {  onGetAllColumnOfTeam } = useColumnAction();
-  const { columns , isLoading} = useColumnState();
+  const { onGetAllColumnOfTeam } = useColumnAction();
+  const { columns, isLoading } = useColumnState();
   const [activeId, setActiveId] = useState(null);
   const { onMoveTaskInTheSameColumn, onMoveTaskInTheDifferentColumn, onSwapBetweenColumn } =
     useColumnAction();
@@ -167,7 +167,7 @@ function WrapperTaskLayout({ viewType = EViewType.LIST }) {
   }, [currentTeam]);
 
   return (
-    <Box className="ignore-scroll hide-scroll" >
+    <Box className="ignore-scroll hide-scroll">
       <ScrollContainer
         hideScrollbars={false}
         stopPropagation
@@ -175,26 +175,23 @@ function WrapperTaskLayout({ viewType = EViewType.LIST }) {
         ignoreElements=".ignore-scroll"
       >
         {isLoading && <LoadingView />}
-        {
-          ! isLoading && 
-
-       <DndContext
-          sensors={sensors}
-          collisionDetection={closestCorners}
-          onDragStart={handleDragStart}
-          onDragMove={handleDragMove}
-          onDragEnd={handleDragEnd}
-        >
-          {/* <TaskBoard taskActive={findTaskById(activeId)} columnActive={findColById(activeId)} /> */}
-          {
-            viewType === EViewType.BOARD && <TaskBoard taskActive={findTaskById(activeId)} columnActive={findColById(activeId)} />
-          }
-          {
-            viewType === EViewType.LIST &&   <TaskList  taskActive={findTaskById(activeId)} columnActive={findColById(activeId)}/>
-          }
-    
-        </DndContext>
-        }
+        {!isLoading && (
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCorners}
+            onDragStart={handleDragStart}
+            onDragMove={handleDragMove}
+            onDragEnd={handleDragEnd}
+          >
+            {/* <TaskBoard taskActive={findTaskById(activeId)} columnActive={findColById(activeId)} /> */}
+            {viewType === EViewType.BOARD && (
+              <TaskBoard taskActive={findTaskById(activeId)} columnActive={findColById(activeId)} />
+            )}
+            {viewType === EViewType.LIST && (
+              <TaskList taskActive={findTaskById(activeId)} columnActive={findColById(activeId)} />
+            )}
+          </DndContext>
+        )}
       </ScrollContainer>
     </Box>
   );

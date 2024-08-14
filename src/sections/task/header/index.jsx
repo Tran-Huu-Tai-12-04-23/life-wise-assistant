@@ -1,10 +1,4 @@
-import {
-  Box,
-  Button,
-  Stack,
-  Typography,
-  useTheme,
-} from '@mui/material';
+import { Box, Button, Stack, Typography, useTheme } from '@mui/material';
 import Iconify from 'src/components/iconify';
 import { useModal } from 'src/contexts/modal-context';
 import SelectBoardPopover from 'src/layouts/dashboard/common/select-board-popover';
@@ -14,7 +8,7 @@ import FormAddNewBoard from '../components/form-add-new-board';
 
 function Header() {
   const theme = useTheme();
-  const {openModal} = useModal()
+  const { openModal } = useModal();
 
   return (
     <Box
@@ -29,7 +23,7 @@ function Header() {
         width: `calc(100%)`,
         height: HEADER.H_DESKTOP,
         position: 'sticky',
-        top: HEADER.H_DESKTOP +10,
+        top: HEADER.H_DESKTOP + 10,
         right: 0,
         zIndex: 3,
         backdropFilter: 'blur(20px)',
@@ -43,11 +37,11 @@ function Header() {
         sx={{ height: '100%' }}
       >
         <Stack gap={1} alignItems="center" direction="row">
-         <SelectBoardPopover/>
+          <SelectBoardPopover />
         </Stack>
         <Stack direction="row" gap={2}>
           <Button
-          onClick={() => openModal(<FormAddNewBoard/>)}
+            onClick={() => openModal(<FormAddNewBoard />)}
             aria-label="fingerprint"
             color="primary"
             size="large"
@@ -55,7 +49,7 @@ function Header() {
               border: () => `dashed 1px ${theme.palette.divider}`,
             }}
           >
-               <Iconify icon="eva:plus-fill" />
+            <Iconify icon="eva:plus-fill" />
             <Typography variant="caption">Add new board</Typography>
           </Button>
         </Stack>

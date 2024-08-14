@@ -14,9 +14,9 @@ import { useColumnState } from 'src/redux/features/column/columnSlice';
 
 export default function SelectColumnPopover() {
   const [open, setOpen] = useState(null);
-  const {columns, columnsActive} = useColumnState()
-  const {onToggleColumnActive}= useColumnAction()
-  const theme = useTheme()
+  const { columns, columnsActive } = useColumnState();
+  const { onToggleColumnActive } = useColumnAction();
+  const theme = useTheme();
 
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
@@ -26,12 +26,14 @@ export default function SelectColumnPopover() {
     setOpen(null);
   };
 
-
   return (
     <>
-       <IconButton onClick={handleOpen} sx={{background: () => alpha(theme.palette.primary.main, 0.2), width: 50, height: 50 } }>
-              <SettingVerticalIcon color={theme.palette.primary.main}/>
-            </IconButton>
+      <IconButton
+        onClick={handleOpen}
+        sx={{ background: () => alpha(theme.palette.primary.main, 0.2), width: 50, height: 50 }}
+      >
+        <SettingVerticalIcon color={theme.palette.primary.main} />
+      </IconButton>
       <Popover
         open={!!open}
         anchorEl={open}
@@ -41,23 +43,24 @@ export default function SelectColumnPopover() {
         PaperProps={{
           sx: {
             width: 300,
-            p: 1
+            p: 1,
           },
         }}
       >
-        <Box onClick={e => e.stopPropagation()}/>
-          {columns.map((option, index) => (
-            <MenuItem  
+        <Box onClick={(e) => e.stopPropagation()} />
+        {columns.map((option, index) => (
+          <MenuItem
             onClick={() => onToggleColumnActive(option.id)}
-            sx={{borderRadius: 2,mt:1, mb:1}} key={index}
-            >
-              <Switch checked={columnsActive?.includes(option.id)}/>
-              <Typography  variant='h7' sx={{fontSize: 12}}>
-                {option.name}
-              </Typography>
-              <Paper sx={{width: 20, height: 20, background: option.color,ml:2 }}/>
-            </MenuItem>
-          ))}
+            sx={{ borderRadius: 2, mt: 1, mb: 1 }}
+            key={index}
+          >
+            <Switch checked={columnsActive?.includes(option.id)} />
+            <Typography variant="h7" sx={{ fontSize: 12 }}>
+              {option.name}
+            </Typography>
+            <Paper sx={{ width: 20, height: 20, background: option.color, ml: 2 }} />
+          </MenuItem>
+        ))}
       </Popover>
     </>
   );

@@ -14,7 +14,7 @@ import InputCustom from 'src/components/input';
 
 export default function InviteColumnPopover() {
   const [open, setOpen] = useState(null);
-  const theme = useTheme()
+  const theme = useTheme();
 
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
@@ -24,21 +24,21 @@ export default function InviteColumnPopover() {
     setOpen(null);
   };
 
-
   return (
     <>
-              <IconButton
-              onClick={handleOpen}
-            aria-label="fingerprint"
-            color="primary"
-            size="large"
-            sx={{
-              border: () => `dashed 1px ${theme.palette.divider}`,
-               width: 50, height: 50 
-            }}
-          >
-            <Iconify icon="eva:plus-fill" />
-          </IconButton>
+      <IconButton
+        onClick={handleOpen}
+        aria-label="fingerprint"
+        color="primary"
+        size="large"
+        sx={{
+          border: () => `dashed 1px ${theme.palette.divider}`,
+          width: 50,
+          height: 50,
+        }}
+      >
+        <Iconify icon="eva:plus-fill" />
+      </IconButton>
       <Popover
         open={!!open}
         anchorEl={open}
@@ -48,26 +48,25 @@ export default function InviteColumnPopover() {
         PaperProps={{
           sx: {
             width: 300,
-            p: 1
+            p: 1,
           },
         }}
       >
-         <Stack spacing={2} direction="column">
-          <InputCustom placeholder="Search member"/>
-          <InviteIcon width='100%' height={100}/>
-          <Stack direction="row" justifyContent="space-between" sx={{
-            borderTop: () => `dashed 1px ${theme.palette.divider}`,
-            pt: 2
-          }}>
-            <ButtonOutlined> 
-            Generate link invite
-            </ButtonOutlined>
-            <ButtonPrimary  sx={{width: '35%'}}>
-              Invite
-            </ButtonPrimary>
+        <Stack spacing={2} direction="column">
+          <InputCustom placeholder="Search member" />
+          <InviteIcon width="100%" height={100} />
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            sx={{
+              borderTop: () => `dashed 1px ${theme.palette.divider}`,
+              pt: 2,
+            }}
+          >
+            <ButtonOutlined>Generate link invite</ButtonOutlined>
+            <ButtonPrimary sx={{ width: '35%' }}>Invite</ButtonPrimary>
           </Stack>
-             
-         </Stack>
+        </Stack>
       </Popover>
     </>
   );

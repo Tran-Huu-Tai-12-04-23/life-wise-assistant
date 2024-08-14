@@ -1,46 +1,58 @@
-import SvgColor from 'src/components/svg-color';
+import BellIcon from 'src/components/icons/bell-icon';
 
 // ----------------------------------------------------------------------
 
-const icon = (name) => (
-  <SvgColor src={`/assets/icons/navbar/${name}.svg`} sx={{ width: 1, height: 1 }} />
-);
+// const icon = (name) => (
+//   <SvgColor src={`/assets/icons/navbar/${name}.svg`} sx={{ width: 1, height: 1 }} />
+// );
 
 const navConfig = [
   {
     title: 'dashboard',
     path: '/',
-    icon: icon('ic_analytics'),
+    icon: <BellIcon color="gray"/>,
   },
   {
     title: 'task',
     path: '/task',
-    icon: icon('ic_task'),
+    icon:  <BellIcon color="gray"/>,
+    subNav: [
+      {
+        title: 'Manager',
+        path: '/task/manager',
+        icon:  <BellIcon color="gray"/>,
+      },
+      {
+        title: 'History',
+        path: '/task/History',
+        icon:  <BellIcon color="gray"/>,
+      }
+    ]
   },
   {
     title: 'user',
     path: '/user',
-    icon: icon('ic_user'),
+    icon:  <BellIcon color="gray"/>,
   },
   {
     title: 'product',
     path: '/products',
-    icon: icon('ic_cart'),
+    icon: <BellIcon color="gray"/>,
   },
   {
     title: 'blog',
     path: '/blog',
-    icon: icon('ic_blog'),
+    icon: <BellIcon color="gray"/>,
   },
   {
     title: 'login',
     path: '/login',
-    icon: icon('ic_lock'),
+    icon: <BellIcon color="gray"/>,
   },
   {
     title: 'Not found',
     path: '/404',
-    icon: icon('ic_disabled'),
+    icon:  <BellIcon color="gray"/>,
   },
 ];
 

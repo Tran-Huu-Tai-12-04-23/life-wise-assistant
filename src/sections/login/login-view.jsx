@@ -101,7 +101,6 @@ export default function LoginView() {
     </>
   );
 
-
   return (
     <Box
       sx={{
@@ -138,40 +137,40 @@ export default function LoginView() {
           </Typography>
 
           <Stack direction="row" spacing={2} justifyContent="center">
-           <Link to={`${import.meta.env.VITE_LINK_API   }/auth/google`}>
-            <Button
-              fullWidth
-              size="large"
-              color="inherit"
-              variant="outlined"
-              sx={{ borderColor: alpha(theme.palette.grey[500], 0.16) }}
-            >
-              <Iconify icon="eva:google-fill" color="#DF3E30" />
-            </Button></Link>
-<Link to={`${import.meta.env.VITE_LINK_API   }/auth/facebook`}>
- <Button
-              fullWidth
-              size="large"
-              color="inherit"
-              variant="outlined"
-              sx={{ borderColor: alpha(theme.palette.grey[500], 0.16) }}
-            >
-              <Iconify icon="eva:facebook-fill" color="#1877F2" />
-            </Button>
-</Link>
-           
-<Link to={`${import.meta.env.VITE_LINK_API   }/auth/github`}>
-  <Button
-              fullWidth
-              size="large"
-              color="inherit"
-              variant="outlined"
-              sx={{ borderColor: alpha(theme.palette.grey[500], 0.16) }}
-            >
-              <Iconify icon="eva:github-fill" color="#000" />
-            </Button>
-</Link>
-          
+            <Link to={`${import.meta.env.VITE_LINK_API}/auth/google`}>
+              <Button
+                fullWidth
+                size="large"
+                color="inherit"
+                variant="outlined"
+                sx={{ borderColor: alpha(theme.palette.grey[500], 0.16) }}
+              >
+                <Iconify icon="eva:google-fill" color="#DF3E30" />
+              </Button>
+            </Link>
+            <Link to={`${import.meta.env.VITE_LINK_API}/auth/facebook`}>
+              <Button
+                fullWidth
+                size="large"
+                color="inherit"
+                variant="outlined"
+                sx={{ borderColor: alpha(theme.palette.grey[500], 0.16) }}
+              >
+                <Iconify icon="eva:facebook-fill" color="#1877F2" />
+              </Button>
+            </Link>
+
+            <Link to={`${import.meta.env.VITE_LINK_API}/auth/github`}>
+              <Button
+                fullWidth
+                size="large"
+                color="inherit"
+                variant="outlined"
+                sx={{ borderColor: alpha(theme.palette.grey[500], 0.16) }}
+              >
+                <Iconify icon="eva:github-fill" color="#000" />
+              </Button>
+            </Link>
           </Stack>
 
           <Divider sx={{ my: 3 }}>

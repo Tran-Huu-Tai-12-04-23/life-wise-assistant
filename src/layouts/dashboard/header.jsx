@@ -21,7 +21,7 @@ import { HEADER, NAV } from './config-layout';
 
 // ----------------------------------------------------------------------
 
-export default function Header({ onOpenNav , expanded}) {
+export default function Header({ onOpenNav, expanded }) {
   const theme = useTheme();
 
   const lgUp = useResponsive('up', 'lg');
@@ -30,7 +30,7 @@ export default function Header({ onOpenNav , expanded}) {
     <>
       {!lgUp && (
         <IconButton onClick={onOpenNav} sx={{ mr: 1 }}>
-          <Iconify icon="eva:menu-2-fill"  />
+          <Iconify icon="eva:menu-2-fill" />
         </IconButton>
       )}
 
@@ -50,7 +50,7 @@ export default function Header({ onOpenNav , expanded}) {
     <AppBar
       sx={{
         boxShadow: 'none',
-        height: HEADER.H_MOBILE ,
+        height: HEADER.H_MOBILE,
         zIndex: theme.zIndex.appBar + 1,
         ...bgBlur({
           color: theme.palette.background.default,
