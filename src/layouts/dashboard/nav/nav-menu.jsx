@@ -41,9 +41,11 @@ const AccordionSummary = styled(({isHasArrow, ...props}) => (
   },
 }));
 
-const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
-  padding: theme.spacing(2),
+const AccordionDetails = styled(MuiAccordionDetails)(() => ({
   borderTop: '1px solid rgba(0, 0, 0, .05)',
+  width: '100%',
+  padding: 0,
+  
 }));
 
 export default function NavMenu({expanded}) {
@@ -63,12 +65,14 @@ export default function NavMenu({expanded}) {
        <EffectBtn
        component={RouterLink}
         href={item.path}
-       sx={{width: '100%', background:pathname === item.path ? alpha(theme.palette.primary.main, 0.05) : 'transparent'}}>
-         <AccordionSummary isHasArrow={item?.subNav?.length > 0} sx={{width: '100%'}} aria-controls="panel1d-content" id="panel1d-header">
+       sx={{width: '100%', background:pathname === item.path ? alpha(theme.palette.primary.main, 0.05) : 'transparent',
+        borderRightWidth: 2, borderStyle: 'solid', borderColor: pathname === item.path ? theme.palette.primary.main : 'transparent'
+       }}>
+         <AccordionSummary isHasArrow={item?.subNav?.length > 0 && expanded } sx={{width: '100%'}} aria-controls="panel1d-content" id="panel1d-header">
           <Stack direction="row" alignItems="center" justifyContent="flex-start" sx={{width: '100%'}}>
             {item.icon}
             {
-              expanded && <Box sx={{userSelect: 'none', ml: 1}} component="span">{item.title.charAt(0).toUpperCase() + item.title.slice(1)} </Box>
+              expanded && <Box sx={{userSelect: 'none', ml: 1, fontSize: 12}} component="span">{item.title.charAt(0).toUpperCase() + item.title.slice(1)} </Box>
             }
           </Stack>
            </AccordionSummary>
@@ -77,8 +81,9 @@ export default function NavMenu({expanded}) {
             item?.subNav?.length > 0 && <AccordionDetails sx={{width: '100%'}}>
                   <Stack direction="column" alignItems="center" justifyContent="flex-start" sx={{width: '100%'}}>
                     {item?.subNav?.map((subItem, subIndex) => (
-                   <EffectBtn key={subIndex} sx={{width: '100%', height: '100%'}}>
+                   <EffectBtn key={subIndex} sx={{width: '100%', height: '100%', p: 2, pl: 3}}>
                      <Stack direction="row" alignItems="center" justifyContent="flex-start" sx={{width: '100%'}}>
+                       <Box sx={{ width: '5px', height: "5px",mr: expanded ? 2: 0, borderRadius: 100, background: alpha(theme.palette.primary.main, 0.5)}}/>
                         {subItem.icon}
                         {
                           expanded && <Box sx={{userSelect: 'none', ml: 1}} component="span">{subItem.title.charAt(0).toUpperCase() + subItem.title.slice(1)} </Box>

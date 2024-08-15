@@ -41,19 +41,19 @@ export default function Nav({ openNav, onCloseNav, setExpanded, expanded }) {
       sx={{
         my: 3,
         mx: 1,
-        py: 2,
-        px: 2.5,
+        py: 1,
+        px: 0.5,
         display: 'flex',
-        borderRadius: 1.5,
+        borderRadius: 1.5, 
         alignItems: 'center',
         bgcolor: () => alpha(theme.palette.grey[500], 0.12),
-        width: 'max-content',
+        width: 'calc(100% - 20px)',
       }}
     >
       <Avatar src={account.photoURL} alt="photoURL" />
       {expanded && (
-        <Box sx={{ ml: 2 }}>
-          <Typography variant="subtitle2">{account.displayName}</Typography>
+        <Box sx={{ ml:1 }}>
+          <Typography variant="h7" sx={{fontSize: 12}}>{account.displayName}</Typography>
 
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
             {account.role}
@@ -110,9 +110,11 @@ export default function Nav({ openNav, onCloseNav, setExpanded, expanded }) {
         alignItems="center"
         sx={{ mt: 3, p: 2 }}
       >
-        <Logo />
+        {
+          expanded &&        <Logo />
+        }
         <IconButton onClick={() => setExpanded(!expanded)}>
-          <Iconify icon="eva:menu-2-fill" />
+          <Iconify icon="eva:menu-2-fill" width={30} height={30} />
         </IconButton>
       </Stack>
       {renderAccount}
@@ -131,7 +133,7 @@ export default function Nav({ openNav, onCloseNav, setExpanded, expanded }) {
     <Box
       sx={{
         flexShrink: { lg: 0 },
-        width: { lg: expanded ? NAV.WIDTH : NAV.WIDTH / 2 - 10 },
+        width: { lg: expanded ? NAV.WIDTH : NAV.WIDTH / 2 - 40 },
         backgroundColor: 'white',
         zIndex: theme.zIndex.appBar - 1,
         overflow: 'hidden',
@@ -142,7 +144,7 @@ export default function Nav({ openNav, onCloseNav, setExpanded, expanded }) {
           sx={{
             height: 1,
             position: 'fixed',
-            width: expanded ? NAV.WIDTH : NAV.WIDTH / 2 - 10,
+            width: expanded ? NAV.WIDTH : NAV.WIDTH / 2 - 40,
             borderRight: () => `dashed 1px ${theme.palette.divider}`,
           }}
         >
