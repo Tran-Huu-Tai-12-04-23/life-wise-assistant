@@ -180,6 +180,7 @@ export default function LoginView() {
           </Divider>
 
           {renderForm}
+
         </Card>
       </Stack>
     </Box>

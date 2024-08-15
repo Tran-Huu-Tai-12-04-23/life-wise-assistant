@@ -5,10 +5,12 @@ import { Chip, IconButton, Stack, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 import Iconify from 'src/components/iconify';
 import { HEADER } from 'src/layouts/dashboard/config-layout';
+import { useColumnAction } from 'src/redux/features/column/action';
 import { COLUMN } from '../wrapper-task-layout';
 import TaskListItem from './task-list-item';
 
 function Row({ data }) {
+  const {changeCurrentColumn} = useColumnAction()
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: data.id,
     data: {
@@ -24,6 +26,7 @@ function Row({ data }) {
       {...attributes}
       // {...listeners}
       sx={{
+        backgroundColor: '#F9FAFB',
         transition,
         transform: CSS.Translate?.toString(transform),
         opacity: isDragging ? 0.5 : 1,
@@ -51,6 +54,9 @@ function Row({ data }) {
           />
         </Stack>
         <IconButton
+          onClick={() => {
+          changeCurrentColumn(data)
+        }}
           className="ignore-scroll"
           aria-label="fingerprint"
           color="primary"

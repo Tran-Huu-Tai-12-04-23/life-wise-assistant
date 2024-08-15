@@ -3,6 +3,7 @@ import { Navigate, Outlet, useRoutes } from 'react-router-dom';
 import LoadingView from 'src/components/loadingView';
 
 import DashboardLayout from 'src/layouts/dashboard';
+import CreateBlogPage from 'src/pages/private/create-blog';
 
 export const IndexPage = lazy(() => import('src/pages/private/app'));
 export const BlogPage = lazy(() => import('src/pages/private/blog'));
@@ -59,6 +60,7 @@ function PrivateRouter() {
         { path: 'user', element: <UserPage /> },
         { path: 'products', element: <ProductsPage /> },
         { path: 'blog', element: <BlogPage /> },
+        { path: 'create-blog', element: <CreateBlogPage /> },
         { path: 'task', element: <TaskPage /> },
       ],
     },

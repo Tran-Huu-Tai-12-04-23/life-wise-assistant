@@ -8,7 +8,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import store from './redux/store';
 
 import App from './app';
-import ModalProvider from './contexts/modal-context';
 
 // ----------------------------------------------------------------------
 
@@ -19,10 +18,8 @@ root.render(
     <Provider store={store}>
       <BrowserRouter>
         <Suspense>
-          <ModalProvider>
             <App />
             <ToastContainer style={{ zIndex: 100000000 }} theme="light" />
-          </ModalProvider>
         </Suspense>
       </BrowserRouter>
     </Provider>

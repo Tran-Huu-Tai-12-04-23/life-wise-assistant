@@ -14,12 +14,12 @@ import {
   Typography,
 } from '@mui/material';
 import PropTypes from 'prop-types';
-import Iconify from 'src/components/iconify';
 import DocumentIcon from 'src/components/icons/document-icon';
 import FileIcon from 'src/components/icons/file-icon';
 import MessageIcon from 'src/components/icons/message-icon';
 import { COLORS } from 'src/constanst';
 import { TASK } from '../wrapper-task-layout';
+import AssignMemberPopover from './assgin-member-popover';
 
 function TaskItem({ data, isRotate }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
@@ -59,7 +59,6 @@ function TaskItem({ data, isRotate }) {
       <Stack
         onClick={(e) => e.stopPropagation()}
         {...listeners}
-        minHeight={50}
         direction="row"
         gap={1}
         alignItems="center"
@@ -137,17 +136,7 @@ function TaskItem({ data, isRotate }) {
               ))}
             </AvatarGroup>
           )}
-
-          <IconButton
-            aria-label="fingerprint"
-            color="primary"
-            size="large"
-            sx={{
-              border: () => `dashed 1px ${theme.palette.divider}`,
-            }}
-          >
-            <Iconify icon="eva:plus-fill" sx={{ color: 'gray' }} />
-          </IconButton>
+          <AssignMemberPopover/>
         </Stack>
 
         <Stack

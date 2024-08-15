@@ -19,3 +19,30 @@
 .classs {
     fontSize: 20px;
 }
+
+
+.ql-toolbar.ql-snow {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+       border-color: rgba(0,0,0,0.1)!important;
+}
+.ql-snow .ql-picker.ql-expanded .ql-picker-label {
+    border-radius: 6px;
+}
+.ql-snow .ql-tooltip input[type=text],
+.ql-snow .ql-tooltip,
+.ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options {
+    border-radius: 6px;
+      border-color: rgba(0,0,0,0.1)!important;
+}
+.ql-tooltip.ql-editing {
+    left : -10px
+}
+
+.ql-container.ql-snow {
+   border-color: rgba(0,0,0,0.1)!important;
+   border-bottom-right-radius: 6px;     
+    border-bottom-left-radius: 6px;
+}
+
+

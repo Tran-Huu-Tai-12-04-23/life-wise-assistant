@@ -7,18 +7,17 @@ import {
   AvatarGroup,
   Button,
   Chip,
-  IconButton,
   Stack,
   Tooltip,
-  Typography,
+  Typography
 } from '@mui/material';
 import PropTypes from 'prop-types';
-import Iconify from 'src/components/iconify';
 import DocumentIcon from 'src/components/icons/document-icon';
 import FileIcon from 'src/components/icons/file-icon';
 import MessageIcon from 'src/components/icons/message-icon';
 import { COLORS } from 'src/constanst';
 import { TASK } from '../wrapper-task-layout';
+import AssignMemberPopover from './assgin-member-popover';
 
 function TaskListItem({ data, isRotate }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
@@ -29,6 +28,7 @@ function TaskListItem({ data, isRotate }) {
   });
 
   const theme = useTheme();
+
   return (
     <Stack
       direction="row"
@@ -37,8 +37,8 @@ function TaskListItem({ data, isRotate }) {
       {...attributes}
       sx={{
         transition,
-        transform: isRotate ? 'rotate(10deg)' : CSS.Translate?.toString(transform),
-        boxShadow: isRotate ? '0px 2px 4px rgba(0, 0, 0, 0.08)' : '0px 2px 4px transparent',
+        transform: CSS.Translate?.toString(transform),
+        boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.08)',
         opacity: isDragging ? '0.5' : '1',
         background: '700',
         padding: 1,
@@ -46,7 +46,7 @@ function TaskListItem({ data, isRotate }) {
         cursor: 'pointer',
         backgroundColor: 'white',
         '&:hover': {
-          bgcolor: () => (isRotate ? 'white' : alpha(theme.palette.primary.light, 0.1)),
+          bgcolor: () => isRotate ? 'white' : alpha(theme.palette.primary.light, 0.1),
         },
         '&:hover ': {
           '.icon-drag': {
@@ -57,7 +57,6 @@ function TaskListItem({ data, isRotate }) {
       }}
     >
       <Stack
-        minHeight={50}
         direction="row"
         sx={{ width: '100%' }}
         gap={2}
@@ -128,16 +127,7 @@ function TaskListItem({ data, isRotate }) {
             </AvatarGroup>
           )}
 
-          <IconButton
-            aria-label="fingerprint"
-            color="primary"
-            size="large"
-            sx={{
-              border: () => `dashed 1px ${theme.palette.divider}`,
-            }}
-          >
-            <Iconify icon="eva:plus-fill" sx={{ color: 'gray' }} />
-          </IconButton>
+          <AssignMemberPopover isRight/>
         </Stack>
 
         <Stack

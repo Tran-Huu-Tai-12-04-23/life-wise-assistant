@@ -7,6 +7,7 @@ import { useScrollToTop } from 'src/hooks/use-scroll-to-top';
 import { useEffect } from 'react';
 import { AuthRouter, PrivateRouter } from 'src/routes/sections';
 import ThemeProvider from 'src/theme';
+import ModalProvider from './contexts/modal-context';
 import { getAccessToken } from './helper';
 import { useAuthAction } from './redux/features/auth/action';
 import { useAuthState } from './redux/features/auth/authSlice';
@@ -30,8 +31,11 @@ export default function App() {
 
   return (
     <ThemeProvider>
+      <ModalProvider>
       {currentUser && <PrivateRouter />}
       {!currentUser && <AuthRouter />}
+      </ModalProvider>
+
     </ThemeProvider>
   );
 }

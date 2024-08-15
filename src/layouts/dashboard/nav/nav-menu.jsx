@@ -32,14 +32,13 @@ const AccordionSummary = styled(({isHasArrow, ...props}) => (
   justifyContent: 'space-between',
   alignItems: 'center',
   // flexDirection: 'row-reverse',
-  width: '100%',
+  width: '100%',    
   '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
     transform: 'rotate(90deg)',
   },
   '& .MuiAccordionSummary-content': {
     marginLeft: theme.spacing(1),
   },
- 
 }));
 
 const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({

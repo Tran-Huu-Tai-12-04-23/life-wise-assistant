@@ -44,16 +44,11 @@ const navConfig = [
     path: '/blog',
     icon: <BellIcon color="gray"/>,
   },
-  {
-    title: 'login',
-    path: '/login',
+   {
+    title: 'Create blog',
+    path: '/create-blog',
     icon: <BellIcon color="gray"/>,
-  },
-  {
-    title: 'Not found',
-    path: '/404',
-    icon:  <BellIcon color="gray"/>,
-  },
+  }
 ];
 
 export default navConfig;
