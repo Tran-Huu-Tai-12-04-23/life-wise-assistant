@@ -89,3 +89,24 @@ export const taskTypeDefault = {
   color: 'rgba(186, 104, 200,1)',
   background: 'rgba(186, 104, 200, 0.2)',
 };
+
+export const taskPriority = {
+  HIGH: {
+    name: 'High',
+    code: 'HIGH',
+    color: 'rgba(255, 61, 61, 01)',
+    background: 'rgba(255, 61, 61, 0.2)',
+  },
+  MEDIUM: {
+    name: 'Medium',
+    code: 'MEDIUM',
+    color: 'rgba(244, 180, 0, 01)',
+    background: 'rgba(244, 180, 0, 0.2)',
+  },
+  LOW: {
+    name: 'Low',
+    code: 'LOW',
+    color: 'rgba(128, 128, 128, 1)',
+    background: 'rgba(128, 128, 128, 0.2)',
+  },
+};

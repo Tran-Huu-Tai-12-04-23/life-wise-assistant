@@ -28,7 +28,7 @@ export default function ModalCustom({ children, isOpen, onClose }) {
     >
       <Box sx={style}>
         <IconButton onClick={hideModal} sx={{ position: 'absolute', top: 2, right: 2 }}>
-          <CloseIcon color="red" />
+          <CloseIcon />
         </IconButton>
         {children}
       </Box>

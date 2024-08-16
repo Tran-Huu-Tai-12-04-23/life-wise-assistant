@@ -31,6 +31,7 @@
     "@mui/lab": "^5.0.0-alpha.147",
     "@mui/material": "^5.14.12",
     "@mui/styles": "^5.16.7",
+    "@mui/x-date-pickers": "^7.12.1",
     "@reduxjs/toolkit": "^2.2.6",
     "@tiptap/core": "^2.6.2",
     "apexcharts": "^3.43.0",

@@ -35,8 +35,8 @@ export default function BtnSelectMemberPopover({onChange}) {
           <Button
           sx={{width: '100%', background: 'rgba(0,0,0,0.05)', borderRadius: 0.5, justifyContent: 'flex-start', pl: 2, pr: 2}}
              onClick={handleOpen}
-          color="inherit"  startIcon={<PersonIcon size={14}/>}>
-             <Typography sx={{fontSize: 12, color: 'gray', textAlign: 'start', fontWeight: 'bold'}}>Add members</Typography>
+          color="inherit"  startIcon={<PersonIcon size={22}/>}>
+             <Typography sx={{fontSize: 14, color: 'gray', textAlign: 'start', fontWeight: 'bold'}}>Add members</Typography>
             </Button>
       <Popover
         open={!!open}
