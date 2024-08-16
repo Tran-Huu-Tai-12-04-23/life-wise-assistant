@@ -1,7 +1,7 @@
-const CloseIcon = ({ color, ...props }) => (
+const CloseIcon = ({ size , color, ...props }) => (
   <svg
-    width={24}
-    height={25}
+    width={size ||24}
+    height={size ? size + 1 : 25}
     viewBox="0 0 63 64"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

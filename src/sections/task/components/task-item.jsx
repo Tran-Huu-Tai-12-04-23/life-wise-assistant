@@ -17,7 +17,7 @@ import PropTypes from 'prop-types';
 import DocumentIcon from 'src/components/icons/document-icon';
 import FileIcon from 'src/components/icons/file-icon';
 import MessageIcon from 'src/components/icons/message-icon';
-import { COLORS } from 'src/constanst';
+import { COLORS } from 'src/constants';
 import { TASK } from '../wrapper-task-layout';
 import AssignMemberPopover from './assgin-member-popover';
 
