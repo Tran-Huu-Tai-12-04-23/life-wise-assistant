@@ -12,8 +12,8 @@ import FormAddNewTask from './form-add-new-task';
 import TaskItem from './task-item';
 
 function Column({ data }) {
-  const {openModal} = useModal()
-  const {changeCurrentColumn} = useColumnAction()
+  const { openModal } = useModal();
+  const { changeCurrentColumn } = useColumnAction();
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: data.id,
     data: {
@@ -29,7 +29,7 @@ function Column({ data }) {
       {...attributes}
       // {...listeners}
       sx={{
-        backgroundColor: '#F9FAFB',
+        backgroundColor: theme.palette.background.paper,
         transition,
         transform: CSS.Translate?.toString(transform),
         opacity: isDragging ? 0.5 : 1,
@@ -58,10 +58,10 @@ function Column({ data }) {
           />
         </Stack>
         <IconButton
-        onClick={() => {
-          changeCurrentColumn(data)
-          openModal(<FormAddNewTask/>)
-        }}
+          onClick={() => {
+            changeCurrentColumn(data);
+            openModal(<FormAddNewTask />);
+          }}
           className="ignore-scroll"
           aria-label="fingerprint"
           color="primary"

@@ -1,7 +1,8 @@
-import { Box, CircularProgress, Stack, TextField, Typography } from '@mui/material';
+import { Box, CircularProgress, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
 import { EffectBtn } from 'src/components/EffectBtn';
 import { ButtonPrimary } from 'src/components/button';
+import InputCustom from 'src/components/input';
 import UploadBtn from 'src/components/upload';
 import { useModal } from 'src/contexts/modal-context';
 import { useTeamAction } from 'src/redux/features/team/action';
@@ -62,9 +63,7 @@ export default function FormAddNewBoard() {
       <Stack direction="row" gap={2} alignItems="center" justifyContent="space-evenly">
         <UploadBtn onChangeFile={(file) => setState({ ...state, thumbnails: file })} />
       </Stack>
-      <TextField
-        size="small"
-        name="nameOfBoard"
+      <InputCustom
         label="Name of board"
         placeholder="Enter name of board"
         error={state.isNameError}

@@ -29,8 +29,8 @@ export default function InviteColumnPopover() {
       <IconButton
         onClick={handleOpen}
         aria-label="fingerprint"
-        color="primary"
         size="large"
+        color="primary"
         sx={{
           border: () => `dashed 1px ${theme.palette.divider}`,
           width: 50,

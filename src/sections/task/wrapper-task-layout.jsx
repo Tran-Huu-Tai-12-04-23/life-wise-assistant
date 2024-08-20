@@ -167,9 +167,17 @@ function WrapperTaskLayout({ viewType = EViewType.LIST }) {
   }, [currentTeam]);
 
   return (
-    <Box className="ignore-scroll hide-scroll">
+    <Box
+      className="ignore-scroll hide-scroll"
+      sx={{
+        '&::-webkit-scrollbar': {
+          width: 0,
+        },
+      }}
+    >
       <ScrollContainer
         hideScrollbars={false}
+        className="hide-scroll"
         stopPropagation
         horizontal
         ignoreElements=".ignore-scroll"

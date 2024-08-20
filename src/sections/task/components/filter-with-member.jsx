@@ -28,7 +28,11 @@ function FilterWithMember() {
       <AvatarGroup total={currentTeam?.members?.length} max={4}>
         {currentTeam?.members?.map((user, index) => (
           <Tooltip key={index} title={user?.username}>
-            <EffectBtn sx={{ borderRadius: '50%' }} onClick={() => handleToggleSelectMember(user)}>
+            <EffectBtn
+              color="primary"
+              sx={{ borderRadius: '50%' }}
+              onClick={() => handleToggleSelectMember(user)}
+            >
               <Box
                 sx={{
                   border: () =>

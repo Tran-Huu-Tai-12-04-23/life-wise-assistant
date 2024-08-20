@@ -44,6 +44,20 @@ export function getUUid() {
   return uuid();
 }
 
+export function getDateTime(date, time) {
+  const dateVal = new Date(date);
+  const timeVal = new Date(time);
+
+  return new Date(
+    dateVal.getFullYear(),
+    dateVal.getMonth(),
+    dateVal.getDate(),
+    timeVal.getHours(),
+    timeVal.getMinutes(),
+    timeVal.getSeconds()
+  );
+}
+
 export function toLowerCaseNonAccentVietnamese(str) {
   str = str.toLowerCase();
 

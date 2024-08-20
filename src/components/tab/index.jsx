@@ -5,25 +5,25 @@ import { TabsList as BaseTabsList } from '@mui/base/TabsList';
 import { styled } from '@mui/system';
 
 export default function TabCustom({ tabTitles = [], tabComponents = [] }) {
-    console.log(tabTitles)
   return (
-      <Tabs defaultValue={0} >
-          <TabsList>
-              {tabTitles.map((tabTitle, index) => (
-                <Tab key={tabTitle} value={index}>{tabTitle}</Tab>
-              ))}
-          </TabsList>
-          {
-            tabComponents.map((tabComponent, index) => (
-              <TabPanel key={index} value={index}>{tabComponent}</TabPanel>
-            ))
-          }
+    <Tabs defaultValue={0}>
+      <TabsList>
+        {tabTitles.map((tabTitle, index) => (
+          <Tab key={tabTitle} value={index}>
+            {tabTitle}
+          </Tab>
+        ))}
+      </TabsList>
+      {tabComponents.map((tabComponent, index) => (
+        <TabPanel key={index} value={index}>
+          {tabComponent}
+        </TabPanel>
+      ))}
     </Tabs>
   );
 }
-
-
-const Tab = styled(BaseTab)`
+const Tab = styled(BaseTab)(
+  ({ theme }) => `
   font-family: 'IBM Plex Sans', sans-serif;
   cursor: pointer;
   font-size: 0.775rem;
@@ -37,14 +37,16 @@ const Tab = styled(BaseTab)`
   border-style: solid;
   border-color: transparent;
   outline: none;
-&.${tabClasses.selected} {
-     color: #0D44AE;
-    border-color:  #0D44AE;
-}
-  &:hover {
-      color: #0D44AE;
+  color: ${theme.palette.text.primary};
+  &.${tabClasses.selected} {
+    color: ${theme.palette.primary.main};
+    border-color: ${theme.palette.primary.main};
   }
-`;
+  &:hover {
+    color: ${theme.palette.primary.main};
+  }
+`
+);
 
 const TabPanel = styled(BaseTabPanel)(
   ({ theme }) => `
@@ -52,7 +54,7 @@ const TabPanel = styled(BaseTabPanel)(
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: 0.875rem;
   border-radius: 12px;
-  `,
+  `
 );
 
 const TabsList = styled(BaseTabsList)(
@@ -64,5 +66,5 @@ const TabsList = styled(BaseTabsList)(
   align-items: center;
   justify-content: flex-start;
   align-content: space-between;
-  `,
+  `
 );

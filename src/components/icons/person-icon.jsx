@@ -1,4 +1,4 @@
-const PersonIcon = ({size, color, ...props}) => (
+const PersonIcon = ({ size, color, ...props }) => (
   <svg
     width={size || 21}
     height={size || 21}

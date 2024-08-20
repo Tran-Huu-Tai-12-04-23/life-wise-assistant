@@ -10,7 +10,7 @@ import { COLUMN } from '../wrapper-task-layout';
 import TaskListItem from './task-list-item';
 
 function Row({ data }) {
-  const {changeCurrentColumn} = useColumnAction()
+  const { changeCurrentColumn } = useColumnAction();
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: data.id,
     data: {
@@ -26,7 +26,7 @@ function Row({ data }) {
       {...attributes}
       // {...listeners}
       sx={{
-        backgroundColor: '#F9FAFB',
+        backgroundColor: theme.palette.background.paper,
         transition,
         transform: CSS.Translate?.toString(transform),
         opacity: isDragging ? 0.5 : 1,
@@ -55,8 +55,8 @@ function Row({ data }) {
         </Stack>
         <IconButton
           onClick={() => {
-          changeCurrentColumn(data)
-        }}
+            changeCurrentColumn(data);
+          }}
           className="ignore-scroll"
           aria-label="fingerprint"
           color="primary"

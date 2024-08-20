@@ -5,82 +5,20 @@ import Popover from '@mui/material/Popover';
 import { alpha } from '@mui/material/styles';
 
 import { useTheme } from '@emotion/react';
-import styled from '@emotion/styled';
+import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
 import { Box, Chip, MenuItem, Stack, Typography } from '@mui/material';
 import { account } from 'src/_mock/account';
 import { EffectBtn } from 'src/components/EffectBtn';
 import EmptyBoardView from 'src/components/empty/empty-boar-view';
-import ArrowDownIcon from 'src/components/icons/arrow-down';
+import InputCustom from 'src/components/input';
 import { useTeamAction } from 'src/redux/features/team/action';
 import { useTeamState } from 'src/redux/features/team/teamSlice';
-
-// ----------------------------------------------------------------------
-
-const Root = styled('div')(
-  ({ theme }) => `
-  width: 100%;
-  border: 1px solid ${theme.palette.mode === 'dark' ? '#434343' : '#d9d9d9'};
-  background-color: ${theme.palette.mode === 'dark' ? '#141414' : '#fff'};
-  border-radius: 6px;
-  padding: 4px;
-  display: flex;
-
-  &:hover {
-    border-color: ${theme.palette.mode === 'dark' ? '#177ddc' : '#40a9ff'};
-  }
-
-  &.focused {
-    border-color: ${theme.palette.mode === 'dark' ? '#177ddc' : '#40a9ff'};
-    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
-  }
-
-  & input {
-    background-color: ${theme.palette.mode === 'dark' ? '#141414' : '#fff'};
-    color: ${theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.65)' : 'rgba(0,0,0,.85)'};
-    height: 30px;
-    box-sizing: border-box;
-    padding: 4px 6px;
-    width: 0;
-    min-width: 30px;
-    flex-grow: 1;
-    border: 0;
-    margin: 0;
-    outline: 0;
-  }
-
-  &:hover {
-    border-color: #40a9ff;
-  }
-
-  &:focus-visible {
-    outline: 0;
-  }
-`
-);
-
-const InputWrapper = styled('input')(
-  ({ theme }) => `
-  font-size: 0.875rem;
-  font-family: inherit;
-  font-weight: 400;
-  line-height: 1.5;
-  color: ${theme.palette.mode === 'dark' ? '#C7D0DD' : '#1C2025'};
-  background: inherit;
-  border: none;
-  border-radius: inherit;
-  padding: 8px 12px;
-  outline: 0;
-  flex: 1 0 auto;
-`
-);
-
 // ----------------------------------------------------------------------
 
 export default function SelectBoardPopover() {
   const [open, setOpen] = useState(null);
   const { teams, currentTeam } = useTeamState();
   const { paginationTeamOfUser, changeCurrent } = useTeamAction();
-  const [isFocus, setIsFocus] = useState(false);
   const [dataSelect, setDataSelect] = useState(teams);
   const [search, setSearch] = useState('');
   const theme = useTheme();
@@ -111,6 +49,7 @@ export default function SelectBoardPopover() {
   return (
     <>
       <EffectBtn
+        color="primary"
         sx={{
           borderRadius: 2,
           overflow: 'hidden',
@@ -150,7 +89,7 @@ export default function SelectBoardPopover() {
               return null;
             })}
           </Stack>
-          <ArrowDownIcon size={12} color={theme.palette.primary.main} />
+          <UnfoldMoreIcon size={8} color={theme.palette.text.primary} />
         </Stack>
       </EffectBtn>
 
@@ -174,15 +113,11 @@ export default function SelectBoardPopover() {
           },
         }}
       >
-        <Root className={`${isFocus ? 'Mui-focused' : ''} `}>
-          <InputWrapper
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            onFocus={() => setIsFocus(true)}
-            onBlur={() => setIsFocus(false)}
-            placeholder="Select board"
-          />
-        </Root>
+        <InputCustom
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Select board"
+        />
         <Box sx={{ my: 1.5, px: 2, pt: 1 }} />
         {dataSelect.length === 0 && <EmptyBoardView />}
         {dataSelect.map((option, index) => (

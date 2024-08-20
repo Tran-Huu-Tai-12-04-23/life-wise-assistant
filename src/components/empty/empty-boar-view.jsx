@@ -1,11 +1,11 @@
 import { Stack, Typography } from '@mui/material';
 import EmptyBoardIcon from '../icons/empty-board-icon';
 
-function EmptyBoardView() {
+function EmptyBoardView({ title }) {
   return (
     <Stack sx={{ p: 2 }} direction="column" alignItems="center" gap={2}>
       <Typography variant="h6" color="gray">
-        No board
+        {title || 'No data'}
       </Typography>
       <EmptyBoardIcon />
     </Stack>

@@ -24,7 +24,7 @@
 .ql-toolbar.ql-snow {
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
-       border-color: rgba(0,0,0,0.1)!important;
+       border-color: rgba(192, 192, 192, 0.1)!important;
 }
 .ql-snow .ql-picker.ql-expanded .ql-picker-label {
     border-radius: 6px;
@@ -33,14 +33,14 @@
 .ql-snow .ql-tooltip,
 .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options {
     border-radius: 6px;
-      border-color: rgba(0,0,0,0.1)!important;
+      border-color: rgba(192, 192, 192, 0.1)!important;
 }
 .ql-tooltip.ql-editing {
     left : -10px
 }
 
 .ql-container.ql-snow {
-   border-color: rgba(0,0,0,0.1)!important;
+   border-color: rgba(192, 192, 192, 0.1)!important;
    border-bottom-right-radius: 6px;     
     border-bottom-left-radius: 6px;
 }
@@ -50,3 +50,13 @@
 
 
 
+.ql-snow.ql-toolbar button:hover .ql-stroke, .ql-snow .ql-toolbar button:hover .ql-stroke, .ql-snow.ql-toolbar button:focus .ql-stroke, .ql-snow .ql-toolbar button:focus .ql-stroke, .ql-snow.ql-toolbar button.ql-active .ql-stroke, .ql-snow .ql-toolbar button.ql-active .ql-stroke, .ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke, .ql-snow .ql-toolbar .ql-picker-label:hover .ql-stroke, .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke, .ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-stroke, .ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke, .ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke, .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke, .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke, .ql-snow.ql-toolbar button:hover .ql-stroke-miter, .ql-snow .ql-toolbar button:hover .ql-stroke-miter, .ql-snow.ql-toolbar button:focus .ql-stroke-miter, .ql-snow .ql-toolbar button:focus .ql-stroke-miter, .ql-snow.ql-toolbar button.ql-active .ql-stroke-miter, .ql-snow .ql-toolbar button.ql-active .ql-stroke-miter, .ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke-miter, .ql-snow .ql-toolbar .ql-picker-label:hover .ql-stroke-miter, .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke-miter, .ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-stroke-miter, .ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke-miter, .ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke-miter, .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke-miter, .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke-miter{
+    stroke: #007C54!important;
+
+}
+
+.hide-scroll::webkit-scrollbar {
+    display: none; /* Hide scrollbars for WebKit browsers */
+    width: 0px;
+
+}

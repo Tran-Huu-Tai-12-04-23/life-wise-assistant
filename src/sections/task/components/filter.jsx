@@ -73,6 +73,7 @@ function Filter({ onChangeViewType, viewType }) {
         <Stack direction="row" gap={2}>
           <ButtonGroup variant="outlined" aria-label="Basic button group">
             <Button
+              color="primary"
               onClick={() => {
                 onChangeViewType(EViewType.BOARD);
               }}
@@ -84,13 +85,13 @@ function Filter({ onChangeViewType, viewType }) {
               onClick={() => {
                 onChangeViewType(EViewType.LIST);
               }}
+              color="primary"
               variant={viewType === EViewType.LIST ? 'contained' : 'outlined'}
             >
-              {' '}
               <Iconify icon="eva:list-fill" /> List
             </Button>
           </ButtonGroup>
-          <Button variant="text">
+          <Button color="primary" variant="text">
             <Stack direction="row" alignItems="center" gap={1}>
               <Iconify icon="eva:lock-fill" color="gray" />
               <Typography variant="h7" color="gray">
@@ -112,8 +113,12 @@ function Filter({ onChangeViewType, viewType }) {
           />
           <Stack direction="row" alignItems="center" gap={1}>
             <SelectStatus />
-
-            <Button onClick={onClearColumnFilter} variant="outlined" sx={{ padding: 1 }}>
+            <Button
+              color="primary"
+              onClick={onClearColumnFilter}
+              variant="outlined"
+              sx={{ padding: 1 }}
+            >
               <RefreshIcon size={18} color={theme.palette.primary.main} />
               <Typography variant="h8" fontSize={12}>
                 Clear filter

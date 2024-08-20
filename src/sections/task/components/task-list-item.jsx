@@ -9,7 +9,7 @@ import {
   Chip,
   Stack,
   Tooltip,
-  Typography
+  Typography,
 } from '@mui/material';
 import PropTypes from 'prop-types';
 import DocumentIcon from 'src/components/icons/document-icon';
@@ -38,15 +38,16 @@ function TaskListItem({ data, isRotate }) {
       sx={{
         transition,
         transform: CSS.Translate?.toString(transform),
-        boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.08)',
         opacity: isDragging ? '0.5' : '1',
         background: '700',
         padding: 1,
         borderRadius: 1,
         cursor: 'pointer',
-        backgroundColor: 'white',
+        boxShadow: isRotate ? 24 : 0,
+        backgroundColor: theme.palette.background.default,
         '&:hover': {
-          bgcolor: () => isRotate ? 'white' : alpha(theme.palette.primary.light, 0.1),
+          bgcolor: () =>
+            isRotate ? theme.palette.background.default : alpha(theme.palette.background.default),
         },
         '&:hover ': {
           '.icon-drag': {
@@ -81,13 +82,14 @@ function TaskListItem({ data, isRotate }) {
       <Stack mr={2} direction="row" gap={1} alignItems="center">
         <Chip
           size="small"
-          label="#UI003"
+          label={data.priorityName}
           sx={{
-            background: 'white',
-            color: '#606C80',
+            background: data.priorityBackground,
+            color: data.priorityColor,
             minWidth: 80,
             fontSize: 12,
             fontWeight: 800,
+            border: 'none',
           }}
           variant="outlined"
         />
@@ -127,7 +129,7 @@ function TaskListItem({ data, isRotate }) {
             </AvatarGroup>
           )}
 
-          <AssignMemberPopover isRight/>
+          <AssignMemberPopover isRight />
         </Stack>
 
         <Stack
@@ -141,21 +143,21 @@ function TaskListItem({ data, isRotate }) {
           <Button variant="text" gap={1}>
             <DocumentIcon />
             <Typography variant="h7" color={COLORS.document} fontSize={12} fontWeight={800}>
-              9
+              {data.totalSubTask}
             </Typography>
           </Button>
           <Button variant="text" gap={1}>
             <FileIcon />
             <Typography variant="h7" color={COLORS.file} fontSize={12} fontWeight={800}>
               {' '}
-              9
+              {data.totalTaskFile}
             </Typography>
           </Button>
           <Button variant="text" gap={1}>
             <MessageIcon />
             <Typography variant="h7" color={COLORS.message} fontSize={12} fontWeight={800}>
               {' '}
-              9
+              {data.totalComment}
             </Typography>
           </Button>
         </Stack>

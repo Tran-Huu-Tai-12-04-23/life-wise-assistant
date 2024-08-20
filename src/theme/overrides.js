@@ -1,5 +1,5 @@
-import { alpha } from '@mui/material/styles';
 import { outlinedInputClasses } from '@mui/material/OutlinedInput';
+import { alpha } from '@mui/material/styles';
 
 // ----------------------------------------------------------------------
 
@@ -50,7 +50,8 @@ export function overrides(theme) {
     MuiBackdrop: {
       styleOverrides: {
         root: {
-          backgroundColor: alpha(theme.palette.grey[900], 0.8),
+          backgroundColor: alpha(theme.palette.background.default, 0.4),
+          backdropFilter: 'blur(3px)',
         },
         invisible: {
           background: 'transparent',
@@ -118,10 +119,11 @@ export function overrides(theme) {
     MuiTooltip: {
       styleOverrides: {
         tooltip: {
-          backgroundColor: theme.palette.grey[800],
+          backdropFilter: 'blur(10px) !important',
+          backgroundColor: theme.palette.background.neutral,
         },
         arrow: {
-          color: theme.palette.grey[800],
+          color: theme.palette.background.neutral,
         },
       },
     },
@@ -139,6 +141,44 @@ export function overrides(theme) {
       styleOverrides: {
         root: {
           ...theme.typography.body2,
+        },
+      },
+    },
+    MuiMenu: {
+      styleOverrides: {
+        paper: {
+          background: '#000',
+          backdropFilter: 'blur(10px) !important',
+        },
+      },
+    },
+    MuiPopover: {
+      styleOverrides: {
+        paper: {
+          boxShadow: `0px 5px 5px -3px ${alpha(
+            theme.palette.background.default,
+            0.9
+          )} ,0px 8px 10px 1px ${alpha(
+            theme.palette.background.default,
+            0.9
+          )}, 0px 3px 14px 2px ${alpha(theme.palette.background.default, 0.9)}`,
+          background: alpha(theme.palette.background.default, 0.5),
+          backdropFilter: 'blur(10px) !important',
+        },
+      },
+    },
+    MuiModal: {
+      styleOverrides: {
+        paper: {
+          backdropFilter: 'blur(10px) !important',
+          backgroundColor: alpha(theme.palette.background.default, 0.5),
+          boxShadow: `0px 5px 5px -3px ${alpha(
+            theme.palette.background.default,
+            0.9
+          )} ,0px 8px 10px 1px ${alpha(
+            theme.palette.background.default,
+            0.9
+          )}, 0px 3px 14px 2px ${alpha(theme.palette.background.default, 0.9)}`,
         },
       },
     },

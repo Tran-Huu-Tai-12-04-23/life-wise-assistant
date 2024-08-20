@@ -1,16 +1,16 @@
 import { useAutocomplete } from '@mui/base/useAutocomplete';
+import CloseIcon from '@mui/icons-material/Close';
 import { Box, Stack, Typography } from '@mui/material';
 import { autocompleteClasses } from '@mui/material/Autocomplete';
 import { alpha, styled } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
-import CloseIcon from 'src/components/icons/close-icon';
 import { InputWrapper } from 'src/components/input';
 import { useColumnAction } from 'src/redux/features/column/action';
 import { useColumnState } from 'src/redux/features/column/columnSlice';
 
 const Root = styled('div')(
   ({ theme }) => `
-  color: ${theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.65)' : 'rgba(0,0,0,.85)'};
+  color: ${theme.palette.text.secondary};
   font-size: 14px;
 `
 );
@@ -39,11 +39,6 @@ const StyledTag = styled(Tag)(
   padding: 0 4px 0 10px;
   outline: 0;
   overflow: hidden;
-
-  &:focus {
-    border-color: ${theme.palette.mode === 'dark' ? '#177ddc' : '#40a9ff'};
-    background-color: ${theme.palette.mode === 'dark' ? '#003b57' : '#e6f7ff'};
-  }
 
   & span {
     overflow: hidden;

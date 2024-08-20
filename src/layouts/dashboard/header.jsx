@@ -55,6 +55,7 @@ export default function Header({ onOpenNav, expanded }) {
         ...bgBlur({
           color: theme.palette.background.default,
         }),
+        background: theme.palette.background.default,
         transition: theme.transitions.create(['height'], {
           duration: theme.transitions.duration.shorter,
         }),
@@ -69,6 +70,7 @@ export default function Header({ onOpenNav, expanded }) {
         sx={{
           height: 1,
           px: { lg: 5 },
+          background: theme.palette.background.default,
         }}
       >
         {renderContent}

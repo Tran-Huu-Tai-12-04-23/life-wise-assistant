@@ -2,7 +2,6 @@ import { useState } from 'react';
 
 import IconButton from '@mui/material/IconButton';
 import Popover from '@mui/material/Popover';
-import { alpha } from '@mui/material/styles';
 
 import { useTheme } from '@emotion/react';
 import { Box, MenuItem, Paper, Switch, Typography } from '@mui/material';
@@ -17,7 +16,6 @@ export default function SelectColumnPopover() {
   const { columns, columnsActive } = useColumnState();
   const { onToggleColumnActive } = useColumnAction();
   const theme = useTheme();
-
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
   };
@@ -28,10 +26,7 @@ export default function SelectColumnPopover() {
 
   return (
     <>
-      <IconButton
-        onClick={handleOpen}
-        sx={{ background: () => alpha(theme.palette.primary.main, 0.2), width: 50, height: 50 }}
-      >
+      <IconButton color="primary" onClick={handleOpen} sx={{ width: 50, height: 50 }}>
         <SettingVerticalIcon color={theme.palette.primary.main} />
       </IconButton>
       <Popover

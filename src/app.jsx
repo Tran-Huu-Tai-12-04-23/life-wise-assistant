@@ -32,10 +32,9 @@ export default function App() {
   return (
     <ThemeProvider>
       <ModalProvider>
-      {currentUser && <PrivateRouter />}
-      {!currentUser && <AuthRouter />}
+        {currentUser && <PrivateRouter />}
+        {!currentUser && <AuthRouter />}
       </ModalProvider>
-
     </ThemeProvider>
   );
 }

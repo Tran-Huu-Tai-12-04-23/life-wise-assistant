@@ -42,11 +42,13 @@ function TaskItem({ data, isRotate }) {
         padding: 1,
         borderRadius: 1,
         cursor: 'pointer',
-        backgroundColor: 'white',
-        boxShadow: isRotate ? '0px 2px 4px rgba(0, 0, 0, 0.08)' : '0px 2px 4px transparent',
+        boxShadow: isRotate ? 24 : 0,
+        backgroundColor: theme.palette.background.default,
+        // boxShadow: isRotate ? '0px 2px 4px rgba(0, 0, 0, 0.08)' : '0px 2px 4px transparent',
         transform: isRotate ? 'rotate(10deg)' : CSS.Translate?.toString(transform),
         '&:hover': {
-          bgcolor: () => (isRotate ? 'white' : alpha(theme.palette.primary.light, 0.1)),
+          bgcolor: () =>
+            isRotate ? theme.palette.background.default : alpha(theme.palette.background.default),
         },
         '&:hover ': {
           '.icon-drag': {
@@ -77,7 +79,7 @@ function TaskItem({ data, isRotate }) {
         <Button variant="text" gap={1}>
           <DocumentIcon />
           <Typography variant="h7" color={COLORS.document} fontSize={12} fontWeight={800}>
-            9
+            {data.totalSubTask}
           </Typography>
         </Button>
       </Stack>
@@ -85,19 +87,20 @@ function TaskItem({ data, isRotate }) {
       <Stack direction="row" gap={1} alignItems="center">
         <Chip
           size="small"
-          label="#UI003"
+          label={data.priorityName}
           sx={{
-            background: 'white',
-            color: '#606C80',
+            background: data.priorityBackground,
+            color: data.priorityColor,
             minWidth: 80,
             fontSize: 12,
             fontWeight: 800,
+            border: 'none',
           }}
           variant="outlined"
         />
         <Chip
           size="small"
-          label="Development"
+          label={data.typeName}
           sx={{
             background: 'rgba(236, 72, 153, 0.2)',
             color: '#DB2777',
@@ -136,7 +139,7 @@ function TaskItem({ data, isRotate }) {
               ))}
             </AvatarGroup>
           )}
-          <AssignMemberPopover/>
+          <AssignMemberPopover />
         </Stack>
 
         <Stack
@@ -151,14 +154,14 @@ function TaskItem({ data, isRotate }) {
             <FileIcon />
             <Typography variant="h7" color={COLORS.file} fontSize={12} fontWeight={800}>
               {' '}
-              9
+              {data.totalTaskFile}
             </Typography>
           </IconButton>
           <IconButton variant="text" gap={1}>
             <MessageIcon />
             <Typography variant="h7" color={COLORS.message} fontSize={12} fontWeight={800}>
               {' '}
-              9
+              {data.totalComment}
             </Typography>
           </IconButton>
         </Stack>

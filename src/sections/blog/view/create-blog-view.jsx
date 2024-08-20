@@ -1,7 +1,7 @@
-import CreateBlog from "../create-blog";
+import CreateBlog from '../create-blog';
 
 function CreateBlogView() {
-    return <CreateBlog/>
+  return <CreateBlog />;
 }
 
 export default CreateBlogView;

@@ -1,10 +1,10 @@
 import { Box, Button, Stack, Typography, useTheme } from '@mui/material';
 import Iconify from 'src/components/iconify';
 import { useModal } from 'src/contexts/modal-context';
-import SelectBoardPopover from 'src/layouts/dashboard/common/select-board-popover';
 import { HEADER } from 'src/layouts/dashboard/config-layout';
 import { bgBlur } from 'src/theme/css';
 import FormAddNewBoard from '../components/form-add-new-board';
+import SelectBoardPopover from '../components/select-board-popover';
 
 function Header() {
   const theme = useTheme();
@@ -41,9 +41,9 @@ function Header() {
         </Stack>
         <Stack direction="row" gap={2}>
           <Button
+            color="primary"
             onClick={() => openModal(<FormAddNewBoard />)}
             aria-label="fingerprint"
-            color="primary"
             size="large"
             sx={{
               border: () => `dashed 1px ${theme.palette.divider}`,

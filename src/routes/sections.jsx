@@ -59,8 +59,13 @@ function PrivateRouter() {
         { element: <IndexPage />, index: true },
         { path: 'user', element: <UserPage /> },
         { path: 'products', element: <ProductsPage /> },
-        { path: 'blog', element: <BlogPage /> },
-        { path: 'create-blog', element: <CreateBlogPage /> },
+        {
+          path: 'blog',
+          children: [
+            { path: '', element: <BlogPage /> },
+            { path: 'create-blog', element: <CreateBlogPage /> },
+          ],
+        },
         { path: 'task', element: <TaskPage /> },
       ],
     },

@@ -21,7 +21,7 @@ const TaskList = ({ taskActive, columnActive }) => {
         })}
       </SortableContext>
       <DragOverlay adjustScale={false} sx={{ width: '100%' }}>
-        {taskActive && <TaskListItem data={taskActive} isRotate/>}
+        {taskActive && <TaskListItem data={taskActive} isRotate />}
         {columnActive && <Row data={columnActive} isActive />}
       </DragOverlay>
     </Stack>

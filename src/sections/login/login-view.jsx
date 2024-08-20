@@ -13,8 +13,6 @@ import { alpha, useTheme } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
-import { bgGradient } from 'src/theme/css';
-
 import { Link } from 'react-router-dom';
 import Iconify from 'src/components/iconify';
 import Logo from 'src/components/logo';
@@ -92,7 +90,7 @@ export default function LoginView() {
         size="large"
         type="submit"
         variant="contained"
-        color="inherit"
+        color="primary"
         onClick={handleLogin}
       >
         {isLoading && <CircularProgress color="inherit" size="1rem" sx={{ mr: 1 }} />}
@@ -104,10 +102,10 @@ export default function LoginView() {
   return (
     <Box
       sx={{
-        ...bgGradient({
-          color: alpha(theme.palette.background.default, 0.9),
-          imgUrl: '/assets/background/overlay_4.jpg',
-        }),
+        // ...bgGradient({
+        //   color: alpha(theme.palette.background.default, 0.9),
+        //   imgUrl: '/assets/background/overlay_4.jpg',
+        // }),
         height: 1,
       }}
     >
@@ -180,7 +178,6 @@ export default function LoginView() {
           </Divider>
 
           {renderForm}
-
         </Card>
       </Stack>
     </Box>

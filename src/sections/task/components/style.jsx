@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
+import CloseIcon from '@mui/icons-material/Close';
 import { alpha, Box, Typography } from '@mui/material';
 import { autocompleteClasses } from '@mui/material/Autocomplete';
-import CloseIcon from 'src/components/icons/close-icon';
 
 const Root = styled('div')(
   ({ theme }) => `
-  color: ${'rgba(0,0,0,.85)'};
+  color: ${theme.palette.text.primary};
   font-size: 14px;
   width: 100%;
 `
@@ -37,8 +37,8 @@ const StyledTag = styled(Tag)(
   overflow: hidden;
 
   &:focus {
-    border-color: ${'#40a9ff'};
-    background-color: ${'#e6f7ff'};
+    border-color: ${theme.palette.primary.main};
+    background-color: ${alpha(theme.palette.primary.dark, 0.5)};
   }
 
   & span {
@@ -63,7 +63,7 @@ const Listbox = styled('ul')(
   padding: 0;
   position: absolute;
   list-style: none;
-  background-color: ${'#fff'};
+  background-color: ${theme.palette.background.paper};
   overflow: auto;
   max-height: 250px;
   border-radius: 10px;
@@ -84,15 +84,15 @@ const Listbox = styled('ul')(
   }
 
   & li[aria-selected='true'] {
-    background-color: ${alpha('#1890ff', 0.2)};
+    background-color: ${alpha(theme.palette.primary.main, 0.2)};
     font-weight: 600;
     & svg {
-      color: #1890ff;
+      color:${theme.palette.primary.main}
     }
   }
 
   & li.${autocompleteClasses.focused} {
-    background-color: ${alpha('#1890ff', 0.2)};
+    background-color: ${alpha(theme.palette.primary.main, 0.2)};
     cursor: pointer;
 
     & svg {

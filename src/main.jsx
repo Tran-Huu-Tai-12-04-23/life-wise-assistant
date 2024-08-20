@@ -17,14 +17,13 @@ root.render(
   <HelmetProvider>
     <Provider store={store}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-  <BrowserRouter>
+        <BrowserRouter>
           <Suspense>
-              <App />
-              <ToastContainer style={{ zIndex: 100000000 }} theme="light" />
+            <App />
+            <ToastContainer style={{ zIndex: 100000000 }} theme="light" />
           </Suspense>
         </BrowserRouter>
       </LocalizationProvider>
-     
     </Provider>
   </HelmetProvider>
 );

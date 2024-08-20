@@ -1,7 +1,6 @@
-
-const HomeIcon = ({size, color, ...props}) => (
+const HomeIcon = ({ size, color, ...props }) => (
   <svg
-    width={size|| 20}
+    width={size || 20}
     height={size ? size + 2 : 22}
     viewBox="0 0 46 48"
     fill="none"

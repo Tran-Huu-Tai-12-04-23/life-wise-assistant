@@ -19,7 +19,7 @@ import Logo from 'src/components/logo';
 import Scrollbar from 'src/components/scrollbar';
 
 import { useTheme } from '@emotion/react';
-import { IconButton } from '@mui/material';
+import { Collapse, IconButton } from '@mui/material';
 import Iconify from 'src/components/iconify';
 import { NAV } from '../config-layout';
 // ----------------------------------------------------------------------
@@ -44,7 +44,7 @@ export default function Nav({ openNav, onCloseNav, setExpanded, expanded }) {
         py: 1,
         px: 0.5,
         display: 'flex',
-        borderRadius: 1.5, 
+        borderRadius: 1.5,
         alignItems: 'center',
         bgcolor: () => alpha(theme.palette.grey[500], 0.12),
         width: 'calc(100% - 20px)',
@@ -52,8 +52,10 @@ export default function Nav({ openNav, onCloseNav, setExpanded, expanded }) {
     >
       <Avatar src={account.photoURL} alt="photoURL" />
       {expanded && (
-        <Box sx={{ ml:1 }}>
-          <Typography variant="h7" sx={{fontSize: 12}}>{account.displayName}</Typography>
+        <Box sx={{ ml: 1 }}>
+          <Typography variant="h7" sx={{ fontSize: 12 }}>
+            {account.displayName}
+          </Typography>
 
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
             {account.role}
@@ -110,17 +112,15 @@ export default function Nav({ openNav, onCloseNav, setExpanded, expanded }) {
         alignItems="center"
         sx={{ mt: 3, p: 2 }}
       >
-        {
-          expanded &&        <Logo />
-        }
+        {expanded && <Logo />}
         <IconButton onClick={() => setExpanded(!expanded)}>
           <Iconify icon="eva:menu-2-fill" width={30} height={30} />
         </IconButton>
       </Stack>
       {renderAccount}
 
-      <Stack component="nav" >
-        <NavMenu expanded={expanded}/>
+      <Stack component="nav">
+        <NavMenu expanded={expanded} />
       </Stack>
 
       <Box sx={{ flexGrow: 1 }} />
@@ -130,40 +130,48 @@ export default function Nav({ openNav, onCloseNav, setExpanded, expanded }) {
   );
 
   return (
-    <Box
+    <Collapse
       sx={{
-        flexShrink: { lg: 0 },
-        width: { lg: expanded ? NAV.WIDTH : NAV.WIDTH / 2 - 40 },
-        backgroundColor: 'white',
-        zIndex: theme.zIndex.appBar - 1,
+        background: theme.palette.background.paper,
         overflow: 'hidden',
+        borderRight: () => `dashed 1px ${theme.palette.divider}`,
       }}
+      orientation="horizontal"
+      in={expanded}
+      collapsedSize={NAV.WIDTH / 2 - 40}
     >
-      {upLg ? (
-        <Box
-          sx={{
-            height: 1,
-            position: 'fixed',
-            width: expanded ? NAV.WIDTH : NAV.WIDTH / 2 - 40,
-            borderRight: () => `dashed 1px ${theme.palette.divider}`,
-          }}
-        >
-          {renderContent}
-        </Box>
-      ) : (
-        <Drawer
-          open={openNav}
-          onClose={onCloseNav}
-          PaperProps={{
-            sx: {
-              width: NAV.WIDTH,
-            },
-          }}
-        >
-          {renderContent}
-        </Drawer>
-      )}
-    </Box>
+      <Box
+        sx={{
+          flexShrink: { lg: 0 },
+          width: { lg: NAV.WIDTH },
+          zIndex: theme.zIndex.appBar - 1,
+        }}
+      >
+        {upLg ? (
+          <Box
+            sx={{
+              height: 1,
+              position: 'fixed',
+              width: expanded ? NAV.WIDTH : NAV.WIDTH / 2 - 40,
+            }}
+          >
+            {renderContent}
+          </Box>
+        ) : (
+          <Drawer
+            open={openNav}
+            onClose={onCloseNav}
+            PaperProps={{
+              sx: {
+                width: NAV.WIDTH,
+              },
+            }}
+          >
+            {renderContent}
+          </Drawer>
+        )}
+      </Box>
+    </Collapse>
   );
 }
 
@@ -171,7 +179,3 @@ Nav.propTypes = {
   openNav: PropTypes.bool,
   onCloseNav: PropTypes.func,
 };
-
-
-
-

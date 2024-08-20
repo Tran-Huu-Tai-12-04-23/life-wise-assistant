@@ -1,7 +1,7 @@
-import ReactQuill from "react-quill";
+import ReactQuill from 'react-quill';
 
-function RichText({props}) {
-    return  <ReactQuill theme="snow" {...props} />
+function RichText({ props }) {
+  return <ReactQuill theme="snow" {...props} />;
 }
 
 export default RichText;

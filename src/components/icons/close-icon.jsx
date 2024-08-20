@@ -1,6 +1,6 @@
-const CloseIcon = ({ size , color, ...props }) => (
+const CloseIcon = ({ size, color, ...props }) => (
   <svg
-    width={size ||24}
+    width={size || 24}
     height={size ? size + 1 : 25}
     viewBox="0 0 63 64"
     fill="none"
@@ -10,7 +10,7 @@ const CloseIcon = ({ size , color, ...props }) => (
     <g clipPath="url(#clip0_35_15862)">
       <path
         d="M13.2067 13.8059L49.5506 50.1498M49.5506 13.8059L13.2067 50.1498"
-        stroke={color || 'black'}
+        stroke={color || 'currentColo'}
         strokeWidth={5.19199}
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -21,7 +21,7 @@ const CloseIcon = ({ size , color, ...props }) => (
         <rect
           width={62.3038}
           height={62.3038}
-          fill={color || 'black'}
+          fill={color || 'currentColo'}
           transform="translate(0.37854 0.978027)"
         />
       </clipPath>
