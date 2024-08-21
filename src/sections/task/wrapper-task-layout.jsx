@@ -170,6 +170,8 @@ function WrapperTaskLayout({ viewType = EViewType.LIST }) {
     <Box
       className="ignore-scroll hide-scroll"
       sx={{
+        position: 'relative',
+        minHeight: '80vh',
         '&::-webkit-scrollbar': {
           width: 0,
         },

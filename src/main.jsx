@@ -20,7 +20,7 @@ root.render(
         <BrowserRouter>
           <Suspense>
             <App />
-            <ToastContainer style={{ zIndex: 100000000 }} theme="light" />
+            <ToastContainer style={{ zIndex: 100000000 }} theme="dark" />
           </Suspense>
         </BrowserRouter>
       </LocalizationProvider>

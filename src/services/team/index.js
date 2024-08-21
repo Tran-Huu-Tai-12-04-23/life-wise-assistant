@@ -31,3 +31,10 @@ export const paginationTeamOfUser = async (page) =>
     });
     return res[0];
   });
+
+export const generateInviteLink = async (teamId) =>
+  handleErrorApi(async () => {
+    const res = await rootApi.get(`${endpoints.generate_invite_link}/${teamId}`);
+    toast.success(res.message);
+    return res.inviteLink;
+  });

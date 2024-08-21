@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   createNewTeam,
+  generateInviteLink,
   getLstUserToInviteTeam,
   paginationTeamOfUser,
 } from '../../../services/team';
@@ -16,6 +17,7 @@ export const TeamActionKey = {
   ADD_TEAM: 'team/add_team',
   LST_USER_TO_INVITE_TEAM: 'team/lst_user_to_invite_team',
   LST_TEAM_OF_USER: 'team/lst_team_of_user',
+  GENERATE_INVITE_LINK: 'team/generate_invite_link',
 };
 export const addTeamAsync = createAsyncThunk(TeamActionKey.ADD_TEAM, createNewTeam);
 export const getLstUserToInviteTeamAsync = createAsyncThunk(
@@ -26,6 +28,11 @@ export const getLstUserToInviteTeamAsync = createAsyncThunk(
 export const paginationTeamOfUserAsync = createAsyncThunk(
   TeamActionKey.LST_TEAM_OF_USER,
   paginationTeamOfUser
+);
+
+export const generateInviteLinkAsync = createAsyncThunk(
+  TeamActionKey.GENERATE_INVITE_LINK,
+  generateInviteLink
 );
 
 export const useTeamAction = () => {
@@ -51,6 +58,10 @@ export const useTeamAction = () => {
     dispatch(addTeamAsync(team));
   };
 
+  const handleGenerateInviteLink = async (teamId) => {
+    dispatch(generateInviteLinkAsync(teamId));
+  };
+
   useEffect(() => {
     paginationTeamOfUser();
   }, []);
@@ -60,5 +71,6 @@ export const useTeamAction = () => {
     createNewTeam: createNewTeamCallBack,
     changeCurrent,
     onGetLstUserToInvite: getLstUserToInvite,
+    onGenerateInviteLink: handleGenerateInviteLink,
   };
 };

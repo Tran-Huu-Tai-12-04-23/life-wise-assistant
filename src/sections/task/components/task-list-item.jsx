@@ -104,17 +104,7 @@ function TaskListItem({ data, isRotate }) {
             fontWeight: 800,
           }}
         />
-        <Chip
-          size="small"
-          label={data?.statusName}
-          sx={{
-            background: data?.statusBackground,
-            color: data?.statusColor,
-            minWidth: 80,
-            fontSize: 12,
-            fontWeight: 800,
-          }}
-        />
+       
       </Stack>
 
       <Stack direction="row" justifyContent="flex-end" gap={2} alignItems="center">

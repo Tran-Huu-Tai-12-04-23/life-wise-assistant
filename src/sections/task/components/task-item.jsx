@@ -109,17 +109,6 @@ function TaskItem({ data, isRotate }) {
             fontWeight: 800,
           }}
         />
-        <Chip
-          size="small"
-          label={data?.statusName}
-          sx={{
-            background: data?.statusBackground,
-            color: data?.statusColor,
-            minWidth: 80,
-            fontSize: 12,
-            fontWeight: 800,
-          }}
-        />
       </Stack>
 
       <Stack

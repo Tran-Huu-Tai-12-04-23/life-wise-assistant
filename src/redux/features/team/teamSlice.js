@@ -1,7 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
 // eslint-disable-next-line import/no-cycle
-import { addTeamAsync, getLstUserToInviteTeamAsync, paginationTeamOfUserAsync } from './action';
+import {
+  addTeamAsync,
+  generateInviteLinkAsync,
+  getLstUserToInviteTeamAsync,
+  paginationTeamOfUserAsync,
+} from './action';
 
 // interface TeamState {
 //   teams: ITeam[];
@@ -21,6 +26,8 @@ const initialState = {
   isLoadingCreateNew: false,
   isLoadingPagination: false,
   isHasNextPage: false,
+  isLoadingGenerateInviteLink: false,
+  inviteLink: '',
 };
 
 const teamSlice = createSlice({
@@ -32,6 +39,11 @@ const teamSlice = createSlice({
     },
     changeCurrentTeams: (state, action) => {
       state.currentTeam = action.payload;
+      const isExpiredInviteToken = action.payload?.isExpiredInviteToken;
+      if (!isExpiredInviteToken) {
+        state.inviteLink = action.payload?.inviteToken;
+      }
+      state.inviteLink = '';
     },
     resetTeamState: () => initialState,
   },
@@ -53,6 +65,16 @@ const teamSlice = createSlice({
         });
         state.isHasNextPage = action.payload.length === 10;
         state.isLoadingPagination = false;
+      })
+      .addCase(generateInviteLinkAsync.fulfilled, (state, action) => {
+        state.isLoadingGenerateInviteLink = false;
+        state.inviteLink = action.payload;
+      })
+      .addCase(generateInviteLinkAsync.pending, (state) => {
+        state.isLoadingCreateNew = false;
+      })
+      .addCase(generateInviteLinkAsync.rejected, (state) => {
+        state.isLoadingCreateNew = false;
       })
       .addCase(addTeamAsync.pending, (state) => {
         state.isLoadingCreateNew = true;

@@ -8,6 +8,7 @@ import InputFocusToEdit from 'src/components/input/input-focus-to-edit';
 import LstMember from 'src/components/lst-member';
 import RichTextFocusToEdit from 'src/components/rich-text/rich-text-focus-to-edit';
 import TabCustom from 'src/components/tab';
+import { useModal } from 'src/contexts/modal-context';
 import { useColumnAction } from 'src/redux/features/column/action';
 import { useColumnState } from 'src/redux/features/column/columnSlice';
 import Activity from './activity';
@@ -22,6 +23,7 @@ import MoveStatusPopover from './move-status-popover';
 
 function FormAddNewTask() {
   const { onCreateTask } = useColumnAction();
+  const {hideModal} = useModal()
   const { isLoadingCreateNewTask, currentColumn } = useColumnState();
   const [state, setState] = useState({
     members: [],
@@ -69,7 +71,10 @@ function FormAddNewTask() {
       columnId: currentColumn.id,
     };
 
-    onCreateTask(body);
+    await onCreateTask(body).then( res => {
+      hideModal()
+    })
+
   };
   return (
     <Stack direction="column" gap={2} pt={2} minWidth={1000}>

@@ -10,6 +10,7 @@ export const endpoints = {
   create_team: '/team',
   team_of_user_pagination: '/team/pagination',
   lst_user_to_invite_team: '/auth/lst-user-to-invite-team',
+  generate_invite_link: '/team/generate-invite-token',
   // #endregion
 
   // #region column CRUD

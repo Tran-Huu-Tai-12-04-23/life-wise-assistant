@@ -182,5 +182,13 @@ export function overrides(theme) {
         },
       },
     },
+    MuiSnackbar: {
+      styleOverrides: {
+        root: {
+          backdropFilter: 'blur(10px) !important',
+          backgroundColor: alpha(theme.palette.background.default, 0.5),
+        },
+      },
+    },
   };
 }

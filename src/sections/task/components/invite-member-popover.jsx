@@ -4,17 +4,23 @@ import IconButton from '@mui/material/IconButton';
 import Popover from '@mui/material/Popover';
 
 import { useTheme } from '@emotion/react';
-import { Stack } from '@mui/material';
+import { CircularProgress, Stack } from '@mui/material';
 import { ButtonOutlined, ButtonPrimary } from 'src/components/button';
 import Iconify from 'src/components/iconify';
 import InviteIcon from 'src/components/icons/invite-icon';
 import InputCustom from 'src/components/input';
+import InputCopy from 'src/components/input-copy';
+import { useTeamAction } from 'src/redux/features/team/action';
+import { useTeamState } from 'src/redux/features/team/teamSlice';
 
 // ----------------------------------------------------------------------
 
 export default function InviteColumnPopover() {
   const [open, setOpen] = useState(null);
+  const {onGenerateInviteLink} = useTeamAction()
   const theme = useTheme();
+  const {currentTeam, inviteLink, isLoadingGenerateInviteLink} = useTeamState()
+
 
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
@@ -23,6 +29,13 @@ export default function InviteColumnPopover() {
   const handleClose = () => {
     setOpen(null);
   };
+
+
+  const handleGenerateInviteLink = () => {
+    if(currentTeam)
+     onGenerateInviteLink(currentTeam.id)
+  }
+
 
   return (
     <>
@@ -47,7 +60,7 @@ export default function InviteColumnPopover() {
         transformOrigin={{ vertical: 'top', horizontal: 'left' }}
         PaperProps={{
           sx: {
-            width: 300,
+            width: 500,
             p: 1,
           },
         }}
@@ -55,6 +68,8 @@ export default function InviteColumnPopover() {
         <Stack spacing={2} direction="column">
           <InputCustom placeholder="Search member" />
           <InviteIcon width="100%" height={100} />
+          <ButtonPrimary sx={{ width: '100%' }}>Invite</ButtonPrimary>
+
           <Stack
             direction="row"
             justifyContent="space-between"
@@ -63,9 +78,17 @@ export default function InviteColumnPopover() {
               pt: 2,
             }}
           >
-            <ButtonOutlined>Generate link invite</ButtonOutlined>
-            <ButtonPrimary sx={{ width: '35%' }}>Invite</ButtonPrimary>
+          
+          {
+            inviteLink && <InputCopy sx={{ width:300 }} text={inviteLink}/>
+          }
+            {
+              !inviteLink && 
+            <ButtonOutlined onClick={handleGenerateInviteLink}>{isLoadingGenerateInviteLink && <CircularProgress/>}Generate link invite</ButtonOutlined>
+
+            }
           </Stack>
+
         </Stack>
       </Popover>
     </>
