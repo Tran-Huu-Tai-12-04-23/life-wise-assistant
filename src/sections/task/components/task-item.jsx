@@ -24,7 +24,7 @@ import AssignMemberPopover from './assgin-member-popover';
 import EditTaskView from './edit-task';
 
 function TaskItem({ data, isRotate }) {
-  const {openModal} = useModal()
+  const { openModal } = useModal();
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: data?.id,
     data: {
@@ -34,8 +34,8 @@ function TaskItem({ data, isRotate }) {
 
   const theme = useTheme();
   return (
-      <Box
-      onClick={() => openModal(<EditTaskView id={data.id}/>)}
+    <Box
+      onClick={() => openModal(<EditTaskView id={data.id} />)}
       className="ignore-scroll"
       ref={setNodeRef}
       {...attributes}
@@ -52,7 +52,9 @@ function TaskItem({ data, isRotate }) {
         transform: isRotate ? 'rotate(10deg)' : CSS.Translate?.toString(transform),
         '&:hover': {
           bgcolor: () =>
-            isRotate ? theme.palette.background.default : alpha(theme.palette.background.default),
+            isRotate
+              ? alpha(theme.palette.background.default, 0.5)
+              : alpha(theme.palette.background.default, 0.5),
         },
         '&:hover ': {
           '.icon-drag': {

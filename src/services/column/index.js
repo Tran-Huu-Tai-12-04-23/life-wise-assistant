@@ -19,7 +19,6 @@ export const getAllColumnOfTeam = async (loadAllColOfTeamDTO) =>
 export const addTaskToColumn = async (taskToCreateDTO) =>
   handleErrorApi(async () => {
     const res = await rootApi.post(endpoints.add_task_to_column, taskToCreateDTO);
-    toast.success(res.message);
     return res.data;
   });
 

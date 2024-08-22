@@ -16,8 +16,8 @@ export default function BtnSelectDateTime({ onChange, value }) {
   const [open, setOpen] = useState(null);
   const [state, setState] = useState({
     value: new Date(value),
-    date: new Date(value),
-    time: new Date(value),
+    date: null,
+    time: null,
   });
 
   const handleOpen = (event) => {

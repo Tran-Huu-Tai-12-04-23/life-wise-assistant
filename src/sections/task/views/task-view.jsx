@@ -1,5 +1,6 @@
-import { Box } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
+import CardIcon from 'src/components/icons/card-icon';
 import { useTeamState } from 'src/redux/features/team/teamSlice';
 import Filter from '../components/filter';
 import Header from '../header';
@@ -14,7 +15,19 @@ export default function TaskView() {
     <Box>
       <Header />
       {currentTeam && <Filter onChangeViewType={(vt) => setViewType(vt)} viewType={viewType} />}
-      <WrapperTaskLayout viewType={viewType} />
+      {!currentTeam && (
+        <Stack
+          direction="column"
+          spacing={2}
+          alignItems="center"
+          justifyContent="center"
+          sx={{ height: '100%', mt: 10 }}
+        >
+          <CardIcon />
+          <Typography>Please select a board</Typography>
+        </Stack>
+      )}
+      {currentTeam && <WrapperTaskLayout viewType={viewType} />}
     </Box>
   );
 }

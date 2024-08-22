@@ -50,8 +50,8 @@ export function overrides(theme) {
     MuiBackdrop: {
       styleOverrides: {
         root: {
-          backgroundColor: alpha(theme.palette.background.default, 0.4),
-          backdropFilter: 'blur(3px)',
+          backgroundColor: alpha(theme.palette.background.default, 0.8),
+          backdropFilter: 'blur(2px)',
         },
         invisible: {
           background: 'transparent',

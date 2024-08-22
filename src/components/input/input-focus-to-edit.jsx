@@ -43,7 +43,7 @@ export const InputWrapper = styled('div')(
 `
 );
 
-function InputFocusToEdit({ minWidth = '100%',value,  onChange, ...props }) {
+function InputFocusToEdit({ minWidth = '100%', value, onChange, ...props }) {
   const [disabled, setDisabled] = useState(true);
   const theme = useTheme();
   const ref = useRef(null);
@@ -51,15 +51,20 @@ function InputFocusToEdit({ minWidth = '100%',value,  onChange, ...props }) {
     setDisabled(!disabled);
     setTimeout(() => {
       ref.current.focus();
-      
     }, 100);
   };
 
   useEffect(() => {
     ref.current.value = value || '';
-  }, [])
+  }, []);
   return (
-    <InputWrapper minWidth={minWidth} disabled={disabled}>
+    <InputWrapper
+      minWidth={minWidth}
+      disabled={disabled}
+      style={{
+        background: alpha(theme.palette.background.default, 0.5),
+      }}
+    >
       <input
         ref={ref}
         {...props}
@@ -70,9 +75,7 @@ function InputFocusToEdit({ minWidth = '100%',value,  onChange, ...props }) {
             onChange(ref.current.value);
           }
         }}
-        style={{
-          background: 'transparent',
-        }}
+        style={{ background: 'transparent' }}
       />
       {disabled && (
         <IconButton onClick={handleFocus}>

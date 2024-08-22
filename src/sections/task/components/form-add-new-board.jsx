@@ -37,7 +37,7 @@ export default function FormAddNewBoard() {
   };
 
   return (
-    <Stack direction="column" gap={2} pt={2}>
+    <Stack direction="column" gap={2} pt={2} sx={{ width: 350 }}>
       <Typography variant="h6" textAlign="center" fontWeight={900}>
         Add new board
       </Typography>

@@ -6,7 +6,7 @@ import { alpha } from '@mui/material/styles';
 
 import { useTheme } from '@emotion/react';
 import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
-import { Box, Chip, MenuItem, Stack, Typography } from '@mui/material';
+import { Box, Chip, LinearProgress, MenuItem, Stack, Typography } from '@mui/material';
 import { account } from 'src/_mock/account';
 import { EffectBtn } from 'src/components/EffectBtn';
 import EmptyBoardView from 'src/components/empty/empty-boar-view';
@@ -17,7 +17,7 @@ import { useTeamState } from 'src/redux/features/team/teamSlice';
 
 export default function SelectBoardPopover() {
   const [open, setOpen] = useState(null);
-  const { teams, currentTeam } = useTeamState();
+  const { teams, currentTeam, isLoadingPagination } = useTeamState();
   const { paginationTeamOfUser, changeCurrent } = useTeamAction();
   const [dataSelect, setDataSelect] = useState(teams);
   const [search, setSearch] = useState('');
@@ -118,29 +118,31 @@ export default function SelectBoardPopover() {
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Select board"
         />
-        <Box sx={{ my: 1.5, px: 2, pt: 1 }} />
-        {dataSelect.length === 0 && <EmptyBoardView />}
-        {dataSelect.map((option, index) => (
-          <MenuItem
-            onClick={() => {
-              setOpen(null);
-              changeCurrent(option);
-            }}
-            sx={{
-              borderRadius: 1,
-              mt: 1,
-              mb: 1,
-              background:
-                currentTeam?.id === option.id
-                  ? alpha(theme.palette.primary.main, 0.2)
-                  : 'transparent',
-            }}
-            key={index}
-          >
-            <Avatar src={option.thumbnails} sx={{ mr: 2, minWidth: 50, borderRadius: 0.5 }} />
-            <Typography sx={{ fontSize: 14 }}>{option.name}</Typography>
-          </MenuItem>
-        ))}
+
+        <Box sx={{ my: 1.5, px: 2, pt: 1 }}>{isLoadingPagination && <LinearProgress />}</Box>
+        {dataSelect.length === 0 && !isLoadingPagination && <EmptyBoardView />}
+        {!isLoadingPagination &&
+          dataSelect.map((option, index) => (
+            <MenuItem
+              onClick={() => {
+                setOpen(null);
+                changeCurrent(option);
+              }}
+              sx={{
+                borderRadius: 1,
+                mt: 1,
+                mb: 1,
+                background:
+                  currentTeam?.id === option.id
+                    ? alpha(theme.palette.primary.main, 0.2)
+                    : 'transparent',
+              }}
+              key={index}
+            >
+              <Avatar src={option.thumbnails} sx={{ mr: 2, minWidth: 50, borderRadius: 0.5 }} />
+              <Typography sx={{ fontSize: 14 }}>{option.name}</Typography>
+            </MenuItem>
+          ))}
       </Popover>
     </>
   );

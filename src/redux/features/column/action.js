@@ -2,6 +2,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 
+import { toast } from 'react-toastify';
 import {
   addTaskToColumn,
   createNewColumn,
@@ -139,7 +140,14 @@ export const useColumnAction = () => {
   };
 
   const onCreateTask = async (body) => {
-    if (currentColumn?.id) dispatch(createTaskAsync({ ...body }));
+    if (currentColumn?.id) {
+      toast.promise(dispatch(createTaskAsync({ ...body })), {
+        pending: 'Creating task...',
+        success: 'Create task successfully!',
+        error: 'Create task failed!',
+      })
+      ;
+    }
   };
 
   const onToggleColumnActive = (id) => {

@@ -24,14 +24,14 @@ const navConfig = [
     icon: <TaskIcon color="#6C6C76" size={22} />,
     subNav: [
       {
-        title: 'Manager',
-        path: '/task/manager',
-        icon: <AppRegistrationIcon />,
+        title: '',
+        path: '/task',
+        icon: <AppRegistrationIcon color="#6C6C76" />,
       },
       {
         title: 'History',
         path: '/task/History',
-        icon: <SettingsBackupRestoreIcon />,
+        icon: <SettingsBackupRestoreIcon color="#6C6C76" />,
       },
     ],
   },
@@ -53,12 +53,12 @@ const navConfig = [
       {
         title: 'Manager',
         path: '/blog',
-        icon: <AppRegistrationIcon />,
+        icon: <AppRegistrationIcon color="#6C6C76" />,
       },
       {
         title: 'Create blog',
         path: '/blog/create-blog',
-        icon: <AddIcon />,
+        icon: <AddIcon color="#6C6C76" />,
       },
     ],
   },

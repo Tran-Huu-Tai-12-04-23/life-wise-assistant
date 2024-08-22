@@ -19,11 +19,10 @@ import BtnSelectMemberPopover from './btn-select-member';
 import BtnSelectPriority from './btn-select-priority';
 import BtnSelectTagType from './btn-select-task-type';
 import Comments from './comments';
-import MoveStatusPopover from './move-status-popover';
 
 function FormAddNewTask() {
   const { onCreateTask } = useColumnAction();
-  const {hideModal} = useModal()
+  const { hideModal } = useModal();
   const { isLoadingCreateNewTask, currentColumn } = useColumnState();
   const [state, setState] = useState({
     members: [],
@@ -72,15 +71,19 @@ function FormAddNewTask() {
       columnId: currentColumn.id,
     };
 
-    await onCreateTask(body).then( res => {
-      hideModal()
-    })
-
+    await onCreateTask(body).then((res) => {
+      hideModal();
+    });
   };
   return (
-    <Stack direction="column" gap={2} pt={2} sx={{width: '80%'}}>
+    <Stack
+      direction="column"
+      gap={2}
+      pt={2}
+      sx={{ width: '100%', minHeight: 'calc(100vh - 40px)', p: 4 }}
+    >
       <Stack direction="row" gap={4} alignItems="start" justifyContent="space-between">
-        <Stack direction="column" gap={1} sx={{ width: '70%' }}>
+        <Stack direction="column" gap={1} sx={{ width: '100%' }}>
           <InputFocusToEdit
             onChange={(val) => setState((prev) => ({ ...prev, title: val }))}
             placeholder="Typing title of task "
@@ -128,7 +131,7 @@ function FormAddNewTask() {
           <TabCustom
             tabTitles={['Activity', 'Comments']}
             tabComponents={[
-              <Activity />,
+              <Activity data={state?.history || []} />,
               <Comments
                 data={state.comments}
                 onChange={(val) =>
@@ -138,7 +141,7 @@ function FormAddNewTask() {
             ]}
           />
         </Stack>
-        <Stack direction="column" gap={1} sx={{ width: '30%' }}>
+        <Stack direction="column" gap={1} sx={{ width: 250 }}>
           <Typography component="span" sx={{ fontSize: 12, fontWeight: 'bold' }}>
             Add to task
           </Typography>
@@ -161,11 +164,10 @@ function FormAddNewTask() {
           <Typography component="span" sx={{ fontSize: 12, fontWeight: 'bold' }}>
             Actions
           </Typography>
-          <MoveStatusPopover />
         </Stack>
       </Stack>
 
-      <Stack direction="row" gap={1} sx={{ justifyContent: 'flex-end' }}>
+      <Stack direction="row" gap={1} sx={{ justifyContent: 'flex-end', mt: 'auto' }}>
         <Button
           onClick={handleAddNewTask}
           endIcon={<Iconify icon="eva:plus-fill" />}

@@ -11,21 +11,21 @@ const style = {
   // top: '50%',
   // left: '50%',
   // transform: 'translate(-50%, -50%)',
-  minWidth: 400,
+  // minWidth: 400,
   borderRadius: 1,
-  maxWidth: '80%',
   height: 'max-content',
+  width: '100%',
   p: 2,
 };
 
 export default function ModalCustom({ children, isOpen, onClose }) {
   const { hideModal } = useModal();
   const theme = useTheme();
-  console.log(theme);
   return (
     <Modal
       open={isOpen}
       onClose={onClose}
+      onClick={(event) => event.stopPropagation()}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
       sx={{
@@ -33,8 +33,8 @@ export default function ModalCustom({ children, isOpen, onClose }) {
         overflowX: 'hidden',
         display: 'flex',
         justifyContent: 'center',
-        pt: 20,
-        pb: 20,
+        // pt: 20,
+        // pb: 20,
         // backdropFilter: 'blur(6px)',
       }}
     >
@@ -43,7 +43,8 @@ export default function ModalCustom({ children, isOpen, onClose }) {
           sx={{
             ...style,
             background: theme.palette.background.paper,
-            backdropFilter: 'blur(6px)',
+            // backdropFilter: 'blur(2px)',
+            // width: 'max-content',
           }}
         >
           <IconButton onClick={hideModal} sx={{ position: 'absolute', top: 2, right: 2 }}>

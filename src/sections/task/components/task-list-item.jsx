@@ -16,10 +16,13 @@ import DocumentIcon from 'src/components/icons/document-icon';
 import FileIcon from 'src/components/icons/file-icon';
 import MessageIcon from 'src/components/icons/message-icon';
 import { COLORS } from 'src/constants';
+import { useModal } from 'src/contexts/modal-context';
 import { TASK } from '../wrapper-task-layout';
 import AssignMemberPopover from './assgin-member-popover';
+import EditTaskView from './edit-task';
 
 function TaskListItem({ data, isRotate }) {
+  const { openModal } = useModal();
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: data?.id,
     data: {
@@ -31,6 +34,7 @@ function TaskListItem({ data, isRotate }) {
 
   return (
     <Stack
+      onClick={() => openModal(<EditTaskView id={data.id} />)}
       direction="row"
       className="ignore-scroll"
       ref={setNodeRef}
@@ -47,7 +51,9 @@ function TaskListItem({ data, isRotate }) {
         backgroundColor: theme.palette.background.default,
         '&:hover': {
           bgcolor: () =>
-            isRotate ? theme.palette.background.default : alpha(theme.palette.background.default),
+            isRotate
+              ? alpha(theme.palette.background.default, 0.5)
+              : alpha(theme.palette.background.default, 0.5),
         },
         '&:hover ': {
           '.icon-drag': {
@@ -104,7 +110,6 @@ function TaskListItem({ data, isRotate }) {
             fontWeight: 800,
           }}
         />
-       
       </Stack>
 
       <Stack direction="row" justifyContent="flex-end" gap={2} alignItems="center">

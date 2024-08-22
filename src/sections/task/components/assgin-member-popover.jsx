@@ -23,6 +23,7 @@ export default function AssignMemberPopover({ isRight }) {
   const [selectedValue, setSelectedValue] = useState([]);
 
   const handleOpen = (event) => {
+    event.stopPropagation();
     setOpen(event.currentTarget);
   };
 
@@ -74,6 +75,7 @@ export default function AssignMemberPopover({ isRight }) {
             boxShadow: 12,
           },
         }}
+        onClick={(e) => e.stopPropagation()}
       >
         <Box
           sx={{
