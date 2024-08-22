@@ -182,11 +182,21 @@ export function overrides(theme) {
         },
       },
     },
+    MuiSnackbarContent: {
+      styleOverrides: {
+        root: {
+          color: theme.palette.text.primary,
+          backdropFilter: 'blur(10px) !important',
+          backgroundColor: theme.palette.background.neutral,
+          backgroundImage: 'none',
+        },
+      },
+    },
     MuiSnackbar: {
       styleOverrides: {
         root: {
           backdropFilter: 'blur(10px) !important',
-          backgroundColor: alpha(theme.palette.background.default, 0.5),
+          color: theme.palette.text.primary,
         },
       },
     },

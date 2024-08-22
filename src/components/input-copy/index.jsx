@@ -1,6 +1,6 @@
 import { useTheme } from '@emotion/react';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import { IconButton, ListItemButton, Snackbar, Typography } from "@mui/material";
+import { IconButton, ListItemButton, Snackbar, Stack } from "@mui/material";
 import { useState } from 'react';
 
 function InputCopy({ text , sx}) {
@@ -29,24 +29,29 @@ function InputCopy({ text , sx}) {
 
     return (
        <>
-       <ListItemButton sx={{
-            overflow: 'hidden',
-            borderRadius: 0.5,
-            whiteSpace: 'nowrap', // Add this line
+       <Stack direction="row" gap={1} onClick={handleCopyClick} sx={{width: '100%', 
+
             backgroundColor: theme.palette.background.default,
+     borderRadius: 0.5,
+     padding: 1,
+     cursor: 'pointer',
+       }}>
+        <ListItemButton sx={{
+            overflow: 'hidden',
+       
+            whiteSpace: 'nowrap', // Add this line
             ...sx
         }} onClick={handleCopyClick}>
-            <Typography variant='h7'>
                 {text}
-            </Typography>
-            <IconButton >
+        </ListItemButton>
+         <IconButton sx={{flex: 0.2}}>
                 <ContentCopyIcon />
             </IconButton>
-        </ListItemButton>
+       </Stack>
        
             <Snackbar
             open={open}
-            autoHideDuration={6000}
+            autoHideDuration={300}
             onClose={handleClose}
             message="Copied!"
             />

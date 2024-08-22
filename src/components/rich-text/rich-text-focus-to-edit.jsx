@@ -1,6 +1,6 @@
 /* eslint-disable react/no-danger */
 import { useTheme } from '@emotion/react';
-import { Box, Button, Collapse, IconButton, Stack, Typography } from '@mui/material';
+import { Box, Button, Collapse, IconButton, Stack, Typography, alpha } from '@mui/material';
 import { useRef, useState } from 'react';
 import ReactQuill from 'react-quill';
 import { EffectBtn } from '../EffectBtn';
@@ -15,13 +15,13 @@ function RichTextFocusToEdit({
   props,
 }) {
   const [disabled, setDisabled] = useState(true);
-  const [prevValue, setPrevValue] = useState(value);
   const [currentValue, setCurrentValue] = useState(value);
   const [expand, setExpand] = useState(true);
   const ref = useRef(null);
   const theme = useTheme();
 
   const handleFocus = () => {
+    setCurrentValue(value);
     setExpand(true);
     setDisabled(!disabled);
     setTimeout(() => {
@@ -42,7 +42,7 @@ function RichTextFocusToEdit({
       )}
 
       <Collapse in={expand} orientation="vertical">
-        <Box sx={{ minWidth, borderRadius: 1, position: 'relative', minHeight: 40 }}>
+        <Box sx={{ minWidth, borderRadius: 1, position: 'relative', }}>
           {!disabled && (
             <ReactQuill
               value={currentValue}
@@ -51,11 +51,11 @@ function RichTextFocusToEdit({
               disabled={disabled}
               {...props}
               style={{
-                background: 'rgba(0,0,0,0.03)',
+                background: alpha(theme.palette.background.default, 0.5),
               }}
             />
           )}
-          {disabled && !prevValue && (
+          {disabled &&  !value && (
             <Box
               onClick={handleFocus}
               sx={{
@@ -90,15 +90,15 @@ function RichTextFocusToEdit({
               </IconButton>
             </Box>
           )}
-          {disabled && prevValue && (
+          {disabled  && (
             <EffectBtn onClick={handleFocus} sx={{ width: '100%' }}>
               <ReactQuill
                 style={{
-                  background: 'rgba(0,0,0,0.03)',
+                  background: alpha(theme.palette.background.default, 0.5),
                   borderRadius: 5,
                   width: '100%',
                 }}
-                value={prevValue}
+                value={value}
                 readOnly
                 theme="bubble"
               />
@@ -109,8 +109,7 @@ function RichTextFocusToEdit({
               <Button
                 onClick={() => {
                   handleFocus();
-                  setCurrentValue(prevValue);
-                  onChange(prevValue);
+                  setCurrentValue('');
                 }}
                 color="error"
                 variant="outlined"
@@ -121,7 +120,6 @@ function RichTextFocusToEdit({
                 onClick={() => {
                   onChange(currentValue);
                   setDisabled(true);
-                  setPrevValue(currentValue);
                 }}
                 color="primary"
                 variant="contained"

@@ -7,7 +7,7 @@ import { Avatar, Box, Stack, Typography } from '@mui/material';
 import { EffectBtn } from '../EffectBtn';
 // ----------------------------------------------------------------------
 
-export default function UserInfoPopover() {
+export default function UserInfoPopover({data}) {
   const [open, setOpen] = useState(null);
   const theme = useTheme();
   const handleOpen = (event) => {
@@ -28,8 +28,8 @@ export default function UserInfoPopover() {
         sx={{ borderRadius: 100 }}
       >
         <Avatar
-          alt="Remy Sharp"
-          src="https://cdn.dribbble.com/userupload/9486882/file/original-e8bdcf5e6d9a8de357f50c56c6049dc9.png?crop=347x260-2854x2140&resize=400x300&vertical=center"
+          alt={data?.username}
+          src={data?.avatar}
         />
       </EffectBtn>
       <Popover
@@ -58,13 +58,13 @@ export default function UserInfoPopover() {
         >
           <Stack direction="column" alignItems="center">
             <Avatar
-              alt="Remy Sharp"
-              src="https://cdn.dribbble.com/userupload/9486882/file/original-e8bdcf5e6d9a8de357f50c56c6049dc9.png?crop=347x260-2854x2140&resize=400x300&vertical=center"
+              alt={data?.username}
+              src={data?.avatar}
             />
             <Stack direction="column" alignItems="center">
-              <Typography variant="h7">Huy Nguyen</Typography>
+              <Typography variant="h7">{data?.username}</Typography>
               <Typography color="gray" component="span" fontSize={12}>
-                @huy_nguyen
+                @{data?.username}
               </Typography>
             </Stack>
           </Stack>

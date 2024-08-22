@@ -4,13 +4,15 @@ import { clearUserDataFromLocalStorage } from '../helper/index';
 import authReducer, { resetAuthState } from './features/auth/authSlice';
 import chatReducer, { resetChatState } from './features/chat/chatSlice';
 import columnReducer, { resetColumnState } from './features/column/columnSlice';
-import taskReducer, { resetTeamState } from './features/team/teamSlice';
+import taskReducer, { resetTaskState } from './features/task/taskSlice';
+import teamReducer, { resetTeamState } from './features/team/teamSlice';
 
 const rootReducer = combineReducers({
-  team: taskReducer,
+  team: teamReducer,
   auth: authReducer,
   column: columnReducer,
   chat: chatReducer,
+  task: taskReducer,
 });
 
 // export type RootState = ReturnType<typeof rootReducer>;
@@ -34,6 +36,7 @@ export const useResetState = () => {
       dispatch(resetColumnState());
       dispatch(revertAll());
       dispatch(resetChatState());
+      dispatch(resetTaskState());
     } catch (error) {
       console.error('Error resetting state:', error);
     }

@@ -22,7 +22,7 @@ function FileLinkView({ fileLinks = [], onRemove }) {
       <Collapse in={expanded} orientation="vertical">
         <Stack direction="column" gap={2}>
           {fileLinks.map((item, index) => (
-            <Tooltip title={item.name} key={item.link}>
+            <Tooltip title={item.name} key={item.fileLink}>
               <Stack
                 gap={2}
                 direction="row"
@@ -32,7 +32,7 @@ function FileLinkView({ fileLinks = [], onRemove }) {
               >
                 <Microlink
                   style={{ width: '100%', borderRadius: 10, padding: 1 }}
-                  url={item.link}
+                  url={item.fileLink}
                 />
                 <IconButton sx={{ height: 40, width: 40 }} onClick={() => onRemove(index)}>
                   <CloseIcon size={12} />

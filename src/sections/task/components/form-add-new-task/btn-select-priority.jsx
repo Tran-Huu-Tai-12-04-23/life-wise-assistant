@@ -11,9 +11,9 @@ import PriorityIcon from 'src/components/icons/priority-icon';
 import { taskPriority, taskTypeDefault } from 'src/constants/index';
 // ----------------------------------------------------------------------
 
-export default function BtnSelectPriority({ onChange }) {
+export default function BtnSelectPriority({ onChange, value }) {
   const [open, setOpen] = useState(null);
-  const [selectPriority, setSelectPriority] = useState(null);
+  const [selectPriority, setSelectPriority] = useState(value);
 
   const handleOpen = (event) => {
     setOpen(event.currentTarget);

@@ -18,10 +18,13 @@ import DocumentIcon from 'src/components/icons/document-icon';
 import FileIcon from 'src/components/icons/file-icon';
 import MessageIcon from 'src/components/icons/message-icon';
 import { COLORS } from 'src/constants';
+import { useModal } from 'src/contexts/modal-context';
 import { TASK } from '../wrapper-task-layout';
 import AssignMemberPopover from './assgin-member-popover';
+import EditTaskView from './edit-task';
 
 function TaskItem({ data, isRotate }) {
+  const {openModal} = useModal()
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: data?.id,
     data: {
@@ -31,7 +34,8 @@ function TaskItem({ data, isRotate }) {
 
   const theme = useTheme();
   return (
-    <Box
+      <Box
+      onClick={() => openModal(<EditTaskView id={data.id}/>)}
       className="ignore-scroll"
       ref={setNodeRef}
       {...attributes}

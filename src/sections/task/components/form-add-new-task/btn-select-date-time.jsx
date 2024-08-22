@@ -12,12 +12,12 @@ import Iconify from 'src/components/iconify';
 import { getDateTime } from 'src/helper';
 // ----------------------------------------------------------------------
 
-export default function BtnSelectDateTime({ onChange }) {
+export default function BtnSelectDateTime({ onChange, value }) {
   const [open, setOpen] = useState(null);
   const [state, setState] = useState({
-    value: null,
-    date: null,
-    time: null,
+    value: new Date(value),
+    date: new Date(value),
+    time: new Date(value),
   });
 
   const handleOpen = (event) => {

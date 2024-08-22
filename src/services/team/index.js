@@ -10,16 +10,16 @@ export const createNewTeam = async (team) =>
     return res.data;
   });
 
-export const getLstUserToInviteTeam = async (data) =>
+export const getLstUserToInviteTeam = async (data, page) =>
   handleErrorApi(async () => {
     const res = await rootApi.post(endpoints.lst_user_to_invite_team, {
       where: {
-        lstUserTeamExist: data.lstUserExist,
-        name: data.name,
+        ...data,
       },
-      skip: 10 * data.page,
-      take: data?.take || 10,
+      skip: 0,
+      take: 1000000,
     });
+
     return res[0];
   });
 

@@ -2,7 +2,7 @@
 import { useTheme } from '@emotion/react';
 import { Box, IconButton } from '@mui/material';
 import { alpha, styled } from '@mui/material/styles';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Iconify from '../iconify';
 
 export const InputWrapper = styled('div')(
@@ -43,7 +43,7 @@ export const InputWrapper = styled('div')(
 `
 );
 
-function InputFocusToEdit({ minWidth = '100%', onChange, ...props }) {
+function InputFocusToEdit({ minWidth = '100%',value,  onChange, ...props }) {
   const [disabled, setDisabled] = useState(true);
   const theme = useTheme();
   const ref = useRef(null);
@@ -51,8 +51,13 @@ function InputFocusToEdit({ minWidth = '100%', onChange, ...props }) {
     setDisabled(!disabled);
     setTimeout(() => {
       ref.current.focus();
+      
     }, 100);
   };
+
+  useEffect(() => {
+    ref.current.value = value || '';
+  }, [])
   return (
     <InputWrapper minWidth={minWidth} disabled={disabled}>
       <input

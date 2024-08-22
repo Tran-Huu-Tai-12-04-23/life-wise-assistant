@@ -11,9 +11,9 @@ import LabelIcon from 'src/components/icons/label-icon';
 import { taskType, taskTypeDefault } from 'src/constants/index';
 // ----------------------------------------------------------------------
 
-export default function BtnSelectTagType({ onChange }) {
+export default function BtnSelectTagType({ onChange , value}) {
   const [open, setOpen] = useState(null);
-  const [selectedTag, setSelectedTag] = useState(null);
+  const [selectedTag, setSelectedTag] = useState(value);
 
   const handleOpen = (event) => {
     setOpen(event.currentTarget);

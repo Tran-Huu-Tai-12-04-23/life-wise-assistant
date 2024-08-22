@@ -28,4 +28,8 @@ export const endpoints = {
   group_chat_pagination: '/chat/group-chat-pagination',
   message_pagination: '/chat/message-pagination',
   // #endregion
+
+  // #region task
+  task: '/task/',
+  // #endregion
 };

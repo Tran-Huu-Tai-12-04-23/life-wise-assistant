@@ -44,8 +44,16 @@ export const useTeamAction = () => {
     dispatch(resetColumnState());
   };
   const getLstUserToInvite = useCallback(
-    async (lstUserExist) => {
-      dispatch(getLstUserToInviteTeamAsync({ lstUserExist, page }));
+    async (lstUserExist, name) => {
+      dispatch(
+        getLstUserToInviteTeamAsync(
+          {
+            lstUserExist,
+            name,
+          },
+          page
+        )
+      );
     },
     [page]
   );

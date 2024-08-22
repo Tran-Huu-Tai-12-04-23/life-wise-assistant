@@ -5,7 +5,7 @@ function LstMember({ members }) {
   return (
     <Stack direction="row" gap={1}>
       {members.map((member) => (
-        <UserInfoPopover key={member.id} />
+        <UserInfoPopover key={member.id} data={member} />
       ))}
     </Stack>
   );

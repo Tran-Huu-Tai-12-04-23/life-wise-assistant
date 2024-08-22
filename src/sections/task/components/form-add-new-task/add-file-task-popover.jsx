@@ -39,7 +39,7 @@ export default function AddFileTaskPopover({ onAdd }) {
 
     const newFileLink = {
       name,
-      link,
+      fileLink: link,
     };
 
     onAdd(newFileLink);
