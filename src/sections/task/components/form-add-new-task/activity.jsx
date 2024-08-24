@@ -4,11 +4,10 @@ import moment from 'moment';
 import EmptyBoardView from 'src/components/empty/empty-boar-view';
 import UserInfoPopover from 'src/components/user-info-popover';
 
-function Activity({ data }) {
+function Activity({  data }) {
   return (
     <Stack direction="column" gap={1} sx={{ width: '100%' }} alignItems="flex-start">
       {data?.length <= 0 && <EmptyBoardView title="No activity" />}
-
       {data?.map((item) => (
         <ActivityItem key={item.id} data={item} />
       ))}
@@ -24,7 +23,7 @@ const ActivityItem = ({ data }) => {
       gap={1}
       alignItems="start"
       sx={{
-        borderRadius: 0.5,
+        borderRadius: 1,
         background: theme.palette.background.default,
         padding: 1,
         width: '100%',

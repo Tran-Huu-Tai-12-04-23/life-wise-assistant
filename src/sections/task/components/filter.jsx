@@ -42,18 +42,14 @@ function Filter({ onChangeViewType, viewType }) {
     if (currentTeam) onLoadDataToFilter();
   }, [currentTeam]);
 
-
-const resolveAfter3Sec = new Promise(resolve => setTimeout(resolve, 10000));
-const testToast = () => {
-  toast.promise(
-    resolveAfter3Sec,
-    {
+  const resolveAfter3Sec = new Promise((resolve) => setTimeout(resolve, 10000));
+  const testToast = () => {
+    toast.promise(resolveAfter3Sec, {
       pending: 'Promise is pending',
       success: 'Promise resolved 👌',
-      error: 'Promise rejected 🤯'
-    }
-)
-}
+      error: 'Promise rejected 🤯',
+    });
+  };
 
   return (
     <Box

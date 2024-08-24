@@ -31,5 +31,17 @@ export const endpoints = {
 
   // #region task
   task: '/task/',
+  task_history_pagination: '/task/task-history-pagination',
+  task_comment_pagination: '/task/task-comment-pagination',
+  sub_task_pagination: '/task/sub-task-pagination',
+  task_file_pagination: '/task/task-file-pagination',
+  add_sub_task: 'task/add-sub-task',
+  toggle_subtask: 'task/toggle-sub-task',
+  delete_sub_task: 'task/delete-sub-task',
+  add_task_comment: 'task/add-comment',
+  edit_task_comment: 'task/edit-comment',
+  delete_task_comment: 'task/delete-comment',
+  add_task_file: 'task/add-task-file',
+  delete_task_file: 'task/delete-task-file',
   // #endregion
 };

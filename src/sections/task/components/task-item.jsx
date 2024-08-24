@@ -108,8 +108,8 @@ function TaskItem({ data, isRotate }) {
           size="small"
           label={data.typeName}
           sx={{
-            background:data.typeBackground,
-            color:data.typeColor,
+            background: data.typeBackground,
+            color: data.typeColor,
             minWidth: 80,
             fontSize: 12,
             fontWeight: 800,

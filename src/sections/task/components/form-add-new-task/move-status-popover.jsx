@@ -16,8 +16,8 @@ import { useTaskState } from 'src/redux/features/task/taskSlice';
 export default function MoveStatusPopover() {
   const [open, setOpen] = useState(null);
   const { filterData } = useColumnState();
-  const {onUpdateTaskStatus} = useTaskAction();
-  const {currentTask} = useTaskState();
+  const { onUpdateTaskStatus } = useTaskAction();
+  const { currentTask } = useTaskState();
 
   const theme = useTheme();
 
@@ -30,13 +30,15 @@ export default function MoveStatusPopover() {
   };
 
   const handleMoveStatus = async (statusCode) => {
-   await onUpdateTaskStatus({
+    await onUpdateTaskStatus({
       id: currentTask.id,
       status: statusCode,
     }).then(() => {
       handleClose();
-    })
-  }
+    });
+  };
+
+  if(!currentTask) return null
 
   return (
     <>
@@ -61,11 +63,11 @@ export default function MoveStatusPopover() {
         open={!!open}
         anchorEl={open}
         onClose={handleClose}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         PaperProps={{
           sx: {
-            width: 320,
+            width: 250,
             background: theme.palette.background.paper,
             border: 'none',
             borderRadius: 1,
@@ -74,28 +76,43 @@ export default function MoveStatusPopover() {
           },
         }}
       >
-        <Stack direction="row" justifyContent="space-between">
+        <Stack direction="row" justifyContent="space-between" sx={{
+          borderBottom: '1px solid rgba(0,0,0,0.05)',
+        }}>
           <Typography sx={{ fontSize: 14, fontWeight: 'bold', mb: 1 }}>
-            Status from Doing to
+            Status from <Chip
+              size="small"
+              label={currentTask.statusName}
+              sx={{
+                background: currentTask.statusBackground,
+                color: currentTask.statusColor,
+              }}
+            /> to
           </Typography>
           <IconButton onClick={handleClose} sx={{ position: 'absolute', top: 2, right: 2 }}>
             <CloseIcon size={12} />
           </IconButton>
         </Stack>
-        {filterData?.lstStatus?.map((item, index) => (
-          <Button variant="text" key={index} onClick={() => {
-            handleMoveStatus(item.code);
-          }}>
+        <Stack direction="column" sx={{ p: 1 }}>
+          {filterData?.lstStatus?.map((item, index) => (
+          <Button
+            variant="text"
+            key={index}
+            onClick={() => {
+              handleMoveStatus(item.code);
+            }}
+          >
             <Chip
               size="small"
               label={item.name}
               sx={{
+                width: '100%',
                 background: item.background,
                 color: item.color,
               }}
             />
           </Button>
-        ))}
+        ))}</Stack>
       </Popover>
     </>
   );

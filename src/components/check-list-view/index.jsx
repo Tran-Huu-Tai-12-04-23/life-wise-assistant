@@ -1,19 +1,28 @@
 import { useTheme } from '@emotion/react';
 import ChecklistIcon from '@mui/icons-material/Checklist';
-import { Box, Button, Collapse, IconButton, Stack, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Collapse,
+  IconButton,
+  Stack,
+  Typography,
+} from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 import { useMemo, useState } from 'react';
+import ConfirmRemovePopover from '../confirm-remove-popover';
 import Iconify from '../iconify';
 import CloseIcon from '../icons/close-icon';
 import LinearProgressWithLabel from '../linear-process-with-label';
 
-function CheckListView({ isReadonly, checkLists = [], onChange, onRemoveCheckList }) {
+function CheckListView({  isReadonly, checkLists = [], onChange, onRemoveCheckList, isConfirmBeforeRemove }) {
   const [expanded, setExpanded] = useState(true);
   const theme = useTheme();
   const getValueOfProcess = useMemo(() => {
     const valueTotal = checkLists.reduce((total, item) => total + (item.isChecked ? 1 : 0), 0);
     return (valueTotal / checkLists.length) * 100;
   }, [checkLists]);
+
   return (
     <Stack direction="column" gap={1}>
       <Stack direction="row" gap={1} alignItems="center">
@@ -38,7 +47,7 @@ function CheckListView({ isReadonly, checkLists = [], onChange, onRemoveCheckLis
               key={index}
             >
               <Checkbox
-              disabled={isReadonly}
+                disabled={isReadonly}
                 onClick={() => {
                   onChange(index, !item.isChecked);
                 }}
@@ -48,16 +57,16 @@ function CheckListView({ isReadonly, checkLists = [], onChange, onRemoveCheckLis
               <Typography component="span" sx={{ fontSize: 12 }}>
                 {item.name}
               </Typography>
-
-{
-  !isReadonly &&  <IconButton
-                sx={{ position: 'absolute', right: 0, top: '50%', transform: 'translateY(-50%)' }}
-                onClick={() => onRemoveCheckList(index)}
-              >
-                <CloseIcon size={12} color={theme.palette.text.secondary} />
-              </IconButton>
-}
-             
+            <Stack direction="row" gap={1} justifyContent="flex-end" sx={{ml: 'auto'}}>
+              {!isReadonly && isConfirmBeforeRemove && <ConfirmRemovePopover onConfirm={() => onRemoveCheckList(index)}/> }
+              {!isReadonly && !isConfirmBeforeRemove && (
+                <IconButton
+                  sx={{ position: 'absolute', right: 0, top: '50%', transform: 'translateY(-50%)' }}
+                  onClick={() => onRemoveCheckList(index)}
+                >
+                  <CloseIcon size={12} color={theme.palette.text.secondary} />
+                </IconButton>
+              )}
 
               {item.isChecked && (
                 <Box
@@ -73,6 +82,7 @@ function CheckListView({ isReadonly, checkLists = [], onChange, onRemoveCheckLis
                   }}
                 />
               )}
+            </Stack>
             </Stack>
           ))}
         </Stack>

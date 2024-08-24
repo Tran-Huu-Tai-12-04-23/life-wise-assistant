@@ -13,7 +13,7 @@ import Iconify from 'src/components/iconify';
 import { getDateTime } from 'src/helper';
 // ----------------------------------------------------------------------
 
-export default function BtnSelectDateTime({ isReadOnly, onChange, value }) {
+export default function BtnSelectDateTime({ isReadOnly = false, onChange, value }) {
   const [open, setOpen] = useState(null);
   const [state, setState] = useState({
     value: value ? new Date(value) : null,
@@ -49,77 +49,75 @@ export default function BtnSelectDateTime({ isReadOnly, onChange, value }) {
         </Typography>
       </Button>
 
-      {
-         !isReadOnly &&   <Popover
-        open={!!open}
-        anchorEl={open}
-        onClose={handleClose}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'left' }}
-        slotProps={{
-          paper: {
-            sx: { border: 'none', boxShadow: 'none' },
-          },
-        }}
-      >
-        <Stack
-          direction="row"
-          gap={1}
-          sx={{
-            p: 1,
-            alignItems: 'center',
-            borderRadius: 1,
-            boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.08)',
+      {!isReadOnly && (
+        <Popover
+          open={!!open}
+          anchorEl={open}
+          onClose={handleClose}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+          slotProps={{
+            paper: {
+              sx: { border: 'none', boxShadow: 'none' },
+            },
           }}
         >
-          <Box sx={{ minWidth: 100, mt: 2 }}>
-            <DateCalendar
-              onChange={(val) => 
-         {
-                 if(new Date(val).setHours(0,0,0,0) < new Date().setHours(0,0,0,0)) {
-                  toast.error('Please select a future date');
-                  return
-                }
-                setState({ ...state, date: val })
-         }
-              }
-              value={state.date}
-            />
-          </Box>
-          <Box sx={{ minWidth: 100 }}>
-            <DigitalClock
-              value={state.time}
-              onChange={(val) => setState({ ...state, time: val })}
-              sx={{ height: '100%',
-            '&::webkit-scrollbar': {
-                          width: 0
-                        },
-               }}
-            />
-          </Box>
-        </Stack>
-
-        <Stack direction="row" gap={2} justifyContent="flex-end" sx={{ mt: 1, p: 1 }}>
-          <Button onClick={handleClose} variant="outlined" color="error">
-            Cancel
-          </Button>
-          <Button
-            onClick={() => {
-              const dateTime = getDateTime(state.date, state.time);
-              setOpen(false);
-              onChange(dateTime);
-              setState({ ...state, value: dateTime });
+          <Stack
+            direction="row"
+            gap={1}
+            sx={{
+              p: 1,
+              alignItems: 'center',
+              borderRadius: 1,
+              boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.08)',
             }}
-            color="primary"
-            variant="contained"
-            startIcon={<Iconify icon="eva:checkmark-fill" />}
           >
-            Confirm
-          </Button>
-        </Stack>
-      </Popover>
-      }
-    
+            <Box sx={{ minWidth: 100, mt: 2 }}>
+              <DateCalendar
+                onChange={(val) => {
+                  if (new Date(val).setHours(0, 0, 0, 0) < new Date().setHours(0, 0, 0, 0)) {
+                    toast.error('Please select a future date');
+                    return;
+                  }
+                  setState({ ...state, date: val });
+                }}
+                value={state.date}
+              />
+            </Box>
+            <Box sx={{ minWidth: 100 }}>
+              <DigitalClock
+                value={state.time}
+                onChange={(val) => setState({ ...state, time: val })}
+                sx={{
+                  height: '100%',
+                  '&::webkit-scrollbar': {
+                    width: 0,
+                  },
+                }}
+              />
+            </Box>
+          </Stack>
+
+          <Stack direction="row" gap={2} justifyContent="flex-end" sx={{ mt: 1, p: 1 }}>
+            <Button onClick={handleClose} variant="outlined" color="error">
+              Cancel
+            </Button>
+            <Button
+              onClick={() => {
+                const dateTime = getDateTime(state.date, state.time);
+                setOpen(false);
+                onChange(dateTime);
+                setState({ ...state, value: dateTime });
+              }}
+              color="primary"
+              variant="contained"
+              startIcon={<Iconify icon="eva:checkmark-fill" />}
+            >
+              Confirm
+            </Button>
+          </Stack>
+        </Popover>
+      )}
     </>
   );
 }

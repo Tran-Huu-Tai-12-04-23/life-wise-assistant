@@ -20,8 +20,8 @@ export default function AddFileTaskPopover({ isReadonly, onAdd }) {
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
     setTimeout(() => {
-      inputRef.current.focus();
-    }, 100);
+      inputRef?.current?.focus();
+    }, 200);
   };
 
   const handleClose = () => {
@@ -67,62 +67,59 @@ export default function AddFileTaskPopover({ isReadonly, onAdd }) {
         </Typography>
       </Button>
 
-      {
-        !isReadonly && 
-  <Popover
-        open={!!open}
-        anchorEl={open}
-        onClose={handleClose}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'left' }}
-        PaperProps={{
-          sx: {
-            width: 320,
-            border: 'none',
-            borderRadius: 1,
-            boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.08)',
-            p: 1,
-          },
-        }}
-      >
-        <Stack direction="row" justifyContent="space-between">
-          <Typography sx={{ fontSize: 14, fontWeight: 'bold', mb: 1 }}>
-            Add new file link
-          </Typography>
-          <IconButton onClick={handleClose} sx={{ position: 'absolute', top: 2, right: 2 }}>
-            <CloseIcon size={12} />
-          </IconButton>
-        </Stack>
-        <Stack direction="column" alignItems="flex-end" />
-        <InputCustom ref={inputRef} placeholder="Typing checklist name" />
-        <Box sx={{ width: '100%', height: 10 }} />
-        <InputCustom
-          onKeyPress={(e) => {
-            if (e.key === 'Enter' && inputRef.current.value !== '') {
-              handleAdd();
-            }
+      {!isReadonly && (
+        <Popover
+          open={!!open}
+          anchorEl={open}
+          onClose={handleClose}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+          PaperProps={{
+            sx: {
+              width: 320,
+              border: 'none',
+              borderRadius: 1,
+              boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.08)',
+              p: 1,
+            },
           }}
-          ref={inputLinkRef}
-          placeholder="Link and choose file"
-        />
-        <Stack direction="row" gap={2} justifyContent="flex-end" sx={{ mt: 1 }}>
-          <Button
-            sx={{ mt: 1 }}
-            onClick={() => {
-              if (inputRef.current.value === '') return;
-              handleAdd();
+        >
+          <Stack direction="row" justifyContent="space-between">
+            <Typography sx={{ fontSize: 14, fontWeight: 'bold', mb: 1 }}>
+              Add new file link
+            </Typography>
+            <IconButton onClick={handleClose} sx={{ position: 'absolute', top: 2, right: 2 }}>
+              <CloseIcon size={12} />
+            </IconButton>
+          </Stack>
+          <Stack direction="column" alignItems="flex-end" />
+          <InputCustom ref={inputRef} placeholder="Typing checklist name" />
+          <Box sx={{ width: '100%', height: 10 }} />
+          <InputCustom
+            onKeyPress={(e) => {
+              if (e.key === 'Enter' && inputRef.current.value !== '') {
+                handleAdd();
+              }
             }}
-            color="primary"
-            variant="contained"
-            endIcon={<Iconify icon="eva:plus-fill" />}
-          >
-            Add
-          </Button>
-        </Stack>
-      </Popover>
-
-      }
-    
+            ref={inputLinkRef}
+            placeholder="Link and choose file"
+          />
+          <Stack direction="row" gap={2} justifyContent="flex-end" sx={{ mt: 1 }}>
+            <Button
+              sx={{ mt: 1 }}
+              onClick={() => {
+                if (inputRef.current.value === '') return;
+                handleAdd();
+              }}
+              color="primary"
+              variant="contained"
+              endIcon={<Iconify icon="eva:plus-fill" />}
+            >
+              Add
+            </Button>
+          </Stack>
+        </Popover>
+      )}
     </>
   );
 }

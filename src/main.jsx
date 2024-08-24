@@ -21,9 +21,11 @@ root.render(
           <Suspense>
             <App />
             <ToastContainer
-            position="top-right"
-            draggable
-            style={{ zIndex: 100000000 }} theme="dark" />
+              position="top-right"
+              draggable
+              style={{ zIndex: 100000000 }}
+              theme="dark"
+            />
           </Suspense>
         </BrowserRouter>
       </LocalizationProvider>

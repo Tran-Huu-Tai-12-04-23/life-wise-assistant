@@ -7,7 +7,7 @@ import { Avatar, Box, Stack, Typography } from '@mui/material';
 import { EffectBtn } from '../EffectBtn';
 // ----------------------------------------------------------------------
 
-export default function UserInfoPopover({data}) {
+export default function UserInfoPopover({ data }) {
   const [open, setOpen] = useState(null);
   const theme = useTheme();
   const handleOpen = (event) => {
@@ -27,10 +27,7 @@ export default function UserInfoPopover({data}) {
         size="large"
         sx={{ borderRadius: 100 }}
       >
-        <Avatar
-          alt={data?.username}
-          src={data?.avatar}
-        />
+        <Avatar alt={data?.username} src={data?.avatar} />
       </EffectBtn>
       <Popover
         open={!!open}
@@ -57,10 +54,7 @@ export default function UserInfoPopover({data}) {
           }}
         >
           <Stack direction="column" alignItems="center">
-            <Avatar
-              alt={data?.username}
-              src={data?.avatar}
-            />
+            <Avatar alt={data?.username} src={data?.avatar} />
             <Stack direction="column" alignItems="center">
               <Typography variant="h7">{data?.username}</Typography>
               <Typography color="gray" component="span" fontSize={12}>

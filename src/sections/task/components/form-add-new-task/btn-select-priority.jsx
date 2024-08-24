@@ -25,7 +25,7 @@ export default function BtnSelectPriority({ isReadOnly = false, onChange, value 
 
   useEffect(() => {
     setSelectPriority(value);
-  }, [value])
+  }, [value]);
 
   return (
     <>
@@ -64,74 +64,75 @@ export default function BtnSelectPriority({ isReadOnly = false, onChange, value 
         )}
       </Button>
 
-      {
-        !isReadOnly &&       <Popover
-        open={!!open}
-        anchorEl={open}
-        onClose={handleClose}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'left' }}
-        slotProps={{
-          paper: {
-            sx: {
-              width: 200,
-              border: 'none',
-              boxShadow: 'none',
+      {!isReadOnly && (
+        <Popover
+          open={!!open}
+          anchorEl={open}
+          onClose={handleClose}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+          slotProps={{
+            paper: {
+              sx: {
+                width: 200,
+                border: 'none',
+                boxShadow: 'none',
+              },
             },
-          },
-        }}
-      >
-        <Stack
-          direction="column"
-          gap={1}
-          sx={{
-            p: 1,
-            borderRadius: 1,
-            boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.08)',
           }}
         >
-          <Typography sx={{ fontSize: 12, color: 'gray', textAlign: 'start', fontWeight: 'bold' }}>
-            Task priority
-          </Typography>
+          <Stack
+            direction="column"
+            gap={1}
+            sx={{
+              p: 1,
+              borderRadius: 1,
+              boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.08)',
+            }}
+          >
+            <Typography
+              sx={{ fontSize: 12, color: 'gray', textAlign: 'start', fontWeight: 'bold' }}
+            >
+              Task priority
+            </Typography>
 
-          <IconButton onClick={handleClose} sx={{ position: 'absolute', top: 2, right: 2 }}>
-            <CloseIcon size={12} />
-          </IconButton>
-          <Stack direction="row" flexWrap="wrap" gap={1}>
-            {Object.keys(taskPriority).map((key) => {
-              const taskPriorityData = taskPriority[key] || taskTypeDefault;
-              return (
-                <EffectBtn
-                  onClick={() => {
-                    setOpen(false);
-                    setSelectPriority(taskPriorityData);
-                    onChange(taskPriorityData);
-                  }}
-                  key={key}
-                  sx={{ borderRadius: 3, width: 80 }}
-                >
-                  <Chip
-                    size="small"
-                    label={taskPriorityData?.name}
-                    sx={{
-                      fontSize: 12,
-                      fontWeight: 600,
-                      width: '100%',
-                      background: taskPriorityData?.background,
-                      color: taskPriorityData?.color,
-                      '&:hover': {
-                        cursor: 'pointer',
-                      },
+            <IconButton onClick={handleClose} sx={{ position: 'absolute', top: 2, right: 2 }}>
+              <CloseIcon size={12} />
+            </IconButton>
+            <Stack direction="row" flexWrap="wrap" gap={1}>
+              {Object.keys(taskPriority).map((key) => {
+                const taskPriorityData = taskPriority[key] || taskTypeDefault;
+                return (
+                  <EffectBtn
+                    onClick={() => {
+                      setOpen(false);
+                      setSelectPriority(taskPriorityData);
+                      onChange(taskPriorityData);
                     }}
-                  />
-                </EffectBtn>
-              );
-            })}
+                    key={key}
+                    sx={{ borderRadius: 3, width: 80 }}
+                  >
+                    <Chip
+                      size="small"
+                      label={taskPriorityData?.name}
+                      sx={{
+                        fontSize: 12,
+                        fontWeight: 600,
+                        width: '100%',
+                        background: taskPriorityData?.background,
+                        color: taskPriorityData?.color,
+                        '&:hover': {
+                          cursor: 'pointer',
+                        },
+                      }}
+                    />
+                  </EffectBtn>
+                );
+              })}
+            </Stack>
           </Stack>
-        </Stack>
-      </Popover>
-      }
-
+        </Popover>
+      )}
     </>
   );
 }

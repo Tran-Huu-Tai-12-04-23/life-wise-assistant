@@ -1,4 +1,3 @@
-
 const NoResultIcon = (props) => (
   <svg
     width={257}
@@ -167,17 +166,8 @@ const NoResultIcon = (props) => (
           type="matrix"
           values="0 0 0 0 0.104618 0 0 0 0 0.465612 0 0 0 0 0.545833 0 0 0 0.15 0"
         />
-        <feBlend
-          mode="normal"
-          in2="BackgroundImageFix"
-          result="effect1_dropShadow_5_1044"
-        />
-        <feBlend
-          mode="normal"
-          in="SourceGraphic"
-          in2="effect1_dropShadow_5_1044"
-          result="shape"
-        />
+        <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_5_1044" />
+        <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_5_1044" result="shape" />
       </filter>
       <filter
         id="filter1_d_5_1044"
@@ -202,17 +192,8 @@ const NoResultIcon = (props) => (
           type="matrix"
           values="0 0 0 0 0.104618 0 0 0 0 0.465612 0 0 0 0 0.545833 0 0 0 0.09 0"
         />
-        <feBlend
-          mode="normal"
-          in2="BackgroundImageFix"
-          result="effect1_dropShadow_5_1044"
-        />
-        <feBlend
-          mode="normal"
-          in="SourceGraphic"
-          in2="effect1_dropShadow_5_1044"
-          result="shape"
-        />
+        <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_5_1044" />
+        <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_5_1044" result="shape" />
       </filter>
       <filter
         id="filter2_b_5_1044"
@@ -225,11 +206,7 @@ const NoResultIcon = (props) => (
       >
         <feFlood floodOpacity={0} result="BackgroundImageFix" />
         <feGaussianBlur in="BackgroundImageFix" stdDeviation={8.33757} />
-        <feComposite
-          in2="SourceAlpha"
-          operator="in"
-          result="effect1_backgroundBlur_5_1044"
-        />
+        <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_5_1044" />
         <feBlend
           mode="normal"
           in="SourceGraphic"
@@ -247,16 +224,8 @@ const NoResultIcon = (props) => (
         colorInterpolationFilters="sRGB"
       >
         <feFlood floodOpacity={0} result="BackgroundImageFix" />
-        <feBlend
-          mode="normal"
-          in="SourceGraphic"
-          in2="BackgroundImageFix"
-          result="shape"
-        />
-        <feGaussianBlur
-          stdDeviation={10.422}
-          result="effect1_foregroundBlur_5_1044"
-        />
+        <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+        <feGaussianBlur stdDeviation={10.422} result="effect1_foregroundBlur_5_1044" />
       </filter>
       <linearGradient
         id="paint0_linear_5_1044"

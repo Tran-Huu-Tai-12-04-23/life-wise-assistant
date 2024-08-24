@@ -1,12 +1,19 @@
 import Microlink from '@microlink/react';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import CloseIcon from '@mui/icons-material/Close';
-import { Button, Collapse, IconButton, Stack, Tooltip, Typography } from '@mui/material';
+import {
+  Button,
+  Collapse,
+  IconButton,
+  Stack,
+  Tooltip,
+  Typography,
+} from '@mui/material';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import ConfirmRemovePopover from '../confirm-remove-popover';
 import Iconify from '../iconify';
 
-function FileLinkView({ isReadonly, fileLinks = [], onRemove }) {
+function FileLinkView({ isConfirmBeforeRemove, isReadonly, fileLinks = [], onRemove }) {
   const [expanded, setExpanded] = useState(true);
 
   return (
@@ -28,21 +35,28 @@ function FileLinkView({ isReadonly, fileLinks = [], onRemove }) {
                 gap={2}
                 direction="row"
                 key={index}
-                sx={{ width: '100%' , position: 'relative'}}
+                sx={{ width: '100%', position: 'relative' }}
                 justifyContent="space-between"
-                
               >
-               <Link to={item.fileLink} target='_blank'>
-                 <Microlink
+                <Microlink
                   style={{ width: '100%', borderRadius: 10, padding: 1 }}
                   url={item.fileLink}
                 />
-               </Link>
-              {
-                !isReadonly &&   <IconButton sx={{ height: 40, width: 40, position: 'absolute', top: 2, right: 2 }} onClick={() => onRemove(index)}>
-                  <CloseIcon size={12} />
-                </IconButton>
-              }
+                {
+                  !isReadonly && isConfirmBeforeRemove && (
+                    <ConfirmRemovePopover onConfirm={() => {
+                      onRemove(index);
+                    }}/>
+                  )
+                }
+                {!isReadonly && !isConfirmBeforeRemove && (
+                  <IconButton
+                    sx={{ height: 40, width: 40, position: 'absolute', top: 2, right: 2 }}
+                    onClick={() => onRemove(index)}
+                  >
+                    <CloseIcon size={12} />
+                  </IconButton>
+                )}
               </Stack>
             </Tooltip>
           ))}
