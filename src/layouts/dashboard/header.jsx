@@ -17,6 +17,7 @@ import AccountPopover from './common/account-popover';
 import LanguagePopover from './common/language-popover';
 import NotificationsPopover from './common/notifications-popover';
 import { HEADER, NAV } from './config-layout';
+import QuickSearch from './quick-search';
 
 // ----------------------------------------------------------------------
 
@@ -36,6 +37,7 @@ export default function Header({ onOpenNav, expanded }) {
       <Box sx={{ flexGrow: 1 }} />
 
       <Stack direction="row" alignItems="center" spacing={1}>
+        <QuickSearch/>
         <LanguagePopover />
         <NotificationsPopover />
         <AccountPopover />

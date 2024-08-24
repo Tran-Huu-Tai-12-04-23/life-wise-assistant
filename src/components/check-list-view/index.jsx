@@ -7,7 +7,7 @@ import Iconify from '../iconify';
 import CloseIcon from '../icons/close-icon';
 import LinearProgressWithLabel from '../linear-process-with-label';
 
-function CheckListView({ checkLists = [], onChange, onRemoveCheckList }) {
+function CheckListView({ isReadonly, checkLists = [], onChange, onRemoveCheckList }) {
   const [expanded, setExpanded] = useState(true);
   const theme = useTheme();
   const getValueOfProcess = useMemo(() => {
@@ -38,6 +38,7 @@ function CheckListView({ checkLists = [], onChange, onRemoveCheckList }) {
               key={index}
             >
               <Checkbox
+              disabled={isReadonly}
                 onClick={() => {
                   onChange(index, !item.isChecked);
                 }}
@@ -48,12 +49,15 @@ function CheckListView({ checkLists = [], onChange, onRemoveCheckList }) {
                 {item.name}
               </Typography>
 
-              <IconButton
+{
+  !isReadonly &&  <IconButton
                 sx={{ position: 'absolute', right: 0, top: '50%', transform: 'translateY(-50%)' }}
                 onClick={() => onRemoveCheckList(index)}
               >
                 <CloseIcon size={12} color={theme.palette.text.secondary} />
               </IconButton>
+}
+             
 
               {item.isChecked && (
                 <Box

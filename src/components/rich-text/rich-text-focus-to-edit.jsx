@@ -12,6 +12,7 @@ function RichTextFocusToEdit({
   minWidth = '100%',
   placeholder = 'Typing something...',
   label = '',
+  isReadonly =false,
   props,
 }) {
   const [disabled, setDisabled] = useState(true);
@@ -28,11 +29,13 @@ function RichTextFocusToEdit({
       ref.current.focus();
     }, 100);
   };
+
+
   return (
     <>
       {label && (
         <Stack alignItems="flex-start" direction="column" gap={2}>
-          <Button variant="text" color="inherit" onClick={() => disabled && setExpand(!expand)}>
+          <Button variant="text" color="inherit" onClick={() => setExpand(!expand)}>
             <Typography component="span" sx={{ fontWeight: 'bold', fontSize: 12 }}>
               Description
             </Typography>
@@ -42,7 +45,22 @@ function RichTextFocusToEdit({
       )}
 
       <Collapse in={expand} orientation="vertical">
-        <Box sx={{ minWidth, borderRadius: 1, position: 'relative', }}>
+        {
+isReadonly &&  <Box sx={{ minWidth, borderRadius: 1, position: 'relative' }}>
+          <ReactQuill
+            style={{
+              background: alpha(theme.palette.background.default, 0.5),
+              borderRadius: 5,
+              width: '100%',
+            }}
+            value={value}
+            readOnly
+            theme="bubble"
+          />
+      </Box>
+        }
+       {
+        !isReadonly &&  <Box sx={{ minWidth, borderRadius: 1, position: 'relative', }}>
           {!disabled && (
             <ReactQuill
               value={currentValue}
@@ -55,7 +73,7 @@ function RichTextFocusToEdit({
               }}
             />
           )}
-          {disabled &&  !value && (
+          {(disabled &&  !value) && (
             <Box
               onClick={handleFocus}
               sx={{
@@ -130,6 +148,7 @@ function RichTextFocusToEdit({
             </Stack>
           )}
         </Box>
+       }
       </Collapse>
     </>
   );

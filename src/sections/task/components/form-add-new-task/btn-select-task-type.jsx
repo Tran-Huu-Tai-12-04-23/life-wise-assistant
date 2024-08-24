@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Popover from '@mui/material/Popover';
 
@@ -11,7 +11,7 @@ import LabelIcon from 'src/components/icons/label-icon';
 import { taskType, taskTypeDefault } from 'src/constants/index';
 // ----------------------------------------------------------------------
 
-export default function BtnSelectTagType({ onChange , value}) {
+export default function BtnSelectTagType({isReadonly= false,  onChange , value}) {
   const [open, setOpen] = useState(null);
   const [selectedTag, setSelectedTag] = useState(value);
 
@@ -22,6 +22,9 @@ export default function BtnSelectTagType({ onChange , value}) {
   const handleClose = () => {
     setOpen(null);
   };
+  useEffect(() => {
+    setSelectedTag(value)
+  }, [value])
 
   return (
     <>
@@ -59,7 +62,8 @@ export default function BtnSelectTagType({ onChange , value}) {
           'Select task type'
         )}
       </Button>
-      <Popover
+      {
+        !isReadonly && <Popover
         open={!!open}
         anchorEl={open}
         onClose={handleClose}
@@ -124,6 +128,8 @@ export default function BtnSelectTagType({ onChange , value}) {
           </Stack>
         </Stack>
       </Popover>
+      }
+     
     </>
   );
 }

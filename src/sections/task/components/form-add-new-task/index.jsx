@@ -1,4 +1,4 @@
-import { Button, CircularProgress, Stack, Typography } from '@mui/material';
+import { Button, CircularProgress, Fade, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import CheckListView from 'src/components/check-list-view';
@@ -34,7 +34,7 @@ function FormAddNewTask() {
     taskFile: [],
     comments: [],
     title: '',
-  });
+   });
 
   const handleAddNewTask = async () => {
     // Verify if the required data is present
@@ -71,18 +71,20 @@ function FormAddNewTask() {
       columnId: currentColumn.id,
     };
 
-    await onCreateTask(body).then((res) => {
+    await onCreateTask(body).then(() => {
       hideModal();
     });
   };
   return (
+     <Fade in timeout={500}>
     <Stack
       direction="column"
       gap={2}
       pt={2}
       sx={{ width: '100%', minHeight: 'calc(100vh - 40px)', p: 4 }}
     >
-      <Stack direction="row" gap={4} alignItems="start" justifyContent="space-between">
+     
+ <Stack direction="row" gap={4} alignItems="start" justifyContent="space-between">
         <Stack direction="column" gap={1} sx={{ width: '100%' }}>
           <InputFocusToEdit
             onChange={(val) => setState((prev) => ({ ...prev, title: val }))}
@@ -166,8 +168,7 @@ function FormAddNewTask() {
           </Typography>
         </Stack>
       </Stack>
-
-      <Stack direction="row" gap={1} sx={{ justifyContent: 'flex-end', mt: 'auto' }}>
+        <Stack direction="row" gap={1} sx={{ justifyContent: 'flex-end', mt: 'auto' }}>
         <Button
           onClick={handleAddNewTask}
           endIcon={<Iconify icon="eva:plus-fill" />}
@@ -178,7 +179,9 @@ function FormAddNewTask() {
           Add task
         </Button>
       </Stack>
+     
     </Stack>
+     </Fade>
   );
 }
 

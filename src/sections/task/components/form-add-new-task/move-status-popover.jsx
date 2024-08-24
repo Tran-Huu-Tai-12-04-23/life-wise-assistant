@@ -9,11 +9,16 @@ import { Chip, IconButton, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import { Stack } from '@mui/system';
 import { useColumnState } from 'src/redux/features/column/columnSlice';
+import { useTaskAction } from 'src/redux/features/task/action';
+import { useTaskState } from 'src/redux/features/task/taskSlice';
 // ----------------------------------------------------------------------
 
 export default function MoveStatusPopover() {
   const [open, setOpen] = useState(null);
   const { filterData } = useColumnState();
+  const {onUpdateTaskStatus} = useTaskAction();
+  const {currentTask} = useTaskState();
+
   const theme = useTheme();
 
   const handleOpen = (event) => {
@@ -23,6 +28,15 @@ export default function MoveStatusPopover() {
   const handleClose = () => {
     setOpen(null);
   };
+
+  const handleMoveStatus = async (statusCode) => {
+   await onUpdateTaskStatus({
+      id: currentTask.id,
+      status: statusCode,
+    }).then(() => {
+      handleClose();
+    })
+  }
 
   return (
     <>
@@ -69,7 +83,9 @@ export default function MoveStatusPopover() {
           </IconButton>
         </Stack>
         {filterData?.lstStatus?.map((item, index) => (
-          <Button variant="text" key={index} onClick={() => handleClose()}>
+          <Button variant="text" key={index} onClick={() => {
+            handleMoveStatus(item.code);
+          }}>
             <Chip
               size="small"
               label={item.name}

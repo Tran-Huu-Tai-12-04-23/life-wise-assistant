@@ -14,8 +14,7 @@ function LoadingView() {
         justifyContent: 'center',
         alignItems: 'center',
         height: '100vh',
-        backdropFilter: 'blur(6px)',
-        background: alpha(theme.palette.primary.main, 0.02),
+        background: alpha(theme.palette.background.default, 0.1),
         zIndex: 9999,
       }}
     >

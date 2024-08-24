@@ -1,6 +1,7 @@
 import { useTheme } from '@emotion/react';
 import { Box, Button, ButtonGroup, Stack, Typography } from '@mui/material';
 import { useEffect } from 'react';
+import { toast } from 'react-toastify';
 import Iconify from 'src/components/iconify';
 import RefreshIcon from 'src/components/icons/refresh-icon';
 import InputCustom from 'src/components/input';
@@ -40,6 +41,19 @@ function Filter({ onChangeViewType, viewType }) {
   useEffect(() => {
     if (currentTeam) onLoadDataToFilter();
   }, [currentTeam]);
+
+
+const resolveAfter3Sec = new Promise(resolve => setTimeout(resolve, 10000));
+const testToast = () => {
+  toast.promise(
+    resolveAfter3Sec,
+    {
+      pending: 'Promise is pending',
+      success: 'Promise resolved 👌',
+      error: 'Promise rejected 🤯'
+    }
+)
+}
 
   return (
     <Box
@@ -91,7 +105,7 @@ function Filter({ onChangeViewType, viewType }) {
               <Iconify icon="eva:list-fill" /> List
             </Button>
           </ButtonGroup>
-          <Button color="primary" variant="text">
+          <Button onClick={testToast} color="primary" variant="text">
             <Stack direction="row" alignItems="center" gap={1}>
               <Iconify icon="eva:lock-fill" color="gray" />
               <Typography variant="h7" color="gray">

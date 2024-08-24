@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Popover from '@mui/material/Popover';
 
@@ -11,7 +11,7 @@ import PriorityIcon from 'src/components/icons/priority-icon';
 import { taskPriority, taskTypeDefault } from 'src/constants/index';
 // ----------------------------------------------------------------------
 
-export default function BtnSelectPriority({ onChange, value }) {
+export default function BtnSelectPriority({ isReadOnly = false, onChange, value }) {
   const [open, setOpen] = useState(null);
   const [selectPriority, setSelectPriority] = useState(value);
 
@@ -22,6 +22,10 @@ export default function BtnSelectPriority({ onChange, value }) {
   const handleClose = () => {
     setOpen(null);
   };
+
+  useEffect(() => {
+    setSelectPriority(value);
+  }, [value])
 
   return (
     <>
@@ -59,7 +63,9 @@ export default function BtnSelectPriority({ onChange, value }) {
           'Select priority'
         )}
       </Button>
-      <Popover
+
+      {
+        !isReadOnly &&       <Popover
         open={!!open}
         anchorEl={open}
         onClose={handleClose}
@@ -124,6 +130,8 @@ export default function BtnSelectPriority({ onChange, value }) {
           </Stack>
         </Stack>
       </Popover>
+      }
+
     </>
   );
 }

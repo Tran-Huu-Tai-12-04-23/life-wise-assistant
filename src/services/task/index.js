@@ -7,3 +7,9 @@ export const loadTaskDetail = async (body) =>
     const res = await rootApi.get(`${endpoints.task}${body.id}/${body.teamId}`);
     return res;
   });
+
+export const updateTask = async (body) =>
+  handleErrorApi(async () => {
+    const res = await rootApi.put(`${endpoints.task}`, body);
+    return res;
+  });

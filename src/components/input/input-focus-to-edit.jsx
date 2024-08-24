@@ -43,7 +43,7 @@ export const InputWrapper = styled('div')(
 `
 );
 
-function InputFocusToEdit({ minWidth = '100%', value, onChange, ...props }) {
+function InputFocusToEdit({isReadonly = false,  minWidth = '100%', value, onChange, ...props }) {
   const [disabled, setDisabled] = useState(true);
   const theme = useTheme();
   const ref = useRef(null);
@@ -55,8 +55,10 @@ function InputFocusToEdit({ minWidth = '100%', value, onChange, ...props }) {
   };
 
   useEffect(() => {
-    ref.current.value = value || '';
-  }, []);
+    setTimeout(() => {
+      ref.current.value = value || '';
+    }, 100)
+  }, [value]);
   return (
     <InputWrapper
       minWidth={minWidth}
@@ -68,7 +70,7 @@ function InputFocusToEdit({ minWidth = '100%', value, onChange, ...props }) {
       <input
         ref={ref}
         {...props}
-        disabled={disabled}
+        disabled={disabled || isReadonly}
         onKeyDown={(e) => {
           if (e.key === 'Enter') {
             setDisabled(!disabled);

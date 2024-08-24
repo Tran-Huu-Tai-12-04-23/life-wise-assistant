@@ -8,14 +8,15 @@ import Button from '@mui/material/Button';
 import { Stack } from '@mui/system';
 import { DateCalendar, DigitalClock } from '@mui/x-date-pickers';
 import moment from 'moment';
+import { toast } from 'react-toastify';
 import Iconify from 'src/components/iconify';
 import { getDateTime } from 'src/helper';
 // ----------------------------------------------------------------------
 
-export default function BtnSelectDateTime({ onChange, value }) {
+export default function BtnSelectDateTime({ isReadOnly, onChange, value }) {
   const [open, setOpen] = useState(null);
   const [state, setState] = useState({
-    value: new Date(value),
+    value: value ? new Date(value) : null,
     date: null,
     time: null,
   });
@@ -47,7 +48,9 @@ export default function BtnSelectDateTime({ onChange, value }) {
           {state.value ? moment(state.value).format('DD/MM/YYYY hh:mm A') : 'Select date time'}
         </Typography>
       </Button>
-      <Popover
+
+      {
+         !isReadOnly &&   <Popover
         open={!!open}
         anchorEl={open}
         onClose={handleClose}
@@ -71,7 +74,15 @@ export default function BtnSelectDateTime({ onChange, value }) {
         >
           <Box sx={{ minWidth: 100, mt: 2 }}>
             <DateCalendar
-              onChange={(val) => setState({ ...state, date: val })}
+              onChange={(val) => 
+         {
+                 if(new Date(val).setHours(0,0,0,0) < new Date().setHours(0,0,0,0)) {
+                  toast.error('Please select a future date');
+                  return
+                }
+                setState({ ...state, date: val })
+         }
+              }
               value={state.date}
             />
           </Box>
@@ -79,7 +90,11 @@ export default function BtnSelectDateTime({ onChange, value }) {
             <DigitalClock
               value={state.time}
               onChange={(val) => setState({ ...state, time: val })}
-              sx={{ height: '100%' }}
+              sx={{ height: '100%',
+            '&::webkit-scrollbar': {
+                          width: 0
+                        },
+               }}
             />
           </Box>
         </Stack>
@@ -103,6 +118,8 @@ export default function BtnSelectDateTime({ onChange, value }) {
           </Button>
         </Stack>
       </Popover>
+      }
+    
     </>
   );
 }

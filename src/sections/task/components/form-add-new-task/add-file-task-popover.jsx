@@ -12,7 +12,7 @@ import Iconify from 'src/components/iconify';
 import InputCustom from 'src/components/input';
 // ----------------------------------------------------------------------
 
-export default function AddFileTaskPopover({ onAdd }) {
+export default function AddFileTaskPopover({ isReadonly, onAdd }) {
   const [open, setOpen] = useState(null);
   const inputRef = useRef(null);
   const inputLinkRef = useRef(null);
@@ -66,7 +66,10 @@ export default function AddFileTaskPopover({ onAdd }) {
           Add file
         </Typography>
       </Button>
-      <Popover
+
+      {
+        !isReadonly && 
+  <Popover
         open={!!open}
         anchorEl={open}
         onClose={handleClose}
@@ -117,6 +120,9 @@ export default function AddFileTaskPopover({ onAdd }) {
           </Button>
         </Stack>
       </Popover>
+
+      }
+    
     </>
   );
 }

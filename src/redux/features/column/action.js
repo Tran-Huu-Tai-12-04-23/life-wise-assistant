@@ -145,8 +145,7 @@ export const useColumnAction = () => {
         pending: 'Creating task...',
         success: 'Create task successfully!',
         error: 'Create task failed!',
-      })
-      ;
+      });
     }
   };
 

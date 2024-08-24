@@ -50,8 +50,8 @@ export function overrides(theme) {
     MuiBackdrop: {
       styleOverrides: {
         root: {
-          backgroundColor: alpha(theme.palette.background.default, 0.8),
-          backdropFilter: 'blur(2px)',
+          backgroundColor: alpha(theme.palette.background.default, 0.3),
+          // backdropFilter: 'blur(2px)',
         },
         invisible: {
           background: 'transparent',
@@ -197,6 +197,24 @@ export function overrides(theme) {
         root: {
           backdropFilter: 'blur(10px) !important',
           color: theme.palette.text.primary,
+        },
+      },
+    },
+    MuiSvgIcon: {
+      styleOverrides: {
+        root: {
+          color: theme.palette.text.secondary,
+        },
+      },
+    },
+    MuiDigitalClock: {
+      styleOverrides: {
+        root: {
+          color: theme.palette.text.secondary,
+          '&::webkit-scrollbar': {
+            display: 'none',
+            width: 0,
+          },
         },
       },
     },

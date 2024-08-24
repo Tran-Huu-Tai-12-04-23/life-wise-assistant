@@ -1,11 +1,12 @@
 import Microlink from '@microlink/react';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
+import CloseIcon from '@mui/icons-material/Close';
 import { Button, Collapse, IconButton, Stack, Tooltip, Typography } from '@mui/material';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Iconify from '../iconify';
-import CloseIcon from '../icons/close-icon';
 
-function FileLinkView({ fileLinks = [], onRemove }) {
+function FileLinkView({ isReadonly, fileLinks = [], onRemove }) {
   const [expanded, setExpanded] = useState(true);
 
   return (
@@ -27,16 +28,21 @@ function FileLinkView({ fileLinks = [], onRemove }) {
                 gap={2}
                 direction="row"
                 key={index}
-                sx={{ width: '100%' }}
+                sx={{ width: '100%' , position: 'relative'}}
                 justifyContent="space-between"
+                
               >
-                <Microlink
+               <Link to={item.fileLink} target='_blank'>
+                 <Microlink
                   style={{ width: '100%', borderRadius: 10, padding: 1 }}
                   url={item.fileLink}
                 />
-                <IconButton sx={{ height: 40, width: 40 }} onClick={() => onRemove(index)}>
+               </Link>
+              {
+                !isReadonly &&   <IconButton sx={{ height: 40, width: 40, position: 'absolute', top: 2, right: 2 }} onClick={() => onRemove(index)}>
                   <CloseIcon size={12} />
                 </IconButton>
+              }
               </Stack>
             </Tooltip>
           ))}
