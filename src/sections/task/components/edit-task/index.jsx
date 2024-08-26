@@ -1,4 +1,5 @@
-import { Box, Button, Chip, Fade, LinearProgress, Stack, Typography } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import { Box, Button, Chip, Fade, IconButton, LinearProgress, Stack, Typography } from '@mui/material';
 import { isEqual } from 'lodash';
 import { useEffect, useMemo, useState } from 'react';
 import CheckListView from 'src/components/check-list-view';
@@ -9,8 +10,10 @@ import LstMember from 'src/components/lst-member';
 import RichTextFocusToEdit from 'src/components/rich-text/rich-text-focus-to-edit';
 import TabCustom from 'src/components/tab';
 import { useModal } from 'src/contexts/modal-context';
+import NotFoundPage from 'src/pages/public/page-not-found';
 import { useTaskAction } from 'src/redux/features/task/action';
 import { useTaskState } from 'src/redux/features/task/taskSlice';
+import { useRouter } from 'src/routes/hooks';
 import Activity from '../form-add-new-task/activity';
 import AddCheckListTaskPopover from '../form-add-new-task/add-check-list-task-popover';
 import AddFileTaskPopover from '../form-add-new-task/add-file-task-popover';
@@ -22,7 +25,8 @@ import Comments from '../form-add-new-task/comments';
 import MoveStatusPopover from '../form-add-new-task/move-status-popover';
 
 function EditTaskView({ id }) {
-  const { hideModal } = useModal();
+  const { hideModal } = useModal()
+  const router = useRouter()
   const { onLoadTaskDetail, onUpdateTask, onRemoveTaskFile, onRemoveSubTask,onToggleSubTask ,onAddSubTask, onAddTaskComment, onAddTaskFile} = useTaskAction();
   const {
     isLoadingDetail,
@@ -33,6 +37,10 @@ function EditTaskView({ id }) {
     taskFile,
     taskFilePage,
     isHasNextTaskFilePage,
+      isLoadingTaskComment,
+  isLoadingTaskHistory,
+  isLoadingSubTask,
+  isLoadingTaskFile,
   } = useTaskState();
   const [state, setState] = useState({
     members: [],
@@ -48,13 +56,13 @@ function EditTaskView({ id }) {
       id: currentTask.id,
       title: state.title,
       description: state.description,
-      lstPersonInCharge: state.members?.map((item) => item.id),
+      members: state.members?.map((item) => item.id),
       priority: state.priority.code,
       type: state.type.code,
       expireDate: state.expireDate ? new Date(state.expireDate) : null,
     };
     await onUpdateTask(body).then(() => {
-      hideModal();
+         onLoadTaskDetail(id);
     });
     setState((prev) => ({
       ...prev,
@@ -84,7 +92,9 @@ function EditTaskView({ id }) {
   }, [state, currentTask]);
 
   useEffect(() => {
-    onLoadTaskDetail(id);
+    if(id) {
+       onLoadTaskDetail(id)
+    }
   }, [id]);
 
   useEffect(() => {
@@ -102,8 +112,11 @@ function EditTaskView({ id }) {
     }
   }, [currentTask]);
 
-  if(!currentTask) return null
-
+  if(id && !currentTask && !isLoadingDetail) return <NotFoundPage title='Task not found! Try again!' onBack={ ()=> {
+   hideModal()
+   router.replace('/task')
+  }}/>
+  if(!currentTask && !id && !isLoadingDetail) return null
   return (
     <>
      {isLoadingDetail && (
@@ -115,6 +128,12 @@ function EditTaskView({ id }) {
            <LinearProgress />
          </Box>
       )}
+       <IconButton onClick={() => {
+           hideModal()
+           router.replace('/task')
+       }} sx={{ position: 'absolute', top: 2, right: 2 }}>
+            <CloseIcon />
+          </IconButton>
     <Stack
       direction="column"
       gap={2}
@@ -152,6 +171,7 @@ function EditTaskView({ id }) {
             )}
             {subTask?.length > 0 && (
               <CheckListView
+              isLoading={isLoadingSubTask}
                 isConfirmBeforeRemove
                 isReadonly={!currentTask?.isOwner}
                 onChange={(index) => {
@@ -172,6 +192,7 @@ function EditTaskView({ id }) {
             )}
             {taskFile?.length > 0 && (
               <FileLinkView
+                  isLoading={isLoadingTaskFile}
               isConfirmBeforeRemove
                 isReadonly={!currentTask?.isOwner}
                 onRemove={(index) =>
@@ -191,13 +212,16 @@ function EditTaskView({ id }) {
               tabTitles={[ 'Comments', 'Activity']}
               tabComponents={[
                 <Comments
+                  isLoading={isLoadingTaskComment}
                   data={comment}
                   onChange={(val) => {
                     onAddTaskComment({taskId: currentTask?.id,...val});
                   }
                   }
                 />,
-                 <Activity  data={history || []} />,
+                 <Activity 
+                   isLoading={isLoadingTaskHistory}
+                 data={history || []} />,
               ]}
             />
           </Stack>
@@ -220,6 +244,7 @@ function EditTaskView({ id }) {
              </Stack>
               {currentTask?.isOwner && (
                 <BtnSelectMemberPopover
+                value={state.members}
                   onChange={(val) => setState((prev) => ({ ...prev, members: val }))}
                 />
               )}

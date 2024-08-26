@@ -5,6 +5,7 @@ import {
   Button,
   Collapse,
   IconButton,
+  LinearProgress,
   Stack,
   Typography,
 } from '@mui/material';
@@ -15,7 +16,7 @@ import Iconify from '../iconify';
 import CloseIcon from '../icons/close-icon';
 import LinearProgressWithLabel from '../linear-process-with-label';
 
-function CheckListView({  isReadonly, checkLists = [], onChange, onRemoveCheckList, isConfirmBeforeRemove }) {
+function CheckListView({ isLoading, isReadonly, checkLists = [], onChange, onRemoveCheckList, isConfirmBeforeRemove }) {
   const [expanded, setExpanded] = useState(true);
   const theme = useTheme();
   const getValueOfProcess = useMemo(() => {
@@ -25,6 +26,7 @@ function CheckListView({  isReadonly, checkLists = [], onChange, onRemoveCheckLi
 
   return (
     <Stack direction="column" gap={1}>
+      {isLoading && <LinearProgress/>}
       <Stack direction="row" gap={1} alignItems="center">
         <Button gap={1} color="primary" onClick={() => setExpanded(!expanded)} variant="text">
           <ChecklistIcon size="small" fontSize="12" sx={{ mr: 1 }} />
@@ -47,7 +49,6 @@ function CheckListView({  isReadonly, checkLists = [], onChange, onRemoveCheckLi
               key={index}
             >
               <Checkbox
-                disabled={isReadonly}
                 onClick={() => {
                   onChange(index, !item.isChecked);
                 }}

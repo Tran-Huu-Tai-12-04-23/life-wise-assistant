@@ -54,6 +54,7 @@ export default function ConfirmRemovePopover({ onConfirm}) {
                 <Button
                   onClick={ () => {
                     onConfirm()
+                    handleClose()
                   }}
                   color="primary"
                   variant="contained"

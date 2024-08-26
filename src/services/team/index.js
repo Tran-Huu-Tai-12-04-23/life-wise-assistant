@@ -38,3 +38,28 @@ export const generateInviteLink = async (teamId) =>
     toast.success(res.message);
     return res.inviteLink;
   });
+
+// eslint-disable-next-line consistent-return
+export const inviteUserToTeam = async (body) => {
+  const idToast = toast.loading('Inviting user to team...');
+  try {
+    await handleErrorApi(async () => {
+      const res = await rootApi.post(`${endpoints.invite_user}`, body);
+      toast.update(idToast, {
+        render: 'Invite user successfully!',
+        type: 'success',
+        isLoading: false,
+        autoClose: 2000,
+      });
+      return res;
+    });
+  } catch (error) {
+    toast.update(idToast, {
+      render: error.message,
+      type: 'error',
+      isLoading: false,
+      autoClose: 2000,
+    });
+    throw new Error(error);
+  }
+};

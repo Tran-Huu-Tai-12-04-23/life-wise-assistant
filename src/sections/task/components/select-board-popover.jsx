@@ -2,11 +2,10 @@ import { useEffect, useState } from 'react';
 
 import Avatar from '@mui/material/Avatar';
 import Popover from '@mui/material/Popover';
-import { alpha } from '@mui/material/styles';
 
 import { useTheme } from '@emotion/react';
 import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
-import { Box, Chip, LinearProgress, MenuItem, Stack, Typography } from '@mui/material';
+import { Box, Chip, LinearProgress, ListItemButton, Stack, Typography } from '@mui/material';
 import { account } from 'src/_mock/account';
 import { EffectBtn } from 'src/components/EffectBtn';
 import EmptyBoardView from 'src/components/empty/empty-boar-view';
@@ -123,9 +122,10 @@ export default function SelectBoardPopover() {
         {dataSelect.length === 0 && !isLoadingPagination && <EmptyBoardView />}
         {!isLoadingPagination &&
           dataSelect.map((option, index) => (
-            <MenuItem
+            <ListItemButton
               onClick={() => {
                 setOpen(null);
+                if(currentTeam?.id === option.id) return;
                 changeCurrent(option);
               }}
               sx={{
@@ -134,14 +134,14 @@ export default function SelectBoardPopover() {
                 mb: 1,
                 background:
                   currentTeam?.id === option.id
-                    ? alpha(theme.palette.primary.main, 0.2)
+                    ? theme.palette.background.neutral
                     : 'transparent',
               }}
               key={index}
             >
               <Avatar src={option.thumbnails} sx={{ mr: 2, minWidth: 50, borderRadius: 0.5 }} />
               <Typography sx={{ fontSize: 14 }}>{option.name}</Typography>
-            </MenuItem>
+            </ListItemButton>
           ))}
       </Popover>
     </>

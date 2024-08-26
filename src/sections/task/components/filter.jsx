@@ -51,6 +51,8 @@ function Filter({ onChangeViewType, viewType }) {
     });
   };
 
+  if(!currentTeam) return null
+
   return (
     <Box
       sx={{

@@ -14,17 +14,18 @@ import {
   Typography,
 } from '@mui/material';
 import PropTypes from 'prop-types';
+import { useMemo } from 'react';
 import DocumentIcon from 'src/components/icons/document-icon';
 import FileIcon from 'src/components/icons/file-icon';
 import MessageIcon from 'src/components/icons/message-icon';
 import { COLORS } from 'src/constants';
-import { useModal } from 'src/contexts/modal-context';
+import { Helper } from 'src/helper';
+import { useRouter } from 'src/routes/hooks';
 import { TASK } from '../wrapper-task-layout';
 import AssignMemberPopover from './assgin-member-popover';
-import EditTaskView from './edit-task';
 
 function TaskItem({ data, isRotate }) {
-  const { openModal } = useModal();
+  const router = useRouter()
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: data?.id,
     data: {
@@ -33,28 +34,55 @@ function TaskItem({ data, isRotate }) {
   });
 
   const theme = useTheme();
+
+  const numberDayLeft = useMemo(() => {
+    const timeLeft = Helper.calculateTimeLeft(data?.expireDate)
+    const stringArr = []
+    if(timeLeft.days > 0 ) {
+      stringArr.push(`${timeLeft.days} days`)
+    }
+    if(timeLeft.hours > 0 ) {
+      stringArr.push(`${timeLeft.hours} hours`)
+    }
+    if(timeLeft.minutes > 0 ) {
+      stringArr.push(`${timeLeft.minutes} minutes`)
+    }
+    const string =  `${stringArr.join(', ')  }`;
+    const color = timeLeft.days > 0 ? 'green' : 'red';
+
+    if(timeLeft.days < 0 && timeLeft.hours <= 0 && timeLeft.minutes <= 0) { 
+      return {
+        string: 'Expired',
+        color: 'red'
+      }
+    }
+
+    return {string, color};
+  }, [data])
+
+
   return (
     <Box
-      onClick={() => openModal(<EditTaskView id={data.id} />)}
+      onClick={() => router.push(`/task/${data?.id}`)}
       className="ignore-scroll"
       ref={setNodeRef}
       {...attributes}
       sx={{
         transition,
         opacity: isDragging ? '0.5' : '1',
+        border: '1px solid transparent',
+        borderColor: isDragging ? alpha(theme.palette.primary.main) : 'transparent',
         background: '700',
         padding: 1,
         borderRadius: 1,
         cursor: 'pointer',
-        boxShadow: isRotate ? 24 : 0,
         backgroundColor: theme.palette.background.default,
-        // boxShadow: isRotate ? '0px 2px 4px rgba(0, 0, 0, 0.08)' : '0px 2px 4px transparent',
-        transform: isRotate ? 'rotate(10deg)' : CSS.Translate?.toString(transform),
+        transform: CSS.Translate?.toString(transform),
         '&:hover': {
           bgcolor: () =>
             isRotate
-              ? alpha(theme.palette.background.default, 0.5)
-              : alpha(theme.palette.background.default, 0.5),
+              ? alpha(theme.palette.background.default)
+              : alpha(theme.palette.background.default),
         },
         '&:hover ': {
           '.icon-drag': {
@@ -64,6 +92,21 @@ function TaskItem({ data, isRotate }) {
         width: '100%',
       }}
     >
+      
+         <Stack direction="row" justifyContent="space-between" alignItems="center">
+          <Typography
+          sx={{
+            userSelect: 'none',
+          }}
+          variant="h7"
+          fontSize={16}
+          fontWeight={800}
+        >
+          {data?.title}
+        </Typography>
+
+     
+         </Stack>
       <Stack
         onClick={(e) => e.stopPropagation()}
         {...listeners}
@@ -72,16 +115,9 @@ function TaskItem({ data, isRotate }) {
         alignItems="center"
         justifyContent="space-between"
       >
-        <Typography
-          sx={{
-            userSelect: 'none',
-          }}
-          variant="h7"
-          fontSize={12}
-          fontWeight={800}
-        >
-          {data?.title}
-        </Typography>
+       <Typography variant='h7' fontSize={12}>
+        #{data?.code}
+       </Typography>
         <Button variant="text" gap={1}>
           <DocumentIcon />
           <Typography variant="h7" color={COLORS.document} fontSize={12} fontWeight={800}>
@@ -134,7 +170,7 @@ function TaskItem({ data, isRotate }) {
               ))}
             </AvatarGroup>
           )}
-          <AssignMemberPopover />
+          <AssignMemberPopover taskData={data}/>
         </Stack>
 
         <Stack
@@ -161,6 +197,12 @@ function TaskItem({ data, isRotate }) {
           </IconButton>
         </Stack>
       </Stack>
+         <Typography variant='h7' fontStyle={8} fontWeight="bold" sx={{
+          color: numberDayLeft.color,
+          fontSize: 12,
+        }}>
+          { numberDayLeft.string}
+        </Typography>
     </Box>
   );
 }

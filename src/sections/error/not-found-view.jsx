@@ -9,7 +9,7 @@ import Logo from 'src/components/logo';
 
 // ----------------------------------------------------------------------
 
-export default function NotFoundView() {
+export default function NotFoundView({title = "Page not found!", onBack=null}) {
   const renderHeader = (
     <Box
       component="header"
@@ -45,7 +45,7 @@ export default function NotFoundView() {
           }}
         >
           <Typography variant="h3" sx={{ mb: 3 }}>
-            Sorry, page not found!
+            Sorry, {title}
           </Typography>
 
           <Typography sx={{ color: 'text.secondary' }}>
@@ -63,9 +63,10 @@ export default function NotFoundView() {
             }}
           />
 
-          <Button href="/" size="large" variant="contained" component={RouterLink}>
+          {onBack && <Button onClick={onBack} size="large" variant="contained" sx={{minWidth: 200}}>Back</Button>}
+          {!onBack && <Button href="/" size="large" variant="contained" component={RouterLink}>
             Go to Home
-          </Button>
+          </Button>}
         </Box>
       </Container>
     </>

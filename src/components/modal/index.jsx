@@ -1,10 +1,7 @@
 /* eslint-disable import/no-cycle */
 import { useTheme } from '@emotion/react';
-import CloseIcon from '@mui/icons-material/Close';
-import { IconButton } from '@mui/material';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import { useModal } from 'src/contexts/modal-context';
 
 const style = {
   position: 'relative',
@@ -19,7 +16,7 @@ const style = {
 };
 
 export default function ModalCustom({ children, isOpen, onClose }) {
-  const { hideModal } = useModal();
+ 
   const theme = useTheme();
   return (
     <Modal
@@ -47,9 +44,7 @@ export default function ModalCustom({ children, isOpen, onClose }) {
             // width: 'max-content',
           }}
         >
-          <IconButton onClick={hideModal} sx={{ position: 'absolute', top: 2, right: 2 }}>
-            <CloseIcon />
-          </IconButton>
+         
           {children}
         </Box>
         <Box sx={{ height: 400 }} />

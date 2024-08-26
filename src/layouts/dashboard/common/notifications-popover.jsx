@@ -1,27 +1,30 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types';
-import { set, sub } from 'date-fns';
 import { faker } from '@faker-js/faker';
+import { set, sub } from 'date-fns';
+import PropTypes from 'prop-types';
+import { useState } from 'react';
 
-import Box from '@mui/material/Box';
-import List from '@mui/material/List';
-import Badge from '@mui/material/Badge';
-import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
+import Badge from '@mui/material/Badge';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
-import Tooltip from '@mui/material/Tooltip';
-import Popover from '@mui/material/Popover';
-import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import ListItemText from '@mui/material/ListItemText';
-import ListSubheader from '@mui/material/ListSubheader';
+import List from '@mui/material/List';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import ListSubheader from '@mui/material/ListSubheader';
+import Popover from '@mui/material/Popover';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
 
 import { fToNow } from 'src/utils/format-time';
 
+import { LinearProgress } from '@mui/material';
 import Iconify from 'src/components/iconify';
 import Scrollbar from 'src/components/scrollbar';
+import { useNotificationAction } from 'src/redux/features/notification/action';
+import { useNotificationState } from 'src/redux/features/notification/notificationSlice';
 
 // ----------------------------------------------------------------------
 
@@ -74,6 +77,8 @@ const NOTIFICATIONS = [
 ];
 
 export default function NotificationsPopover() {
+  const {pageOneNotification, isLoadNotification} = useNotificationState()
+  const {onNotificationPagination} = useNotificationAction()
   const [notifications, setNotifications] = useState(NOTIFICATIONS);
 
   const totalUnRead = notifications.filter((item) => item.isUnRead === true).length;
@@ -96,6 +101,8 @@ export default function NotificationsPopover() {
       }))
     );
   };
+
+  console.log(pageOneNotification)
 
   return (
     <>
@@ -120,6 +127,7 @@ export default function NotificationsPopover() {
         }}
       >
         <Box sx={{ display: 'flex', alignItems: 'center', py: 2, px: 2.5 }}>
+          {isLoadNotification && <LinearProgress/>}
           <Box sx={{ flexGrow: 1 }}>
             <Typography variant="subtitle1">Notifications</Typography>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>

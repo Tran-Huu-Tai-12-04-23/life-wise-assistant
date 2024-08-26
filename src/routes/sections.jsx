@@ -66,6 +66,7 @@ function PrivateRouter() {
             { path: 'create-blog', element: <CreateBlogPage /> },
           ],
         },
+        { path: 'task/:id', element: <TaskPage /> },
         { path: 'task', element: <TaskPage /> },
       ],
     },

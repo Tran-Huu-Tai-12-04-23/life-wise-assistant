@@ -113,7 +113,7 @@ export function paletteDark() {
     background: {
       paper: '#1C252E',
       default: '#141A21',
-      neutral: '#141A21',
+      neutral: 'rgba(255,255,255,0.05)',
     },
     action: {
       ...base.action,

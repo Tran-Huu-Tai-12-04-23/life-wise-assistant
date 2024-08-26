@@ -25,7 +25,7 @@ import { useTeamState } from 'src/redux/features/team/teamSlice';
 
 export default function InviteColumnPopover() {
   const [open, setOpen] = useState(null);
-  const { onGenerateInviteLink, onGetLstUserToInvite } = useTeamAction();
+  const { onGenerateInviteLink, onGetLstUserToInvite, onInviteUsersToTeam } = useTeamAction();
   const theme = useTheme();
   const [searchKey, setSearchKey] = useState('');
   const { currentTeam, inviteLink, isLoadingGenerateInviteLink, lstUser } = useTeamState();
@@ -44,7 +44,21 @@ export default function InviteColumnPopover() {
     if (currentTeam) onGenerateInviteLink(currentTeam.id);
   };
 
+  const handleInviteUsersToTeam = async () => {
+    handleClose()
+    if(currentTeam.isOwner){
+       const lstUserId = userSelect.map((item) => item.id);
+       setUserSelect([]);
+      await onInviteUsersToTeam({
+        teamId: currentTeam.id,
+        lstUserId
+      });
+     
+    }
+  }
+
   useEffect(() => {
+    if (!currentTeam) return null;
     setIsLoading(true);
     const timer = setTimeout(async () => {
       await onGetLstUserToInvite(
@@ -61,6 +75,8 @@ export default function InviteColumnPopover() {
 
     return () => clearTimeout(timer);
   }, [searchKey]);
+
+
 
   return (
     <>
@@ -145,14 +161,13 @@ export default function InviteColumnPopover() {
             </Stack>
           )}
 
-          {userSelect.length > 0 && <ButtonPrimary>Invite</ButtonPrimary>}
+          {userSelect.length > 0 && <ButtonPrimary onClick={handleInviteUsersToTeam}>Invite</ButtonPrimary>}
 
           <Stack
             direction="row"
             justifyContent="space-between"
             sx={{
               borderTop: () => `dashed 1px ${theme.palette.divider}`,
-              pt: 2,
               width: '100%',
             }}
           >

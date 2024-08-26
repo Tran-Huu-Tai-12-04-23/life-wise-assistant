@@ -21,7 +21,6 @@ import {
   updateTask,
 } from 'src/services/task';
 import { useColumnAction } from '../column/action';
-import { useTeamState } from '../team/teamSlice';
 import { useTaskState } from './taskSlice';
 // eslint-disable-next-line import/no-cycle
 
@@ -43,7 +42,7 @@ export const TaskActionKey = {
   REMOVE_TASK_FILE: 'task/remove_task_file',
 };
 
-export const loadDetailTaskAsync = createAsyncThunk(TaskActionKey.ADD_COLUMN, loadTaskDetail);
+export const loadDetailTaskAsync = createAsyncThunk(TaskActionKey.LOAD_DETAIL, loadTaskDetail);
 export const updateTaskAsync = createAsyncThunk(TaskActionKey.UPDATE_TASK, updateTask);
 export const subTaskPaginationAsync = createAsyncThunk(
   TaskActionKey.SUBTASK_PAGINATION,
@@ -82,13 +81,11 @@ export const useTaskAction = () => {
   const dispatch = useDispatch();
   const { currentTask, taskHistoryPage, taskCommentPage, subTaskPage, taskFilePage } =
     useTaskState();
-  const { currentTeam } = useTeamState();
   const { onGetAllColumnOfTeam } = useColumnAction();
 
   const onLoadTaskDetail = async (id) => {
     await dispatch(
       loadDetailTaskAsync({
-        teamId: currentTeam.id,
         id,
       })
     );
@@ -174,49 +171,49 @@ export const useTaskAction = () => {
 
   const onAddSubTask = async (body) => {
     await dispatch(addSubTaskAsync({ ...body })).then(async () => {
-      await Promise.all(onGetAllColumnOfTeam(), onLoadTaskDetail(currentTask.id));
+      await onGetAllColumnOfTeam();
     });
   };
 
   const onToggleSubTask = async (subTaskId) => {
     await dispatch(toggleSubTaskAsync(subTaskId)).then(async () => {
-      await Promise.all(onGetAllColumnOfTeam(), onLoadTaskDetail(currentTask.id));
+      await onGetAllColumnOfTeam();
     });
   };
 
   const onRemoveSubTask = async (subTaskId) => {
     await dispatch(removeSubTaskAsync(subTaskId)).then(async () => {
-      await Promise.all(onGetAllColumnOfTeam(), onLoadTaskDetail(currentTask.id));
+      await onGetAllColumnOfTeam();
     });
   };
 
   const onAddTaskComment = async (body) => {
     await dispatch(addTaskCommentAsync({ ...body })).then(async () => {
-      await Promise.all(onGetAllColumnOfTeam(), onLoadTaskDetail(currentTask.id));
+      await onGetAllColumnOfTeam();
     });
   };
 
   const onEditTaskComment = async (body) => {
     await dispatch(editTaskCommentAsync({ ...body })).then(async () => {
-      await Promise.all(onGetAllColumnOfTeam(), onLoadTaskDetail(currentTask.id));
+      await onGetAllColumnOfTeam();
     });
   };
 
   const onRemoveTaskComment = async (taskCommentId) => {
     await dispatch(deleteTaskCommentAsync(taskCommentId)).then(async () => {
-      await Promise.all(onGetAllColumnOfTeam(), onLoadTaskDetail(currentTask.id));
+      await onGetAllColumnOfTeam();
     });
   };
 
   const onAddTaskFile = async (body) => {
     await dispatch(addTaskFileAsync({ ...body })).then(async () => {
-      await Promise.all(onGetAllColumnOfTeam(), onLoadTaskDetail(currentTask.id));
+      await onGetAllColumnOfTeam();
     });
   };
 
   const onRemoveTaskFile = async (taskFileID) => {
     await dispatch(deleteTaskFileAsync(taskFileID)).then(async () => {
-      await Promise.all(onGetAllColumnOfTeam(), onLoadTaskDetail(currentTask.id));
+      await onGetAllColumnOfTeam();
     });
   };
 

@@ -1,4 +1,5 @@
-import { Button, CircularProgress, Fade, Stack, Typography } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import { Button, CircularProgress, Fade, IconButton, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import CheckListView from 'src/components/check-list-view';
@@ -49,6 +50,7 @@ function FormAddNewTask() {
       toast.error('Please fill in the required fields');
       return;
     }
+    
     const body = {
       lstPersonInCharge: state.members.map((item) => item.id),
       priority: state.priority?.code,
@@ -77,12 +79,18 @@ function FormAddNewTask() {
   };
   return (
     <Fade in timeout={500}>
+    
       <Stack
         direction="column"
         gap={2}
         pt={2}
         sx={{ width: '100%', minHeight: 'calc(100vh - 40px)', p: 4 }}
       >
+          <IconButton onClick={() => {
+           hideModal()
+       }} sx={{ position: 'absolute', top: 2, right: 2 }}>
+            <CloseIcon />
+          </IconButton>
         <Stack direction="row" gap={4} alignItems="start" justifyContent="space-between">
           <Stack direction="column" gap={1} sx={{ width: '100%' }}>
             <InputFocusToEdit
@@ -164,9 +172,6 @@ function FormAddNewTask() {
             <AddFileTaskPopover
               onAdd={(val) => setState((prev) => ({ ...prev, taskFile: [...prev.taskFile, val] }))}
             />
-            <Typography component="span" sx={{ fontSize: 12, fontWeight: 'bold' }}>
-              Actions
-            </Typography>
           </Stack>
         </Stack>
         <Stack direction="row" gap={1} sx={{ justifyContent: 'flex-end', mt: 'auto' }}>

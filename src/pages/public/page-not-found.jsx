@@ -4,14 +4,14 @@ import { NotFoundView } from 'src/sections/error';
 
 // ----------------------------------------------------------------------
 
-export default function NotFoundPage() {
+export default function NotFoundPage({title = '404 Page Not Found', onBack = null}) {
   return (
     <>
       <Helmet>
-        <title> 404 Page Not Found </title>
+        <title> {title} </title>
       </Helmet>
 
-      <NotFoundView />
+      <NotFoundView title={title} onBack={onBack}/>
     </>
   );
 }

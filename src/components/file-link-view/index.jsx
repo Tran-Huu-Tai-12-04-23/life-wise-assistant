@@ -5,6 +5,7 @@ import {
   Button,
   Collapse,
   IconButton,
+  LinearProgress,
   Stack,
   Tooltip,
   Typography,
@@ -13,11 +14,12 @@ import { useState } from 'react';
 import ConfirmRemovePopover from '../confirm-remove-popover';
 import Iconify from '../iconify';
 
-function FileLinkView({ isConfirmBeforeRemove, isReadonly, fileLinks = [], onRemove }) {
+function FileLinkView({isLoading,  isConfirmBeforeRemove, isReadonly, fileLinks = [], onRemove }) {
   const [expanded, setExpanded] = useState(true);
 
   return (
     <Stack direction="column" gap={1}>
+      {isLoading && <LinearProgress/>}
       <Stack direction="row" gap={1} alignItems="center">
         <Button gap={1} color="primary" onClick={() => setExpanded(!expanded)} variant="text">
           <AttachFileIcon size="small" fontSize="12" sx={{ mr: 1 }} />

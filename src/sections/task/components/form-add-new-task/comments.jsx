@@ -1,6 +1,6 @@
 /* eslint-disable react/no-danger */
 import { useTheme } from '@emotion/react';
-import { Avatar, Box, Button, IconButton, Stack, Typography, alpha } from '@mui/material';
+import { Avatar, Box, Button, IconButton, LinearProgress, Stack, Typography, alpha } from '@mui/material';
 import moment from 'moment';
 import { useState } from 'react';
 import ReactQuill from 'react-quill';
@@ -11,12 +11,13 @@ import { useAuthState } from 'src/redux/features/auth/authSlice';
 import { useTaskAction } from 'src/redux/features/task/action';
 import { useTaskState } from 'src/redux/features/task/taskSlice';
 
-function Comments({  data, onChange }) {
+function Comments({ isLoading,  data, onChange }) {
   const { currentUser } = useAuthState();
 
 
   return (
     <Stack direction="column" gap={1}>
+      {isLoading && <LinearProgress />}
       {data.map((item, index) => (
         <Comment key={index} comment={item} />
       ))}
@@ -80,7 +81,7 @@ const Comment = ({ comment }) => {
           position: 'relative',
         }}
       >
-          {!isEdit && <IconButton sx={{
+          {!isEdit && comment?.isOwner && <IconButton sx={{
             position: 'absolute',
             right: 0,
             top: '10%',
@@ -93,7 +94,7 @@ const Comment = ({ comment }) => {
         isEdit &&  <ReactQuill value={editValue} onChange={(val) => setEditValue(val)} />
        }
         {
-          isEdit && 
+          isEdit  && 
 <Stack direction="row" gap={2} justifyContent="flex-end" sx={{ mt: 1 }}>
                 <Button
                   onClick={() => {
@@ -109,6 +110,7 @@ const Comment = ({ comment }) => {
                   onClick={() => {
                       setEditValue(comment?.content);
                       handleEditTaskComment();
+                      setIsEdit(false);
                   }}
                   color="primary"
                   variant="contained"

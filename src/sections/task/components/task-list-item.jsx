@@ -16,13 +16,12 @@ import DocumentIcon from 'src/components/icons/document-icon';
 import FileIcon from 'src/components/icons/file-icon';
 import MessageIcon from 'src/components/icons/message-icon';
 import { COLORS } from 'src/constants';
-import { useModal } from 'src/contexts/modal-context';
+import { useRouter } from 'src/routes/hooks';
 import { TASK } from '../wrapper-task-layout';
 import AssignMemberPopover from './assgin-member-popover';
-import EditTaskView from './edit-task';
 
 function TaskListItem({ data, isRotate }) {
-  const { openModal } = useModal();
+  const router = useRouter()
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: data?.id,
     data: {
@@ -34,7 +33,7 @@ function TaskListItem({ data, isRotate }) {
 
   return (
     <Stack
-      onClick={() => openModal(<EditTaskView id={data.id} />)}
+      onClick={() => router.push(`/task/${data?.id}`)}
       direction="row"
       className="ignore-scroll"
       ref={setNodeRef}
@@ -47,13 +46,12 @@ function TaskListItem({ data, isRotate }) {
         padding: 1,
         borderRadius: 1,
         cursor: 'pointer',
-        boxShadow: isRotate ? 24 : 0,
         backgroundColor: theme.palette.background.default,
         '&:hover': {
           bgcolor: () =>
             isRotate
-              ? alpha(theme.palette.background.default, 0.5)
-              : alpha(theme.palette.background.default, 0.5),
+              ? alpha(theme.palette.background.default)
+              : alpha(theme.palette.background.default),
         },
         '&:hover ': {
           '.icon-drag': {
@@ -68,7 +66,7 @@ function TaskListItem({ data, isRotate }) {
         sx={{ width: '100%' }}
         gap={2}
         alignItems="center"
-        justifyContent="space-between"
+        justifyContent="flex-start"
       >
         <Typography
           {...listeners}
@@ -83,6 +81,9 @@ function TaskListItem({ data, isRotate }) {
         >
           {data?.title}
         </Typography>
+         <Typography variant='h7' fontSize={12}>
+        #{data?.code}
+       </Typography>
       </Stack>
 
       <Stack mr={2} direction="row" gap={1} alignItems="center">
@@ -124,7 +125,7 @@ function TaskListItem({ data, isRotate }) {
             </AvatarGroup>
           )}
 
-          <AssignMemberPopover isRight />
+          <AssignMemberPopover isRight taskData={data}/>
         </Stack>
 
         <Stack

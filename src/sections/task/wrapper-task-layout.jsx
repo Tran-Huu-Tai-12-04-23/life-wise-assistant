@@ -116,6 +116,7 @@ function WrapperTaskLayout({ viewType = EViewType.LIST }) {
         onMoveTaskInTheDifferentColumn({
           activeItemIndex: activeitemIndex,
           overItemIndex: overitemIndex,
+          taskId: active.id,
           activeContainerIndex,
           overContainerIndex,
           columnIdFrom: columns[activeContainerIndex].id,
@@ -150,6 +151,7 @@ function WrapperTaskLayout({ viewType = EViewType.LIST }) {
       const activeitemIndex = activeContainer.tasks.findIndex((item) => item.id === active.id);
 
       onMoveTaskInTheDifferentColumn({
+        taskId: active.id,
         activeItemIndex: activeitemIndex,
         overItemIndex: 0,
         activeContainerIndex,

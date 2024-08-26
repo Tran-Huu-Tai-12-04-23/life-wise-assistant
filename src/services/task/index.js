@@ -4,7 +4,7 @@ import rootApi from '../root-api';
 
 export const loadTaskDetail = async (body) =>
   handleErrorApi(async () => {
-    const res = await rootApi.get(`${endpoints.task}${body.id}/${body.teamId}`);
+    const res = await rootApi.get(`${endpoints.task}${body.id}`);
     return res;
   });
 
@@ -71,6 +71,7 @@ export const editTaskComment = async (body) =>
 export const deleteTaskComment = async (taskCommentId) =>
   handleErrorApi(async () => {
     const res = await rootApi.delete(`${`${`${endpoints.delete_task_comment}/${taskCommentId}`}`}`);
+    console.log(res);
     return res;
   });
 

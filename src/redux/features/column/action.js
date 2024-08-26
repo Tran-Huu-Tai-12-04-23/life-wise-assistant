@@ -94,14 +94,15 @@ export const useColumnAction = () => {
     );
   };
   const onMoveTaskInTheDifferentColumn = async (body) => {
-    const { activeItemIndex, overItemIndex, columnIdFrom, columnIdTo } = body;
+    const { columnIdTo, taskId } = body;
+    console.log({
+      taskId,
+    });
     dispatch(moveTaskInTheDifferentColumn(body));
     dispatch(
       moveTaskToDiffColAsync({
-        taskCurrentIndex: activeItemIndex + 1,
-        taskNewIndex: overItemIndex + 1,
-        columnIdFrom,
         columnIdTo,
+        taskId,
       })
     );
   };

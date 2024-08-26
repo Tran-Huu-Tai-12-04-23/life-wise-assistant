@@ -1,5 +1,4 @@
 import moment from 'moment';
-import { toast } from 'react-toastify';
 import { v4 as uuid } from 'uuid';
 
 export const daysLeftToExpire = (date) => {
@@ -12,8 +11,8 @@ export const handleErrorApi = async (callback) => {
   try {
     return await callback();
   } catch (error) {
-    toast.error(error.message);
-    throw new Error(error.message);
+    // toast.error(error.message);
+    throw new Error(error);
   }
 };
 export function saveAccessToken(accessToken) {
@@ -134,6 +133,33 @@ const Helper = {
     }
 
     return formattedTime;
+  },
+  calculateTimeLeft(expireDate) {
+    const date = new Date(expireDate);
+    const now = new Date();
+
+    // Tính toán khoảng cách thời gian giữa ngày hết hạn và ngày hiện tại
+    const distance = date.getTime() - now.getTime();
+
+    // Nếu khoảng cách đã qua hoặc bằng 0, tức là ngày hết hạn đã qua
+    if (distance === 0) {
+      return {
+        days: 0,
+        hours: 0,
+        minutes: 0,
+      };
+    }
+
+    // Tính toán số ngày, giờ và phút còn lại
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+    return {
+      days,
+      hours,
+      minutes,
+    };
   },
 };
 

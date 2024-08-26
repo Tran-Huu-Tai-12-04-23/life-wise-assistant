@@ -2,11 +2,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
 import {
+  addSubTaskAsync,
+  addTaskCommentAsync,
+  addTaskFileAsync,
+  deleteTaskCommentAsync,
+  deleteTaskFileAsync,
+  editTaskCommentAsync,
   loadDetailTaskAsync,
+  removeSubTaskAsync,
   subTaskPaginationAsync,
   taskCommentPaginationAsync,
   taskFilePaginationAsync,
   taskHistoryPaginationAsync,
+  toggleSubTaskAsync,
 } from './action';
 
 const initialState = {
@@ -56,9 +64,6 @@ const taskSlice = createSlice({
       .addCase(loadDetailTaskAsync.pending, (state) => {
         state.isLoadingDetail = true;
       })
-      .addCase(loadDetailTaskAsync.rejected, (state) => {
-        state.isLoadingDetail = false;
-      })
       .addCase(taskCommentPaginationAsync.fulfilled, (state, action) => {
         state.isLoadingTaskComment = false;
         const newTaskCommentMap = new Map();
@@ -76,9 +81,6 @@ const taskSlice = createSlice({
       })
       .addCase(taskCommentPaginationAsync.pending, (state) => {
         state.isLoadingTaskComment = true;
-      })
-      .addCase(taskCommentPaginationAsync.rejected, (state) => {
-        state.isLoadingTaskComment = false;
       })
       .addCase(taskHistoryPaginationAsync.fulfilled, (state, action) => {
         state.isLoadingTaskHistory = false;
@@ -98,9 +100,7 @@ const taskSlice = createSlice({
       .addCase(taskHistoryPaginationAsync.pending, (state) => {
         state.isLoadingTaskHistory = true;
       })
-      .addCase(taskHistoryPaginationAsync.rejected, (state) => {
-        state.isLoadingTaskHistory = false;
-      })
+
       .addCase(subTaskPaginationAsync.fulfilled, (state, action) => {
         state.isLoadingSubTask = false;
         const newSubTaskMap = new Map();
@@ -119,9 +119,7 @@ const taskSlice = createSlice({
       .addCase(subTaskPaginationAsync.pending, (state) => {
         state.isLoadingSubTask = true;
       })
-      .addCase(subTaskPaginationAsync.rejected, (state) => {
-        state.isLoadingSubTask = false;
-      })
+
       .addCase(taskFilePaginationAsync.fulfilled, (state, action) => {
         state.isLoadingTaskFile = false;
         const newTaskFileMap = new Map();
@@ -139,8 +137,129 @@ const taskSlice = createSlice({
       .addCase(taskFilePaginationAsync.pending, (state) => {
         state.isLoadingTaskFile = true;
       })
-      .addCase(taskFilePaginationAsync.rejected, (state) => {
+
+      .addCase(addSubTaskAsync.fulfilled, (state, action) => {
+        const { newSubTask, newHistory } = action.payload.data;
+        state.subTask = [newSubTask, ...state.subTask];
+        state.history = [newHistory, ...state.history];
+        state.isLoadingSubTask = false;
+      })
+      .addCase(toggleSubTaskAsync.fulfilled, (state, action) => {
+        const { newSubTask, newHistory } = action.payload.data;
+        const subTaskExits = state.subTask.find((subTask) => subTask.id === newSubTask.id);
+        if (subTaskExits) {
+          state.subTask = state.subTask.map((subTask) =>
+            subTask.id === newSubTask.id ? newSubTask : subTask
+          );
+          state.history = [newHistory, ...state.history];
+        }
+        state.isLoadingSubTask = false;
+      })
+      .addCase(removeSubTaskAsync.fulfilled, (state, action) => {
+        const { newHistory, previousSubTask } = action.payload.data;
+        const subTaskExits = state.subTask.find((subTask) => subTask.id === previousSubTask.id);
+        if (subTaskExits) {
+          state.subTask = state.subTask.filter((subTask) => subTask.id !== previousSubTask.id);
+          state.history = [newHistory, ...state.history];
+        }
+        state.isLoadingSubTask = false;
+      })
+      .addCase(addTaskFileAsync.fulfilled, (state, action) => {
+        const { newTaskFile, newHistory } = action.payload.data;
+        state.taskFile = [newTaskFile, ...state.taskFile];
+        state.history = [newHistory, ...state.history];
         state.isLoadingTaskFile = false;
+      })
+      .addCase(deleteTaskFileAsync.fulfilled, (state, action) => {
+        const { newHistory, previousTaskFile } = action.payload.data;
+        const taskFileExits = state.taskFile.find(
+          (taskFile) => taskFile.id === previousTaskFile.id
+        );
+        if (taskFileExits) {
+          state.taskFile = state.taskFile.filter((taskFile) => taskFile.id !== previousTaskFile.id);
+          state.history = [newHistory, ...state.history];
+        }
+        state.isLoadingTaskFile = false;
+      })
+      .addCase(addTaskCommentAsync.fulfilled, (state, action) => {
+        const { newTaskComment, newHistory } = action.payload.data;
+        state.comment = [newTaskComment, ...state.comment];
+        state.history = [newHistory, ...state.history];
+        state.isLoadingTaskComment = false;
+      })
+      .addCase(editTaskCommentAsync.fulfilled, (state, action) => {
+        const { newTaskComment, newHistory } = action.payload.data;
+        const taskCommentExits = state.comment.find(
+          (taskComment) => taskComment.id === newTaskComment.id
+        );
+        if (taskCommentExits) {
+          state.comment = state.comment.map((taskComment) =>
+            taskComment.id === newTaskComment.id ? newTaskComment : taskComment
+          );
+          state.history = [newHistory, ...state.history];
+        }
+        state.isLoadingTaskComment = false;
+      })
+      .addCase(deleteTaskCommentAsync.fulfilled, (state, action) => {
+        const { newHistory, previousTaskComment } = action.payload.data;
+        const taskCommentExits = state.comment.find(
+          (taskComment) => taskComment.id === previousTaskComment.id
+        );
+        if (taskCommentExits) {
+          state.comment = state.comment.filter(
+            (taskComment) => taskComment.id !== previousTaskComment.id
+          );
+          state.history = [newHistory, ...state.history];
+        }
+        state.isLoadingTaskComment = false;
+      })
+      .addCase(addSubTaskAsync.pending, (state, action) => {
+        state.isLoadingSubTask = true;
+      })
+      .addCase(addSubTaskAsync.rejected, (state, action) => {
+        state.isLoadingSubTask = false;
+      })
+      .addCase(toggleSubTaskAsync.pending, (state, action) => {
+        state.isLoadingSubTask = true;
+      })
+      .addCase(toggleSubTaskAsync.rejected, (state, action) => {
+        state.isLoadingSubTask = false;
+      })
+      .addCase(removeSubTaskAsync.pending, (state, action) => {
+        state.isLoadingSubTask = true;
+      })
+      .addCase(removeSubTaskAsync.rejected, (state, action) => {
+        state.isLoadingSubTask = false;
+      })
+      .addCase(addTaskFileAsync.pending, (state, action) => {
+        state.isLoadingTaskFile = true;
+      })
+      .addCase(addTaskFileAsync.rejected, (state, action) => {
+        state.isLoadingTaskFile = false;
+      })
+      .addCase(deleteTaskFileAsync.pending, (state, action) => {
+        state.isLoadingTaskFile = true;
+      })
+      .addCase(deleteTaskFileAsync.rejected, (state, action) => {
+        state.isLoadingTaskFile = false;
+      })
+      .addCase(addTaskCommentAsync.pending, (state, action) => {
+        state.isLoadingTaskComment = true;
+      })
+      .addCase(addTaskCommentAsync.rejected, (state, action) => {
+        state.isLoadingTaskComment = false;
+      })
+      .addCase(editTaskCommentAsync.pending, (state, action) => {
+        state.isLoadingTaskComment = true;
+      })
+      .addCase(editTaskCommentAsync.rejected, (state, action) => {
+        state.isLoadingTaskComment = false;
+      })
+      .addCase(deleteTaskCommentAsync.pending, (state, action) => {
+        state.isLoadingTaskComment = true;
+      })
+      .addCase(deleteTaskCommentAsync.rejected, (state, action) => {
+        state.isLoadingTaskComment = false;
       });
   },
 });

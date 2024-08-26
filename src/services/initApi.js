@@ -1,6 +1,13 @@
 import axios from 'axios';
 import { getAccessToken } from '../helper/index';
 
+class ApiError extends Error {
+  constructor(message, code) {
+    super(message);
+    this.code = code;
+  }
+}
+
 const initApi = (url, headers = {}) => {
   if (url === '') throw new Error('url not found');
   const api = axios.create({
@@ -27,19 +34,11 @@ const initApi = (url, headers = {}) => {
 
   api.interceptors.response.use(
     (response) => response.data,
-    (error) =>
-      // console.log(
-      //   "\x1b[31m",
-      //   "ERROR REQUEST URL:",
-      //   error.config?.baseURL + error.config.url
-      // );
-      // console.log("\x1b[31m", "ERROR REQUEST Body:", error.config.data);
-      // console.log(
-      //   "\x1b[31m",
-      //   "ERROR REQUEST Headers:",
-      //   error?.response?.data?.message
-      // );
-      Promise.reject(new Error(error?.response?.data?.message))
+    (error) => {
+      const errorMessage = error?.response?.data?.message;
+      const errorCode = error?.response?.status;
+      return Promise.reject(new ApiError(errorMessage, errorCode));
+    }
   );
 
   return api;

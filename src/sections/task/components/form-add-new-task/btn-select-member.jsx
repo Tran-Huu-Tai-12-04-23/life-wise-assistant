@@ -1,12 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Popover from '@mui/material/Popover';
 
 import { useTheme } from '@emotion/react';
 import CloseIcon from '@mui/icons-material/Close';
-import { Avatar, IconButton, Typography } from '@mui/material';
+import { Avatar, IconButton, ListItemButton, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
-import { alpha } from '@mui/material/styles';
 import { Stack } from '@mui/system';
 import EmptyBoardIcon from 'src/components/icons/empty-board-icon';
 import PersonIcon from 'src/components/icons/person-icon';
@@ -14,11 +13,11 @@ import InputCustom from 'src/components/input';
 import { useTeamState } from 'src/redux/features/team/teamSlice';
 // ----------------------------------------------------------------------
 
-export default function BtnSelectMemberPopover({ onChange }) {
+export default function BtnSelectMemberPopover({ onChange, value }) {
   const [open, setOpen] = useState(null);
   const [searchKey, setSearchKey] = useState('');
   const { currentTeam } = useTeamState();
-  const [lstMemberSelected, setLstMemberSelected] = useState([]);
+  const [lstMemberSelected, setLstMemberSelected] = useState([...(value || [])]);
 
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
@@ -27,6 +26,10 @@ export default function BtnSelectMemberPopover({ onChange }) {
   const handleClose = () => {
     setOpen(null);
   };
+
+  useEffect(() => {
+    setLstMemberSelected([...(value || [])]);
+  }, [value])
 
   return (
     <>
@@ -133,7 +136,7 @@ export default function BtnSelectMemberPopover({ onChange }) {
 const MemberItem = ({ data, onSelect, isChecked }) => {
   const theme = useTheme();
   return (
-    <Stack
+    <ListItemButton
       onClick={onSelect}
       direction="row"
       gap={1}
@@ -141,16 +144,13 @@ const MemberItem = ({ data, onSelect, isChecked }) => {
       sx={{
         padding: 1,
         cursor: 'pointer',
-        background: isChecked ? alpha(theme.palette.primary.main, 0.2) : 'transparent',
+        background: isChecked ? (theme.palette.background.neutral) : 'transparent',
         borderRadius: 0.5,
         minHeight: 55,
-        '&:hover': {
-          background: alpha(theme.palette.primary.dark, 0.2),
-        },
       }}
     >
       <Avatar src={data?.avatar} sx={{ width: 24, height: 24 }} />
-      <Typography sx={{ fontSize: 12, color: 'gray', textAlign: 'start' }}>
+      <Typography sx={{ml: 2, fontSize: 12, color: 'gray', textAlign: 'start' }}>
         {data?.username}
       </Typography>
       {isChecked && (
@@ -158,6 +158,6 @@ const MemberItem = ({ data, onSelect, isChecked }) => {
           <CloseIcon size={12} />
         </IconButton>
       )}
-    </Stack>
+    </ListItemButton>
   );
 };

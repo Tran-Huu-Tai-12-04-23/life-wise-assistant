@@ -11,6 +11,7 @@ export const endpoints = {
   team_of_user_pagination: '/team/pagination',
   lst_user_to_invite_team: '/auth/lst-user-to-invite-team',
   generate_invite_link: '/team/generate-invite-token',
+  invite_user: '/team/invite-member-to-team',
   // #endregion
 
   // #region column CRUD
@@ -43,5 +44,10 @@ export const endpoints = {
   delete_task_comment: 'task/delete-comment',
   add_task_file: 'task/add-task-file',
   delete_task_file: 'task/delete-task-file',
+  // #endregion
+
+  // #region notification
+  notification_pagination: '/notification/pagination',
+
   // #endregion
 };
