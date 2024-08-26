@@ -20,7 +20,7 @@ import Typography from '@mui/material/Typography';
 
 import { fToNow } from 'src/utils/format-time';
 
-import { LinearProgress } from '@mui/material';
+import { LinearProgress, Stack } from '@mui/material';
 import Iconify from 'src/components/iconify';
 import Scrollbar from 'src/components/scrollbar';
 import { useNotificationAction } from 'src/redux/features/notification/action';
@@ -123,6 +123,8 @@ export default function NotificationsPopover() {
             mt: 1.5,
             ml: 0.75,
             width: 360,
+            "&::webkit-scrollbar": { display: "none", width: "0px!important" },
+            maxHeight: "80%"
           },
         }}
       >
@@ -146,7 +148,9 @@ export default function NotificationsPopover() {
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        <Scrollbar sx={{ height: { xs: 340, sm: 'auto' } }}>
+        <Scrollbar sx={{ height: { xs: 340, sm: 'auto' },    
+            
+            }}>
           <List
             disablePadding
             subheader={
@@ -155,7 +159,7 @@ export default function NotificationsPopover() {
               </ListSubheader>
             }
           >
-            {notifications.slice(0, 2).map((notification) => (
+            {pageOneNotification?.map((notification) => (
               <NotificationItem key={notification.id} notification={notification} />
             ))}
           </List>
@@ -167,6 +171,7 @@ export default function NotificationsPopover() {
                 Before that
               </ListSubheader>
             }
+          
           >
             {notifications.slice(2, 5).map((notification) => (
               <NotificationItem key={notification.id} notification={notification} />
@@ -201,7 +206,9 @@ NotificationItem.propTypes = {
 };
 
 function NotificationItem({ notification }) {
-  const { avatar, title } = renderContent(notification);
+  const {  title, avatar } = renderContent(notification);
+
+  const {owner, createdAt} = notification
 
   return (
     <ListItemButton
@@ -209,13 +216,18 @@ function NotificationItem({ notification }) {
         py: 1.5,
         px: 2.5,
         mt: '1px',
-        ...(notification.isUnRead && {
+        ...(notification.isRead && {
           bgcolor: 'action.selected',
         }),
       }}
     >
-      <ListItemAvatar>
-        <Avatar sx={{ bgcolor: 'background.neutral' }}>{avatar}</Avatar>
+     <Stack direction="column" >
+       <Stack direction="row" >
+        <ListItemAvatar>
+        <Tooltip title={owner?.username}>
+           <Avatar alt={owner?.username} src={owner?.avatar}>{avatar}</Avatar>
+        </Tooltip>
+       
       </ListItemAvatar>
       <ListItemText
         primary={title}
@@ -230,10 +242,23 @@ function NotificationItem({ notification }) {
             }}
           >
             <Iconify icon="eva:clock-outline" sx={{ mr: 0.5, width: 16, height: 16 }} />
-            {fToNow(notification.createdAt)}
+            {createdAt && fToNow(new Date(createdAt))}
           </Typography>
         }
       />
+      </Stack>
+
+      {notification?.isInviteNotification && <Stack columnGap={2} direction="row" justifyContent="flex-end">
+        <Button onClick={e => {
+          e.stopPropagation()
+          e.preventDefault()
+        }} variant="outlined" color="error">Cancel</Button>
+           <Button onClick={e => {
+          e.stopPropagation()
+          e.preventDefault()
+        }} variant="contained" color="primary">Accept</Button>
+        </Stack>}
+     </Stack>
     </ListItemButton>
   );
 }
