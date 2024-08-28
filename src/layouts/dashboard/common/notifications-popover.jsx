@@ -1,4 +1,3 @@
-import { sub } from 'date-fns';
 import { useEffect, useState } from 'react';
 
 import Avatar from '@mui/material/Avatar';
@@ -51,14 +50,16 @@ export default function NotificationsPopover() {
 
   useEffect(() =>{
     /// get notification in day now
-    const dataDayNow = pageOneNotification?.filter((item) => new Date(item.createdAt).getDate() === new Date().getDate()) || []
+    const dataDayNow = pageOneNotification?.filter((item) => new Date(item.createdAt).getDate() >= new Date().getDate()) || []
     setNotificationDayNow(dataDayNow)
 
     // get notification in day before
-    const dataDayBefore = pageOneNotification?.filter((item) => new Date(item.createdAt).getDate() === sub(new Date(), { days: 1 }).getDate()) || []
+    const dataDayBefore = pageOneNotification?.filter((item) => new Date(item.createdAt).getDate() < new Date().getDate() )|| []
     setNotificationDayBefore(dataDayBefore)
   }, [pageOneNotification])
  
+  console.log(pageOneNotification)
+
   return (
     <>
       <IconButton color={open ? 'primary' : 'default'} onClick={handleOpen}>
