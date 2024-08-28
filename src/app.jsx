@@ -30,7 +30,8 @@ export default function App() {
         setTimeout(() => {
 setIsLoaded(true);
         }, 1000)
-      
+      }else {
+        setIsLoaded(true);
       }
     };
     initUser();

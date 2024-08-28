@@ -56,7 +56,6 @@
 }
 
 .hide-scroll::webkit-scrollbar {
-    display: none; /* Hide scrollbars for WebKit browsers */
-    width: 0px;
-
+    display: none!important; /* Hide scrollbars for WebKit browsers */
+    width: 0px!important;
 }

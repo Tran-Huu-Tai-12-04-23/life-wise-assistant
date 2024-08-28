@@ -4,6 +4,7 @@ import LoadingView from 'src/components/loadingView';
 
 import DashboardLayout from 'src/layouts/dashboard';
 import CreateBlogPage from 'src/pages/private/create-blog';
+import NotificationPage from 'src/pages/private/notification';
 
 export const IndexPage = lazy(() => import('src/pages/private/app'));
 export const BlogPage = lazy(() => import('src/pages/private/blog'));
@@ -68,6 +69,7 @@ function PrivateRouter() {
         },
         { path: 'task/:id', element: <TaskPage /> },
         { path: 'task', element: <TaskPage /> },
+        { path: 'notification', element: <NotificationPage /> },
       ],
     },
     {

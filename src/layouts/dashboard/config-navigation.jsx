@@ -62,6 +62,11 @@ const navConfig = [
       },
     ],
   },
+   {
+    title: 'Notification manager',
+    path: '/notification',
+    icon: <BellIcon size={22} color="#6C6C76" />,
+  },
 ];
 
 export default navConfig;

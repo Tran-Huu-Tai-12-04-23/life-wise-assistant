@@ -1,7 +1,5 @@
-import { faker } from '@faker-js/faker';
-import { set, sub } from 'date-fns';
-import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { sub } from 'date-fns';
+import { useEffect, useState } from 'react';
 
 import Avatar from '@mui/material/Avatar';
 import Badge from '@mui/material/Badge';
@@ -28,60 +26,13 @@ import { useNotificationState } from 'src/redux/features/notification/notificati
 
 // ----------------------------------------------------------------------
 
-const NOTIFICATIONS = [
-  {
-    id: faker.string.uuid(),
-    title: 'Your order is placed',
-    description: 'waiting for shipping',
-    avatar: null,
-    type: 'order_placed',
-    createdAt: set(new Date(), { hours: 10, minutes: 30 }),
-    isUnRead: true,
-  },
-  {
-    id: faker.string.uuid(),
-    title: faker.person.fullName(),
-    description: 'answered to your comment on the Minimal',
-    avatar: '/assets/images/avatars/avatar_2.jpg',
-    type: 'friend_interactive',
-    createdAt: sub(new Date(), { hours: 3, minutes: 30 }),
-    isUnRead: true,
-  },
-  {
-    id: faker.string.uuid(),
-    title: 'You have new message',
-    description: '5 unread messages',
-    avatar: null,
-    type: 'chat_message',
-    createdAt: sub(new Date(), { days: 1, hours: 3, minutes: 30 }),
-    isUnRead: false,
-  },
-  {
-    id: faker.string.uuid(),
-    title: 'You have new mail',
-    description: 'sent from Guido Padberg',
-    avatar: null,
-    type: 'mail',
-    createdAt: sub(new Date(), { days: 2, hours: 3, minutes: 30 }),
-    isUnRead: false,
-  },
-  {
-    id: faker.string.uuid(),
-    title: 'Delivery processing',
-    description: 'Your order is being shipped',
-    avatar: null,
-    type: 'order_shipped',
-    createdAt: sub(new Date(), { days: 3, hours: 3, minutes: 30 }),
-    isUnRead: false,
-  },
-];
 
 export default function NotificationsPopover() {
-  const {pageOneNotification, isLoadNotification} = useNotificationState()
+  const {pageOneNotification, isLoadNotification, totalUnRead, isHasNextPageNotification} = useNotificationState()
   const {onNotificationPagination} = useNotificationAction()
-  const [notifications, setNotifications] = useState(NOTIFICATIONS);
+  const [notificationDayNow, setNotificationDayNow] = useState([]);
+  const [notificationDayBefore, setNotificationDayBefore] = useState([]);
 
-  const totalUnRead = notifications.filter((item) => item.isUnRead === true).length;
 
   const [open, setOpen] = useState(null);
 
@@ -93,17 +44,21 @@ export default function NotificationsPopover() {
     setOpen(null);
   };
 
-  const handleMarkAllAsRead = () => {
-    setNotifications(
-      notifications.map((notification) => ({
-        ...notification,
-        isUnRead: false,
-      }))
-    );
-  };
 
-  console.log(pageOneNotification)
+  useEffect(() => {
+    onNotificationPagination()
+  }, [])
 
+  useEffect(() =>{
+    /// get notification in day now
+    const dataDayNow = pageOneNotification?.filter((item) => new Date(item.createdAt).getDate() === new Date().getDate()) || []
+    setNotificationDayNow(dataDayNow)
+
+    // get notification in day before
+    const dataDayBefore = pageOneNotification?.filter((item) => new Date(item.createdAt).getDate() === sub(new Date(), { days: 1 }).getDate()) || []
+    setNotificationDayBefore(dataDayBefore)
+  }, [pageOneNotification])
+ 
   return (
     <>
       <IconButton color={open ? 'primary' : 'default'} onClick={handleOpen}>
@@ -119,6 +74,7 @@ export default function NotificationsPopover() {
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         PaperProps={{
+          className: 'hide-scroll',
           sx: {
             mt: 1.5,
             ml: 0.75,
@@ -128,7 +84,7 @@ export default function NotificationsPopover() {
           },
         }}
       >
-        <Box sx={{ display: 'flex', alignItems: 'center', py: 2, px: 2.5 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', py: 2, px: 2.5 }} className='hide-scroll'>
           {isLoadNotification && <LinearProgress/>}
           <Box sx={{ flexGrow: 1 }}>
             <Typography variant="subtitle1">Notifications</Typography>
@@ -139,7 +95,7 @@ export default function NotificationsPopover() {
 
           {totalUnRead > 0 && (
             <Tooltip title=" Mark all as read">
-              <IconButton color="primary" onClick={handleMarkAllAsRead}>
+              <IconButton color="primary" onClick={() => {}}>
                 <Iconify icon="eva:done-all-fill" />
               </IconButton>
             </Tooltip>
@@ -151,7 +107,9 @@ export default function NotificationsPopover() {
         <Scrollbar sx={{ height: { xs: 340, sm: 'auto' },    
             
             }}>
-          <List
+              {
+                notificationDayNow?.length > 0 && 
+    <List
             disablePadding
             subheader={
               <ListSubheader disableSticky sx={{ py: 1, px: 2.5, typography: 'overline' }}>
@@ -159,12 +117,13 @@ export default function NotificationsPopover() {
               </ListSubheader>
             }
           >
-            {pageOneNotification?.map((notification) => (
+            {notificationDayNow?.map((notification) => (
               <NotificationItem key={notification.id} notification={notification} />
             ))}
           </List>
-
-          <List
+              }
+         {
+          notificationDayBefore?.length > 0 &&  <List
             disablePadding
             subheader={
               <ListSubheader disableSticky sx={{ py: 1, px: 2.5, typography: 'overline' }}>
@@ -173,19 +132,23 @@ export default function NotificationsPopover() {
             }
           
           >
-            {notifications.slice(2, 5).map((notification) => (
+            {notificationDayBefore.map((notification) => (
               <NotificationItem key={notification.id} notification={notification} />
             ))}
           </List>
+         }
         </Scrollbar>
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        <Box sx={{ p: 1 }}>
-          <Button fullWidth disableRipple>
+{
+  isHasNextPageNotification &&    <Box sx={{ p: 1 }}>
+          <Button fullWidth >
             View All
           </Button>
         </Box>
+}
+     
       </Popover>
     </>
   );
@@ -193,22 +156,21 @@ export default function NotificationsPopover() {
 
 // ----------------------------------------------------------------------
 
-NotificationItem.propTypes = {
-  notification: PropTypes.shape({
-    createdAt: PropTypes.instanceOf(Date),
-    id: PropTypes.string,
-    isUnRead: PropTypes.bool,
-    title: PropTypes.string,
-    description: PropTypes.string,
-    type: PropTypes.string,
-    avatar: PropTypes.any,
-  }),
-};
+
 
 function NotificationItem({ notification }) {
+  const {onAcceptInvite, onRejectInvite} = useNotificationAction()
   const {  title, avatar } = renderContent(notification);
 
-  const {owner, createdAt} = notification
+  const {owner} = notification
+
+  const handleAcceptInvite = async () => {
+    await onAcceptInvite(notification?.teamInviteId)
+  }
+
+   const handleRejectInvite = async () => {
+    await onRejectInvite(notification?.teamInviteId)
+  }
 
   return (
     <ListItemButton
@@ -216,11 +178,23 @@ function NotificationItem({ notification }) {
         py: 1.5,
         px: 2.5,
         mt: '1px',
-        ...(notification.isRead && {
-          bgcolor: 'action.selected',
+        position: 'relative',
+        ...(!notification?.isRead && {
+          bgcolor: 'background.neutral',
         }),
       }}
     >
+      {
+        !notification?.isRead && <Box
+        sx={{
+          width: 8,
+          height: 8,
+          borderRadius: '50%',
+          bgcolor: 'primary.main',
+          position: 'absolute',
+          top: 4, right: 4
+        }} />
+      }
      <Stack direction="column" >
        <Stack direction="row" >
         <ListItemAvatar>
@@ -242,20 +216,22 @@ function NotificationItem({ notification }) {
             }}
           >
             <Iconify icon="eva:clock-outline" sx={{ mr: 0.5, width: 16, height: 16 }} />
-            {createdAt && fToNow(new Date(createdAt))}
+            {notification?.createdAt && fToNow(new Date(notification.createdAt))}
           </Typography>
         }
       />
       </Stack>
 
       {notification?.isInviteNotification && <Stack columnGap={2} direction="row" justifyContent="flex-end">
-        <Button onClick={e => {
+        <Button onClick={async e => {
           e.stopPropagation()
           e.preventDefault()
+          await handleRejectInvite()
         }} variant="outlined" color="error">Cancel</Button>
-           <Button onClick={e => {
+           <Button onClick={async e => {
           e.stopPropagation()
           e.preventDefault()
+          await handleAcceptInvite()
         }} variant="contained" color="primary">Accept</Button>
         </Stack>}
      </Stack>

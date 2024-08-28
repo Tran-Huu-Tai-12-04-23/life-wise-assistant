@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
 // eslint-disable-next-line import/no-cycle
-import { notificationPaginationAsync } from './action';
+import { acceptInviteAsync, notificationPaginationAsync, rejectInviteAsync } from './action';
 
 const initialState = {
   isLoadNotification: false,
@@ -10,6 +10,7 @@ const initialState = {
   pageOneNotification: [],
   isHasNextPageNotification: false,
   notificationPage: 0,
+  totalUnRead: 0,
 };
 
 const notificationSlice = createSlice({
@@ -19,9 +20,7 @@ const notificationSlice = createSlice({
     changeCurrentNotification: (state, action) => {
       state.currentNotification = action.payload;
     },
-    resetNotificationState: (state) => {
-      state = initialState;
-    },
+    resetNotificationState: () => initialState,
   },
   extraReducers: (builder) => {
     builder
@@ -32,6 +31,7 @@ const notificationSlice = createSlice({
         } else {
           state.notifications = [...state.notifications, ...action.payload[0]];
         }
+        state.totalUnRead = action.payload[3];
         state.notificationPage += 1;
         state.isHasNextPageNotification = action.payload[2];
         state.isLoadNotification = false;
@@ -40,6 +40,38 @@ const notificationSlice = createSlice({
         state.isLoadNotification = true;
       })
       .addCase(notificationPaginationAsync.rejected, (state) => {
+        state.isLoadNotification = false;
+      })
+      .addCase(acceptInviteAsync.fulfilled, (state, action) => {
+        state.isLoadNotification = false;
+        const { lstNotificationIdRead } = action.payload;
+        state.notifications = state.notifications.map((item) => {
+          if (lstNotificationIdRead.includes(item.id)) {
+            return { ...item, isRead: true };
+          }
+          return item;
+        });
+      })
+      .addCase(acceptInviteAsync.pending, (state) => {
+        state.isLoadNotification = true;
+      })
+      .addCase(acceptInviteAsync.rejected, (state) => {
+        state.isLoadNotification = false;
+      })
+      .addCase(rejectInviteAsync.fulfilled, (state, action) => {
+        state.isLoadNotification = false;
+        const { lstNotificationIdRead } = action.payload;
+        state.notifications = state.notifications.map((item) => {
+          if (lstNotificationIdRead.includes(item.id)) {
+            return { ...item, isRead: true };
+          }
+          return item;
+        });
+      })
+      .addCase(rejectInviteAsync.pending, (state) => {
+        state.isLoadNotification = true;
+      })
+      .addCase(rejectInviteAsync.rejected, (state) => {
         state.isLoadNotification = false;
       });
   },
