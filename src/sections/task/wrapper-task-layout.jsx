@@ -173,7 +173,9 @@ function WrapperTaskLayout({ viewType = EViewType.LIST }) {
       className="ignore-scroll hide-scroll"
       sx={{
         position: 'relative',
-        minHeight: '80vh',
+        // minHeight: '80vh',
+        height: '100%',
+        px: 2,
         '&::-webkit-scrollbar': {
           width: 0,
         },
@@ -186,7 +188,12 @@ function WrapperTaskLayout({ viewType = EViewType.LIST }) {
         horizontal
         ignoreElements=".ignore-scroll"
       >
-        {isLoading && <LoadingView />}
+       <Box sx={{height: 2}}>
+         {isLoading && <LoadingView />}
+       </Box>
+       <Box sx={{
+        height: '100%'
+       }}>
         {!isLoading && (
           <DndContext
             sensors={sensors}
@@ -204,6 +211,7 @@ function WrapperTaskLayout({ viewType = EViewType.LIST }) {
             )}
           </DndContext>
         )}
+       </Box>
       </ScrollContainer>
     </Box>
   );

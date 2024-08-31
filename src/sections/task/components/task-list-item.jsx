@@ -42,11 +42,10 @@ function TaskListItem({ data, isRotate }) {
         transition,
         transform: CSS.Translate?.toString(transform),
         opacity: isDragging ? '0.5' : '1',
-        background: '700',
         padding: 1,
         borderRadius: 1,
         cursor: 'pointer',
-        backgroundColor: theme.palette.background.default,
+        backgroundColor: theme.palette.background.paper,
         '&:hover': {
           bgcolor: () =>
             isRotate
@@ -113,7 +112,7 @@ function TaskListItem({ data, isRotate }) {
         />
       </Stack>
 
-      <Stack direction="row" justifyContent="flex-end" gap={2} alignItems="center">
+      <Stack direction="row" gap={2} alignItems="center">
         <Stack direction="row" alignItems="center" gap={1}>
           {data?.lstMember?.length > 0 && (
             <AvatarGroup max={2}>
@@ -132,9 +131,6 @@ function TaskListItem({ data, isRotate }) {
           direction="row"
           gap={2}
           alignItems="center"
-          sx={{
-            justifyContent: 'flex-end',
-          }}
         >
           <Button variant="text" gap={1}>
             <DocumentIcon />
@@ -149,7 +145,7 @@ function TaskListItem({ data, isRotate }) {
               {data.totalTaskFile}
             </Typography>
           </Button>
-          <Button variant="text" gap={1}>
+          <Button variant="text" gap={1} sx={{mr: 2}}>
             <MessageIcon />
             <Typography variant="h7" color={COLORS.message} fontSize={12} fontWeight={800}>
               {' '}

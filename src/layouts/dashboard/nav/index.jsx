@@ -48,6 +48,7 @@ export default function Nav({ openNav, onCloseNav, setExpanded, expanded }) {
         alignItems: 'center',
         bgcolor: () => alpha(theme.palette.grey[500], 0.12),
         width: 'calc(100% - 20px)',
+        background: theme.palette.background.paper,
       }}
     >
       <Avatar src={account.photoURL} alt="photoURL" />
@@ -104,6 +105,7 @@ export default function Nav({ openNav, onCloseNav, setExpanded, expanded }) {
           flexDirection: 'column',
         },
         position: 'relative',
+        background: theme.palette.background.paper,
       }}
     >
       <Stack

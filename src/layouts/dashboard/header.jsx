@@ -9,12 +9,10 @@ import { useTheme } from '@mui/material/styles';
 
 import { useResponsive } from 'src/hooks/use-responsive';
 
-import { bgBlur } from 'src/theme/css';
 
 import Iconify from 'src/components/iconify';
 
 import AccountPopover from './common/account-popover';
-import LanguagePopover from './common/language-popover';
 import NotificationsPopover from './common/notifications-popover';
 import { HEADER, NAV } from './config-layout';
 import QuickSearch from './quick-search';
@@ -38,7 +36,6 @@ export default function Header({ onOpenNav, expanded }) {
 
       <Stack direction="row" alignItems="center" spacing={1}>
         <QuickSearch />
-        <LanguagePopover />
         <NotificationsPopover />
         <AccountPopover />
       </Stack>
@@ -51,25 +48,22 @@ export default function Header({ onOpenNav, expanded }) {
         boxShadow: 'none',
         height: HEADER.H_MOBILE,
         zIndex: theme.zIndex.appBar + 1,
-        ...bgBlur({
-          color: theme.palette.background.default,
-        }),
-        background: theme.palette.background.default,
+        background: 'transparent',
         transition: theme.transitions.create(['height'], {
           duration: theme.transitions.duration.shorter,
         }),
         borderBottom: () => `dashed 1px ${theme.palette.divider}`,
         ...(lgUp && {
-          width: `calc(100% - ${expanded ? NAV.WIDTH + 1 : NAV.WIDTH / 2 - 10 + 1}px)`,
+          width: `calc(100% - ${expanded ? NAV.WIDTH + 1 : NAV.WIDTH/ 3}px)`,
           height: HEADER.H_DESKTOP + 5,
         }),
+        backdropFilter: 'blur(10px)',
       }}
     >
       <Toolbar
         sx={{
           height: 1,
           px: { lg: 5 },
-          background: theme.palette.background.default,
         }}
       >
         {renderContent}

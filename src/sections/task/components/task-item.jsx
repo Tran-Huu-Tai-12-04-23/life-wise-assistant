@@ -76,7 +76,7 @@ function TaskItem({ data, isRotate }) {
         padding: 1,
         borderRadius: 1,
         cursor: 'pointer',
-        backgroundColor: theme.palette.background.default,
+        backgroundColor: theme.palette.background.paper,
         transform: CSS.Translate?.toString(transform),
         '&:hover': {
           bgcolor: () =>

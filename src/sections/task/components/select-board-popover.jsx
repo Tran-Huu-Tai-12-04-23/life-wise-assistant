@@ -52,10 +52,7 @@ export default function SelectBoardPopover() {
         sx={{
           borderRadius: 2,
           overflow: 'hidden',
-          height: 40,
-          p: 2,
-          pt: 4,
-          pb: 3,
+          p: 2
         }}
       >
         <Stack onClick={handleOpen} direction="row" alignItems="center" gap={2}>

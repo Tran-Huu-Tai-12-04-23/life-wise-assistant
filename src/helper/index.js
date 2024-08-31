@@ -12,7 +12,7 @@ export const handleErrorApi = async (callback) => {
     return await callback();
   } catch (error) {
     // toast.error(error.message);
-    throw new Error(error);
+    return Promise.reject(error);
   }
 };
 export function saveAccessToken(accessToken) {

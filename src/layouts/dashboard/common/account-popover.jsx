@@ -12,6 +12,7 @@ import Typography from '@mui/material/Typography';
 import { account } from 'src/_mock/account';
 import { useAuthState } from 'src/redux/features/auth/authSlice';
 import { useResetState } from 'src/redux/store';
+import { useRouter } from 'src/routes/hooks';
 
 // ----------------------------------------------------------------------
 
@@ -36,6 +37,7 @@ export default function AccountPopover() {
   const [open, setOpen] = useState(null);
   const { currentUser } = useAuthState();
   const { resetState } = useResetState();
+  const router = useRouter()
 
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
@@ -111,6 +113,7 @@ export default function AccountPopover() {
           disableTouchRipple
           onClick={() => {
             resetState();
+            router.push('/auth')
           }}
           sx={{ typography: 'body2', color: 'error.main', py: 1.5 }}
         >

@@ -6,29 +6,26 @@ import { useScrollToTop } from 'src/hooks/use-scroll-to-top';
 
 import { Box } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { AuthRouter, PrivateRouter } from 'src/routes/sections';
+import { AppRouter } from 'src/routes/sections';
 import ThemeProvider from 'src/theme';
 import LoadingView from './components/loadingView';
 import ModalProvider from './contexts/modal-context';
 import { getAccessToken } from './helper';
 import { useAuthAction } from './redux/features/auth/action';
-import { useAuthState } from './redux/features/auth/authSlice';
 // ----------------------------------------------------------------------
 
 export default function App() {
   useScrollToTop();
-
-  const { currentUser } = useAuthState();
-  const { getProfile } = useAuthAction();
+  const {  onGetProfileWithAccessToken} = useAuthAction();
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     const initUser = async () => {
-      const acToken = getAccessToken();
+      const acToken =await getAccessToken();
       if (acToken) {
-        await getProfile();
+        await onGetProfileWithAccessToken();
         setTimeout(() => {
-setIsLoaded(true);
+        setIsLoaded(true);
         }, 1000)
       }else {
         setIsLoaded(true);
@@ -42,8 +39,7 @@ setIsLoaded(true);
   return (
     <ThemeProvider>
       <ModalProvider>
-        {currentUser && <PrivateRouter />}
-        {!currentUser && <AuthRouter />}
+        <AppRouter />
       </ModalProvider>
     </ThemeProvider>
   );

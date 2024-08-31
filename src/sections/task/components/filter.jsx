@@ -9,7 +9,6 @@ import { HEADER } from 'src/layouts/dashboard/config-layout';
 import { useColumnAction } from 'src/redux/features/column/action';
 import { useColumnState } from 'src/redux/features/column/columnSlice';
 import { useTeamState } from 'src/redux/features/team/teamSlice';
-import { bgBlur } from 'src/theme/css';
 import { EViewType } from '../wrapper-task-layout';
 import FilterWithMember from './filter-with-member';
 import InviteColumnPopover from './invite-member-popover';
@@ -57,9 +56,6 @@ function Filter({ onChangeViewType, viewType }) {
     <Box
       sx={{
         boxShadow: 'none',
-        ...bgBlur({
-          color: theme.palette.background.default,
-        }),
         transition: theme.transitions.create(['height'], {
           duration: theme.transitions.duration.shorter,
         }),
@@ -67,6 +63,7 @@ function Filter({ onChangeViewType, viewType }) {
         height: HEADER.H_DESKTOP / 2,
         position: 'sticky',
         right: 0,
+        px: 2,
         top: HEADER.H_DESKTOP * 2 + 12,
         backdropFilter: 'blur(6px)',
         zIndex: 2,

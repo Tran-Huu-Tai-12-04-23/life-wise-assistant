@@ -1,28 +1,21 @@
 import PropTypes from 'prop-types';
 
-import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
 
-import { visuallyHidden } from './utils';
 
 // ----------------------------------------------------------------------
 
 export default function NotificationTableHead({
-  order,
-  orderBy,
   rowCount,
   headLabel,
   numSelected,
-  onRequestSort,
   onSelectAllClick,
+  isAllChecked
 }) {
-  const onSort = (property) => (event) => {
-    onRequestSort(event, property);
-  };
 
   return (
     <TableHead>
@@ -30,7 +23,7 @@ export default function NotificationTableHead({
         <TableCell padding="checkbox">
           <Checkbox
             indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
+            checked={isAllChecked}
             onChange={onSelectAllClick}
           />
         </TableCell>
@@ -39,21 +32,13 @@ export default function NotificationTableHead({
           <TableCell
             key={headCell.id}
             align={headCell.align || 'left'}
-            sortDirection={orderBy === headCell.id ? order : false}
             sx={{ width: headCell.width, minWidth: headCell.minWidth }}
           >
             <TableSortLabel
               hideSortIcon
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
-              onClick={onSort(headCell.id)}
             >
               {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box sx={{ ...visuallyHidden }}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </Box>
-              ) : null}
+            
             </TableSortLabel>
           </TableCell>
         ))}
@@ -63,11 +48,8 @@ export default function NotificationTableHead({
 }
 
 NotificationTableHead.propTypes = {
-  order: PropTypes.oneOf(['asc', 'desc']),
-  orderBy: PropTypes.string,
   rowCount: PropTypes.number,
   headLabel: PropTypes.array,
   numSelected: PropTypes.number,
-  onRequestSort: PropTypes.func,
   onSelectAllClick: PropTypes.func,
 };

@@ -26,7 +26,6 @@ function Row({ data }) {
       {...attributes}
       // {...listeners}
       sx={{
-        backgroundColor: theme.palette.background.paper,
         transition,
         transform: CSS.Translate?.toString(transform),
         opacity: isDragging ? 0.5 : 1,
@@ -35,7 +34,6 @@ function Row({ data }) {
         borderRadius: 2,
         overflow: 'hidden',
         pt: 2,
-        border: () => `dashed 1px ${theme.palette.divider}`,
       }}
     >
       <Stack

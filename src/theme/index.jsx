@@ -6,7 +6,7 @@ import { createTheme, ThemeProvider as MUIThemeProvider } from '@mui/material/st
 
 import { customShadows } from './custom-shadows';
 import { overrides } from './overrides';
-import { paletteDark } from './palette.dark';
+import { palette } from './palette';
 import { shadows } from './shadows';
 import { typography } from './typography';
 
@@ -15,7 +15,7 @@ import { typography } from './typography';
 export default function ThemeProvider({ children }) {
   const memoizedValue = useMemo(
     () => ({
-      palette: paletteDark(),
+      palette: palette(),
       typography,
       shadows: shadows(),
       customShadows: customShadows(),

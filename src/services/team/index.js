@@ -3,12 +3,29 @@ import { handleErrorApi } from '../../helper/index';
 import { endpoints } from '../endpoints';
 import rootApi from '../root-api';
 
-export const createNewTeam = async (team) =>
-  handleErrorApi(async () => {
-    const res = await rootApi.post(endpoints.create_team, team);
-    toast.success(res.message);
-    return res.data;
-  });
+export const createNewTeam = async (team) => {
+  const idToast = toast.loading('Create new board...');
+  try {
+    return await handleErrorApi(async () => {
+      const res = await rootApi.post(`${endpoints.create_team}`, team);
+      toast.update(idToast, {
+        render: res.message,
+        type: 'success',
+        isLoading: false,
+        autoClose: 2000,
+      });
+      return res.data;
+    });
+  } catch (error) {
+    toast.update(idToast, {
+      render: error.message,
+      type: 'error',
+      isLoading: false,
+      autoClose: 2000,
+    });
+    throw new Error(error);
+  }
+};
 
 export const getLstUserToInviteTeam = async (data, page) =>
   handleErrorApi(async () => {

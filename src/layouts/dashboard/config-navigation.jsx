@@ -24,7 +24,7 @@ const navConfig = [
     icon: <TaskIcon color="#6C6C76" size={22} />,
     subNav: [
       {
-        title: '',
+        title: 'Manager',
         path: '/task',
         icon: <AppRegistrationIcon color="#6C6C76" />,
       },

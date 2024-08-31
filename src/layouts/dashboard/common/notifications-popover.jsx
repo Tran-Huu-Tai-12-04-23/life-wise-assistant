@@ -18,8 +18,10 @@ import Typography from '@mui/material/Typography';
 import { fToNow } from 'src/utils/format-time';
 
 import { LinearProgress, Stack } from '@mui/material';
+import { Link } from 'react-router-dom';
 import Iconify from 'src/components/iconify';
 import Scrollbar from 'src/components/scrollbar';
+import { useAuthState } from 'src/redux/features/auth/authSlice';
 import { useNotificationAction } from 'src/redux/features/notification/action';
 import { useNotificationState } from 'src/redux/features/notification/notificationSlice';
 
@@ -27,8 +29,9 @@ import { useNotificationState } from 'src/redux/features/notification/notificati
 
 
 export default function NotificationsPopover() {
-  const {pageOneNotification, isLoadNotification, totalUnRead, isHasNextPageNotification} = useNotificationState()
+  const {pageOneNotification, isLoadNotification, totalUnread, isHasNextPageNotification} = useNotificationState()
   const {onNotificationPagination} = useNotificationAction()
+  const {currentUser} = useAuthState()
   const [notificationDayNow, setNotificationDayNow] = useState([]);
   const [notificationDayBefore, setNotificationDayBefore] = useState([]);
 
@@ -45,8 +48,8 @@ export default function NotificationsPopover() {
 
 
   useEffect(() => {
-    onNotificationPagination()
-  }, [])
+   if(currentUser) onNotificationPagination()
+  }, [currentUser])
 
   useEffect(() =>{
     /// get notification in day now
@@ -58,12 +61,11 @@ export default function NotificationsPopover() {
     setNotificationDayBefore(dataDayBefore)
   }, [pageOneNotification])
  
-  console.log(pageOneNotification)
 
   return (
     <>
       <IconButton color={open ? 'primary' : 'default'} onClick={handleOpen}>
-        <Badge badgeContent={totalUnRead} color="error">
+        <Badge badgeContent={totalUnread} color="error">
           <Iconify width={24} icon="solar:bell-bing-bold-duotone" />
         </Badge>
       </IconButton>
@@ -81,7 +83,7 @@ export default function NotificationsPopover() {
             ml: 0.75,
             width: 360,
             "&::webkit-scrollbar": { display: "none", width: "0px!important" },
-            maxHeight: "80%"
+            position: 'relative',
           },
         }}
       >
@@ -90,11 +92,11 @@ export default function NotificationsPopover() {
           <Box sx={{ flexGrow: 1 }}>
             <Typography variant="subtitle1">Notifications</Typography>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              You have {totalUnRead} unread messages
+              You have {totalUnread} unread messages
             </Typography>
           </Box>
 
-          {totalUnRead > 0 && (
+          {totalUnread > 0 && (
             <Tooltip title=" Mark all as read">
               <IconButton color="primary" onClick={() => {}}>
                 <Iconify icon="eva:done-all-fill" />
@@ -105,8 +107,7 @@ export default function NotificationsPopover() {
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        <Scrollbar sx={{ height: { xs: 340, sm: 'auto' },    
-            
+        <Scrollbar sx={{ height: 500   
             }}>
               {
                 notificationDayNow?.length > 0 && 
@@ -119,7 +120,7 @@ export default function NotificationsPopover() {
             }
           >
             {notificationDayNow?.map((notification) => (
-              <NotificationItem key={notification.id} notification={notification} />
+              <NotificationItem onClose={handleClose} key={notification.id} notification={notification} />
             ))}
           </List>
               }
@@ -134,21 +135,22 @@ export default function NotificationsPopover() {
           
           >
             {notificationDayBefore.map((notification) => (
-              <NotificationItem key={notification.id} notification={notification} />
+              <NotificationItem onClose={handleClose} key={notification.id} notification={notification} />
             ))}
           </List>
          }
         </Scrollbar>
 
         <Divider sx={{ borderStyle: 'dashed' }} />
-
-{
-  isHasNextPageNotification &&    <Box sx={{ p: 1 }}>
-          <Button fullWidth >
-            View All
-          </Button>
-        </Box>
-}
+         <Box sx={{mt: 5}}/>
+          {
+            isHasNextPageNotification &&    <Box
+             sx={{ p: 1, position: 'absolute', bottom: 0, right: 0, left: 0, background: 'transparent', backdropFilter: 'blur(10px)' }}>
+                    <Button onClick={handleClose} fullWidth to='/notification' LinkComponent={Link}>
+                      View All
+                    </Button>
+                  </Box>
+          }
      
       </Popover>
     </>
@@ -159,8 +161,8 @@ export default function NotificationsPopover() {
 
 
 
-function NotificationItem({ notification }) {
-  const {onAcceptInvite, onRejectInvite} = useNotificationAction()
+function NotificationItem({ notification, onClose }) {
+  const {onAcceptInvite, onRejectInvite, onMaskAsRead} = useNotificationAction()
   const {  title, avatar } = renderContent(notification);
 
   const {owner} = notification
@@ -172,9 +174,15 @@ function NotificationItem({ notification }) {
    const handleRejectInvite = async () => {
     await onRejectInvite(notification?.teamInviteId)
   }
+  
+  const handleMasAsRead = async () => {
+    await onMaskAsRead(notification?.id)
+  }
 
   return (
     <ListItemButton
+    to="/notification"
+    LinkComponent={Link}
       sx={{
         py: 1.5,
         px: 2.5,
@@ -183,6 +191,10 @@ function NotificationItem({ notification }) {
         ...(!notification?.isRead && {
           bgcolor: 'background.neutral',
         }),
+      }}
+      onClick={async()=> {
+        await handleMasAsRead()
+        onClose()
       }}
     >
       {
@@ -223,7 +235,7 @@ function NotificationItem({ notification }) {
       />
       </Stack>
 
-      {notification?.isInviteNotification && <Stack columnGap={2} direction="row" justifyContent="flex-end">
+      {!notification?.isRead && notification?.isInviteNotification && <Stack columnGap={2} direction="row" justifyContent="flex-end">
         <Button onClick={async e => {
           e.stopPropagation()
           e.preventDefault()

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import { createSlice } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
 import { getProfileAsync, signInAsync } from './action';
@@ -38,6 +39,11 @@ export const authSlice = createSlice({
         if (action.payload) {
           state.currentUser = action.payload.user;
         }
+      })
+      .addCase(signInAsync.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.error = action.error.message;
       })
       .addCase(getProfileAsync.pending, (state) => {
         state.isLoading = true;

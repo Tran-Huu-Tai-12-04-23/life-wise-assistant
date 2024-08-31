@@ -50,6 +50,7 @@ export const endpoints = {
 
   // #region notification
   notification_pagination: '/notification/pagination',
+  mask_as_read: '/notification/mask-as-read',
 
   // #endregion
 };

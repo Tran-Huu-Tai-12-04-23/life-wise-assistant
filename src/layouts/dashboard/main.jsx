@@ -23,11 +23,11 @@ export default function Main({ children, sx, expanded, ...other }) {
         flexDirection: 'column',
         py: `${HEADER.H_MOBILE + SPACING}px`,
         ...(lgUp && {
-          px: 2,
           py: `${HEADER.H_DESKTOP + SPACING}px`,
           width: `calc(100% - ${expanded ? NAV.WIDTH : NAV.WIDTH / 2 - 10}px)`,
         }),
         ...sx,
+        '&::-webkit-scrollbar': { display: 'none' },
       }}
       {...other}
     >

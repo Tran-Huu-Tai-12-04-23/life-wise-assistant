@@ -95,9 +95,6 @@ export const useColumnAction = () => {
   };
   const onMoveTaskInTheDifferentColumn = async (body) => {
     const { columnIdTo, taskId } = body;
-    console.log({
-      taskId,
-    });
     dispatch(moveTaskInTheDifferentColumn(body));
     dispatch(
       moveTaskToDiffColAsync({
@@ -130,6 +127,7 @@ export const useColumnAction = () => {
   };
 
   const onGetAllColumnOfTeam = async () => {
+    if (!teamState.currentTeam?.id) return;
     dispatch(
       loadListColumnOfTeamAsync({
         teamId: teamState.currentTeam?.id,

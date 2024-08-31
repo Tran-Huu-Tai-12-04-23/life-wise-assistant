@@ -5,6 +5,7 @@ import Popover from '@mui/material/Popover';
 
 import { useTheme } from '@emotion/react';
 import {
+  alpha,
   Avatar,
   Box,
   CircularProgress,
@@ -138,7 +139,7 @@ export default function InviteColumnPopover() {
                       pr: 2,
                       p: 1,
                       borderRadius: 0.5,
-                      backgroundColor: isChecked ? theme.palette.primary.main : 'transparent',
+                      backgroundColor: isChecked ? alpha(theme.palette.primary.main, 0.5) : 'transparent',
                     }}
                     key={item.id}
                     onClick={() => {

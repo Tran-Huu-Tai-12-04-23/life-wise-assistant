@@ -29,7 +29,6 @@ function Column({ data }) {
       {...attributes}
       // {...listeners}
       sx={{
-        backgroundColor: theme.palette.background.paper,
         transition,
         transform: CSS.Translate?.toString(transform),
         opacity: isDragging ? 0.5 : 1,
@@ -38,7 +37,6 @@ function Column({ data }) {
         minWidth: 350,
         borderRadius: 2,
         overflow: 'hidden',
-        border: () => `dashed 1px ${theme.palette.divider}`,
         pt: 1,
       }}
     >

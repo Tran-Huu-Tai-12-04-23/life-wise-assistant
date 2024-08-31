@@ -1,8 +1,8 @@
-import { useState } from 'react';
+/* eslint-disable import/order */
+import { useMemo, useState } from 'react';
 
 import Card from '@mui/material/Card';
 import Container from '@mui/material/Container';
-import Stack from '@mui/material/Stack';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableContainer from '@mui/material/TableContainer';
@@ -13,137 +13,134 @@ import { users } from 'src/_mock/user';
 
 import Scrollbar from 'src/components/scrollbar';
 
+import { Box, Breadcrumbs } from '@mui/material';
+import LoadingView from 'src/components/loadingView';
+import { useNotificationAction } from 'src/redux/features/notification/action';
+import { useNotificationState } from 'src/redux/features/notification/notificationSlice';
 import NotificationTableHead from '../notification-table-head';
 import NotificationTableRow from '../notification-table-row';
-import UserTableToolbar from '../notification-table-toolbar';
+import NotificationTableToolbar from '../notification-table-toolbar';
 import TableEmptyRows from '../table-empty-rows';
 import TableNoData from '../table-no-data';
-import { applyFilter, emptyRows, getComparator } from '../utils';
+import { applyFilter, emptyRows } from '../utils';
 
 // ----------------------------------------------------------------------
 
 export default function NotificationView() {
-  const [page, setPage] = useState(0);
-
-  const [order, setOrder] = useState('asc');
+  const {notifications, totalNotification, numberTake, notificationPage, isLoadNotification} = useNotificationState()
+const {onChangePageNotification, onChangeNumberTakeNotification} = useNotificationAction()
 
   const [selected, setSelected] = useState([]);
 
-  const [orderBy, setOrderBy] = useState('name');
 
   const [filterName, setFilterName] = useState('');
 
-  const [rowsPerPage, setRowsPerPage] = useState(5);
-
-  const handleSort = (event, id) => {
-    const isAsc = orderBy === id && order === 'asc';
-    if (id !== '') {
-      setOrder(isAsc ? 'desc' : 'asc');
-      setOrderBy(id);
-    }
-  };
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = users.map((n) => n.name);
-      setSelected(newSelecteds);
+      const lstSelected = notifications.slice(0, numberTake).map((n) => n.id );
+      setSelected(lstSelected);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
+  const handleClick = (event, data) => {
+    
+    if(event.target.checked) {
+      if(selected.indexOf(data.id) === -1) {
+        setSelected((prevSelected) => [...prevSelected, data.id]);
+      }
     }
-    setSelected(newSelected);
+    else {
+      setSelected((prevSelected) => prevSelected.filter((id) => id !== data.id));
+    }
   };
 
   const handleChangePage = (event, newPage) => {
-    setPage(newPage);
+    onChangePageNotification(newPage)
   };
 
   const handleChangeRowsPerPage = (event) => {
-    setPage(0);
-    setRowsPerPage(parseInt(event.target.value, 10));
+    onChangePageNotification(0)
+    onChangeNumberTakeNotification(event.target.value)
   };
 
   const handleFilterByName = (event) => {
-    setPage(0);
+    onChangePageNotification(0)
     setFilterName(event.target.value);
   };
 
-  const dataFiltered = applyFilter({
-    inputData: users,
-    comparator: getComparator(order, orderBy),
+  const dataFiltered = useMemo(() => applyFilter({
+    inputData: notifications,
     filterName,
-  });
+    key: 'title',
+  }), [notifications,filterName]);
 
   const notFound = !dataFiltered.length && !!filterName;
 
+
+
   return (
     <Container maxWidth='2xl'>
-      <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-        <Typography variant="h4">Notification</Typography>
-      </Stack>
+      <Breadcrumbs sx={{mt:2, mb: 2}} aria-label="breadcrumb">
+        <Typography underline="hover" color="inherit" href="/">
+          Home
+        </Typography>
+        <Typography
+          underline="hover"
+          color="inherit"
+          href="/material-ui/getting-started/installation/"
+        >
+          Manager
+        </Typography>
+        <Typography sx={{ color: 'text.primary' }}>Notifications</Typography>
+      </Breadcrumbs>
 
       <Card>
-        <UserTableToolbar
+        <NotificationTableToolbar
           numSelected={selected.length}
           filterName={filterName}
           onFilterName={handleFilterByName}
         />
 
-        <Scrollbar>
-          <TableContainer sx={{ overflow: 'unset' }}>
+        <Scrollbar sx={{
+          minHeight: 400
+        }}>
+          <TableContainer sx={{ overflow: 'unset' }} >
+            <Box sx={{
+              height: 2
+            }} >
+            {isLoadNotification &&<LoadingView/> }  
+            </Box>
             <Table sx={{ minWidth: 800 }}>
               <NotificationTableHead
-                order={order}
-                orderBy={orderBy}
+              isAllChecked={selected.length === notifications.slice(0, numberTake).length}
                 rowCount={users.length}
                 numSelected={selected.length}
-                onRequestSort={handleSort}
                 onSelectAllClick={handleSelectAllClick}
                 headLabel={[
-                  { id: 'name', label: 'Name' },
-                  { id: 'company', label: 'Company' },
-                  { id: 'role', label: 'Role' },
-                  { id: 'isVerified', label: 'Verified', align: 'center' },
+                  { id: 'title', label: 'TITLE' },
+                  { id: 'description', label: 'DESCRIPTION' },
+                  { id: 'type', label: 'Type' },
                   { id: 'status', label: 'Status' },
                   { id: '' },
                 ]}
               />
               <TableBody>
                 {dataFiltered
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row) => (
                     <NotificationTableRow
                       key={row.id}
-                      name={row.name}
-                      role={row.role}
-                      status={row.status}
-                      company={row.company}
-                      avatarUrl={row.avatarUrl}
-                      isVerified={row.isVerified}
-                      selected={selected.indexOf(row.name) !== -1}
-                      handleClick={(event) => handleClick(event, row.name)}
+                      data={row}
+                      selected={selected.indexOf(row.id) !== -1}
+                      handleClick={(event) => handleClick(event, row)}
                     />
                   ))}
 
-                <TableEmptyRows
+                <TableEmptyRows 
                   height={77}
-                  emptyRows={emptyRows(page, rowsPerPage, users.length)}
+                  emptyRows={emptyRows(notificationPage, numberTake, users.length)}
                 />
 
                 {notFound && <TableNoData query={filterName} />}
@@ -153,12 +150,12 @@ export default function NotificationView() {
         </Scrollbar>
 
         <TablePagination
-          page={page}
+          page={notificationPage}
           component="div"
-          count={users.length}
-          rowsPerPage={rowsPerPage}
+          count={totalNotification}
+          rowsPerPage={numberTake}
           onPageChange={handleChangePage}
-          rowsPerPageOptions={[5, 10, 25]}
+          rowsPerPageOptions={[5, 10]}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Card>

@@ -59,3 +59,8 @@
     display: none!important; /* Hide scrollbars for WebKit browsers */
     width: 0px!important;
 }
+
+*::-webkit-scrollbar {
+    display: none!important; /* Hide scrollbars for WebKit browsers */
+    width: 0px!important;
+}

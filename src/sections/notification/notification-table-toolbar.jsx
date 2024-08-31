@@ -33,7 +33,7 @@ export default function NotificationTableToolbar({ numSelected, filterName, onFi
         <OutlinedInput
           value={filterName}
           onChange={onFilterName}
-          placeholder="Search user..."
+          placeholder="Search title of notification..."
           startAdornment={
             <InputAdornment position="start">
               <Iconify
@@ -45,16 +45,10 @@ export default function NotificationTableToolbar({ numSelected, filterName, onFi
         />
       )}
 
-      {numSelected > 0 ? (
+      {numSelected > 0  && (
         <Tooltip title="Delete">
           <IconButton>
             <Iconify icon="eva:trash-2-fill" />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        <Tooltip title="Filter list">
-          <IconButton>
-            <Iconify icon="ic:round-filter-list" />
           </IconButton>
         </Tooltip>
       )}

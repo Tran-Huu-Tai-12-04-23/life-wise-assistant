@@ -147,7 +147,6 @@ export function overrides(theme) {
     MuiMenu: {
       styleOverrides: {
         paper: {
-          background: '#000',
           backdropFilter: 'blur(10px) !important',
         },
       },
@@ -162,7 +161,7 @@ export function overrides(theme) {
             theme.palette.background.default,
             0.9
           )}, 0px 3px 14px 2px ${alpha(theme.palette.background.default, 0.9)}`,
-          background: alpha(theme.palette.background.default, 0.5),
+          background: alpha(theme.palette.background.paper, 0.9),
           backdropFilter: 'blur(10px) !important',
         },
       },
@@ -214,6 +213,17 @@ export function overrides(theme) {
           '&::webkit-scrollbar': {
             display: 'none',
             width: 0,
+          },
+        },
+      },
+    },
+    MuiBox: {
+      styleOverrides: {
+        root: {
+          '&.MuiBox-root': {
+            '&::-webkit-scrollbar': {
+              display: 'none',
+            },
           },
         },
       },

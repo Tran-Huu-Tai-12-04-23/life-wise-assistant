@@ -53,6 +53,9 @@ const teamSlice = createSlice({
         state.teams = [action.payload, ...state.teams];
         state.isLoadingCreateNew = false;
       })
+      .addCase(addTeamAsync.rejected, (state) => {
+        state.isLoadingCreateNew = false;
+      })
       .addCase(getLstUserToInviteTeamAsync.fulfilled, (state, action) => {
         state.lstUser = action.payload;
         state.isLoading = false;

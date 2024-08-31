@@ -1,7 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
 // eslint-disable-next-line import/no-cycle
-import { acceptInviteAsync, notificationPaginationAsync, rejectInviteAsync } from './action';
+import {
+  acceptInviteAsync,
+  maskAsReadAsync,
+  notificationPaginationAsync,
+  rejectInviteAsync,
+} from './action';
 
 const initialState = {
   isLoadNotification: false,
@@ -10,7 +15,9 @@ const initialState = {
   pageOneNotification: [],
   isHasNextPageNotification: false,
   notificationPage: 0,
-  totalUnRead: 0,
+  numberTake: 5,
+  totalUnread: 0,
+  totalNotification: 0,
 };
 
 const notificationSlice = createSlice({
@@ -19,6 +26,12 @@ const notificationSlice = createSlice({
   reducers: {
     changeCurrentNotification: (state, action) => {
       state.currentNotification = action.payload;
+    },
+    changePageNotification: (state, action) => {
+      state.notificationPage = action.payload;
+    },
+    changeNumberTakeNotification: (state, action) => {
+      state.numberTake = action.payload;
     },
     resetNotificationState: () => initialState,
   },
@@ -29,10 +42,10 @@ const notificationSlice = createSlice({
           state.notifications = action.payload[0];
           state.pageOneNotification = action.payload[0];
         } else {
-          state.notifications = [...state.notifications, ...action.payload[0]];
+          state.notifications = action.payload[0];
         }
-        state.totalUnRead = action.payload[3];
-        state.notificationPage += 1;
+        state.totalUnread = action.payload[3];
+        state.totalNotification = action.payload[1];
         state.isHasNextPageNotification = action.payload[2];
         state.isLoadNotification = false;
       })
@@ -45,12 +58,21 @@ const notificationSlice = createSlice({
       .addCase(acceptInviteAsync.fulfilled, (state, action) => {
         state.isLoadNotification = false;
         const { lstNotificationIdRead } = action.payload;
+        if (!lstNotificationIdRead) return;
         state.notifications = state.notifications.map((item) => {
+          if (lstNotificationIdRead.includes(item.id)) {
+            if (!item.isRead) state.totalUnread -= 1;
+            return { ...item, isRead: true };
+          }
+          return item;
+        });
+        state.pageOneNotification = state.pageOneNotification.map((item) => {
           if (lstNotificationIdRead.includes(item.id)) {
             return { ...item, isRead: true };
           }
           return item;
         });
+        state.totalUnread -= 1;
       })
       .addCase(acceptInviteAsync.pending, (state) => {
         state.isLoadNotification = true;
@@ -61,25 +83,55 @@ const notificationSlice = createSlice({
       .addCase(rejectInviteAsync.fulfilled, (state, action) => {
         state.isLoadNotification = false;
         const { lstNotificationIdRead } = action.payload;
+        if (!lstNotificationIdRead) return;
         state.notifications = state.notifications.map((item) => {
+          if (lstNotificationIdRead.includes(item.id)) {
+            if (!item.isRead) state.totalUnread -= 1;
+            return { ...item, isRead: true };
+          }
+          return item;
+        });
+        state.pageOneNotification = state.pageOneNotification.map((item) => {
           if (lstNotificationIdRead.includes(item.id)) {
             return { ...item, isRead: true };
           }
           return item;
         });
+        state.totalUnread -= 1;
       })
       .addCase(rejectInviteAsync.pending, (state) => {
         state.isLoadNotification = true;
       })
       .addCase(rejectInviteAsync.rejected, (state) => {
         state.isLoadNotification = false;
+      })
+      .addCase(maskAsReadAsync.fulfilled, (state, action) => {
+        state.notifications = state.notifications.map((item) => {
+          if (item.id === action.payload.id) {
+            if (!item.isRead) state.totalUnread -= 1;
+            return { ...item, isRead: true };
+          }
+          return item;
+        });
+        state.pageOneNotification = state.pageOneNotification.map((item) => {
+          if (item.id === action.payload.id) {
+            return { ...item, isRead: true };
+          }
+          return item;
+        });
       });
   },
 });
 
 export default notificationSlice.reducer;
 
-export const { changeCurrentNotification, resetNotificationState } = notificationSlice.actions;
+export const {
+  changePageNotification,
+  changeNumberTakeNotification,
+  changeCurrentNotification,
+  resetNotificationState,
+  resetNotification,
+} = notificationSlice.actions;
 
 export const selectNotification = (state) => state.notification;
 

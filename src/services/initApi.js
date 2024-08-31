@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import { getAccessToken } from '../helper/index';
 
 class ApiError extends Error {
@@ -37,6 +38,7 @@ const initApi = (url, headers = {}) => {
     (error) => {
       const errorMessage = error?.response?.data?.message;
       const errorCode = error?.response?.status;
+      toast.error(errorMessage || 'Something went wrong');
       return Promise.reject(new ApiError(errorMessage, errorCode));
     }
   );

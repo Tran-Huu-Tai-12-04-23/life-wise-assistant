@@ -1,32 +1,26 @@
-import PropTypes from 'prop-types';
 import { useState } from 'react';
 
-import Avatar from '@mui/material/Avatar';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import MenuItem from '@mui/material/MenuItem';
 import Popover from '@mui/material/Popover';
-import Stack from '@mui/material/Stack';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
-import Typography from '@mui/material/Typography';
 
+import { Avatar, Chip, Stack, Tooltip, Typography } from '@mui/material';
 import Iconify from 'src/components/iconify';
 import Label from 'src/components/label';
+import { useNotificationAction } from 'src/redux/features/notification/action';
 
 // ----------------------------------------------------------------------
 
 export default function NotificationTableRow({
   selected,
-  name,
-  avatarUrl,
-  company,
-  role,
-  isVerified,
-  status,
+  data,
   handleClick,
 }) {
   const [open, setOpen] = useState(null);
+  const {onAcceptInvite, onRejectInvite} = useNotificationAction()
 
   const handleOpenMenu = (event) => {
     setOpen(event.currentTarget);
@@ -45,31 +39,40 @@ export default function NotificationTableRow({
 
         <TableCell component="th" scope="row" padding="none">
           <Stack direction="row" alignItems="center" spacing={2}>
-            <Avatar alt={name} src={avatarUrl} />
+            <Tooltip title={data?.owner?.username}>
+              <Avatar alt={data?.owner?.username} src={data?.owner?.avatar} />
+            </Tooltip>
             <Typography variant="subtitle2" noWrap>
-              {name}
+              {data?.title}
             </Typography>
           </Stack>
         </TableCell>
 
-        <TableCell>{company}</TableCell>
+        <TableCell>{data?.description}</TableCell>
 
-        <TableCell>{role}</TableCell>
-
-        <TableCell align="center">{isVerified ? 'Yes' : 'No'}</TableCell>
+        <TableCell><Chip label={data?.notificationTypeName} sx={{
+          bgcolor: data?.notificationTypeBackground,
+          color: data?.notificationTypeColor
+        
+        }}/></TableCell>
 
         <TableCell>
-          <Label color={(status === 'banned' && 'error') || 'success'}>{status}</Label>
-        </TableCell>
 
+          <Label
+          color={data?.isRead ? 'success' : 'error'}
+          >{data?.isRead ? 'Read' : 'UnRead'}</Label>
+        </TableCell>
         <TableCell align="right">
-          <IconButton onClick={handleOpenMenu}>
-            <Iconify icon="eva:more-vertical-fill" />
-          </IconButton>
+        {
+            !data?.isRead &&    <IconButton onClick={handleOpenMenu}>
+                      <Iconify icon="eva:more-vertical-fill" />
+                    </IconButton>
+          }
         </TableCell>
       </TableRow>
 
-      <Popover
+{
+  !data?.isRead &&  <Popover
         open={!!open}
         anchorEl={open}
         onClose={handleCloseMenu}
@@ -79,27 +82,47 @@ export default function NotificationTableRow({
           sx: { width: 140 },
         }}
       >
-        <MenuItem onClick={handleCloseMenu}>
+       
+        
+         <MenuItem onClick={handleCloseMenu}>
           <Iconify icon="eva:edit-fill" sx={{ mr: 2 }} />
-          Edit
+          Mark Read
         </MenuItem>
 
-        <MenuItem onClick={handleCloseMenu} sx={{ color: 'error.main' }}>
-          <Iconify icon="eva:trash-2-outline" sx={{ mr: 2 }} />
-          Delete
+         {data?.isInviteNotification && !data.isRead && <>
+          <MenuItem
+           onClick={async e => {
+            e.stopPropagation()
+            e.preventDefault()
+            await onRejectInvite(data.teamInviteId)
+            handleCloseMenu()
+          }}
+          sx={{
+          color: 'error.main',
+          '&:hover': { bgcolor: 'error.lighter' },
+          }}>
+          <Iconify icon="eva:close-fill" sx={{ mr: 2 }} />
+          Reject
         </MenuItem>
+          <MenuItem
+          onClick={async e => {
+            e.stopPropagation()
+            e.preventDefault()
+            await onAcceptInvite(data.teamInviteId)
+            handleCloseMenu()
+          }}
+          sx={{
+          color: 'primary.main',
+          '&:hover': { bgcolor: 'primary.lighter' },
+          }} >
+          <Iconify icon="eva:checkmark-fill" sx={{ mr: 2 }} />
+          Accept
+        </MenuItem>
+        </>}
       </Popover>
+}
+     
     </>
   );
 }
 
-NotificationTableRow.propTypes = {
-  avatarUrl: PropTypes.any,
-  company: PropTypes.any,
-  handleClick: PropTypes.func,
-  isVerified: PropTypes.any,
-  name: PropTypes.any,
-  role: PropTypes.any,
-  selected: PropTypes.any,
-  status: PropTypes.string,
-};

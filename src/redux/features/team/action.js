@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable react-hooks/exhaustive-deps */
 // eslint-disable-next-line import/order
 import { createAsyncThunk } from '@reduxjs/toolkit';
@@ -11,6 +12,7 @@ import {
   paginationTeamOfUser,
 } from '../../../services/team';
 // eslint-disable-next-line import/no-cycle
+import { useAuthState } from '../auth/authSlice';
 import { resetColumnState } from '../column/columnSlice';
 import { changeCurrentTeams, useTeamState } from './teamSlice';
 
@@ -38,6 +40,7 @@ export const generateInviteLinkAsync = createAsyncThunk(
 
 export const useTeamAction = () => {
   const dispatch = useDispatch();
+  const { currentUser } = useAuthState();
   const { currentTeam } = useTeamState();
   const [page] = useState(0);
   const [pageOfTeam, setPageOfTeam] = useState(0);
@@ -60,6 +63,15 @@ export const useTeamAction = () => {
     },
     [page]
   );
+
+  const onLoadUserOfSystem = async () => {
+    if (!currentUser) return;
+    await dispatch(
+      getLstUserToInviteTeamAsync({
+        lstUserExist: [currentUser.id],
+      })
+    );
+  };
 
   const paginationTeamOfUserCallback = useCallback(async () => {
     dispatch(paginationTeamOfUserAsync(pageOfTeam));
@@ -88,5 +100,6 @@ export const useTeamAction = () => {
     onGetLstUserToInvite: getLstUserToInvite,
     onGenerateInviteLink: handleGenerateInviteLink,
     onInviteUsersToTeam,
+    onLoadUserOfSystem,
   };
 };

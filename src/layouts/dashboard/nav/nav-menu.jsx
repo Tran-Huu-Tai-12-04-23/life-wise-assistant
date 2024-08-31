@@ -132,7 +132,6 @@ export default function NavMenu({ expanded }) {
                           background: alpha(theme.palette.primary.main, 0.5),
                         }}
                       />
-                      {subItem.icon}
                       {expanded && (
                         <Box sx={{ userSelect: 'none', ml: 1 }} component="span">
                           {subItem.title.charAt(0).toUpperCase() + subItem.title.slice(1)}{' '}

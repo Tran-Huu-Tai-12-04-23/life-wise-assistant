@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { Navigate, Outlet, useRoutes } from 'react-router-dom';
 import LoadingView from 'src/components/loadingView';
+import AuthLayout from 'src/layouts/auth';
 
 import DashboardLayout from 'src/layouts/dashboard';
 import CreateBlogPage from 'src/pages/private/create-blog';
@@ -18,37 +19,25 @@ export const ProductsPage = lazy(() => import('src/pages/private/products'));
 export const Page404 = lazy(() => import('src/pages/public/page-not-found'));
 
 // ----------------------------------------------------------------------
-
-function AuthRouter() {
-  const routes = useRoutes([
-    {
+const AuthRoutes = [
+  {
       element: (
-        <Suspense fallback={<LoadingView />}>
+         <AuthLayout>
+           <Suspense fallback={<LoadingView />}>
           <Outlet />
         </Suspense>
+         </AuthLayout>
       ),
+      path: 'auth',
       children: [
         { element: <LoginPage />, index: true },
         { path: 'google/callback/success', element: <LoginWithThirdPlatformCallBack /> },
         { path: 'github/callback/success', element: <LoginWithThirdPlatformCallBack /> },
       ],
     },
-    {
-      path: '404',
-      element: <Page404 />,
-    },
-    {
-      path: '*',
-      element: <Navigate to="/404" replace />,
-    },
-  ]);
-
-  return routes;
-}
-
-function PrivateRouter() {
-  const routes = useRoutes([
-    {
+]
+const PrivateRouter = [
+ {
       element: (
         <DashboardLayout>
           <Suspense fallback={<LoadingView />}>
@@ -56,6 +45,7 @@ function PrivateRouter() {
           </Suspense>
         </DashboardLayout>
       ),
+      path: '/',
       children: [
         { element: <IndexPage />, index: true },
         { path: 'user', element: <UserPage /> },
@@ -72,6 +62,12 @@ function PrivateRouter() {
         { path: 'notification', element: <NotificationPage /> },
       ],
     },
+]
+
+function AppRouter() {
+  const routes = useRoutes([
+    ...PrivateRouter,
+    ...AuthRoutes,
     {
       path: '404',
       element: <Page404 />,
@@ -85,4 +81,4 @@ function PrivateRouter() {
   return routes;
 }
 
-export { AuthRouter, PrivateRouter };
+export { AppRouter };

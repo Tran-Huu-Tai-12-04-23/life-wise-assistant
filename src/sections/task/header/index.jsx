@@ -1,6 +1,6 @@
-import { Box, Button, Stack, Typography, useTheme } from '@mui/material';
+import { Box, Button, Drawer, Stack, Typography, useTheme } from '@mui/material';
+import { useState } from 'react';
 import Iconify from 'src/components/iconify';
-import { useModal } from 'src/contexts/modal-context';
 import { HEADER } from 'src/layouts/dashboard/config-layout';
 import { bgBlur } from 'src/theme/css';
 import FormAddNewBoard from '../components/form-add-new-board';
@@ -8,12 +8,16 @@ import SelectBoardPopover from '../components/select-board-popover';
 
 function Header() {
   const theme = useTheme();
-  const { openModal } = useModal();
-
+  const [open, setOpen] = useState(false);
+    const toggleDrawer = (newOpen) => {
+      setOpen(newOpen);
+    };
   return (
+   <>
     <Box
       sx={{
         boxShadow: 'none',
+        px: 2,
         ...bgBlur({
           color: theme.palette.background.default,
         }),
@@ -42,7 +46,9 @@ function Header() {
         <Stack direction="row" gap={2}>
           <Button
             color="primary"
-            onClick={() => openModal(<FormAddNewBoard />)}
+            onClick={() => {
+              toggleDrawer(true)
+            }}
             aria-label="fingerprint"
             size="large"
             sx={{
@@ -55,6 +61,10 @@ function Header() {
         </Stack>
       </Stack>
     </Box>
+     <Drawer     anchor="right"  open={open} onClose={()=>toggleDrawer(false)}>
+      <FormAddNewBoard onClose={()=>toggleDrawer(false)}/>
+      </Drawer>
+      </>
   );
 }
 

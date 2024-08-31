@@ -1,5 +1,6 @@
 import { useAutocomplete } from '@mui/base/useAutocomplete';
-import { Avatar, Box, Stack, Typography } from '@mui/material';
+import { Avatar, Box, Chip, Stack, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { InputWrapper } from 'src/components/input';
 import { useTeamAction } from 'src/redux/features/team/action';
@@ -35,7 +36,9 @@ export default function SelectMember({ onChangeValue }) {
 
   useEffect(() => {
     onGetLstUserToInvite();
-  }, []);
+  }, []); 
+
+  const reversedValue = [...value].reverse();
 
   return (
     <Root>
@@ -47,20 +50,25 @@ export default function SelectMember({ onChangeValue }) {
             alignItems="center"
             gap={1}
           >
-            {value
-              .reverse()
-              .slice(0, 2)
-              .map((option, index) => {
-                const { key, ...tagProps } = getTagProps({ index });
-                return (
-                  <Avatar sx={{ height: 25, width: 25 }} key={key} {...tagProps}>
-                    {option.username.charAt(0).toUpperCase()}
-                  </Avatar>
-                );
-              })}
-            {value.length > 2 && (
+            {reversedValue.slice(0, 1).map((option, index) => {
+              const { key, ...tagProps } = getTagProps({ index });
+              return (
+                <Chip
+                  avatar={<Avatar>{option.username.charAt(0).toUpperCase()}</Avatar>}
+                  label={option.username}
+                  onDelete={() => {
+                    const newValue = selectedValue.filter((item) => item.id !== option.id);
+                    setSelectedValue(newValue);
+                    onChangeValue(newValue.map((item) => item.id));
+                  }}
+                  key={key}
+                  {...tagProps}
+                />
+              );
+            })}
+            {value.length > 1 && (
               <Typography variant="h7" color="gray">
-                +{value.length - 2}
+                +{value.length - 1}
               </Typography>
             )}
           </Stack>
@@ -69,7 +77,7 @@ export default function SelectMember({ onChangeValue }) {
       </Box>
       {groupedOptions.length > 0 ? (
         <Listbox {...getListboxProps()}>
-          {lstUser?.map((option, index) => {
+          {groupedOptions.map((option, index) => {
             const { key, ...optionProps } = getOptionProps({ option, index });
             return (
               <li key={key} {...optionProps}>
@@ -82,3 +90,7 @@ export default function SelectMember({ onChangeValue }) {
     </Root>
   );
 }
+
+SelectMember.propTypes = {
+  onChangeValue: PropTypes.func.isRequired,
+};
