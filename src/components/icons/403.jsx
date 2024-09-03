@@ -1,4 +1,3 @@
-
 const PermissionErrorIcon = (props) => (
   <svg
     width={404}
@@ -65,22 +64,8 @@ const PermissionErrorIcon = (props) => (
       />
     </g>
     <g opacity={0.6}>
-      <rect
-        x={56}
-        y={176}
-        width={26.7138}
-        height={62.9968}
-        rx={13.3569}
-        fill="#E9EBF2"
-      />
-      <rect
-        x={68.7589}
-        y={201.518}
-        width={1.59486}
-        height={98.4823}
-        rx={0.797428}
-        fill="#E1E2E5"
-      />
+      <rect x={56} y={176} width={26.7138} height={62.9968} rx={13.3569} fill="#E9EBF2" />
+      <rect x={68.7589} y={201.518} width={1.59486} height={98.4823} rx={0.797428} fill="#E1E2E5" />
       <rect
         x={75.3384}
         y={205.019}
@@ -98,22 +83,8 @@ const PermissionErrorIcon = (props) => (
         fill="#E1E2E5"
       />
     </g>
-    <rect
-      x={91}
-      y={124}
-      width={38.1994}
-      height={90.0821}
-      rx={19.0997}
-      fill="#E9EBF2"
-    />
-    <rect
-      x={109.245}
-      y={160.489}
-      width={2.28056}
-      height={140.825}
-      rx={1.14028}
-      fill="#E1E2E5"
-    />
+    <rect x={91} y={124} width={38.1994} height={90.0821} rx={19.0997} fill="#E9EBF2" />
+    <rect x={109.245} y={160.489} width={2.28056} height={140.825} rx={1.14028} fill="#E1E2E5" />
     <rect
       x={118.653}
       y={165.496}
@@ -625,10 +596,7 @@ const PermissionErrorIcon = (props) => (
       d="M124.543 288.763C124.435 288.966 124.182 289.037 124.057 289.06L124.053 289.034C124.313 289.007 124.484 288.873 124.543 288.763C124.545 288.759 124.547 288.756 124.549 288.752C124.547 288.756 124.545 288.759 124.543 288.763Z"
       fill="#727785"
     />
-    <path
-      d="M101.705 251H107.872L121.887 294.728H87.6895L101.705 251Z"
-      fill="white"
-    />
+    <path d="M101.705 251H107.872L121.887 294.728H87.6895L101.705 251Z" fill="white" />
     <path
       fillRule="evenodd"
       clipRule="evenodd"
@@ -646,7 +614,7 @@ const PermissionErrorIcon = (props) => (
     <mask
       id="mask0_1_1209"
       style={{
-        maskType: "alpha",
+        maskType: 'alpha',
       }}
       maskUnits="userSpaceOnUse"
       x={79}
@@ -670,13 +638,7 @@ const PermissionErrorIcon = (props) => (
       />
     </mask>
     <g mask="url(#mask0_1_1209)">
-      <circle
-        cx={72.2726}
-        cy={240.348}
-        r={52.4174}
-        fill="white"
-        fillOpacity={0.2}
-      />
+      <circle cx={72.2726} cy={240.348} r={52.4174} fill="white" fillOpacity={0.2} />
     </g>
     <path
       d="M2 300H402"
@@ -703,14 +665,7 @@ const PermissionErrorIcon = (props) => (
       d="M185.22 197.571L198.252 175H220.191L233.223 197.571H185.22Z"
       fill="#20242E"
     />
-    <rect
-      opacity={0.2}
-      x={123}
-      y={175}
-      width={158}
-      height={2.39}
-      fill="#20242E"
-    />
+    <rect opacity={0.2} x={123} y={175} width={158} height={2.39} fill="#20242E" />
     <rect x={123} y={216} width={158} height={22.5714} fill="#2F63FF" />
     <path
       fillRule="evenodd"
@@ -725,14 +680,7 @@ const PermissionErrorIcon = (props) => (
       d="M244.017 216L248.063 223.009C251.226 228.486 247.273 235.332 240.949 235.332H175.494C169.169 235.332 165.217 228.486 168.379 223.009L172.426 216H244.017Z"
       fill="#20242E"
     />
-    <rect
-      opacity={0.2}
-      x={123}
-      y={216}
-      width={158}
-      height={2.39}
-      fill="#20242E"
-    />
+    <rect opacity={0.2} x={123} y={216} width={158} height={2.39} fill="#20242E" />
     <path
       d="M195.656 162.872C198.818 157.395 206.723 157.395 209.885 162.872L242.613 219.558C245.775 225.035 241.822 231.881 235.498 231.881H170.043C163.719 231.881 159.766 225.035 162.928 219.558L195.656 162.872Z"
       fill="#2854D9"

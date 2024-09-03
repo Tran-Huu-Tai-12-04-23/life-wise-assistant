@@ -2,13 +2,12 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
-
 import PermissionErrorIcon from 'src/components/icons/403';
 import Logo from 'src/components/logo';
 
 // ----------------------------------------------------------------------
 
-export default function PermissionErrorView({children}) {
+export default function PermissionErrorView({ children }) {
   const renderHeader = (
     <Box
       component="header"
@@ -52,11 +51,9 @@ export default function PermissionErrorView({children}) {
             sure to check your spelling.
           </Typography>
 
-          <PermissionErrorIcon/>
+          <PermissionErrorIcon />
 
-          {
-            children
-          }
+          {children}
         </Box>
       </Container>
     </>

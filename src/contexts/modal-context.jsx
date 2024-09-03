@@ -16,10 +16,8 @@ const ModalProvider = ({ children }) => {
     setContent(modalInfo);
   };
 
-  const hideModal = (callBack) => {
+  const hideModal = () => {
     setVisible(false);
-    console.log("Call back")
-    if(callBack)  callBack()
   };
 
   const value = useMemo(

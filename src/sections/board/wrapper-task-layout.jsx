@@ -188,30 +188,36 @@ function WrapperTaskLayout({ viewType = EViewType.LIST }) {
         horizontal
         ignoreElements=".ignore-scroll"
       >
-       <Box sx={{height: 2}}>
-         {isLoading && <LoadingView />}
-       </Box>
-       <Box sx={{
-        height: '100%'
-       }}>
-        {!isLoading && (
-          <DndContext
-            sensors={sensors}
-            collisionDetection={closestCorners}
-            onDragStart={handleDragStart}
-            onDragMove={handleDragMove}
-            onDragEnd={handleDragEnd}
-          >
-            {/* <TaskBoard taskActive={findTaskById(activeId)} columnActive={findColById(activeId)} /> */}
-            {viewType === EViewType.BOARD && (
-              <TaskBoard taskActive={findTaskById(activeId)} columnActive={findColById(activeId)} />
-            )}
-            {viewType === EViewType.LIST && (
-              <TaskList taskActive={findTaskById(activeId)} columnActive={findColById(activeId)} />
-            )}
-          </DndContext>
-        )}
-       </Box>
+        <Box sx={{ height: 2 }}>{isLoading && <LoadingView />}</Box>
+        <Box
+          sx={{
+            height: '100%',
+          }}
+        >
+          {!isLoading && (
+            <DndContext
+              sensors={sensors}
+              collisionDetection={closestCorners}
+              onDragStart={handleDragStart}
+              onDragMove={handleDragMove}
+              onDragEnd={handleDragEnd}
+            >
+              {/* <TaskBoard taskActive={findTaskById(activeId)} columnActive={findColById(activeId)} /> */}
+              {viewType === EViewType.BOARD && (
+                <TaskBoard
+                  taskActive={findTaskById(activeId)}
+                  columnActive={findColById(activeId)}
+                />
+              )}
+              {viewType === EViewType.LIST && (
+                <TaskList
+                  taskActive={findTaskById(activeId)}
+                  columnActive={findColById(activeId)}
+                />
+              )}
+            </DndContext>
+          )}
+        </Box>
       </ScrollContainer>
     </Box>
   );

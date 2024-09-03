@@ -14,13 +14,9 @@ import { useNotificationAction } from 'src/redux/features/notification/action';
 
 // ----------------------------------------------------------------------
 
-export default function NotificationTableRow({
-  selected,
-  data,
-  handleClick,
-}) {
+export default function NotificationTableRow({ selected, data, handleClick }) {
   const [open, setOpen] = useState(null);
-  const {onAcceptInvite, onRejectInvite} = useNotificationAction()
+  const { onAcceptInvite, onRejectInvite } = useNotificationAction();
 
   const handleOpenMenu = (event) => {
     setOpen(event.currentTarget);
@@ -50,79 +46,82 @@ export default function NotificationTableRow({
 
         <TableCell>{data?.description}</TableCell>
 
-        <TableCell><Chip label={data?.notificationTypeName} sx={{
-          bgcolor: data?.notificationTypeBackground,
-          color: data?.notificationTypeColor
-        
-        }}/></TableCell>
+        <TableCell>
+          <Chip
+            label={data?.notificationTypeName}
+            sx={{
+              bgcolor: data?.notificationTypeBackground,
+              color: data?.notificationTypeColor,
+            }}
+          />
+        </TableCell>
 
         <TableCell>
-
-          <Label
-          color={data?.isRead ? 'success' : 'error'}
-          >{data?.isRead ? 'Read' : 'UnRead'}</Label>
+          <Label color={data?.isRead ? 'success' : 'error'}>
+            {data?.isRead ? 'Read' : 'UnRead'}
+          </Label>
         </TableCell>
         <TableCell align="right">
-        {
-            !data?.isRead &&    <IconButton onClick={handleOpenMenu}>
-                      <Iconify icon="eva:more-vertical-fill" />
-                    </IconButton>
-          }
+          {!data?.isRead && (
+            <IconButton onClick={handleOpenMenu}>
+              <Iconify icon="eva:more-vertical-fill" />
+            </IconButton>
+          )}
         </TableCell>
       </TableRow>
 
-{
-  !data?.isRead &&  <Popover
-        open={!!open}
-        anchorEl={open}
-        onClose={handleCloseMenu}
-        anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        PaperProps={{
-          sx: { width: 140 },
-        }}
-      >
-       
-        
-         <MenuItem onClick={handleCloseMenu}>
-          <Iconify icon="eva:edit-fill" sx={{ mr: 2 }} />
-          Mark Read
-        </MenuItem>
+      {!data?.isRead && (
+        <Popover
+          open={!!open}
+          anchorEl={open}
+          onClose={handleCloseMenu}
+          anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+          PaperProps={{
+            sx: { width: 140 },
+          }}
+        >
+          <MenuItem onClick={handleCloseMenu}>
+            <Iconify icon="eva:edit-fill" sx={{ mr: 2 }} />
+            Mark Read
+          </MenuItem>
 
-         {data?.isInviteNotification && !data.isRead && <>
-          <MenuItem
-           onClick={async e => {
-            e.stopPropagation()
-            e.preventDefault()
-            await onRejectInvite(data.teamInviteId)
-            handleCloseMenu()
-          }}
-          sx={{
-          color: 'error.main',
-          '&:hover': { bgcolor: 'error.lighter' },
-          }}>
-          <Iconify icon="eva:close-fill" sx={{ mr: 2 }} />
-          Reject
-        </MenuItem>
-          <MenuItem
-          onClick={async e => {
-            e.stopPropagation()
-            e.preventDefault()
-            await onAcceptInvite(data.teamInviteId)
-            handleCloseMenu()
-          }}
-          sx={{
-          color: 'primary.main',
-          '&:hover': { bgcolor: 'primary.lighter' },
-          }} >
-          <Iconify icon="eva:checkmark-fill" sx={{ mr: 2 }} />
-          Accept
-        </MenuItem>
-        </>}
-      </Popover>
-}
-     
+          {data?.isInviteNotification && !data.isRead && (
+            <>
+              <MenuItem
+                onClick={async (e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                  await onRejectInvite(data.teamInviteId);
+                  handleCloseMenu();
+                }}
+                sx={{
+                  color: 'error.main',
+                  '&:hover': { bgcolor: 'error.lighter' },
+                }}
+              >
+                <Iconify icon="eva:close-fill" sx={{ mr: 2 }} />
+                Reject
+              </MenuItem>
+              <MenuItem
+                onClick={async (e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                  await onAcceptInvite(data.teamInviteId);
+                  handleCloseMenu();
+                }}
+                sx={{
+                  color: 'primary.main',
+                  '&:hover': { bgcolor: 'primary.lighter' },
+                }}
+              >
+                <Iconify icon="eva:checkmark-fill" sx={{ mr: 2 }} />
+                Accept
+              </MenuItem>
+            </>
+          )}
+        </Popover>
+      )}
     </>
   );
 }
-

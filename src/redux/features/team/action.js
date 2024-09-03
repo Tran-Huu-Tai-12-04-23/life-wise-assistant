@@ -10,19 +10,22 @@ import {
   getLstUserToInviteTeam,
   inviteUserToTeam,
   paginationTeamOfUser,
+  teamHistoryPagination,
 } from '../../../services/team';
 // eslint-disable-next-line import/no-cycle
 import { useAuthState } from '../auth/authSlice';
 import { resetColumnState } from '../column/columnSlice';
-import { changeCurrentTeams, useTeamState } from './teamSlice';
+import { changeCurrentTeams, resetTeamHistory, useTeamState } from './teamSlice';
 
 export const TeamActionKey = {
   ADD_TEAM: 'team/add_team',
   LST_USER_TO_INVITE_TEAM: 'team/lst_user_to_invite_team',
   LST_TEAM_OF_USER: 'team/lst_team_of_user',
   GENERATE_INVITE_LINK: 'team/generate_invite_link',
+  TEAM_HIS_PAGINATION: 'team/team_history_pagination',
 };
 export const addTeamAsync = createAsyncThunk(TeamActionKey.ADD_TEAM, createNewTeam);
+
 export const getLstUserToInviteTeamAsync = createAsyncThunk(
   TeamActionKey.LST_USER_TO_INVITE_TEAM,
   getLstUserToInviteTeam
@@ -36,6 +39,11 @@ export const paginationTeamOfUserAsync = createAsyncThunk(
 export const generateInviteLinkAsync = createAsyncThunk(
   TeamActionKey.GENERATE_INVITE_LINK,
   generateInviteLink
+);
+
+export const teamHistoryPaginationAsync = createAsyncThunk(
+  TeamActionKey.TEAM_HIS_PAGINATION,
+  teamHistoryPagination
 );
 
 export const useTeamAction = () => {
@@ -89,6 +97,20 @@ export const useTeamAction = () => {
     await inviteUserToTeam(body);
   };
 
+  const onLoadTeamHistory = async (data) => {
+    if (currentTeam) {
+      if (data.page === 0) {
+        await dispatch(resetTeamHistory());
+      }
+      await dispatch(
+        teamHistoryPaginationAsync({
+          teamId: currentTeam.id,
+          ...data,
+        })
+      );
+    }
+  };
+
   useEffect(() => {
     paginationTeamOfUser();
   }, []);
@@ -101,5 +123,6 @@ export const useTeamAction = () => {
     onGenerateInviteLink: handleGenerateInviteLink,
     onInviteUsersToTeam,
     onLoadUserOfSystem,
+    onLoadTeamHistory,
   };
 };

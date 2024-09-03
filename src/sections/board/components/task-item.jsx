@@ -25,7 +25,7 @@ import { TASK } from '../wrapper-task-layout';
 import AssignMemberPopover from './assgin-member-popover';
 
 function TaskItem({ data, isRotate }) {
-  const router = useRouter()
+  const router = useRouter();
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: data?.id,
     data: {
@@ -36,34 +36,33 @@ function TaskItem({ data, isRotate }) {
   const theme = useTheme();
 
   const numberDayLeft = useMemo(() => {
-    const timeLeft = Helper.calculateTimeLeft(data?.expireDate)
-    const stringArr = []
-    if(timeLeft.days > 0 ) {
-      stringArr.push(`${timeLeft.days} days`)
+    const timeLeft = Helper.calculateTimeLeft(data?.expireDate);
+    const stringArr = [];
+    if (timeLeft.days > 0) {
+      stringArr.push(`${timeLeft.days} days`);
     }
-    if(timeLeft.hours > 0 ) {
-      stringArr.push(`${timeLeft.hours} hours`)
+    if (timeLeft.hours > 0) {
+      stringArr.push(`${timeLeft.hours} hours`);
     }
-    if(timeLeft.minutes > 0 ) {
-      stringArr.push(`${timeLeft.minutes} minutes`)
+    if (timeLeft.minutes > 0) {
+      stringArr.push(`${timeLeft.minutes} minutes`);
     }
-    const string =  `${stringArr.join(', ')  }`;
+    const string = `${stringArr.join(', ')}`;
     const color = timeLeft.days > 0 ? 'green' : 'red';
 
-    if(timeLeft.days < 0 && timeLeft.hours <= 0 && timeLeft.minutes <= 0) { 
+    if (timeLeft.days < 0 && timeLeft.hours <= 0 && timeLeft.minutes <= 0) {
       return {
         string: 'Expired',
-        color: 'red'
-      }
+        color: 'red',
+      };
     }
 
-    return {string, color};
-  }, [data])
-
+    return { string, color };
+  }, [data]);
 
   return (
     <Box
-      onClick={() => router.push(`/task/${data?.id}`)}
+      onClick={() => router.push(`/board/${data?.id}`)}
       className="ignore-scroll"
       ref={setNodeRef}
       {...attributes}
@@ -92,9 +91,8 @@ function TaskItem({ data, isRotate }) {
         width: '100%',
       }}
     >
-      
-         <Stack direction="row" justifyContent="space-between" alignItems="center">
-          <Typography
+      <Stack direction="row" justifyContent="space-between" alignItems="center">
+        <Typography
           sx={{
             userSelect: 'none',
           }}
@@ -104,9 +102,7 @@ function TaskItem({ data, isRotate }) {
         >
           {data?.title}
         </Typography>
-
-     
-         </Stack>
+      </Stack>
       <Stack
         onClick={(e) => e.stopPropagation()}
         {...listeners}
@@ -115,9 +111,9 @@ function TaskItem({ data, isRotate }) {
         alignItems="center"
         justifyContent="space-between"
       >
-       <Typography variant='h7' fontSize={12}>
-        #{data?.code}
-       </Typography>
+        <Typography variant="h7" fontSize={12}>
+          #{data?.code}
+        </Typography>
         <Button variant="text" gap={1}>
           <DocumentIcon />
           <Typography variant="h7" color={COLORS.document} fontSize={12} fontWeight={800}>
@@ -170,7 +166,7 @@ function TaskItem({ data, isRotate }) {
               ))}
             </AvatarGroup>
           )}
-          <AssignMemberPopover taskData={data}/>
+          <AssignMemberPopover taskData={data} />
         </Stack>
 
         <Stack
@@ -197,12 +193,17 @@ function TaskItem({ data, isRotate }) {
           </IconButton>
         </Stack>
       </Stack>
-         <Typography variant='h7' fontStyle={8} fontWeight="bold" sx={{
+      <Typography
+        variant="h7"
+        fontStyle={8}
+        fontWeight="bold"
+        sx={{
           color: numberDayLeft.color,
           fontSize: 12,
-        }}>
-          { numberDayLeft.string}
-        </Typography>
+        }}
+      >
+        {numberDayLeft.string}
+      </Typography>
     </Box>
   );
 }

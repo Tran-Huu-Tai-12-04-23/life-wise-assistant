@@ -80,3 +80,27 @@ export const inviteUserToTeam = async (body) => {
     throw new Error(error);
   }
 };
+
+export const teamHistoryPagination = async (data) => {
+  const skip = data.page * data.take;
+  const { take, teamId } = data;
+  return handleErrorApi(async () => {
+    const res = await rootApi.post(`${endpoints.team_history_pagination}/${teamId}`, {
+      skip,
+      take,
+    });
+    return res;
+  });
+};
+
+export const loadTeamPermissionOfUser = async (data) =>
+  handleErrorApi(async () => {
+    const res = await rootApi.get(`${endpoints.team_permission}/${data.teamId}/${data.userId}`);
+    return res;
+  });
+
+export const updateTeamPermissionOfUser = async (data) =>
+  handleErrorApi(async () => {
+    const res = await rootApi.put(`${endpoints.team_permission}`, { ...data });
+    return res;
+  });

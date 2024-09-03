@@ -56,95 +56,99 @@ export default function NavMenu({ expanded }) {
 
   return (
     <>
-      {navConfig.map((item, index) => (
-        <Accordion
-          key={index}
-          expanded={expandedDetail === `panel1${index}`}
-          onChange={handleChange(`panel1${index}`)}
-        >
-          <EffectBtn
-            component={RouterLink}
-            href={item.path}
-            sx={{
-              width: '100%',
-              background:
-                pathname === item.path ? alpha(theme.palette.primary.main, 0.05) : 'transparent',
-              borderRightWidth: 2,
-              borderStyle: 'solid',
-              borderColor: pathname === item.path ? theme.palette.primary.main : 'transparent',
-            }}
+      {navConfig.map((item, index) => {
+        const isActive =
+          (pathname.includes(item.path) && item.path !== '/') ||
+          (pathname === '/' && item.path === '/');
+        return (
+          <Accordion
+            key={index}
+            expanded={expandedDetail === `panel1${index}`}
+            onChange={handleChange(`panel1${index}`)}
           >
-            <AccordionSummary
-              isHasArrow={item?.subNav?.length > 0 && expanded}
-              sx={{ width: '100%' }}
-              aria-controls="panel1d-content"
-              id="panel1d-header"
+            <EffectBtn
+              component={RouterLink}
+              href={item.path}
+              sx={{
+                width: '100%',
+                background: isActive ? alpha(theme.palette.primary.main, 0.05) : 'transparent',
+                borderRightWidth: 2,
+                borderStyle: 'solid',
+                borderColor: isActive ? theme.palette.primary.main : 'transparent',
+              }}
             >
-              <Stack
-                direction="row"
-                alignItems="center"
-                justifyContent="flex-start"
+              <AccordionSummary
+                isHasArrow={item?.subNav?.length > 0 && expanded}
                 sx={{ width: '100%' }}
+                aria-controls="panel1d-content"
+                id="panel1d-header"
               >
-                {item.icon}
-                {expanded && (
-                  <Box sx={{ userSelect: 'none', ml: 1, fontSize: 12 }} component="span">
-                    {item.title.charAt(0).toUpperCase() + item.title.slice(1)}{' '}
-                  </Box>
-                )}
-              </Stack>
-            </AccordionSummary>
-          </EffectBtn>
-          {item?.subNav?.length > 0 && (
-            <AccordionDetails sx={{ width: '100%' }}>
-              <Stack
-                direction="column"
-                alignItems="center"
-                justifyContent="flex-start"
-                sx={{ width: '100%' }}
-              >
-                {item?.subNav?.map((subItem, subIndex) => (
-                  <EffectBtn
-                    onClick={() => {
-                      router.push(subItem.path);
-                    }}
-                    key={subIndex}
-                    sx={{
-                      width: '100%',
-                      height: '100%',
-                      p: 2,
-                      pl: 3,
-                      color: subItem.path === pathname ? theme.palette.primary.main : 'inherit',
-                    }}
-                  >
-                    <Stack
-                      direction="row"
-                      alignItems="center"
-                      justifyContent="flex-start"
-                      sx={{ width: '100%' }}
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                  justifyContent="flex-start"
+                  sx={{ width: '100%' }}
+                >
+                  {item.icon}
+                  {expanded && (
+                    <Box sx={{ userSelect: 'none', ml: 1, fontSize: 12 }} component="span">
+                      {item.title.charAt(0).toUpperCase() + item.title.slice(1)}{' '}
+                    </Box>
+                  )}
+                </Stack>
+              </AccordionSummary>
+            </EffectBtn>
+            {item?.subNav?.length > 0 && (
+              <AccordionDetails sx={{ width: '100%' }}>
+                <Stack
+                  direction="column"
+                  alignItems="center"
+                  justifyContent="flex-start"
+                  sx={{ width: '100%' }}
+                >
+                  {item?.subNav?.map((subItem, subIndex) => (
+                    <EffectBtn
+                      onClick={() => {
+                        router.push(subItem.path);
+                      }}
+                      key={subIndex}
+                      sx={{
+                        width: '100%',
+                        height: '100%',
+                        p: 2,
+                        pl: 3,
+                        color: subItem.path === pathname ? theme.palette.primary.main : 'inherit',
+                      }}
                     >
-                      <Box
-                        sx={{
-                          width: '5px',
-                          height: '5px',
-                          mr: expanded ? 2 : 0,
-                          borderRadius: 100,
-                          background: alpha(theme.palette.primary.main, 0.5),
-                        }}
-                      />
-                      {expanded && (
-                        <Box sx={{ userSelect: 'none', ml: 1 }} component="span">
-                          {subItem.title.charAt(0).toUpperCase() + subItem.title.slice(1)}{' '}
-                        </Box>
-                      )}
-                    </Stack>
-                  </EffectBtn>
-                ))}
-              </Stack>
-            </AccordionDetails>
-          )}
-        </Accordion>
-      ))}
+                      <Stack
+                        direction="row"
+                        alignItems="center"
+                        justifyContent="flex-start"
+                        sx={{ width: '100%' }}
+                      >
+                        <Box
+                          sx={{
+                            width: '5px',
+                            height: '5px',
+                            mr: expanded ? 2 : 0,
+                            borderRadius: 100,
+                            background: alpha(theme.palette.primary.main, 0.5),
+                          }}
+                        />
+                        {expanded && (
+                          <Box sx={{ userSelect: 'none', ml: 1 }} component="span">
+                            {subItem.title.charAt(0).toUpperCase() + subItem.title.slice(1)}{' '}
+                          </Box>
+                        )}
+                      </Stack>
+                    </EffectBtn>
+                  ))}
+                </Stack>
+              </AccordionDetails>
+            )}
+          </Accordion>
+        );
+      })}
     </>
   );
 }

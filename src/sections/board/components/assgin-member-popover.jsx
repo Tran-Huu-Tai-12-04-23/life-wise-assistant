@@ -13,8 +13,8 @@ import { useTeamAction } from 'src/redux/features/team/action';
 import { useTeamState } from 'src/redux/features/team/teamSlice';
 // ----------------------------------------------------------------------
 
-export default function AssignMemberPopover({taskData, isRight }) {
-  const {  currentTeam } = useTeamState();
+export default function AssignMemberPopover({ taskData, isRight }) {
+  const { currentTeam } = useTeamState();
   const { onGetLstUserToInvite } = useTeamAction();
   const [open, setOpen] = useState(null);
   const [searchKey, setSearchKey] = useState('');
@@ -32,18 +32,19 @@ export default function AssignMemberPopover({taskData, isRight }) {
   };
 
   useEffect(() => {
-    setLstUserToSelect([... (currentTeam?.members || [])]);
+    setLstUserToSelect([...(currentTeam?.members || [])]);
   }, [currentTeam?.members]);
 
   useEffect(() => {
     const lstPersonInChargeOfTask = taskData?.lstMember?.map((item) => item?.id) || [];
     if (searchKey) {
-      const res = currentTeam?.members?.filter((item) =>
-        item?.username.toLowerCase().includes(searchKey?.toLowerCase())
-      )?.filter( item => !lstPersonInChargeOfTask?.includes(item?.id));
+      const res = currentTeam?.members
+        ?.filter((item) => item?.username.toLowerCase().includes(searchKey?.toLowerCase()))
+        ?.filter((item) => !lstPersonInChargeOfTask?.includes(item?.id));
       setLstUserToSelect(res);
     } else {
-      const lstUser = currentTeam?.members?.filter( item => !lstPersonInChargeOfTask?.includes(item?.id)) || [];
+      const lstUser =
+        currentTeam?.members?.filter((item) => !lstPersonInChargeOfTask?.includes(item?.id)) || [];
       setLstUserToSelect(lstUser);
     }
   }, [searchKey]);
@@ -52,8 +53,7 @@ export default function AssignMemberPopover({taskData, isRight }) {
     onGetLstUserToInvite();
   }, []);
 
-
-  if(!currentTeam?.isOwner && !taskData?.isOwner) return null
+  if (!currentTeam?.isOwner && !taskData?.isOwner) return null;
   return (
     <>
       <IconButton

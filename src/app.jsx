@@ -16,25 +16,30 @@ import { useAuthAction } from './redux/features/auth/action';
 
 export default function App() {
   useScrollToTop();
-  const {  onGetProfileWithAccessToken} = useAuthAction();
+  const { onGetProfileWithAccessToken } = useAuthAction();
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     const initUser = async () => {
-      const acToken =await getAccessToken();
+      const acToken = await getAccessToken();
       if (acToken) {
         await onGetProfileWithAccessToken();
         setTimeout(() => {
-        setIsLoaded(true);
-        }, 1000)
-      }else {
+          setIsLoaded(true);
+        }, 1000);
+      } else {
         setIsLoaded(true);
       }
     };
     initUser();
   }, []);
 
-  if(isLoaded === false) return <Box sx={{display: 'flex',p: 0, m: 0,height: '100vh'}}><LoadingView /></Box>
+  if (isLoaded === false)
+    return (
+      <Box sx={{ display: 'flex', p: 0, m: 0, height: '100vh' }}>
+        <LoadingView />
+      </Box>
+    );
 
   return (
     <ThemeProvider>

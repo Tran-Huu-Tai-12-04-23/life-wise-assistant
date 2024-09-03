@@ -6,7 +6,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
 
-
 // ----------------------------------------------------------------------
 
 export default function NotificationTableHead({
@@ -14,9 +13,8 @@ export default function NotificationTableHead({
   headLabel,
   numSelected,
   onSelectAllClick,
-  isAllChecked
+  isAllChecked,
 }) {
-
   return (
     <TableHead>
       <TableRow>
@@ -34,12 +32,7 @@ export default function NotificationTableHead({
             align={headCell.align || 'left'}
             sx={{ width: headCell.width, minWidth: headCell.minWidth }}
           >
-            <TableSortLabel
-              hideSortIcon
-            >
-              {headCell.label}
-            
-            </TableSortLabel>
+            <TableSortLabel hideSortIcon>{headCell.label}</TableSortLabel>
           </TableCell>
         ))}
       </TableRow>

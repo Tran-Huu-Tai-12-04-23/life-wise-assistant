@@ -6,6 +6,7 @@ import {
   generateInviteLinkAsync,
   getLstUserToInviteTeamAsync,
   paginationTeamOfUserAsync,
+  teamHistoryPaginationAsync,
 } from './action';
 
 // interface TeamState {
@@ -28,6 +29,9 @@ const initialState = {
   isHasNextPage: false,
   isLoadingGenerateInviteLink: false,
   inviteLink: '',
+  teamHistory: [],
+  isLoadTeamHistory: false,
+  isHasNextPageTeamHistory: false,
 };
 
 const teamSlice = createSlice({
@@ -44,6 +48,12 @@ const teamSlice = createSlice({
         state.inviteLink = action.payload?.inviteToken;
       }
       state.inviteLink = '';
+      state.teamHistory = [];
+      state.isLoadTeamHistory = false;
+      state.isHasNextPageTeamHistory = false;
+    },
+    resetTeamHistory: (state) => {
+      state.teamHistory = [];
     },
     resetTeamState: () => initialState,
   },
@@ -51,9 +61,6 @@ const teamSlice = createSlice({
     builder
       .addCase(addTeamAsync.fulfilled, (state, action) => {
         state.teams = [action.payload, ...state.teams];
-        state.isLoadingCreateNew = false;
-      })
-      .addCase(addTeamAsync.rejected, (state) => {
         state.isLoadingCreateNew = false;
       })
       .addCase(getLstUserToInviteTeamAsync.fulfilled, (state, action) => {
@@ -88,25 +95,40 @@ const teamSlice = createSlice({
       .addCase(paginationTeamOfUserAsync.pending, (state) => {
         state.isLoadingPagination = true;
       })
-      .addMatcher(
-        (action) =>
-          [
-            addTeamAsync.rejected,
-            getLstUserToInviteTeamAsync.rejected,
-            paginationTeamOfUserAsync.rejected,
-          ].includes(action.type),
-        (state) => {
-          state.isLoadingPagination = false;
-          state.isLoading = false;
-          state.isLoadingCreateNew = false;
-        }
-      );
+      .addCase(addTeamAsync.rejected, (state) => {
+        state.isLoadingPagination = false;
+        state.isLoading = false;
+        state.isLoadingCreateNew = false;
+      })
+      .addCase(getLstUserToInviteTeamAsync.rejected, (state) => {
+        state.isLoadingPagination = false;
+        state.isLoading = false;
+        state.isLoadingCreateNew = false;
+      })
+      .addCase(paginationTeamOfUserAsync.rejected, (state) => {
+        state.isLoadingPagination = false;
+        state.isLoading = false;
+        state.isLoadingCreateNew = false;
+      })
+      .addCase(teamHistoryPaginationAsync.fulfilled, (state, action) => {
+        state.teamHistory = [...state.teamHistory, ...action.payload[0]];
+        state.isHasNextPageTeamHistory = action.payload[2];
+        state.isLoadTeamHistory = false;
+      })
+      .addCase(teamHistoryPaginationAsync.pending, (state) => {
+        state.isLoadTeamHistory = true;
+      })
+      .addCase(teamHistoryPaginationAsync.rejected, (state) => {
+        state.isLoadTeamHistory = false;
+        state.teamHistory = [];
+        state.isHasNextPageTeamHistory = false;
+      });
   },
 });
 
 export default teamSlice.reducer;
 
-export const { addTask, changeCurrentTeams, resetTeamState } = teamSlice.actions;
+export const { addTask, changeCurrentTeams, resetTeamState, resetTeamHistory } = teamSlice.actions;
 
 export const selectTask = (state) => state.team;
 

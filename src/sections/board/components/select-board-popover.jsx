@@ -52,7 +52,7 @@ export default function SelectBoardPopover() {
         sx={{
           borderRadius: 2,
           overflow: 'hidden',
-          p: 2
+          p: 2,
         }}
       >
         <Stack onClick={handleOpen} direction="row" alignItems="center" gap={2}>
@@ -122,7 +122,7 @@ export default function SelectBoardPopover() {
             <ListItemButton
               onClick={() => {
                 setOpen(null);
-                if(currentTeam?.id === option.id) return;
+                if (currentTeam?.id === option.id) return;
                 changeCurrent(option);
               }}
               sx={{
@@ -130,9 +130,7 @@ export default function SelectBoardPopover() {
                 mt: 1,
                 mb: 1,
                 background:
-                  currentTeam?.id === option.id
-                    ? theme.palette.background.neutral
-                    : 'transparent',
+                  currentTeam?.id === option.id ? theme.palette.background.neutral : 'transparent',
               }}
               key={index}
             >

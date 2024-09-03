@@ -21,7 +21,7 @@ import { TASK } from '../wrapper-task-layout';
 import AssignMemberPopover from './assgin-member-popover';
 
 function TaskListItem({ data, isRotate }) {
-  const router = useRouter()
+  const router = useRouter();
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: data?.id,
     data: {
@@ -33,7 +33,7 @@ function TaskListItem({ data, isRotate }) {
 
   return (
     <Stack
-      onClick={() => router.push(`/task/${data?.id}`)}
+      onClick={() => router.push(`/board/${data?.id}`)}
       direction="row"
       className="ignore-scroll"
       ref={setNodeRef}
@@ -80,9 +80,9 @@ function TaskListItem({ data, isRotate }) {
         >
           {data?.title}
         </Typography>
-         <Typography variant='h7' fontSize={12}>
-        #{data?.code}
-       </Typography>
+        <Typography variant="h7" fontSize={12}>
+          #{data?.code}
+        </Typography>
       </Stack>
 
       <Stack mr={2} direction="row" gap={1} alignItems="center">
@@ -124,14 +124,10 @@ function TaskListItem({ data, isRotate }) {
             </AvatarGroup>
           )}
 
-          <AssignMemberPopover isRight taskData={data}/>
+          <AssignMemberPopover isRight taskData={data} />
         </Stack>
 
-        <Stack
-          direction="row"
-          gap={2}
-          alignItems="center"
-        >
+        <Stack direction="row" gap={2} alignItems="center">
           <Button variant="text" gap={1}>
             <DocumentIcon />
             <Typography variant="h7" color={COLORS.document} fontSize={12} fontWeight={800}>
@@ -145,7 +141,7 @@ function TaskListItem({ data, isRotate }) {
               {data.totalTaskFile}
             </Typography>
           </Button>
-          <Button variant="text" gap={1} sx={{mr: 2}}>
+          <Button variant="text" gap={1} sx={{ mr: 2 }}>
             <MessageIcon />
             <Typography variant="h7" color={COLORS.message} fontSize={12} fontWeight={800}>
               {' '}

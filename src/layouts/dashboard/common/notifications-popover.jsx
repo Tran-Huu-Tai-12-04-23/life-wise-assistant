@@ -27,14 +27,13 @@ import { useNotificationState } from 'src/redux/features/notification/notificati
 
 // ----------------------------------------------------------------------
 
-
 export default function NotificationsPopover() {
-  const {pageOneNotification, isLoadNotification, totalUnread, isHasNextPageNotification} = useNotificationState()
-  const {onNotificationPagination} = useNotificationAction()
-  const {currentUser} = useAuthState()
+  const { pageOneNotification, isLoadNotification, totalUnread, isHasNextPageNotification } =
+    useNotificationState();
+  const { onNotificationPagination } = useNotificationAction();
+  const { currentUser } = useAuthState();
   const [notificationDayNow, setNotificationDayNow] = useState([]);
   const [notificationDayBefore, setNotificationDayBefore] = useState([]);
-
 
   const [open, setOpen] = useState(null);
 
@@ -46,21 +45,25 @@ export default function NotificationsPopover() {
     setOpen(null);
   };
 
+  useEffect(() => {
+    if (currentUser) onNotificationPagination();
+  }, [currentUser]);
 
   useEffect(() => {
-   if(currentUser) onNotificationPagination()
-  }, [currentUser])
-
-  useEffect(() =>{
     /// get notification in day now
-    const dataDayNow = pageOneNotification?.filter((item) => new Date(item.createdAt).getDate() >= new Date().getDate()) || []
-    setNotificationDayNow(dataDayNow)
+    const dataDayNow =
+      pageOneNotification?.filter(
+        (item) => new Date(item.createdAt).getDate() === new Date().getDate()
+      ) || [];
+    setNotificationDayNow(dataDayNow);
 
     // get notification in day before
-    const dataDayBefore = pageOneNotification?.filter((item) => new Date(item.createdAt).getDate() < new Date().getDate() )|| []
-    setNotificationDayBefore(dataDayBefore)
-  }, [pageOneNotification])
- 
+    const dataDayBefore =
+      pageOneNotification?.filter(
+        (item) => new Date(item.createdAt).getDate() < new Date().getDate()
+      ) || [];
+    setNotificationDayBefore(dataDayBefore);
+  }, [pageOneNotification]);
 
   return (
     <>
@@ -82,13 +85,13 @@ export default function NotificationsPopover() {
             mt: 1.5,
             ml: 0.75,
             width: 360,
-            "&::webkit-scrollbar": { display: "none", width: "0px!important" },
+            '&::webkit-scrollbar': { display: 'none', width: '0px!important' },
             position: 'relative',
           },
         }}
       >
-        <Box sx={{ display: 'flex', alignItems: 'center', py: 2, px: 2.5 }} className='hide-scroll'>
-          {isLoadNotification && <LinearProgress/>}
+        <Box sx={{ display: 'flex', alignItems: 'center', py: 2, px: 2.5 }} className="hide-scroll">
+          {isLoadNotification && <LinearProgress />}
           <Box sx={{ flexGrow: 1 }}>
             <Typography variant="subtitle1">Notifications</Typography>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
@@ -107,51 +110,64 @@ export default function NotificationsPopover() {
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        <Scrollbar sx={{ height: 500   
-            }}>
-              {
-                notificationDayNow?.length > 0 && 
-    <List
-            disablePadding
-            subheader={
-              <ListSubheader disableSticky sx={{ py: 1, px: 2.5, typography: 'overline' }}>
-                New
-              </ListSubheader>
-            }
-          >
-            {notificationDayNow?.map((notification) => (
-              <NotificationItem onClose={handleClose} key={notification.id} notification={notification} />
-            ))}
-          </List>
+        <Scrollbar sx={{ height: 500 }}>
+          {notificationDayNow?.length > 0 && (
+            <List
+              disablePadding
+              subheader={
+                <ListSubheader disableSticky sx={{ py: 1, px: 2.5, typography: 'overline' }}>
+                  New
+                </ListSubheader>
               }
-         {
-          notificationDayBefore?.length > 0 &&  <List
-            disablePadding
-            subheader={
-              <ListSubheader disableSticky sx={{ py: 1, px: 2.5, typography: 'overline' }}>
-                Before that
-              </ListSubheader>
-            }
-          
-          >
-            {notificationDayBefore.map((notification) => (
-              <NotificationItem onClose={handleClose} key={notification.id} notification={notification} />
-            ))}
-          </List>
-         }
+            >
+              {notificationDayNow?.map((notification) => (
+                <NotificationItem
+                  onClose={handleClose}
+                  key={notification.id}
+                  notification={notification}
+                />
+              ))}
+            </List>
+          )}
+          {notificationDayBefore?.length > 0 && (
+            <List
+              disablePadding
+              subheader={
+                <ListSubheader disableSticky sx={{ py: 1, px: 2.5, typography: 'overline' }}>
+                  Before that
+                </ListSubheader>
+              }
+            >
+              {notificationDayBefore.map((notification) => (
+                <NotificationItem
+                  onClose={handleClose}
+                  key={notification.id}
+                  notification={notification}
+                />
+              ))}
+            </List>
+          )}
         </Scrollbar>
 
         <Divider sx={{ borderStyle: 'dashed' }} />
-         <Box sx={{mt: 5}}/>
-          {
-            isHasNextPageNotification &&    <Box
-             sx={{ p: 1, position: 'absolute', bottom: 0, right: 0, left: 0, background: 'transparent', backdropFilter: 'blur(10px)' }}>
-                    <Button onClick={handleClose} fullWidth to='/notification' LinkComponent={Link}>
-                      View All
-                    </Button>
-                  </Box>
-          }
-     
+        <Box sx={{ mt: 5 }} />
+        {isHasNextPageNotification && (
+          <Box
+            sx={{
+              p: 1,
+              position: 'absolute',
+              bottom: 0,
+              right: 0,
+              left: 0,
+              background: 'transparent',
+              backdropFilter: 'blur(10px)',
+            }}
+          >
+            <Button onClick={handleClose} fullWidth to="/notification" LinkComponent={Link}>
+              View All
+            </Button>
+          </Box>
+        )}
       </Popover>
     </>
   );
@@ -159,30 +175,28 @@ export default function NotificationsPopover() {
 
 // ----------------------------------------------------------------------
 
-
-
 function NotificationItem({ notification, onClose }) {
-  const {onAcceptInvite, onRejectInvite, onMaskAsRead} = useNotificationAction()
-  const {  title, avatar } = renderContent(notification);
+  const { onAcceptInvite, onRejectInvite, onMaskAsRead } = useNotificationAction();
+  const { title, avatar } = renderContent(notification);
 
-  const {owner} = notification
+  const { owner } = notification;
 
   const handleAcceptInvite = async () => {
-    await onAcceptInvite(notification?.teamInviteId)
-  }
+    await onAcceptInvite(notification?.teamInviteId);
+  };
 
-   const handleRejectInvite = async () => {
-    await onRejectInvite(notification?.teamInviteId)
-  }
-  
+  const handleRejectInvite = async () => {
+    await onRejectInvite(notification?.teamInviteId);
+  };
+
   const handleMasAsRead = async () => {
-    await onMaskAsRead(notification?.id)
-  }
+    await onMaskAsRead(notification?.id);
+  };
 
   return (
     <ListItemButton
-    to="/notification"
-    LinkComponent={Link}
+      to="/notification"
+      LinkComponent={Link}
       sx={{
         py: 1.5,
         px: 2.5,
@@ -192,62 +206,79 @@ function NotificationItem({ notification, onClose }) {
           bgcolor: 'background.neutral',
         }),
       }}
-      onClick={async()=> {
-        await handleMasAsRead()
-        onClose()
+      onClick={async () => {
+        await handleMasAsRead();
+        onClose();
       }}
     >
-      {
-        !notification?.isRead && <Box
-        sx={{
-          width: 8,
-          height: 8,
-          borderRadius: '50%',
-          bgcolor: 'primary.main',
-          position: 'absolute',
-          top: 4, right: 4
-        }} />
-      }
-     <Stack direction="column" >
-       <Stack direction="row" >
-        <ListItemAvatar>
-        <Tooltip title={owner?.username}>
-           <Avatar alt={owner?.username} src={owner?.avatar}>{avatar}</Avatar>
-        </Tooltip>
-       
-      </ListItemAvatar>
-      <ListItemText
-        primary={title}
-        secondary={
-          <Typography
-            variant="caption"
-            sx={{
-              mt: 0.5,
-              display: 'flex',
-              alignItems: 'center',
-              color: 'text.disabled',
-            }}
-          >
-            <Iconify icon="eva:clock-outline" sx={{ mr: 0.5, width: 16, height: 16 }} />
-            {notification?.createdAt && fToNow(new Date(notification.createdAt))}
-          </Typography>
-        }
-      />
-      </Stack>
+      {!notification?.isRead && (
+        <Box
+          sx={{
+            width: 8,
+            height: 8,
+            borderRadius: '50%',
+            bgcolor: 'primary.main',
+            position: 'absolute',
+            top: 4,
+            right: 4,
+          }}
+        />
+      )}
+      <Stack direction="column">
+        <Stack direction="row">
+          <ListItemAvatar>
+            <Tooltip title={owner?.username}>
+              <Avatar alt={owner?.username} src={owner?.avatar}>
+                {avatar}
+              </Avatar>
+            </Tooltip>
+          </ListItemAvatar>
+          <ListItemText
+            primary={title}
+            secondary={
+              <Typography
+                variant="caption"
+                sx={{
+                  mt: 0.5,
+                  display: 'flex',
+                  alignItems: 'center',
+                  color: 'text.disabled',
+                }}
+              >
+                <Iconify icon="eva:clock-outline" sx={{ mr: 0.5, width: 16, height: 16 }} />
+                {notification?.createdAt && fToNow(new Date(notification.createdAt))}
+              </Typography>
+            }
+          />
+        </Stack>
 
-      {!notification?.isRead && notification?.isInviteNotification && <Stack columnGap={2} direction="row" justifyContent="flex-end">
-        <Button onClick={async e => {
-          e.stopPropagation()
-          e.preventDefault()
-          await handleRejectInvite()
-        }} variant="outlined" color="error">Cancel</Button>
-           <Button onClick={async e => {
-          e.stopPropagation()
-          e.preventDefault()
-          await handleAcceptInvite()
-        }} variant="contained" color="primary">Accept</Button>
-        </Stack>}
-     </Stack>
+        {!notification?.isRead && notification?.isInviteNotification && (
+          <Stack columnGap={2} direction="row" justifyContent="flex-end">
+            <Button
+              onClick={async (e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                await handleRejectInvite();
+              }}
+              variant="outlined"
+              color="error"
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={async (e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                await handleAcceptInvite();
+              }}
+              variant="contained"
+              color="primary"
+            >
+              Accept
+            </Button>
+          </Stack>
+        )}
+      </Stack>
     </ListItemButton>
   );
 }

@@ -9,7 +9,6 @@ import { useTheme } from '@mui/material/styles';
 
 import { useResponsive } from 'src/hooks/use-responsive';
 
-
 import Iconify from 'src/components/iconify';
 
 import AccountPopover from './common/account-popover';
@@ -54,7 +53,7 @@ export default function Header({ onOpenNav, expanded }) {
         }),
         borderBottom: () => `dashed 1px ${theme.palette.divider}`,
         ...(lgUp && {
-          width: `calc(100% - ${expanded ? NAV.WIDTH + 1 : NAV.WIDTH/ 3}px)`,
+          width: `calc(100% - ${expanded ? NAV.WIDTH + 1 : NAV.WIDTH / 3}px)`,
           height: HEADER.H_DESKTOP + 5,
         }),
         backdropFilter: 'blur(10px)',

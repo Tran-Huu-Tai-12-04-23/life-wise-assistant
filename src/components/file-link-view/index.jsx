@@ -14,12 +14,12 @@ import { useState } from 'react';
 import ConfirmRemovePopover from '../confirm-remove-popover';
 import Iconify from '../iconify';
 
-function FileLinkView({isLoading,  isConfirmBeforeRemove, isReadonly, fileLinks = [], onRemove }) {
+function FileLinkView({ isLoading, isConfirmBeforeRemove, isReadonly, fileLinks = [], onRemove }) {
   const [expanded, setExpanded] = useState(true);
 
   return (
     <Stack direction="column" gap={1}>
-      {isLoading && <LinearProgress/>}
+      {isLoading && <LinearProgress />}
       <Stack direction="row" gap={1} alignItems="center">
         <Button gap={1} color="primary" onClick={() => setExpanded(!expanded)} variant="text">
           <AttachFileIcon size="small" fontSize="12" sx={{ mr: 1 }} />
@@ -44,13 +44,13 @@ function FileLinkView({isLoading,  isConfirmBeforeRemove, isReadonly, fileLinks 
                   style={{ width: '100%', borderRadius: 10, padding: 1 }}
                   url={item.fileLink}
                 />
-                {
-                  !isReadonly && isConfirmBeforeRemove && (
-                    <ConfirmRemovePopover onConfirm={() => {
+                {!isReadonly && isConfirmBeforeRemove && (
+                  <ConfirmRemovePopover
+                    onConfirm={() => {
                       onRemove(index);
-                    }}/>
-                  )
-                }
+                    }}
+                  />
+                )}
                 {!isReadonly && !isConfirmBeforeRemove && (
                   <IconButton
                     sx={{ height: 40, width: 40, position: 'absolute', top: 2, right: 2 }}

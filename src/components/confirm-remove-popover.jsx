@@ -7,7 +7,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { Button, Stack, Typography } from '@mui/material';
 // ----------------------------------------------------------------------
 
-export default function ConfirmRemovePopover({ onConfirm}) {
+export default function ConfirmRemovePopover({ onConfirm }) {
   const [open, setOpen] = useState(null);
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
@@ -35,34 +35,39 @@ export default function ConfirmRemovePopover({ onConfirm}) {
           },
         }}
       >
-        <Typography variant='h7' sx={{ fontSize: 14, fontWeight: 'bold' }}>Are you sure you want to delete this record?</Typography>
+        <Typography variant="h7" sx={{ fontSize: 14, fontWeight: 'bold' }}>
+          Are you sure you want to delete this record?
+        </Typography>
 
-        <Stack direction='row' justifyContent='center' spacing={2} sx={{
+        <Stack
+          direction="row"
+          justifyContent="center"
+          spacing={2}
+          sx={{
             width: '100%',
-            mt:2
-        }}>
+            mt: 2,
+          }}
+        >
           <Button
             onClick={() => {
-                   
-                    handleClose()
-                  }}
-                  color="error"
-                  variant="contained"
-                >
-                  Cancel
-                </Button>
-                <Button
-                  onClick={ () => {
-                    onConfirm()
-                    handleClose()
-                  }}
-                  color="primary"
-                  variant="contained"
-                >
-                  Confirm
-                </Button>
-          </Stack>
-       
+              handleClose();
+            }}
+            color="error"
+            variant="contained"
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={() => {
+              onConfirm();
+              handleClose();
+            }}
+            color="primary"
+            variant="contained"
+          >
+            Confirm
+          </Button>
+        </Stack>
       </Popover>
     </>
   );

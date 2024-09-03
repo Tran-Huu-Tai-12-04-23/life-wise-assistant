@@ -50,7 +50,7 @@ function FormAddNewTask() {
       toast.error('Please fill in the required fields');
       return;
     }
-    
+
     const body = {
       lstPersonInCharge: state.members.map((item) => item.id),
       priority: state.priority?.code,
@@ -79,18 +79,20 @@ function FormAddNewTask() {
   };
   return (
     <Fade in timeout={500}>
-    
       <Stack
         direction="column"
         gap={2}
         pt={2}
         sx={{ width: '100%', minHeight: 'calc(100vh - 40px)', p: 4 }}
       >
-          <IconButton onClick={() => {
-           hideModal()
-       }} sx={{ position: 'absolute', top: 2, right: 2 }}>
-            <CloseIcon />
-          </IconButton>
+        <IconButton
+          onClick={() => {
+            hideModal();
+          }}
+          sx={{ position: 'absolute', top: 2, right: 2 }}
+        >
+          <CloseIcon />
+        </IconButton>
         <Stack direction="row" gap={4} alignItems="start" justifyContent="space-between">
           <Stack direction="column" gap={1} sx={{ width: '100%' }}>
             <InputFocusToEdit
@@ -157,7 +159,7 @@ function FormAddNewTask() {
             <BtnSelectMemberPopover
               onChange={(val) => setState((prev) => ({ ...prev, members: val }))}
             />
-            <BtnSelectTagType  onChange={(val) => setState((prev) => ({ ...prev, type: val }))} />
+            <BtnSelectTagType onChange={(val) => setState((prev) => ({ ...prev, type: val }))} />
             <BtnSelectPriority
               onChange={(val) => setState((prev) => ({ ...prev, priority: val }))}
             />

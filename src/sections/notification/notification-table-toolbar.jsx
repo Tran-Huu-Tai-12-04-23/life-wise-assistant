@@ -45,7 +45,7 @@ export default function NotificationTableToolbar({ numSelected, filterName, onFi
         />
       )}
 
-      {numSelected > 0  && (
+      {numSelected > 0 && (
         <Tooltip title="Delete">
           <IconButton>
             <Iconify icon="eva:trash-2-fill" />

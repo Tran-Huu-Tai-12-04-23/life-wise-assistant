@@ -46,17 +46,16 @@ export default function InviteColumnPopover() {
   };
 
   const handleInviteUsersToTeam = async () => {
-    handleClose()
-    if(currentTeam.isOwner){
-       const lstUserId = userSelect.map((item) => item.id);
-       setUserSelect([]);
+    handleClose();
+    if (currentTeam.isOwner) {
+      const lstUserId = userSelect.map((item) => item.id);
+      setUserSelect([]);
       await onInviteUsersToTeam({
         teamId: currentTeam.id,
-        lstUserId
+        lstUserId,
       });
-     
     }
-  }
+  };
 
   useEffect(() => {
     if (!currentTeam) return null;
@@ -76,8 +75,6 @@ export default function InviteColumnPopover() {
 
     return () => clearTimeout(timer);
   }, [searchKey]);
-
-
 
   return (
     <>
@@ -139,7 +136,9 @@ export default function InviteColumnPopover() {
                       pr: 2,
                       p: 1,
                       borderRadius: 0.5,
-                      backgroundColor: isChecked ? alpha(theme.palette.primary.main, 0.5) : 'transparent',
+                      backgroundColor: isChecked
+                        ? alpha(theme.palette.primary.main, 0.5)
+                        : 'transparent',
                     }}
                     key={item.id}
                     onClick={() => {
@@ -162,7 +161,9 @@ export default function InviteColumnPopover() {
             </Stack>
           )}
 
-          {userSelect.length > 0 && <ButtonPrimary onClick={handleInviteUsersToTeam}>Invite</ButtonPrimary>}
+          {userSelect.length > 0 && (
+            <ButtonPrimary onClick={handleInviteUsersToTeam}>Invite</ButtonPrimary>
+          )}
 
           <Stack
             direction="row"

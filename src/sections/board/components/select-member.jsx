@@ -36,7 +36,7 @@ export default function SelectMember({ onChangeValue }) {
 
   useEffect(() => {
     onGetLstUserToInvite();
-  }, []); 
+  }, []);
 
   const reversedValue = [...value].reverse();
 

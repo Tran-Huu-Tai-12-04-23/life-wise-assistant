@@ -38,7 +38,7 @@ export default function MoveStatusPopover() {
     });
   };
 
-  if(!currentTask) return null
+  if (!currentTask) return null;
 
   return (
     <>
@@ -76,18 +76,24 @@ export default function MoveStatusPopover() {
           },
         }}
       >
-        <Stack direction="row" justifyContent="space-between" sx={{
-          borderBottom: '1px solid rgba(0,0,0,0.05)',
-        }}>
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          sx={{
+            borderBottom: '1px solid rgba(0,0,0,0.05)',
+          }}
+        >
           <Typography sx={{ fontSize: 14, fontWeight: 'bold', mb: 1 }}>
-            Status from <Chip
+            Status from{' '}
+            <Chip
               size="small"
               label={currentTask.statusName}
               sx={{
                 background: currentTask.statusBackground,
                 color: currentTask.statusColor,
               }}
-            /> to
+            />{' '}
+            to
           </Typography>
           <IconButton onClick={handleClose} sx={{ position: 'absolute', top: 2, right: 2 }}>
             <CloseIcon size={12} />
@@ -95,24 +101,25 @@ export default function MoveStatusPopover() {
         </Stack>
         <Stack direction="column" sx={{ p: 1 }}>
           {filterData?.lstStatus?.map((item, index) => (
-          <Button
-            variant="text"
-            key={index}
-            onClick={() => {
-              handleMoveStatus(item.code);
-            }}
-          >
-            <Chip
-              size="small"
-              label={item.name}
-              sx={{
-                width: '100%',
-                background: item.background,
-                color: item.color,
+            <Button
+              variant="text"
+              key={index}
+              onClick={() => {
+                handleMoveStatus(item.code);
               }}
-            />
-          </Button>
-        ))}</Stack>
+            >
+              <Chip
+                size="small"
+                label={item.name}
+                sx={{
+                  width: '100%',
+                  background: item.background,
+                  color: item.color,
+                }}
+              />
+            </Button>
+          ))}
+        </Stack>
       </Popover>
     </>
   );

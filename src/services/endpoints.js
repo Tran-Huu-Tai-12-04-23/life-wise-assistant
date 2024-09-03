@@ -14,6 +14,8 @@ export const endpoints = {
   invite_user: '/team/invite-member-to-team',
   accept_invite: '/team/accept-invite',
   reject_invite: '/team/reject-invite',
+  team_history_pagination: '/team/history-pagination',
+  team_permission: '/team/permission',
   // #endregion
 
   // #region column CRUD
@@ -53,4 +55,9 @@ export const endpoints = {
   mask_as_read: '/notification/mask-as-read',
 
   // #endregion
+  // #user notification
+  user: {
+    profile: '/user/profile',
+  },
+  // #endregio
 };

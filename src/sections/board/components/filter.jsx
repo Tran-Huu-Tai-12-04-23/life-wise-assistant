@@ -1,7 +1,8 @@
 import { useTheme } from '@emotion/react';
+import RestoreIcon from '@mui/icons-material/Restore';
 import { Box, Button, ButtonGroup, Stack, Typography } from '@mui/material';
 import { useEffect } from 'react';
-import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 import Iconify from 'src/components/iconify';
 import RefreshIcon from 'src/components/icons/refresh-icon';
 import InputCustom from 'src/components/input';
@@ -41,16 +42,7 @@ function Filter({ onChangeViewType, viewType }) {
     if (currentTeam) onLoadDataToFilter();
   }, [currentTeam]);
 
-  const resolveAfter3Sec = new Promise((resolve) => setTimeout(resolve, 10000));
-  const testToast = () => {
-    toast.promise(resolveAfter3Sec, {
-      pending: 'Promise is pending',
-      success: 'Promise resolved 👌',
-      error: 'Promise rejected 🤯',
-    });
-  };
-
-  if(!currentTeam) return null
+  if (!currentTeam) return null;
 
   return (
     <Box
@@ -100,13 +92,22 @@ function Filter({ onChangeViewType, viewType }) {
               <Iconify icon="eva:list-fill" /> List
             </Button>
           </ButtonGroup>
-          <Button onClick={testToast} color="primary" variant="text">
+          <Button to="/board/access-control" LinkComponent={Link} color="primary" variant="text">
             <Stack direction="row" alignItems="center" gap={1}>
               <Iconify icon="eva:lock-fill" color="gray" />
               <Typography variant="h7" color="gray">
-                Limited Access
+                Access Control
               </Typography>
               <Iconify icon="eva:arrow-ios-downward-fill" color="gray" />
+            </Stack>
+          </Button>
+
+          <Button LinkComponent={Link} to="/board/history" color="primary" variant="text">
+            <Stack direction="row" alignItems="center" gap={1}>
+              <RestoreIcon />
+              <Typography variant="h7" color="gray">
+                History
+              </Typography>
             </Stack>
           </Button>
         </Stack>
@@ -115,7 +116,7 @@ function Filter({ onChangeViewType, viewType }) {
           <InviteColumnPopover />
           <SelectColumnPopover />
           <InputCustom
-            minWidth="300px"
+            minWidth="200px"
             placeholder="Search ..."
             value={filter.searchKey}
             onChange={(e) => onChangeFilter('searchKey', e.target.value)}

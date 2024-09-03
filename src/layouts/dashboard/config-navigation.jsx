@@ -1,11 +1,9 @@
-import AddIcon from '@mui/icons-material/Add';
-import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
-import SettingsBackupRestoreIcon from '@mui/icons-material/SettingsBackupRestore';
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+import PersonIcon from '@mui/icons-material/Person';
+import SettingsIcon from '@mui/icons-material/Settings';
+import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
 import BellIcon from 'src/components/icons/bell-icon';
-import DashBoardIcon from 'src/components/icons/dashboard-icon';
-import FolderIcon from 'src/components/icons/folder-icon';
-import TaskIcon from 'src/components/icons/task-icon';
-import UserIcon from 'src/components/icons/user-icon';
 // ----------------------------------------------------------------------
 
 // const icon = (name) => (
@@ -16,29 +14,17 @@ const navConfig = [
   {
     title: 'dashboard',
     path: '/',
-    icon: <DashBoardIcon color="#6C6C76" size={22} />,
+    icon: <SpaceDashboardIcon color="#6C6C76" size={22} />,
   },
   {
-    title: 'task',
-    path: '/task',
-    icon: <TaskIcon color="#6C6C76" size={22} />,
-    subNav: [
-      {
-        title: 'Manager',
-        path: '/task',
-        icon: <AppRegistrationIcon color="#6C6C76" />,
-      },
-      {
-        title: 'History',
-        path: '/task/History',
-        icon: <SettingsBackupRestoreIcon color="#6C6C76" />,
-      },
-    ],
+    title: 'board',
+    path: '/board',
+    icon: <AssignmentIcon color="#6C6C76" size={22} />,
   },
   {
     title: 'user',
     path: '/user',
-    icon: <UserIcon size={22} color="#6C6C76" />,
+    icon: <PersonIcon size={30} color="#6C6C76" />,
   },
   {
     title: 'product',
@@ -48,24 +34,17 @@ const navConfig = [
   {
     title: 'blog',
     path: '/blog',
-    icon: <FolderIcon size={22} color="#6C6C76" />,
-    subNav: [
-      {
-        title: 'Manager',
-        path: '/blog',
-        icon: <AppRegistrationIcon color="#6C6C76" />,
-      },
-      {
-        title: 'Create blog',
-        path: '/blog/create-blog',
-        icon: <AddIcon color="#6C6C76" />,
-      },
-    ],
+    icon: <LibraryBooksIcon size={22} color="#6C6C76" />,
   },
-   {
-    title: 'Notification manager',
+  {
+    title: 'Notification',
     path: '/notification',
     icon: <BellIcon size={22} color="#6C6C76" />,
+  },
+  {
+    title: 'Setting',
+    path: '/setting',
+    icon: <SettingsIcon size={22} color="#6C6C76" />,
   },
 ];
 

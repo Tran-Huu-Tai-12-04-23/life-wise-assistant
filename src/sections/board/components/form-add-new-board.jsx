@@ -10,7 +10,7 @@ import { useTeamState } from 'src/redux/features/team/teamSlice';
 import SelectMember from './select-member';
 import SelectTag from './select-tags';
 
-export default function FormAddNewBoard({onClose}) {
+export default function FormAddNewBoard({ onClose }) {
   const [state, setState] = useState({
     name: '',
     description: '',
@@ -30,26 +30,23 @@ export default function FormAddNewBoard({onClose}) {
         thumbnails:
           state.thumbnails ||
           'https://firebasestorage.googleapis.com/v0/b/travelappsu.appspot.com/o/undraw_choose_card_n0x0.png?alt=media&token=a3d7f996-ee91-4cfc-9c71-2f2ad7866d03',
-      }).then( () => {
-        onClose()
-      })
+      }).then(() => {
+        onClose();
+      });
     }
   };
 
-
- useEffect(() => {
+  useEffect(() => {
     onLoadUserOfSystem();
   }, []);
   return (
-    <Stack direction="column" gap={2} pt={2} sx={{ width: 350, p: 2 }}  role="presentation">
-    <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <Typography variant="h6"  >
-        Add new board
-      </Typography>
-          <IconButton color="primary" onClick={onClose} sx={{ width: 40, height: 40 }}>
-        <CloseOutlined />
-      </IconButton>
-    </Stack>
+    <Stack direction="column" gap={2} pt={2} sx={{ width: 350, p: 2 }} role="presentation">
+      <Stack direction="row" justifyContent="space-between" alignItems="center">
+        <Typography variant="h6">Add new board</Typography>
+        <IconButton color="primary" onClick={onClose} sx={{ width: 40, height: 40 }}>
+          <CloseOutlined />
+        </IconButton>
+      </Stack>
       <EffectBtn sx={{ borderRadius: 2, overflow: 'hidden' }}>
         <Box
           sx={{
@@ -74,11 +71,15 @@ export default function FormAddNewBoard({onClose}) {
       </Stack>
       <Stack direction="column">
         <InputCustom
-        label="Name of board"
-        placeholder="Enter name of board"
-        onChange={(e) => setState({ ...state, name: e.target.value, isNameError: false })}
-      />
-      {state.isNameError && <Typography sx={{ml: 1}} color="error" variant='h7' fontSize={12}>Name is required!</Typography>}
+          label="Name of board"
+          placeholder="Enter name of board"
+          onChange={(e) => setState({ ...state, name: e.target.value, isNameError: false })}
+        />
+        {state.isNameError && (
+          <Typography sx={{ ml: 1 }} color="error" variant="h7" fontSize={12}>
+            Name is required!
+          </Typography>
+        )}
       </Stack>
       <SelectTag onChangeValue={(value) => setState({ ...state, tags: value })} />
       <SelectMember onChangeValue={(value) => setState({ ...state, members: value })} />

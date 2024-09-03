@@ -7,8 +7,7 @@ import UserInfoPopover from 'src/components/user-info-popover';
 function Activity({ isLoading, data }) {
   return (
     <Stack direction="column" gap={1} sx={{ width: '100%' }} alignItems="flex-start">
-
-{isLoading && <LinearProgress/>}
+      {isLoading && <LinearProgress />}
 
       {data?.length <= 0 && <EmptyBoardView title="No activity" />}
       {data?.map((item) => (
@@ -32,7 +31,6 @@ const ActivityItem = ({ data }) => {
         width: '100%',
       }}
     >
-      
       <UserInfoPopover data={data?.owner} />
       <Stack direction="column">
         <Typography variant="h7">{data?.owner?.username}</Typography>

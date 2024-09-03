@@ -14,15 +14,19 @@ import Nav from './nav';
 // ----------------------------------------------------------------------
 
 export default function DashboardLayout({ children }) {
-  const {currentUser} = useAuthState()
+  const { currentUser } = useAuthState();
   const [openNav, setOpenNav] = useState(false);
   const [expanded, setExpanded] = useState(false);
-  if(!currentUser) {
-    return <PermissionErrorView>
-      <Button variant='contained' sx={{mt: 2}} LinkComponent={Link} to='/auth'>Go to login</Button>
-    </PermissionErrorView>
+  if (!currentUser) {
+    return (
+      <PermissionErrorView>
+        <Button variant="contained" sx={{ mt: 2 }} LinkComponent={Link} to="/auth">
+          Go to login
+        </Button>
+      </PermissionErrorView>
+    );
   }
-  
+
   return (
     <>
       <Header onOpenNav={() => setOpenNav(true)} expanded={expanded} />
@@ -32,7 +36,7 @@ export default function DashboardLayout({ children }) {
           minHeight: 1,
           display: 'flex',
           flexDirection: { xs: 'column', lg: 'row' },
-        '&::-webkit-scrollbar': { display: 'none' },
+          '&::-webkit-scrollbar': { display: 'none' },
         }}
       >
         <Nav

@@ -16,7 +16,6 @@ const style = {
 };
 
 export default function ModalCustom({ children, isOpen, onClose }) {
- 
   const theme = useTheme();
   return (
     <Modal
@@ -44,7 +43,6 @@ export default function ModalCustom({ children, isOpen, onClose }) {
             // width: 'max-content',
           }}
         >
-         
           {children}
         </Box>
         <Box sx={{ height: 400 }} />

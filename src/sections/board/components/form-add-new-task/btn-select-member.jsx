@@ -29,7 +29,7 @@ export default function BtnSelectMemberPopover({ onChange, value }) {
 
   useEffect(() => {
     setLstMemberSelected([...(value || [])]);
-  }, [value])
+  }, [value]);
 
   return (
     <>
@@ -144,13 +144,13 @@ const MemberItem = ({ data, onSelect, isChecked }) => {
       sx={{
         padding: 1,
         cursor: 'pointer',
-        background: isChecked ? (theme.palette.background.neutral) : 'transparent',
+        background: isChecked ? theme.palette.background.neutral : 'transparent',
         borderRadius: 0.5,
         minHeight: 55,
       }}
     >
       <Avatar src={data?.avatar} sx={{ width: 24, height: 24 }} />
-      <Typography sx={{ml: 2, fontSize: 12, color: 'gray', textAlign: 'start' }}>
+      <Typography sx={{ ml: 2, fontSize: 12, color: 'gray', textAlign: 'start' }}>
         {data?.username}
       </Typography>
       {isChecked && (
