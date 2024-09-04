@@ -77,7 +77,7 @@ function WrapperTaskLayout({ viewType = EViewType.LIST }) {
         columns: newItems,
         colCurrentIndex: activeContainerIndex,
         colTargetIndex: overContainerIndex,
-      });
+      }, true);
     } else if (
       active?.data?.current?.type === TASK &&
       over?.data?.current?.type === TASK &&
@@ -111,7 +111,7 @@ function WrapperTaskLayout({ viewType = EViewType.LIST }) {
           columnId: newItems[activeContainerIndex].id,
           taskCurrentIndex: activeitemIndex,
           taskNewIndex: overitemIndex,
-        });
+        },true);
       } else {
         onMoveTaskInTheDifferentColumn({
           activeItemIndex: activeitemIndex,
@@ -121,7 +121,7 @@ function WrapperTaskLayout({ viewType = EViewType.LIST }) {
           overContainerIndex,
           columnIdFrom: columns[activeContainerIndex].id,
           columnIdTo: columns[overContainerIndex].id,
-        });
+        },true);
       }
     }
     // Handling Item Drop Into a Container
@@ -158,11 +158,114 @@ function WrapperTaskLayout({ viewType = EViewType.LIST }) {
         overContainerIndex,
         columnIdFrom: columns[activeContainerIndex].id,
         columnIdTo: columns[overContainerIndex].id,
-      });
+      },true);
     }
     setActiveId(null);
   }
-  const handleDragMove = (event) => {};
+  const handleDragMove = (event) => {
+     const { active, over } = event;
+    // Handling Container Sorting
+    if (
+      active?.data?.current?.type === COLUMN &&
+      over?.data?.current?.type === COLUMN &&
+      active &&
+      over &&
+      active.id !== over.id
+    ) {
+      // Find the index of the active and over container
+      const activeContainerIndex = columns?.findIndex((container) => container.id === active.id);
+      const overContainerIndex = columns.findIndex((container) => container.id === over.id);
+      // Swap the active and over container
+      let newItems = [...columns];
+      newItems = arrayMove(newItems, activeContainerIndex, overContainerIndex);
+      onSwapBetweenColumn({
+        columns: newItems,
+        colCurrentIndex: activeContainerIndex,
+        colTargetIndex: overContainerIndex,
+      }, false);
+    } else if (
+      active?.data?.current?.type === TASK &&
+      over?.data?.current?.type === TASK &&
+      active &&
+      over &&
+      active.id !== over.id
+    ) {
+      // Find the active container and over container
+      const activeContainer = findColIncludeTask(active.id);
+      const overContainer = findColIncludeTask(over.id);
+      // If the active or over container is not found, return
+      if (!activeContainer || !overContainer) return;
+      // Find the index of the active and over container
+      const activeContainerIndex = columns.findIndex(
+        (container) => container.id === activeContainer.id
+      );
+      const overContainerIndex = columns.findIndex(
+        (container) => container.id === overContainer.id
+      );
+
+      // Find the index of the active and over item
+      const activeitemIndex = activeContainer.tasks.findIndex((item) => item.id === active.id);
+      const overitemIndex = overContainer.tasks.findIndex((item) => item.id === over.id);
+      // In the same container
+
+      if (activeContainerIndex === overContainerIndex) {
+        const newItems = [...columns];
+        onMoveTaskInTheSameColumn({
+          activeContainerIndex,
+          tasks: arrayMove(newItems[activeContainerIndex].tasks, activeitemIndex, overitemIndex),
+          columnId: newItems[activeContainerIndex].id,
+          taskCurrentIndex: activeitemIndex,
+          taskNewIndex: overitemIndex,
+        }, false);
+      } else {
+        onMoveTaskInTheDifferentColumn({
+          activeItemIndex: activeitemIndex,
+          overItemIndex: overitemIndex,
+          taskId: active.id,
+          activeContainerIndex,
+          overContainerIndex,
+          columnIdFrom: columns[activeContainerIndex].id,
+          columnIdTo: columns[overContainerIndex].id,
+        },  false);
+      }
+    }
+    // Handling Item Drop Into a Container
+    else if (
+      active?.data?.current?.type === TASK &&
+      over?.data?.current?.type === COLUMN &&
+      active &&
+      over &&
+      active.id !== over.id
+    ) {
+      // Find the active and over container
+      const activeContainer = findColIncludeTask(active.id);
+      const overContainer = findColById(over.id);
+
+      // If the active or over container is not found, return
+      if (!activeContainer || !overContainer) return;
+
+      // Find the index of the active and over container
+      const activeContainerIndex = columns.findIndex(
+        (container) => container.id === activeContainer.id
+      );
+      const overContainerIndex = columns.findIndex(
+        (container) => container.id === overContainer.id
+      );
+
+      // Find the index of the active and over item
+      const activeitemIndex = activeContainer.tasks.findIndex((item) => item.id === active.id);
+
+      onMoveTaskInTheDifferentColumn({
+        taskId: active.id,
+        activeItemIndex: activeitemIndex,
+        overItemIndex: 0,
+        activeContainerIndex,
+        overContainerIndex,
+        columnIdFrom: columns[activeContainerIndex].id,
+        columnIdTo: columns[overContainerIndex].id,
+      }, false);
+    }
+  };
 
   useEffect(() => {
     if (currentTeam) onGetAllColumnOfTeam();

@@ -82,36 +82,39 @@ export const useColumnAction = () => {
     );
   };
 
-  const onMoveTaskInTheSameColumn = async (body) => {
+  const onMoveTaskInTheSameColumn = async (body, isUpdate = true) => {
     const { columnId, taskCurrentIndex, taskNewIndex } = body;
     dispatch(moveTaskInTheSameColumn(body));
-    dispatch(
-      moveTaskToTheSameColAsync({
-        columnId,
-        taskCurrentIndex: taskCurrentIndex + 1,
-        taskNewIndex: taskNewIndex + 1,
-      })
-    );
+    if (isUpdate)
+      dispatch(
+        moveTaskToTheSameColAsync({
+          columnId,
+          taskCurrentIndex: taskCurrentIndex + 1,
+          taskNewIndex: taskNewIndex + 1,
+        })
+      );
   };
-  const onMoveTaskInTheDifferentColumn = async (body) => {
+  const onMoveTaskInTheDifferentColumn = async (body, isUpdate = true) => {
     const { columnIdTo, taskId } = body;
     dispatch(moveTaskInTheDifferentColumn(body));
-    dispatch(
-      moveTaskToDiffColAsync({
-        columnIdTo,
-        taskId,
-      })
-    );
+    if (isUpdate)
+      dispatch(
+        moveTaskToDiffColAsync({
+          columnIdTo,
+          taskId,
+        })
+      );
   };
 
-  const onSwapBetweenColumn = (body) => {
+  const onSwapBetweenColumn = (body, isUpdate = true) => {
     dispatch(swapBetweenColumn(body.columns));
-    dispatch(
-      swapBetweenColAsync({
-        colCurrentIndex: body.colCurrentIndex + 1,
-        colTargetIndex: body.colTargetIndex + 1,
-      })
-    );
+    if (isUpdate)
+      dispatch(
+        swapBetweenColAsync({
+          colCurrentIndex: body.colCurrentIndex + 1,
+          colTargetIndex: body.colTargetIndex + 1,
+        })
+      );
   };
 
   const onLoadDataToFilter = () => {
